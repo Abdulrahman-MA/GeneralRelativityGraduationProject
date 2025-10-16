@@ -1,0 +1,1089 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PREAMBLE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt, a4paper]{report}
+
+% ----- PACKAGES -----
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage[margin=0.8in]{geometry}
+\usepackage{hyperref}
+\usepackage{svg}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{wrapfig}
+\usepackage{xcolor}
+
+\hypersetup{
+    colorlinks = true,
+    linkcolor  = blue,
+    filecolor  = magenta,
+    urlcolor   = cyan
+}
+
+
+% Optional: make links blue but not boxed
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue
+}
+% ----- CHAPTER TITLE CUSTOMIZATION -----
+\titleformat{\chapter}[display]
+  {\normalfont\Large\bfseries}
+  {\chaptertitlename\ \thechapter}
+  {1em}
+  {}
+\titlespacing*{\chapter}
+  {0pt}
+  {5pt}
+  {15pt}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\itshape} % bold + italic for section titles
+  {\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\normalfont\large\itshape} % italic, same size as default subsection
+  {\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\itshape} % italic, same size as default subsubsection
+  {\thesubsubsection}{1em}{}
+
+% ----- HEADER & FOOTER SETUP -----
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+% ----- TITLE PAGE INFORMATION -----
+\title{Notes: Special Relativity and Flat Spacetime}
+\author{Abdelrahman Mohamed Anwar}
+\date{\today}
+
+% add: clickable equation reference macro (uses hyperref)
+\newcommand{\eqn}[1]{\hyperref[#1]{\eqref{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DOCUMENT BEGINS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MAIN CONTENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Special Relativity and Flat Spacetime}
+
+\section{Prelude}
+
+\subsection*{Core Concept of General Relativity (GR)}
+
+General relativity is Einstein's theory of space, time, and gravitation. The essential idea is that gravity is not a force represented by fields in spacetime but is instead an inherent property of spacetime itself. The phenomenon experienced as ``gravity'' is a manifestation of the curvature of spacetime. The objective is to understand spacetime, curvature, and the mechanism by which curvature becomes gravity.
+
+\subsection*{Newtonian Gravity: A Review}
+
+Newtonian gravity is defined by two fundamental components: an equation for the gravitational field as influenced by matter and an equation for the response of matter to this field. 
+This can be formulated in two equivalent ways.
+\subsection*{Force-Based Formulation}
+
+\textbf{Field Creation:} The force between two objects of masses $M$ and $m$ is described by the inverse-square law:
+
+\begin{equation}\label{eq:newton-force}
+    F = - \frac{GMm}{r^2} \hat{e}_r
+\end{equation}
+
+\textbf{Matter Response:} This force imparts an acceleration to a particle of mass $m$ according to Newton's second law:
+
+\begin{equation}\label{eq:newton-second}
+    F = ma
+\end{equation}
+
+\subsection*{Potential-Based Formulation}
+
+Field Creation: The gravitational potential $\Phi$ is related to the mass density $\rho$ by Poisson's equation:
+
+\begin{equation}\label{eq:poisson}
+    \nabla^2 \Phi = 4\pi G \rho
+\end{equation}
+Matter Response: The acceleration of a particle is given by the gradient of the potential:
+
+\begin{equation}\label{eq:potential-accel}
+    a = -\nabla \Phi
+\end{equation}
+
+\subsection*{General Relativity: A Preview}
+
+General Relativity replaces the two components of Newtonian theory with statements about spacetime curvature.
+
+\subsection*{How Energy-Momentum Curves Spacetime}
+
+The response of spacetime curvature to the presence of matter and energy is governed by Einstein's equation:
+
+\begin{equation}\label{eq:einstein}
+    R_{\mu\nu} - \frac{1}{2} R g_{\mu\nu} = 8\pi G T_{\mu\nu}
+\end{equation}
+
+\subsection*{How Matter Responds to Spacetime Curvature}
+
+Free particles move along paths of "shortest possible distance," known as geodesics. 
+In a curved spacetime, these are the closest equivalent to straight lines.
+The parameterized paths $x^{\mu}(\lambda)$ of these particles obey the geodesic equation:
+
+\begin{equation}\label{eq:geodesic}
+    \frac{d^2 x^{\mu}}{d\lambda^2} 
+    + \Gamma^{\mu}_{\rho\sigma} 
+    \frac{dx^{\rho}}{d\lambda} 
+    \frac{dx^{\sigma}}{d\lambda} = 0
+\end{equation}
+
+\subsection*{The Metric Tensor and the Learning Path}
+
+The metric tensor $g_{\mu\nu}$ is the fundamental concept that encodes the geometry of a space. 
+Characterizes curvature by expressing deviations from the flat-space Pythagorean theorem. From the metric, one can derive the Riemann curvature tensor (used in Einstein's equation) and the geodesic equation.
+
+\section{Space and Time, Separately and Together}
+
+Special relativity (SR) is a theory describing the fundamental structure of spacetime—the four-dimensional arena in which all physical processes occur. 
+It replaces Newtonian mechanics, which also describes motion in space and time, but treats them as fundamentally separate entities.
+
+\subsection*{Spacetime and Worldlines}
+
+\textbf{Spacetime:} A four-dimensional set of points (events), each labeled by three spatial coordinates and one time coordinate.
+
+\textbf{Worldline:} The one-dimensional curve traced by a particle as it moves through spacetime.
+The key difference between the Newtonian and relativistic views lies in how they treat the relationship between space and time.
+
+\subsection*{Newtonian Spacetime: Absolute Simultaneity}
+
+In the Newtonian picture, time flows uniformly and independently of space.  
+Spacetime is imagined as a stack of ``time slices,'' each representing all of space at one instant of universal time.  
+Simultaneity is absolute—observers everywhere agree on which events occur at the same moment.
+
+Particle trajectories move forward through these slices, unconstrained by any upper limit on their velocity.
+
+\subsection*{Relativistic Spacetime: The Light Cone Structure}
+
+Special relativity eliminates absolute time and simultaneity.  
+At each event, the invariant structure is instead the \emph{light cone}—the set of all possible directions that light rays through that event can take.
+
+Events inside the future light cone can be influenced by the event, and events inside the past light cone can influence it.  
+Physical trajectories (worldlines of particles) must always remain within the light cone—no signal or matter can travel faster than light.
+
+\textbf{Conceptual contrast:} Newtonian spacetime has absolute simultaneity; relativistic spacetime has causal cones.
+
+\subsection*{The Invariant Spacetime Interval}
+
+
+The unification of space and time into a single four-dimensional entity is supported by the existence of a quantity invariant under all changes of inertial frames.
+
+\textbf{Analogy with Euclidean Geometry:}
+In a two-dimensional plane,
+\[
+(\Delta s)^2 = (\Delta x)^2 + (\Delta y)^2
+\]
+is invariant under rotation.  
+The projections $\Delta x$ and $\Delta y$ change, but the distance $\Delta s$ does not.
+% --- Figure block with two side-by-side images and wrapped text ---
+\begin{wrapfigure}{l}{0.55\textwidth}
+  \centering
+  \vspace{-10pt}
+
+  % Two side-by-side images
+  \begin{minipage}{0.48\linewidth}
+    \includesvg[width=\linewidth]{LightCone.svg}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\linewidth}
+    \includesvg[width=\linewidth]{WorldlineCones.svg}
+  \end{minipage}
+
+  \caption{Left: Newtonian spacetime slices. Right: Relativistic light cone structure.  
+  (See \href{https://github.com/Abdulrahman-MA/GeneralRelativityGraduationProject/blob/main/ChapterOnePlots.ipynb}{source notebook}).}
+  \vspace{-10pt}
+\end{wrapfigure}
+
+Likewise, in spacetime the invariant quantity (the \emph{interval}) is
+\[
+(\Delta s)^2 = - (c \Delta t)^2 + (\Delta x)^2 + (\Delta y)^2 + (\Delta z)^2
+\]
+and remains the same for all inertial observers:
+\[
+(\Delta s)^2 = - (c \Delta t')^2 + (\Delta x')^2 + (\Delta y')^2 + (\Delta z')^2
+\]
+\newline
+\newline
+This invariance defines the geometry of flat spacetime, known as \textbf{Minkowski space}.
+
+\subsection*{Minkowski Space: Coordinates and Metric}
+
+We define spacetime coordinates $x^\mu$ ($\mu = 0,1,2,3$):
+\[
+x^0 = ct, \quad x^1 = x, \quad x^2 = y, \quad x^3 = z
+\]
+and often use units where $c = 1$.
+
+The metric tensor of flat spacetime is
+\begin{equation}\label{eq:minkowski-metric}
+\eta_{\mu\nu} =
+\begin{pmatrix}
+-1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1
+\end{pmatrix}
+\end{equation}
+so that
+\[
+(\Delta s)^2 = \eta_{\mu\nu} \, \Delta x^\mu \Delta x^\nu
+\]
+
+\subsection*{Causal Structure and Proper Time}
+
+Intervals in spacetime fall into three classes:
+
+\begin{itemize}
+    \item \textbf{Timelike:} $(\Delta s)^2 < 0$ — events can influence one another (connected by slower-than-light motion).
+    \item \textbf{Spacelike:} $(\Delta s)^2 > 0$ — no causal connection possible.
+    \item \textbf{Null:} $(\Delta s)^2 = 0$ — connected by light.
+\end{itemize}
+
+For timelike separations, the \emph{proper time} is defined as
+\begin{equation}\label{eq:proper-time}
+(\Delta \tau)^2 = -(\Delta s)^2 = -\eta_{\mu\nu} \, \Delta x^\mu \Delta x^\nu
+\end{equation}
+It is the time measured by a clock moving along the worldline between two events.
+
+\subsection*{Inertial Frames and Clock Synchronization}
+
+Inertial frames are constructed from unaccelerated observers with synchronized clocks.  
+Clocks are synchronized by light signals according to
+\[
+t_2 = \frac{1}{2}(t_1 + t_1')
+\]
+ensuring that light travel time is equal in both directions.
+
+\subsection*{The Twin Paradox}
+
+An inertial observer’s proper time between two events $A$ and $C$ is simply $\Delta \tau = \Delta t$.  
+
+A traveling twin moving out and back with velocity $v$ experiences a total proper time
+\[
+\Delta \tau_{\text{moving}} =
+\sqrt{(\Delta t)^2-(\Delta x)^2}
+=\Delta t \sqrt{1 - v^2} < \Delta t
+\]
+Hence, the accelerated twin ages less.  
+This is not a contradiction but a manifestation of the geometry of spacetime: the straight (inertial) worldline maximizes proper time.
+
+\subsection*{General Trajectories and Proper Time Integral}
+
+The infinitesimal spacetime line element is
+\[
+ds^2 = \eta_{\mu\nu} \, dx^\mu dx^\nu
+\]
+and for any timelike trajectory $x^\mu(\lambda)$, the total proper time is
+\[
+\Delta \tau = \int \sqrt{ -\eta_{\mu\nu} 
+\frac{dx^\mu}{d\lambda} \frac{dx^\nu}{d\lambda} } \, d\lambda
+\]
+and for any spacelike trajectory $x^\mu(\lambda)$, the total distance is
+\[
+\Delta s = \int \sqrt{ -\eta_{\mu\nu} 
+\frac{dx^\mu}{d\lambda} \frac{dx^\nu}{d\lambda} } \, d\lambda
+\]
+This definition applies even to accelerated motion in flat spacetime.
+
+
+\section{Lorentz Transformations}
+
+This section provides a formal description of the coordinate transformations between different inertial frames. These are defined as the transformations that leave the spacetime interval, $(\Delta s)^2$, invariant.
+
+\subsection*{Types of Spacetime Transformations}
+
+The transformations that preserve the interval consist of translations and linear transformations.
+
+\begin{itemize}
+    \item \textbf{Translations:} These are simple shifts of the coordinate origin in space or time.
+    \begin{equation}\label{eq:translation}
+        x^{\mu'} = \delta^{\mu'}_\mu (x^\mu + a^\mu)
+    \end{equation}
+    Here, $a^\mu$ is a constant four-vector representing the shift. Translations leave coordinate differences ($\Delta x^\mu$) unchanged, so the invariance of the interval under translations is trivial.
+
+    \item \textbf{Linear Transformations:} These include spatial rotations and boosts (changes to a frame with a constant velocity). They are described by multiplying the coordinate vector by a spacetime-independent $4 \times 4$ matrix, $\Lambda^{\mu'}{}_\nu$.
+    \begin{equation}\label{eq:linear-transform}
+        x^{\mu'} = \Lambda^{\mu'}_\nu x^\nu
+    \end{equation}
+    In matrix notation, this is written as $x' = \Lambda x$.
+\end{itemize}
+
+\subsection*{The Condition for a Lorentz Transformation}
+
+To find the properties of the matrix $\Lambda$, we impose the condition that the interval must be invariant.
+
+\textbf{Derivation}
+\begin{enumerate}
+    \item The spacetime interval is $(\Delta s)^2 = \eta_{\mu\nu} \Delta x^\mu \Delta x^\nu$. In matrix notation, this is $(\Delta s)^2 = (\Delta x)^T \eta (\Delta x)$.
+    \item In the new coordinate system, the interval is $(\Delta s')^2 = (\Delta x')^T \eta (\Delta x')$.
+    \item The coordinate differences transform as $\Delta x' = \Lambda \Delta x$. Substituting this into the expression for $(\Delta s')^2$ gives:
+    \[
+        (\Delta s')^2 = (\Lambda \Delta x)^T \eta (\Lambda \Delta x) = (\Delta x)^T \Lambda^T \eta \Lambda (\Delta x)
+    \]
+    \item For the interval to be invariant, we must have $(\Delta s)^2 = (\Delta s')^2$ for any arbitrary $\Delta x$. This requires that the matrices themselves be equal.
+\end{enumerate}
+This leads to the fundamental condition that a matrix $\Lambda$ must satisfy to be a Lorentz transformation.
+
+\begin{equation}\label{eq:lorentz-condition}
+    \eta = \Lambda^T \eta \Lambda \quad \text{(Matrix Form)}
+\end{equation}
+\begin{equation}
+    \eta_{\rho\sigma} = \Lambda^{\mu'}_\rho \Lambda^{\nu'}_\sigma \eta_{\mu'\nu'} \quad \text{(Index Form)}
+\end{equation}
+
+\subsection*{The Lorentz Group}
+
+The set of all matrices $\Lambda$ that satisfy the condition $\eta = \Lambda^T \eta \Lambda$ forms a mathematical group under matrix multiplication, known as the \textbf{Lorentz group}.
+
+\begin{itemize}
+    \item \textbf{Analogy to the Rotation Group O(3):}
+    There is a close analogy between the Lorentz group and the group of rotations in 3D Euclidean space, O(3). A 3D rotation matrix $R$ preserves the Euclidean distance, which means it satisfies the condition $R^T R = I$, where $I$ is the $3 \times 3$ identity matrix. The identity matrix is the metric of flat 3D space. The condition can be written as $I = R^T I R$ to make the analogy clear. The Lorentz group, often denoted \textbf{O(3,1)}, is thus a generalization of the rotation group where the Euclidean metric ($I$) is replaced by the Minkowski metric ($\eta$). A metric like $\eta$, which has one negative and three positive eigenvalues, is called \textbf{Lorentzian}.
+
+    \item \textbf{Subgroups of the Lorentz Group:}
+    The full group O(3,1) includes not only continuous rotations and boosts but also discrete transformations: \textbf{parity reversal} (spatial inversion, e.g., $x \rightarrow -x$) and \textbf{time reversal} ($t \rightarrow -t$). We can restrict to transformations with determinant $|\Lambda|=1$. This is the \textbf{proper Lorentz group, SO(3,1)}. However, SO(3,1) still includes transformations that reverse the direction of time (e.g., a combined parity and time reversal). To isolate the transformations continuously connected to the identity, we add the condition that the time-time component must be positive, ${\Lambda^0}_0 \ge 1$. This defines the \textbf{proper orthochronous} or \textbf{restricted Lorentz group}, which describes all physical transformations between inertial frames without reversing space or time orientation.
+
+    \item \textbf{The Poincaré Group:} The set of both Lorentz transformations and spacetime translations forms the 10-parameter \textbf{Poincaré group}, which represents the full set of spacetime symmetries in special relativity.
+\end{itemize}
+
+\subsection*{Explicit Transformation Matrices}
+
+\textbf{Spatial Rotation:} A rotation by an angle $\theta$ in the $x-y$ plane has the form:
+\begin{equation}\label{eq:rotation-matrix}
+    {\Lambda^{\mu'}}_{\nu} =
+    \begin{pmatrix}
+        1 & 0 & 0 & 0 \\
+        0 & \cos\theta & \sin\theta & 0 \\
+        0 & -\sin\theta & \cos\theta & 0 \\
+        0 & 0 & 0 & 1
+    \end{pmatrix}
+\end{equation}
+
+\textbf{Boost:} A boost can be thought of as a "rotation" between a time and a space direction. A boost along the x-direction is parameterized by a quantity $\phi$ called the \textbf{rapidity} or \textbf{boost parameter}.
+\begin{equation}\label{eq:boost-matrix}
+    {\Lambda^{\mu'}}_{\nu} =
+    \begin{pmatrix}
+        \cosh\phi & -\sinh\phi & 0 & 0 \\
+        -\sinh\phi & \cosh\phi & 0 & 0 \\
+        0 & 0 & 1 & 0 \\
+        0 & 0 & 0 & 1
+    \end{pmatrix}
+\end{equation}
+The rapidity $\phi$ is related to the relative velocity $v$ between the frames.
+\newline
+
+\textbf{Derivation of Velocity-Rapidity Relation}
+\begin{enumerate}
+    \item The transformed coordinates are $t' = t \cosh\phi - x \sinh\phi$ and $x' = -t \sinh\phi + x \cosh\phi$.
+    \item The origin of the primed frame is defined by the condition $x' = 0$.
+    \item Setting $x' = 0$ implies $-t \sinh\phi + x \cosh\phi = 0$.
+    \item The velocity of this origin as seen from the unprimed frame is $v = x/t$. Solving for this gives:
+    \[
+        v = \frac{x}{t} = \frac{\sinh\phi}{\cosh\phi} = \tanh\phi
+    \]
+\end{enumerate}
+Using the identities $\cosh\phi = \gamma$ and $\sinh\phi = v\gamma$ (where $\gamma=1/\sqrt{1-v^2}$), the boost transformation can be written in the more familiar form:
+\begin{align}
+    t' &= \gamma(t - vx) \label{eq:lorentz-tprime} \\
+    x' &= \gamma(x - vt) \label{eq:lorentz-xprime}
+\end{align}
+
+\subsection*{Geometric Interpretation of Boosts}
+
+On a spacetime diagram, a Lorentz boost appears as a transformation of the coordinate axes.
+
+\begin{itemize}
+    \item \textbf{Transformation of Axes:} The axes of the boosted frame are rotated towards each other, appearing to "scissor" together. The new time axis ($t'$-axis, defined by $x'=0$) is the line $t = x/v$. The new space axis ($x'$-axis, defined by $t'=0$) is the line $t = vx$.
+    \item \textbf{Invariance of the Light Cone:} The paths of light rays, $x = \pm t$, are identical to the paths $x' = \pm t'$. The light cone itself is unchanged by the boost. This is the geometric expression of the postulate that the speed of light is the same in all inertial frames.
+    \item \textbf{Relativity of Simultaneity:} Events that are simultaneous in the $(t,x)$ frame (i.e., lie on a line of constant $t$) are not simultaneous in the $(t', x')$ frame (they do not lie on a line of constant $t'$).
+\end{itemize}
+
+\section{Vectors}
+
+To probe the structure of Minkowski space in more detail, it is necessary to introduce the concepts of vectors and tensors. In spacetime, vectors are four-dimensional and are often referred to as \textbf{four-vectors}.
+
+\subsection*{Vectors and the Tangent Space}
+
+Beyond dimensionality, the most important concept is that each vector is located at a \textbf{given point in spacetime}. The notion of "free" vectors that can be moved around is not useful in the context of curved spaces.
+
+\begin{itemize}
+    \item At each point $p$ in spacetime, we associate the set of all possible vectors located at that point. This set is a vector space known as the \textbf{tangent space} at $p$, or $T_p$.
+    \item \textbf{Geometric Intuition:} The name is inspired by imagining the set of vectors at a point on a curved two-dimensional surface as comprising a plane tangent to that point. It is important to think of these vectors as existing only at that single point.
+\end{itemize}
+
+%
+% INSTRUCTION: The figure for this section should be placed here.
+%
+% FIGURE TITLE/CAPTION:
+% Figure 1.8: A suggestive drawing of the tangent space T_p, the space of all vectors at the point p.
+%
+% \begin{figure}[h]
+%   \centering
+%   % \includegraphics[width=0.7\textwidth]{path/to/your/figure.png}
+%   \caption{A suggestive drawing of the tangent space $T_p$, the space of all vectors at the point p.}
+% \end{figure}
+%
+
+A vector space is a collection of objects (vectors) that can be added together and multiplied by real numbers in a linear way. For any two vectors $V$ and $W$ and real numbers $a$ and $b$, we have:
+\begin{equation}
+    (a+b)(V+W) = aV + bV + aW + bW
+\end{equation}
+
+\subsection*{Basis Vectors and Components}
+
+While a vector is a well-defined geometric object, it is often useful to decompose it into components with respect to a set of \textbf{basis vectors}. A basis is a set of vectors that is linearly independent and spans the vector space. For the four-dimensional tangent space at a point in Minkowski space, a basis consists of four vectors.
+
+Let us consider a basis of four vectors $\hat{e}_{(\mu)}$, where $\mu \in \{0, 1, 2, 3\}$. Any abstract vector $A$ can be written as a linear combination of these basis vectors:
+\begin{equation}
+    A = A^\mu \hat{e}_{(\mu)}
+\end{equation}
+The coefficients $A^\mu$ are the \textbf{components} of the vector $A$. It is crucial to distinguish between the abstract geometric entity (the vector $A$) and its components ($A^\mu$), which are merely numerical coefficients in a chosen basis. The parentheses around the index on the basis vectors, $\hat{e}_{(\mu)}$, serve as a reminder that this is a collection of vectors, not the components of a single vector.
+
+\subsection*{Example: Tangent Vector to a Curve}
+
+A standard example of a vector in spacetime is the tangent vector to a curve. A parameterized path through spacetime is specified by the coordinates as a function of a parameter, $x^\mu(\lambda)$. The tangent vector $V(\lambda)$ to this curve has components:
+\begin{equation}
+    V^\mu = \frac{dx^\mu}{d\lambda}
+\end{equation}
+
+\subsection*{Transformation Properties of Vectors}
+
+Under a Lorentz transformation, the coordinates $x^\mu$ change, and therefore the components of the tangent vector must also change. The components transform according to the Lorentz transformation matrix $\Lambda$:
+\begin{equation}
+    V^{\mu'} = {\Lambda^{\mu'}}_\nu V^\nu
+\end{equation}
+However, the abstract vector $V$ itself is a geometric object and must be invariant under a change of coordinates. We can use this fact to derive the transformation properties of the basis vectors.
+
+\textbf{Derivation of Basis Vector Transformation}
+\begin{enumerate}
+    \item The vector $V$ is invariant, so it can be expressed in either the old basis $\{\hat{e}_{(\mu)}\}$ or the new basis $\{\hat{e}_{(\nu')}\}$:
+    \[
+        V = V^\mu \hat{e}_{(\mu)} = V^{\nu'} \hat{e}_{(\nu')}
+    \]
+    \item Substitute the transformation rule for the components, $V^{\nu'} = {\Lambda^{\nu'}}_\mu V^\mu$, into the equation:
+    \[
+        V = ({\Lambda^{\nu'}}_\mu V^\mu) \hat{e}_{(\nu')}
+    \]
+    \item Comparing this with the original expression $V = V^\mu \hat{e}_{(\mu)}$, and noting that this must hold for any vector (i.e., for any set of components $V^\mu$), we can equate the basis vectors:
+    \[
+        \hat{e}_{(\mu)} = {\Lambda^{\nu'}}_\mu \hat{e}_{(\nu')}
+    \]
+    \item To find how the new basis vectors are expressed in terms of the old ones, we multiply by the inverse of the Lorentz transformation. We denote the inverse matrix by ${\Lambda^\mu}_{\nu'}$, such that ${\Lambda^\mu}_{\nu'} {\Lambda^{\nu'}}_\rho = \delta^\mu_\rho$. This gives the transformation rule for the basis vectors:
+    \begin{equation}
+        \hat{e}_{(\nu')} = {\Lambda^\mu}_{\nu'} \hat{e}_{(\mu)}
+    \end{equation}
+\end{enumerate}
+
+
+This "contravariant" transformation behavior (one transforms oppositely to the other) ensures that the full geometric object, $V = V^\mu \hat{e}_{(\mu)}$, is invariant under coordinate changes. This is the foundation of tensor notation.
+
+\section{Dual Vectors (One-Forms)}
+
+Once a vector space is established, one can define an associated vector space of equal dimension known as the \textbf{dual vector space}. The dual space to the tangent space $T_p$ is called the \textbf{cotangent space} and is denoted $T_p^*$. Its elements are called \textbf{dual vectors}, \textbf{covariant vectors}, or \textbf{one-forms}.
+
+\subsection*{Definition of a Dual Vector}
+
+A dual vector $\omega \in T_p^*$ is a \textbf{linear map} from the original vector space $T_p$ to the real numbers $\mathbb{R}$. This means that for any vectors $V, W \in T_p$ and any real numbers $a, b$:
+\begin{equation}
+    \omega(aV + bW) = a\omega(V) + b\omega(W) \in \mathbb{R}
+\end{equation}
+The set of these maps forms a vector space itself. If $\omega$ and $\eta$ are dual vectors, then their linear combination acts on a vector $V$ as:
+\begin{equation}
+    (a\omega + b\eta)(V) = a\omega(V) + b\eta(V)
+\end{equation}
+
+\subsection*{Basis and Components of Dual Vectors}
+
+To make this construction more concrete, we can introduce a set of \textbf{basis dual vectors} $\hat{\theta}^{(\nu)}$ by demanding a specific relationship with the basis vectors $\hat{e}_{(\mu)}$ of the original vector space:
+\begin{equation}
+    \hat{\theta}^{(\nu)}(\hat{e}_{(\mu)}) = \delta^\nu_\mu
+\end{equation}
+where $\delta^\nu_\mu$ is the Kronecker delta. Every dual vector can then be written as a linear combination of this basis. The components are labeled with lower indices:
+\begin{equation}
+    \omega = \omega_\mu \hat{\theta}^{(\mu)}
+\end{equation}
+The action of a dual vector on a vector can then be expressed simply in terms of their components.
+
+\textbf{Derivation of the Component Action}
+\begin{align*}
+    \omega(V) &= (\omega_\mu \hat{\theta}^{(\mu)})(V^\nu \hat{e}_{(\nu)}) \\
+    &= \omega_\mu V^\nu \hat{\theta}^{(\mu)}(\hat{e}_{(\nu)}) \quad \text{(by linearity)} \\
+    &= \omega_\mu V^\nu \delta^\mu_\nu \\
+    &= \omega_\mu V^\mu
+\end{align*}
+This yields the simple and powerful result:
+\begin{equation}
+    \omega(V) = \omega_\mu V^\mu \in \mathbb{R}
+\end{equation}
+This also implies that vectors can be seen as linear maps on dual vectors, $V(\omega) \equiv \omega(V)$, meaning the dual of the dual space is the original vector space itself.
+
+\subsection*{Dual Vector Fields and Transformation Properties}
+
+In spacetime, we are interested in fields of vectors and dual vectors. The action of a dual vector field on a vector field is not a single number, but a \textbf{scalar} (a function) on spacetime. A scalar is a quantity without indices that is unchanged by Lorentz transformations.
+
+The components of a dual vector must transform in such a way that the scalar product $\omega_\mu V^\mu$ is invariant. Since we know $V^{\mu'} = {\Lambda^{\mu'}}_\nu V^\nu$, the components of a dual vector must transform with the inverse matrix:
+\begin{equation}
+    \omega_{\mu'} = {\Lambda^\nu}_{\mu'} \omega_\nu
+\end{equation}
+Correspondingly, the basis dual vectors transform with the original Lorentz matrix:
+\begin{equation}
+    \hat{\theta}^{(\rho')} = {\Lambda^{\rho'}}_\sigma \hat{\theta}^{(\sigma)}
+\end{equation}
+This is consistent with the general rule of index placement: upper indices transform with $\Lambda$, lower indices transform with the inverse.
+
+\subsection*{Example: The Gradient of a Scalar Function}
+
+The simplest and most important physical example of a dual vector is the \textbf{gradient} of a scalar function $\phi$. The gradient $d\phi$ is the dual vector whose components are the partial derivatives of $\phi$:
+\begin{equation}
+    d\phi = \frac{\partial\phi}{\partial x^\mu} \hat{\theta}^{(\mu)}
+\end{equation}
+The transformation of these components under a Lorentz transformation follows directly from the chain rule for partial derivatives:
+\begin{equation}
+    \frac{\partial\phi}{\partial x^{\mu'}} = \frac{\partial x^\nu}{\partial x^{\mu'}} \frac{\partial\phi}{\partial x^\nu} = {\Lambda^\nu}_{\mu'} \frac{\partial\phi}{\partial x^\nu}
+\end{equation}
+This is precisely the transformation law for the components of a dual vector. Common shorthand notations for the partial derivative are:
+\begin{equation}
+    \frac{\partial\phi}{\partial x^\mu} = \partial_\mu \phi = \phi,_\mu
+\end{equation}
+The natural action of the gradient (a dual vector) on the tangent vector to a curve $x^\mu(\lambda)$ (a vector) is the ordinary derivative of the function along that curve:
+\begin{equation}
+    \partial_\mu\phi \frac{dx^\mu}{d\lambda} = \frac{d\phi}{d\lambda}
+\end{equation}
+Here is the LaTeX code for Section 1.6, formatted to match your document's style.
+
+\section{Tensors}
+
+A straightforward generalization of vectors and dual vectors is the notion of a tensor. Just as a dual vector is a linear map from vectors to $\mathbb{R}$, a tensor is a multilinear map from a collection of dual vectors and vectors to $\mathbb{R}$.
+
+\subsection*{Definition of a Tensor}
+
+A \textbf{tensor} $T$ of type (or rank) $(k, l)$ is a multilinear map from $k$ copies of the cotangent space $T_p^*$ and $l$ copies of the tangent space $T_p$ to the real numbers:
+\begin{equation}
+    T: \underbrace{T_p^* \times \dots \times T_p^*}_{k \text{ times}} \times \underbrace{T_p \times \dots \times T_p}_{l \text{ times}} \to \mathbb{R}
+\end{equation}
+\textbf{Multilinearity} means that the tensor acts linearly in each of its arguments. For a tensor of type (1, 1), we have:
+\begin{equation}
+    T(a\omega + b\eta, cV + dW) = acT(\omega, V) + adT(\omega, W) + bcT(\eta, V) + bdT(\eta, W)
+\end{equation}
+From this point of view: a scalar is a type (0,0) tensor, a vector is a type (1,0) tensor, and a dual vector is a type (0,1) tensor.
+
+\subsection*{Tensor Products and Basis}
+
+To construct a basis for the space of all $(k,l)$ tensors, we define the \textbf{tensor product} $\otimes$. If $T$ is a $(k,l)$ tensor and $S$ is an $(m,n)$ tensor, their tensor product $T \otimes S$ is a $(k+m, l+n)$ tensor defined by its action on a collection of dual vectors ($\omega^{(i)}$) and vectors ($V^{(j)}$):
+\begin{equation}
+    (T \otimes S)(\omega^{(1)}, \dots, V^{(1)}, \dots) = T(\omega^{(1)}, \dots, V^{(1)}, \dots) \times S(\omega^{(k+1)}, \dots, V^{(l+1)}, \dots)
+\end{equation}
+A basis for the space of $(k,l)$ tensors is formed by taking all tensor products of the basis vectors and dual vectors:
+\begin{equation}
+    \hat{e}_{(\mu_1)} \otimes \dots \otimes \hat{e}_{(\mu_k)} \otimes \hat{\theta}^{(\nu_1)} \otimes \dots \otimes \hat{\theta}^{(\nu_l)}
+\end{equation}
+
+\subsection*{Tensor Components and Transformation}
+
+An arbitrary tensor $T$ can be written as a linear combination of basis tensors, where the coefficients are its \textbf{components}:
+\begin{equation}
+    T = {T^{\mu_1 \dots \mu_k}}_{\nu_1 \dots \nu_l} \hat{e}_{(\mu_1)} \otimes \dots \otimes \hat{\theta}^{(\nu_l)}
+\end{equation}
+The components can be found by acting the tensor on the basis vectors and dual vectors:
+\begin{equation}
+    {T^{\mu_1 \dots \mu_k}}_{\nu_1 \dots \nu_l} = T(\hat{\theta}^{(\mu_1)}, \dots, \hat{\theta}^{(\mu_k)}, \hat{e}_{(\nu_1)}, \dots, \hat{e}_{(\nu_l)})
+\end{equation}
+The transformation of tensor components under a Lorentz transformation ${\Lambda^{\mu'}}_{\mu}$ is a direct generalization of the vector and dual vector cases: each upper index gets transformed like a vector, and each lower index gets transformed like a dual vector.
+\begin{equation}
+    {T^{\mu'_1 \dots \mu'_k}}_{\nu'_1 \dots \nu'_l} = {\Lambda^{\mu'_1}}_{\mu_1} \dots {\Lambda^{\mu'_k}}_{\mu_k} {\Lambda^{\nu_1}}_{\nu'_1} \dots {\Lambda^{\nu_l}}_{\nu'_l} {T^{\mu_1 \dots \mu_k}}_{\nu_1 \dots \nu_l}
+\end{equation}
+
+Tensors can also be thought of as maps between other tensors. For example, a (1,1) tensor can map a vector to another vector: ${T^\mu}_\nu: V^\nu \to {T^\mu}_\nu V^\nu$. This viewpoint emphasizes that tensors are geometric objects with a meaning independent of any coordinate system.
+
+\subsection*{Examples of Tensors in Spacetime}
+\begin{itemize}
+    \item \textbf{The Metric Tensor, $\eta_{\mu\nu}$:} A type (0,2) tensor. Its action on two vectors defines the \textbf{inner product} (or scalar product):
+    \begin{equation}
+        \eta(V, W) = \eta_{\mu\nu}V^\mu W^\nu = V \cdot W
+    \end{equation}
+    The norm of a vector is $V \cdot V$. Unlike in Euclidean space, this is not positive definite. A vector $V$ is called:
+    \begin{itemize}
+        \item \textbf{timelike} if $V \cdot V < 0$.
+        \item \textbf{lightlike} or \textbf{null} if $V \cdot V = 0$.
+        \item \textbf{spacelike} if $V \cdot V > 0$.
+    \end{itemize}
+
+    \item \textbf{The Inverse Metric, $\eta^{\mu\nu}$:} A type (2,0) tensor defined by the relation:
+    \begin{equation}
+        \eta^{\mu\rho}\eta_{\rho\nu} = \delta^\mu_\nu
+    \end{equation}
+    In flat spacetime with Cartesian coordinates, the components of $\eta^{\mu\nu}$ are numerically identical to those of $\eta_{\mu\nu}$.
+
+    \item \textbf{The Levi-Civita Symbol, $\tilde{\epsilon}_{\mu\nu\rho\sigma}$:} A type (0,4) tensor defined as:
+    \begin{equation}
+        \tilde{\epsilon}_{\mu\nu\rho\sigma} =
+        \begin{cases}
+            +1 & \text{if } \mu\nu\rho\sigma \text{ is an even permutation of } 0123 \\
+            -1 & \text{if } \mu\nu\rho\sigma \text{ is an odd permutation of } 0123 \\
+            0 & \text{otherwise}
+        \end{cases}
+    \end{equation}
+    \textit{Note:} This object is technically a "tensor density" and will be treated more carefully in the context of general relativity.
+
+    \item \textbf{The Electromagnetic Field Strength Tensor, $F_{\mu\nu}$:} A type (0,2) antisymmetric tensor that unifies the electric and magnetic fields.
+    \begin{equation}\label{eq:EM Field Tensor}
+        F_{\mu\nu} =
+        \begin{pmatrix}
+            0 & -E_1 & -E_2 & -E_3 \\
+            E_1 & 0 & B_3 & -B_2 \\
+            E_2 & -B_3 & 0 & B_1 \\
+            E_3 & B_2 & -B_1 & 0
+        \end{pmatrix}
+        = -F_{\nu\mu}
+    \end{equation}
+    This tensor structure elegantly shows how electric and magnetic fields transform into one another under Lorentz boosts.
+\end{itemize}
+\section{Manipulating Tensors}
+
+With the definition of tensors established, we can now systematize some of their important properties and operations.
+
+\subsection*{Contraction}
+
+Contraction is an operation that turns a tensor of type $(k, l)$ into a tensor of type $(k-1, l-1)$. It is performed by summing over one upper and one lower index. For example, if we have a tensor ${T^{\mu\nu\rho}}_{\sigma\lambda}$, we can contract the second upper index ($\nu$) with the second lower index ($\lambda$) to form a new tensor:
+\begin{equation}
+    {S^{\mu\rho}}_\sigma = {T^{\mu\nu\rho}}_{\sigma\nu}
+\end{equation}
+It is only permissible to contract an upper index with a lower index; contracting two indices of the same type does not result in a well-defined tensor. Note also that the order of the remaining indices matters, so that in general:
+\begin{equation}
+    {T^{\mu\nu\rho}}_{\sigma\nu} \ne {T^{\mu\rho\nu}}_{\sigma\nu}
+\end{equation}
+
+\subsection*{Raising and Lowering Indices}
+
+The metric $\eta_{\mu\nu}$ and its inverse $\eta^{\mu\nu}$ can be used to raise and lower the indices on any tensor. This effectively changes a tensor of one type to another. Given a tensor ${T^{\alpha\beta}}_{\gamma\delta}$, we can define new tensors:
+\begin{align}
+    {T^{\alpha\beta\mu}}_\delta &= \eta^{\mu\gamma} {T^{\alpha\beta}}_{\gamma\delta} \quad (\text{raising the } \gamma \text{ index}) \\
+    {T_\mu}^{\beta}{}_{\gamma\delta} &= \eta_{\mu\alpha} {T^{\alpha\beta}}_{\gamma\delta} \quad (\text{lowering the } \alpha \text{ index}) \\
+    {T_{\mu\nu}}^{\rho\sigma} &= \eta_{\mu\alpha}\eta_{\nu\beta}\eta^{\rho\gamma}\eta^{\sigma\delta} {T^{\alpha\beta}}_{\gamma\delta}
+\end{align}
+This operation does not change the horizontal position of an index relative to others. For example, vectors and dual vectors can be converted into one another:
+\begin{align}
+    V_\mu = \eta_{\mu\nu}V^\nu, \quad \omega^\mu = \eta^{\mu\nu}\omega_\nu
+\end{align}
+Because the metric and its inverse are truly inverses, a pair of indices being contracted over can be raised and lowered simultaneously without changing the result:
+\begin{equation}
+    A^\lambda B_\lambda = \eta^{\lambda\rho}A_\rho \eta_{\lambda\sigma}B^\sigma = \delta^\rho_\sigma A_\rho B^\sigma = A_\sigma B^\sigma
+\end{equation}
+In a Lorentzian spacetime, the components of a vector $V^\mu$ are not numerically equal to the components of its dual vector $V_\mu$:
+\begin{equation}
+    V^\mu = (V^0, V^1, V^2, V^3) \quad \implies \quad V_\mu = (-V^0, V^1, V^2, V^3)
+\end{equation}
+This distinction becomes even more critical in curved spacetimes, where the metric components are more complicated.
+
+\subsection*{Symmetry and Antisymmetry}
+
+A tensor is \textbf{symmetric} in a set of its indices if it is unchanged upon their exchange. For example, $S_{\mu\nu\rho}$ is symmetric in its first two indices if:
+\begin{equation}
+    S_{\mu\nu\rho} = S_{\nu\mu\rho}
+\end{equation}
+A tensor is \textbf{antisymmetric} (or skew-symmetric) in a set of its indices if it changes sign upon their exchange. For example, $A_{\mu\nu\rho}$ is antisymmetric in its first and third indices if:
+\begin{equation}
+    A_{\mu\nu\rho} = -A_{\rho\nu\mu}
+\end{equation}
+The metric $\eta_{\mu\nu}$ is symmetric, while the electromagnetic field strength tensor $F_{\mu\nu}$ is antisymmetric.
+
+\subsection*{Symmetrization and Antisymmetrization}
+
+Any tensor can be symmetrized or antisymmetrized over any number of its upper or lower indices.
+\begin{itemize}
+    \item \textbf{Symmetrization} (denoted by round brackets) is the average over all permutations of the indices:
+    \begin{equation}
+        T_{(\mu_1 \dots \mu_n)} = \frac{1}{n!} (\text{sum of } T \text{ with indices } \mu_1 \dots \mu_n \text{ permuted})
+    \end{equation}
+    \item \textbf{Antisymmetrization} (denoted by square brackets) is the alternating sum over all permutations:
+    \begin{equation}
+        T_{[\mu_1 \dots \mu_n]} = \frac{1}{n!} (\text{alternating sum of } T \text{ with indices } \mu_1 \dots \mu_n \text{ permuted})
+    \end{equation}
+    For example, for three indices:
+    \begin{equation}
+        T_{[\mu\nu\rho]} = \frac{1}{6}(T_{\mu\nu\rho} - T_{\mu\rho\nu} + T_{\rho\mu\nu} - T_{\nu\mu\rho} + T_{\nu\rho\mu} - T_{\rho\nu\mu})
+    \end{equation}
+\end{itemize}
+For any two indices, a tensor can be decomposed into its symmetric and antisymmetric parts: $T_{\mu\nu} = T_{(\mu\nu)} + T_{[\mu\nu]}$. This simple decomposition does not hold for three or more indices due to the existence of more complex symmetry properties.
+
+\subsection*{The Trace}
+
+The \textbf{trace} of a (1,1) tensor ${X^\mu}_\nu$ is its contraction, which is a scalar:
+\begin{equation}
+    X = {X^\lambda}_\lambda
+\end{equation}
+For a (0,2) tensor $Y_{\mu\nu}$, the trace is defined as raising one index and then contracting:
+\begin{equation}
+    Y = {Y^\lambda}_\lambda = \eta^{\mu\nu}Y_{\mu\nu}
+\end{equation}
+Note that this is not the sum of the diagonal components of $Y_{\mu\nu}$. For example, the trace of the metric itself is:
+\begin{equation}
+    \eta^{\mu\nu}\eta_{\mu\nu} = \delta^\mu_\mu = 4
+\end{equation}
+
+\subsection*{A Note on Partial Derivatives}
+
+In the special case of \textbf{flat spacetime with inertial coordinates}, the partial derivative of a $(k,l)$ tensor is a well-defined $(k, l+1)$ tensor. For example, if ${T^\mu}_\nu$ is a tensor, then so is:
+\begin{equation}
+    S_{\alpha}{}^\mu{}_\nu = \partial_\alpha {T^\mu}_\nu
+\end{equation}
+\textbf{Important:} This property will \textbf{fail} in more general (curved) spacetimes or non-inertial coordinate systems. We will later introduce a \textbf{covariant derivative} to replace the partial derivative in such cases. The one exception is the gradient of a scalar, $\partial_\alpha\phi$, which is always a well-defined (0,1) tensor. In flat spacetime, partial derivatives commute:
+\begin{equation}
+    \partial_\mu \partial_\nu (\dots) = \partial_\nu \partial_\mu (\dots)
+\end{equation}
+\section{Maxwell's Equations}
+
+With the necessary tensor know-how accumulated, we can now illustrate these concepts using Maxwell's equations of electrodynamics. This exercise demonstrates the power and economy of the tensor formalism.
+
+\subsection*{Maxwell's Equations in Traditional Notation}
+
+In 19th-century 3-vector notation, Maxwell's equations are:
+\begin{align}
+    \nabla \times \mathbf{B} - \partial_t \mathbf{E} &= \mathbf{J} \\
+    \nabla \cdot \mathbf{E} &= \rho \\
+    \nabla \times \mathbf{E} + \partial_t \mathbf{B} &= 0 \\
+    \nabla \cdot \mathbf{B} &= 0
+\end{align}
+Here, $\mathbf{E}$ and $\mathbf{B}$ are the electric and magnetic field 3-vectors, $\mathbf{J}$ is the current 3-vector, and $\rho$ is the charge density. These equations are, in fact, invariant under Lorentz transformations, but they do not look obviously so. Tensor notation makes this invariance manifest.
+
+\subsection*{From 3-Vector to Tensor Formulation}
+
+The first step is to rewrite the equations in component notation and then combine them into a single tensor object. We begin by defining the current 4-vector $J^\mu = (\rho, J^x, J^y, J^z)$ and recalling the definition of the antisymmetric field strength tensor $F_{\mu\nu}$.
+
+The goal is to show that the four equations above are equivalent to the following two tensor equations.
+
+\textbf{1. The Inhomogeneous Equations (with sources)}
+
+\textbf{Derivation:}
+\begin{enumerate}
+    \item The first two of Maxwell's equations, $\nabla \cdot \mathbf{E} = \rho$ and $\nabla \times \mathbf{B} - \partial_t \mathbf{E} = \mathbf{J}$, involve the sources of the fields, $\rho$ and $\mathbf{J}$.
+    \item In component notation (with $x^0=t$), these are:
+    \[
+        \partial_i E^i = J^0 \quad \text{and} \quad \tilde{\epsilon}^{ijk}\partial_j B_k - \partial_0 E^i = J^i
+    \]
+    where $\tilde{\epsilon}^{ijk}$ is the three-dimensional Levi-Civita symbol.
+    \item We can express the components of the field strength tensor with \emph{upper} indices, $F^{\mu\nu} = \eta^{\mu\alpha}\eta^{\nu\beta}F_{\alpha\beta}$, in terms of the electric and magnetic fields \eqref{eq:EM Field Tensor} :
+    \begin{equation}
+        F^{0i} = E^i, \quad F^{ij} = \tilde{\epsilon}^{ijk}B_k
+    \end{equation}
+    \item Substituting these into the component equations gives:
+    \begin{equation}
+        \partial_i F^{0i} = J^0 \quad \text{and} \quad \partial_j F^{ji} - \partial_0 F^{0i} = J^i
+    \end{equation}
+    \item Using the antisymmetry of the field strength tensor (i.e., $F^{\mu\nu} = -F^{\nu\mu}$, which implies $F^{00}=0$ and $\partial_0 F^{00}=0$), these two distinct equations can be combined into a single, compact 4-vector equation.
+\end{enumerate}
+The result is the first of the covariant Maxwell equations:
+\begin{equation}\label{eq:inhom-maxwell}
+    \partial_\mu F^{\nu\mu} = J^\nu
+\end{equation}
+
+\textbf{2. The Homogeneous Equations (sourceless)}
+
+A similar line of reasoning reveals that the third and fourth of Maxwell's equations, $\nabla \cdot \mathbf{B} = 0$ and $\nabla \times \mathbf{E} + \partial_t \mathbf{B} = 0$, can also be written in a single tensor form. The result is:
+\begin{equation}\label{eq:hom-maxwell}
+    \partial_{[\mu} F_{\nu\lambda]} = 0
+\end{equation}
+Due to the antisymmetry of $F_{\mu\nu}$, this is equivalent to the expanded form:
+\begin{equation}
+    \partial_\mu F_{\nu\lambda} + \partial_\nu F_{\lambda\mu} + \partial_\lambda F_{\mu\nu} = 0
+\end{equation}
+
+\subsection*{Significance of the Covariant Formulation}
+
+The four traditional Maxwell equations are replaced by two compact tensor equations, demonstrating the economy of the notation. More importantly, both sides of equations  \eqref{eq:inhom-maxwell} and \eqref{eq:hom-maxwell}  are well-defined tensors. An equation that equates two tensors of the same type is said to be \textbf{manifestly covariant}. If such an equation is true in one inertial frame, it must be true in any Lorentz-transformed frame. This is why tensors are the natural language for relativity: they allow physical laws to be expressed in a frame-independent way.
+
+\begin{itemize}
+    \item The tensor form is referred to as the \textbf{covariant form} of Maxwell's equations.
+    \item The original 3-vector form is referred to as \textbf{noncovariant}.
+\end{itemize}
+\section{Energy and Momentum}
+
+This section reviews the physics of energy and momentum in Minkowski spacetime, starting with single particles and extending to continuous media.
+
+\subsection*{Particle Kinematics}
+
+The worldline of a massive particle is a timelike curve. Since the proper time $\tau$ is the time measured by a clock traveling along such a worldline, it is the natural parameter to use for the path, $x^\mu(\tau)$.
+
+\subsection*{Four-Velocity and Four-Momentum}
+
+\begin{itemize}
+    \item \textbf{Four-Velocity:} The tangent vector to a particle's worldline parameterized by proper time is the \textbf{four-velocity}, $U^\mu$.
+    \begin{equation}
+        U^\mu = \frac{dx^\mu}{d\tau}
+    \end{equation}
+    From the definition of proper time, $d\tau^2 = -\eta_{\mu\nu}dx^\mu dx^\nu$, the four-velocity is automatically normalized:
+    \begin{equation}
+        \eta_{\mu\nu}U^\mu U^\nu = -1
+    \end{equation}
+    This reflects the fact that a massive particle always travels through spacetime at a constant "rate." In the particle's rest frame, its four-velocity has components $U^\mu = (1, 0, 0, 0)$.
+
+    \item \textbf{Four-Momentum:} The \textbf{momentum four-vector} is defined as the rest mass $m$ (an invariant scalar) times the four-velocity.
+    \begin{equation}
+        p^\mu = mU^\mu
+    \end{equation}
+    The components of the four-momentum are the energy and the three-momentum: $p^\mu = (E, p^x, p^y, p^z)$.
+    \begin{itemize}
+        \item In the particle's rest frame, $p^\mu = (m, 0, 0, 0)$, giving $E=m$ (or $E=mc^2$ in standard units).
+        \item For a particle moving with three-velocity $v = dx/dt$ along the x-axis, the components are:
+        \begin{equation}
+            p^\mu = (\gamma m, v\gamma m, 0, 0)
+        \end{equation}
+        where $\gamma = 1/\sqrt{1-v^2}$.
+        \item The norm of the four-momentum is an invariant:
+        \begin{equation}
+            p_\mu p^\mu = \eta_{\mu\nu}p^\mu p^\nu = -m^2
+        \end{equation}
+        This gives the relativistic energy-momentum relation: $E^2 - p^2 = m^2$, or
+        \begin{equation}
+            E = \sqrt{m^2 + p^2}
+        \end{equation}
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Four-Force}
+
+The relativistic analogue of Newton's Second Law introduces the \textbf{force four-vector} $f^\mu$:
+\begin{equation}
+    f^\mu = m\frac{d^2 x^\mu}{d\tau^2} = \frac{dp^\mu}{d\tau}
+\end{equation}
+For electromagnetism, the Lorentz force law has the unique tensorial generalization:
+\begin{equation}
+    f^\mu = q {F^\mu}_\lambda U^\lambda
+\end{equation}
+where $q$ is the particle's charge and $F^\mu_\lambda$ is the electromagnetic field strength tensor.
+
+\subsection*{The Energy-Momentum Tensor}
+
+For extended systems like fluids or fields, we use the \textbf{energy-momentum tensor} (or stress-energy tensor), $T^{\mu\nu}$.
+\begin{itemize}
+    \item \textbf{Physical Meaning:} $T^{\mu\nu}$ is the flux of the $\mu$-component of four-momentum ($p^\mu$) across a surface of constant $x^\nu$.
+    \item \textbf{Components in the Rest Frame:}
+    \begin{itemize}
+        \item $T^{00} = \rho$ (Energy density)
+        \item $T^{0i} = T^{i0}$ (Momentum density / Energy flux)
+        \item $T^{ij}$ (Stress, i.e., flux of $i$-momentum in the $j$-direction). The diagonal terms $T^{ii}$ (no sum) represent pressure:
+        \begin{equation}
+            p_i = T^{ii}
+        \end{equation}
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Examples of Energy-Momentum Tensors}
+
+\begin{itemize}
+    \item \textbf{Dust:} A collection of non-interacting particles all at rest with respect to each other. It is characterized by a single four-velocity field $U^\mu$ and a rest-frame number density $n$. The \textbf{number-flux four-vector} is:
+    \begin{equation}
+        N^\mu = nU^\mu
+    \end{equation}
+    If each particle has mass $m$, the rest-frame energy density is $\rho = mn$. The energy-momentum tensor for dust is:
+    \begin{equation}
+        T^{\mu\nu}_{\text{dust}} = \rho U^\mu U^\nu
+    \end{equation}
+    Dust has zero pressure.
+
+    \item \textbf{Perfect Fluid:} A fluid that is completely characterized by its rest-frame energy density $\rho$ and an isotropic rest-frame pressure $p$. In its rest frame, its energy-momentum tensor is:
+    \begin{equation}
+        T^{\mu\nu}_{\text{rest}} =
+        \begin{pmatrix}
+            \rho & 0 & 0 & 0 \\
+            0 & p & 0 & 0 \\
+            0 & 0 & p & 0 \\
+            0 & 0 & 0 & p
+        \end{pmatrix}
+    \end{equation}
+    The general, covariant expression that is valid in any inertial frame is:
+    \begin{equation}
+        T^{\mu\nu} = (\rho+p)U^\mu U^\nu + p\eta^{\mu\nu}
+    \end{equation}
+    The physics of a specific perfect fluid is determined by an \textbf{equation of state}, $p = p(\rho)$. An important example is \textbf{vacuum energy}, for which $p_{\text{vac}} = -\rho_{\text{vac}}$, leading to $T^{\mu\nu}_{\text{vac}} = -\rho_{\text{vac}}\eta^{\mu\nu}$.
+\end{itemize}
+
+\subsection*{Conservation of Energy-Momentum}
+
+The energy-momentum tensor for a closed system is conserved, which is expressed as the vanishing of its four-divergence:
+\begin{equation}\label{eq:cons-T}
+\begin{split}
+    \partial_\mu T^{\mu\nu} &= \partial_\mu \left( (\rho + p) U^\mu U^\nu \right) + \partial^\nu p = 0 \\
+    \implies 0 &= \partial_\mu (\rho + p) U^\mu U^\nu + (\rho + p) U^\mu \partial_\mu U^\nu + (\rho + p)  U^\nu \partial_\mu U^\mu+ \partial^\nu p\\
+\end{split}
+\end{equation}
+This is a set of four equations. The $\nu=0$ component expresses conservation of energy, while the $\nu=k$ components express conservation of momentum.
+
+\textbf{Analysis for a Perfect Fluid:}
+Applying the conservation law to the perfect fluid tensor yields:
+\[
+    \partial_\mu ((\rho+p)U^\mu U^\nu) + \partial^\nu p = 0
+\]
+This equation can be projected into parts parallel and perpendicular to the fluid's four-velocity $U^\mu$.\newline
+\newline
+\textbf{Projection Parallel to $U^\mu$ (Energy Conservation):} Contracting with $U_\nu$ (multipliying the equation \eqref{eq:cons-T}) and setting the result to zero gives the relativistic equation for energy conservation.
+using the fact that $U_\nu U^\nu = -1$ is constant along the flow, we have:
+\newline
+\begin{equation}
+    U_\nu \partial_\mu U^\nu  = \frac{1}{2} \partial_\mu (U_\nu U^\nu) = 0
+\end{equation}
+Which can be shown as follows:
+\begin{equation}
+\begin{split}
+    \partial_\mu (U_\nu U^\nu) &= U_\nu \partial_\mu U^\nu +  \partial_\mu U_\nu U^\nu \\
+                              &= U_\nu \partial_\mu U^\nu + \partial_\mu (g_{\nu\lambda} U^\lambda) U^\nu  \\
+                              &= U_\nu \partial_\mu U^\nu +  \partial_\mu U^\lambda U_\lambda \\
+                              &= 2 U_\nu \partial_\mu U^\nu
+\end{split}
+\end{equation}
+By Changing the dummy index $\lambda$ to $\nu$ in the last term and by the fact that they commute, we see that it is identical to the first term. Thus, $U_\nu \partial_\mu U^\nu = 0$.
+\begin{equation}
+\begin{split}
+    U_\nu \partial_\mu T^{\mu\nu} &=\partial_\mu (\rho + p) U^\mu U_\nu U^\nu + (\rho + p) U^\mu U_\nu \partial_\mu U^\nu + (\rho + p) U_\nu U^\nu \partial_\mu U^\mu + U_\nu \partial^\nu p\\
+    &= -\partial_\mu (\rho +p) U^\mu -(\rho + p) \partial_\mu U^\mu - U^\nu \partial_\nu p \\
+\end{split}
+\end{equation}
+In the non-relativistic limit ($|v^i| \ll 1, p \ll \rho$, $\gamma \approx 1$), this becomes the familiar \textbf{continuity equation}:
+by applying the limits we get:
+\begin{equation}
+\begin{split}
+    U_\nu \partial_\mu T^{\mu\nu} &\approx \partial_\mu (\rho) U^\mu + \rho \partial_\mu U^\mu \\
+    &= \partial_\mu (\rho U^\mu)   \\
+    &= \partial_{0} (\rho U^{0}) + \partial_i (\rho U^i) \\
+    &= \partial_{0} (\rho \gamma) + \partial_i (\rho \gamma v^i) \\
+    &= \partial_t \rho + \nabla \cdot (\rho \mathbf{v}) \\
+\end{split}
+\end{equation}
+\textbf{Projection Perpendicular to $U^\mu$ (Momentum Conservation):} Projecting the conservation law onto the space orthogonal to $U^\mu$ (using the projection tensor ${P^\sigma}_\nu = \delta^\sigma_\nu + U^\sigma U_\nu$) gives the equations for momentum conservation. In the non-relativistic limit, this yields the \textbf{Euler equation} for fluid dynamics:
+\begin{equation}
+    \rho[\partial_t \mathbf{v} + (\mathbf{v}\cdot\nabla)\mathbf{v}] = -\nabla p
+\end{equation}
+\section{Classical Field Theory}
+
+When we transition to general relativity, the metric $\eta_{\mu\nu}$ is promoted to a dynamical tensor field, $g_{\mu\nu}(x)$. GR is thus a particular example of a classical field theory. We can build intuition by first considering classical fields on the fixed background of flat spacetime.
+
+\subsection*{From Mechanics to Field Theory}
+
+The dynamics of a system can be derived from the \textbf{principle of least action}.
+\begin{itemize}
+    \item \textbf{Point-Particle Mechanics:} For a single particle with coordinate $q(t)$, the action $S$ is the time integral of the Lagrangian, $L(q, \dot{q})$.
+    \begin{equation}
+        S = \int L(q, \dot{q}) \, dt
+    \end{equation}
+    The Lagrangian is typically the kinetic energy minus the potential energy, $L=K-V$. The trajectory that a particle follows is one that makes the action stationary ($\delta S = 0$), which leads to the \textbf{Euler-Lagrange equations}:
+    \begin{equation}
+        \frac{\partial L}{\partial q} - \frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}}\right) = 0
+    \end{equation}
+
+    \item \textbf{Classical Field Theory:} We replace the single coordinate $q(t)$ with a set of spacetime-dependent fields, $\Phi^i(x^\mu)$. The action becomes an integral of the \textbf{Lagrange density}, $\mathcal{L}$, over all of spacetime.
+    \begin{equation}
+        S = \int \mathcal{L}(\Phi^i, \partial_\mu\Phi^i) \, d^4x
+    \end{equation}
+    The Lagrange density $\mathcal{L}$ must be a Lorentz scalar.
+\end{itemize}
+
+\subsection*{The Euler-Lagrange Equations for Fields}
+
+\textbf{Derivation:}
+\begin{enumerate}
+    \item We require the action $S$ to be stationary under an infinitesimal variation of the fields, $\Phi^i \to \Phi^i + \delta\Phi^i$.
+    \item The change in the action, $\delta S$, is found by expanding the Lagrangian:
+    \[
+        \delta S = \int d^4x \left[ \frac{\partial\mathcal{L}}{\partial\Phi^i}\delta\Phi^i + \frac{\partial\mathcal{L}}{\partial(\partial_\mu\Phi^i)}\partial_\mu(\delta\Phi^i) \right]
+    \]
+    \item We integrate the second term by parts, $\int u \, dv = uv - \int v \, du$. Let $u = \frac{\partial\mathcal{L}}{\partial(\partial_\mu\Phi^i)}$ and $dv = \partial_\mu(\delta\Phi^i)$.
+    \[
+        \int d^4x \frac{\partial\mathcal{L}}{\partial(\partial_\mu\Phi^i)}\partial_\mu(\delta\Phi^i) = - \int d^4x \left[\partial_\mu\left(\frac{\partial\mathcal{L}}{\partial(\partial_\mu\Phi^i)}\right)\right] \delta\Phi^i + \text{surface term}
+    \]
+    \item Assuming the variations vanish at the boundary, the surface term is zero. Substituting this back gives:
+    \[
+        \delta S = \int d^4x \left[ \frac{\partial\mathcal{L}}{\partial\Phi^i} - \partial_\mu\left(\frac{\partial\mathcal{L}}{\partial(\partial_\mu\Phi^i)}\right) \right] \delta\Phi^i
+    \]
+    \item For $\delta S = 0$ for any arbitrary variation $\delta\Phi^i$, the expression in the brackets must vanish.
+\end{enumerate}
+This gives the Euler-Lagrange equations for a field theory:
+\begin{equation}
+    \frac{\partial\mathcal{L}}{\partial\Phi^i} - \partial_\mu\left(\frac{\partial\mathcal{L}}{\partial(\partial_\mu\Phi^i)}\right) = 0
+\end{equation}
+
+\subsection*{Example 1: Real Scalar Field}
+
+Consider a single real scalar field $\phi(x^\mu)$. The Lagrangian density is constructed by generalizing "kinetic minus potential energy."
+\begin{equation}
+    \mathcal{L} = -\frac{1}{2}\eta^{\mu\nu}(\partial_\mu\phi)(\partial_\nu\phi) - V(\phi)
+\end{equation}
+Here, the first term is the Lorentz-invariant combination of kinetic ($\frac{1}{2}\dot{\phi}^2$) and gradient ($-\frac{1}{2}(\nabla\phi)^2$) energy density. Applying the Euler-Lagrange equations:
+\begin{itemize}
+    \item $\frac{\partial\mathcal{L}}{\partial\phi} = -\frac{dV}{d\phi}$
+    \item $\frac{\partial\mathcal{L}}{\partial(\partial_\mu\phi)} = -\eta^{\mu\nu}\partial_\nu\phi$
+\end{itemize}
+The equation of motion is:
+\begin{equation}
+    \eta^{\mu\nu}\partial_\mu\partial_\nu\phi - \frac{dV}{d\phi} = 0 \quad \text{or} \quad \Box\phi - \frac{dV}{d\phi} = 0
+\end{equation}
+where $\Box \equiv \eta^{\mu\nu}\partial_\mu\partial_\nu$ is the d'Alembertian operator. For a simple harmonic oscillator potential, $V(\phi) = \frac{1}{2}m^2\phi^2$, this becomes the famous \textbf{Klein-Gordon equation}:
+\begin{equation}
+    \Box\phi + m^2\phi = 0
+\end{equation}
+
+\subsection*{Example 2: Electromagnetism}
+
+The dynamical field for electromagnetism is the vector potential $A_\mu$. Physical observables are expressed in terms of the gauge-invariant field strength tensor:
+\begin{equation}
+    F_{\mu\nu} = \partial_\mu A_\nu - \partial_\nu A_\mu
+\end{equation}
+The Lagrangian density for electromagnetism coupled to a 4-current source $J^\mu$ is:
+\begin{equation}
+    \mathcal{L} = -\frac{1}{4}F_{\mu\nu}F^{\mu\nu} + A_\mu J^\mu
+\end{equation}
+Applying the Euler-Lagrange equations for the field $A_\nu$:
+\begin{itemize}
+    \item $\frac{\partial\mathcal{L}}{\partial A_\nu} = J^\nu$
+    \item A careful calculation shows $\frac{\partial\mathcal{L}}{\partial(\partial_\mu A_\nu)} = -F^{\mu\nu}$
+\end{itemize}
+Plugging these into the Euler-Lagrange equation gives:
+\[
+    J^\nu - \partial_\mu(-F^{\mu\nu}) = 0
+\]
+Using the antisymmetry of $F^{\mu\nu}$, this becomes the inhomogeneous Maxwell's equation:
+\begin{equation}
+    \partial_\mu F^{\nu\mu} = J^\nu
+\end{equation}
+The other Maxwell equation, $\partial_{[\mu}F_{\nu\lambda]}=0$, is automatically satisfied by the definition of $F_{\mu\nu}$ in terms of $A_\mu$, since partial derivatives commute.
+
+\subsection*{Energy-Momentum Tensors from the Action}
+
+The action principle provides a direct procedure for deriving the energy-momentum tensor for any field theory. For the examples above, the results are:
+\begin{itemize}
+    \item \textbf{Scalar Field:}
+    \begin{equation}
+        T^{\mu\nu}_{\text{scalar}} = (\partial^\mu\phi)(\partial^\nu\phi) - \eta^{\mu\nu}\left[\frac{1}{2}(\partial_\lambda\phi)(\partial^\lambda\phi) + V(\phi)\right]
+    \end{equation}
+    \item \textbf{Electromagnetism:}
+    \begin{equation}
+        T^{\mu\nu}_{\text{EM}} = {F^{\mu\lambda}}{F^\nu}_\lambda - \frac{1}{4}\eta^{\mu\nu} F^{\lambda\sigma}F_{\lambda\sigma}
+    \end{equation}
+\end{itemize}
+Using the equations of motion for each theory, these energy-momentum tensors can be shown to be conserved ($\partial_\mu T^{\mu\nu} = 0$).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% END DOCUMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}

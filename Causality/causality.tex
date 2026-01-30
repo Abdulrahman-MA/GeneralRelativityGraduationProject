@@ -1,0 +1,141 @@
+\documentclass[11pt, a4paper]{report}
+
+% ----- PACKAGES -----
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage[margin=0.8in]{geometry}
+\usepackage{hyperref}
+\usepackage{svg}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{subcaption}
+\usepackage{float}
+
+
+\hypersetup{
+    colorlinks = true,
+    linkcolor  = blue,
+    filecolor  = magenta,
+    urlcolor   = cyan
+}
+
+
+% Optional: make links blue but not boxed
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue
+}
+% ----- CHAPTER TITLE CUSTOMIZATION -----
+\titleformat{\chapter}[display]
+  {\normalfont\Large\bfseries}
+  {\chaptertitlename\ \thechapter}
+  {1em}
+  {}
+\titlespacing*{\chapter}
+  {0pt}
+  {5pt}
+  {15pt}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\itshape} % bold + italic for section titles
+  {\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\itshape} % italic, same size as default subsection
+  {\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries\itshape} % italic, same size as default subsubsection
+  {\thesubsubsection}{1em}{}
+
+% ----- HEADER & FOOTER SETUP -----
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+% ----- TITLE PAGE INFORMATION -----
+\title{Notes: Special Relativity and Flat Spacetime}
+\author{Abdelrahman Mohamed Anwar}
+\date{\today}
+
+% add: clickable equation reference macro (uses hyperref)
+\newcommand{\eqn}[1]{\hyperref[#1]{\eqref{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DOCUMENT BEGINS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MAIN CONTENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Causality}
+\section{6.0 Introduction and 6.1 Orientability}
+
+\subsection{Summary of the Text}
+In this introductory section, Hawking and Ellis establish the mathematical foundation for analyzing causality. They state that studying causal relationships is equivalent to studying the conformal geometry of spacetime. This is the set of all metrics conformally related to the physical metric $g$ by a positive scaling factor $\Omega^2$. They note that while light cones and null geodesics are invariant under these transformations, geodesic completeness (the ability of a particle to travel forever) is not, as it depends on the scale factor.
+
+The authors then define time-orientability as the existence of a continuous designation of "future" at every point. If a spacetime lacks this property, it possesses a double covering space that is time-orientable. For the remainder of the book, they assume spacetime is time-orientable. They also briefly mention that physical arguments involving CPT invariance suggest that time-orientability implies space-orientability.
+
+\subsection{Expanded Conceptual Explanation}
+
+\paragraph{The Conformal Nature of Causality}
+General Relativity uses a metric tensor $g_{ab}$ to define both the geometry (distances, curvature) and the causal structure (light cones). The authors isolate the causal structure by noting its invariance under conformal scaling. If we transform the metric to $\tilde{g}_{ab} = \Omega^2(x) g_{ab}$ (where $\Omega$ is a smooth, non-zero function), the condition defining a light ray, $ds^2 = 0$, remains true because $\Omega^2 \cdot 0 = 0$. Consequently, the paths of light rays are identical in both metrics. This implies that the network of cause and effect is rigid, even if we arbitrarily stretch or shrink the definitions of length and duration across spacetime.
+
+\paragraph{Geodesic Completeness is Scale Dependent}
+A singularity is often defined by the incompleteness of geodesics (a particle path simply stops). However, the authors warn that this property is unstable under conformal transformations. By choosing a specific $\Omega$, one could shrink an infinite path into a finite one, creating an artificial boundary, or stretch a finite path to infinity. This distinction is crucial for Chapter 8, where they must carefully define singularities in a way that does not depend on the arbitrary choice of a conformal factor.
+
+\paragraph{Global Time Orientability}
+While Special Relativity ensures we can distinguish future from past locally, General Relativity allows for topologies where this distinction cannot be made globally. A non-time-orientable spacetime is analogous to a Möbius strip: a traveler moving along a closed loop could return to their starting point with their local definition of "future" reversed relative to the surroundings. To avoid these unphysical paradoxes (where entropy might decrease for the traveler relative to the observer), the authors utilize the topological tool of the double covering space. This essentially unwraps the twisted spacetime into a larger manifold where the future direction is globally consistent.
+
+\subsection{Geometric and Physical Intuition}
+
+\paragraph{Visualizing Conformal Invariance}
+% FIGURE: Imagine a Mercator projection of Earth. The map preserves angles (conformal), so a ship sailing on a constant bearing traces a straight line on the map. However, the size of Greenland is vastly exaggerated compared to Africa.
+In spacetime, a Penrose Diagram acts like this map. It uses a conformal factor $\Omega$ that shrinks infinite distances into a finite diamond shape. 
+
+[Image of Light cone]
+ The light cones (causality) remain at 45 degrees, preserving the causal structure, but the scale of distance is distorted to bring "infinity" onto the page.
+
+\paragraph{The Time-Möbius Strip}
+Consider a cylinder representing a universe with one spatial dimension (circle) and one time dimension (vertical). If the cylinder has a twist (like a Klein bottle), a vector pointing "up" (future) moved around the spatial circle will arrive pointing "down" (past).
+In such a universe, there is no global definition of "later". Physics, which relies on the evolution of states from past to future, breaks down. By moving to the covering space, we effectively cut the cylinder and unwrap it, creating a "top" and "bottom" sheet that restores the distinction between future and past.
+
+\subsection{Key Definitions}
+
+\paragraph{Conformal Transformation}
+A mapping that relates two metrics $g_{ab}$ and $\tilde{g}_{ab}$ by a smooth, positive scalar field $\Omega$:
+$$\tilde{g}_{ab} = \Omega^2 g_{ab}$$
+This transformation preserves the null structure (light cones) but alters non-null lengths and proper times.
+
+\paragraph{Time-Orientability}
+A spacetime $(\mathcal{M}, g)$ is time-orientable if there exists a continuous, nowhere-vanishing timelike vector field $V^a$ on $\mathcal{M}$. This field provides a global reference, allowing one to designate the "future" lobe of the light cone unambiguously at every point.
+
+\subsection{Examples and Simple Spacetimes}
+
+\paragraph{Minkowski Space}
+The standard flat spacetime $\mathbb{R}^4$ is orientable. We can define a vector field $V = \partial/\partial t$ that points in the positive time direction everywhere. This vector never vanishes and is always timelike, satisfying the definition.
+
+\paragraph{The Elliptic Cylinder}
+Consider Minkowski space with points identified via an inversion: $(t, x) \sim (-t, -x)$. A path connecting a point to its identified partner results in a reversal of the time coordinate. This is a non-time-orientable spacetime. Its covering space is simply Minkowski space itself, where we do not make this identification, thus resolving the causal ambiguity.
+
+\subsection{Context Within the Book}
+This section provides the necessary conditions to define the causal relations $I^+$ and $J^+$ in the subsequent section. Without the assumption of time-orientability, the concepts of "future" and "past" would be locally valid but globally meaningless. By assuming orientability, the authors ensure that the causal definitions they are about to introduce are well-defined across the entire manifold.
+\end{document}

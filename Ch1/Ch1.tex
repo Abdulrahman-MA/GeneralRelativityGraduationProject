@@ -114,8 +114,20 @@ This can be formulated in two equivalent ways.
 \end{equation}
 
 \subsection*{Potential-Based Formulation}
-
-Field Creation: The gravitational potential $\Phi$ is related to the mass density $\rho$ by Poisson's equation:
+From Newton's 2nd law of gravity and the gravitational force law \eqn{eq:newton-force}, \eqn{eq:newton-second} we can derive the gravitational potential $\Phi$ and rewrite the two components of Newtonian gravity.
+\begin{equation}
+    a = -\frac{GM}{r^2} \hat{e_r}
+\end{equation}
+By getting the flux of the gravity for a body:
+$$a.dA = (-G \frac{M}{r^2} \space \hat{r}).(dA \space \space \hat{r}) = -G \frac{M}{r^2}\ . \ dA$$
+$$Flux  = \oint_s a \space . \space dA = - G \frac{M}{r^2} \oint_s dA = - 4 \pi G M_{enclosed}$$
+Using the enclosed mass relation:
+$$M_{enclosed} = \int_v \rho dV$$
+now we can write: 
+$$\oint_s a \space . \space dA = - 4 \pi G \int_v \rho dV$$
+By using the divergence theorem:
+$$\int_v (\nabla . a) dV = - 4 \pi G \int_v \rho dV$$
+On the final step we can use $a = - \nabla \Phi$ to get The gravitational potential $\Phi$ is related to the mass density $\rho$ by Poisson's equation:
 
 \begin{equation}\label{eq:poisson}
     \nabla^2 \Phi = 4\pi G \rho
@@ -125,9 +137,50 @@ Matter Response: The acceleration of a particle is given by the gradient of the 
 \begin{equation}\label{eq:potential-accel}
     a = -\nabla \Phi
 \end{equation}
-
+\subsection*{Generic Proof To Get Poisson's Equation}
+We could start by assuming field a(r) which represent the acceleration at some point (r), but fist we have to define the newtownian gravity equation for a small mass element (dm) at some point (r'):
+\begin{equation}\label{eq:acc-dm}
+da = - G \frac{dm}{|r - r'|^2} \hat{e}_{r-r'} 
+\end{equation}
+where we also have to define the dM:  
+\begin{equation}\label{eq:dm_rho}
+dM = \rho(\mathbf{r}') dV'
+\end{equation}
+and finally the gravitational flux  $\Phi$ through some closed surface (S):
+\begin{equation}\label{eq:flux}
+    \Phi = \oint_S \mathbf{a} \cdot d\mathbf{A}
+\end{equation}
+\newline
+Now the next step is to get the total acceleration at point (r) by integrating over the whole source volume ($V_{source}$):
+\begin{align*}
+    a(r) &= \int_{V_{\text{source}}} da \\
+    &=\int_{V_{\text{source}}} -G \frac{dM}{|\mathbf{r}-\mathbf{r}'|^2} \hat{\mathbf{e}}_{(\mathbf{r}-\mathbf{r}')} \\
+    &= \int_{V_{\text{source}}} -G \frac{\rho(\mathbf{r}')}{|\mathbf{r}-\mathbf{r}'|^2} \hat{\mathbf{e}}_{(\mathbf{r}-\mathbf{r}')} dV'
+\end{align*} 
+Now to get the flux ($\Phi$) it's equal to:
+\begin{align*}
+    \Phi &= \oint_S \mathbf{a} \cdot d\mathbf{A} = \oint_S \left( \int_{V_{\text{source}}} -G \frac{\rho(\mathbf{r}')}{|\mathbf{r}-\mathbf{r}'|^2} \hat{\mathbf{e}}_{(\mathbf{r}-\mathbf{r}')} dV' \right) \cdot d\mathbf{A} \\
+    &= \int_{V_{\text{source}}} -G \ \rho(\mathbf{r}')  \ \left(\oint_S  \frac{\hat{\mathbf{e}}_{(\mathbf{r}-\mathbf{r}')}}{|\mathbf{r}-\mathbf{r}'|^2}  \cdot d\mathbf{A} \right) dV'
+\end{align*}
+Now to claculate the surface integral we have to consider two cases:
+\begin{itemize}
+    \item If the source point (r') is outside the surface (S), then the surface integral is zero:
+    $$\oint_S  \frac{\hat{\mathbf{e}}_{(\mathbf{r}-\mathbf{r}')}}{|\mathbf{r}-\mathbf{r}'|^2}  \cdot d\mathbf{A} = 0 $$
+    \item If the source point (r') is inside the surface (S), then the surface integral is:
+    $$\oint_S  \frac{\hat{\mathbf{e}}_{(\mathbf{r}-\mathbf{r}')}}{|\mathbf{r}-\mathbf{r}'|^2}  \cdot d\mathbf{A} = 4 \pi $$
+\end{itemize}
+So we don't care about the case where the source isn't inside so:
+\begin{equation}\label{flux_mass}
+\Phi = \int_{V_{\text{source}}} -4 \pi G \ \rho(\mathbf{r}')  dV' =  -4 \pi G \ \int_{V_{\text{source}}}\rho(\mathbf{r}')  dV'
+\end{equation}
+We now get from \eqn{eq:flux}, \eqn{flux_mass}, \eqn{eq:potential-accel}:
+\begin{align*}
+    \oint_S \mathbf{a} \cdot d\mathbf{A} &= -4 \pi G \ \int_{V_{\text{source}}}\rho(\mathbf{r}')  dV' \\
+    \int_V (\nabla \cdot \mathbf{a}) dV &= -4 \pi G \ \int_{V_{\text{source}}}\rho(\mathbf{r}')  dV' \\
+    \nabla \cdot \mathbf{a} &= -4 \pi G \ \rho(\mathbf{r'}) \\
+    \nabla^2 \Phi &= 4 \pi G \ \rho(\mathbf{r'})
+\end{align*}
 \subsection*{General Relativity: A Preview}
-
 General Relativity replaces the two components of Newtonian theory with statements about spacetime curvature.
 
 \subsection*{How Energy-Momentum Curves Spacetime}
@@ -164,33 +217,27 @@ It replaces Newtonian mechanics, which also describes motion in space and time, 
 \subsection*{Spacetime and Worldlines}
 
 \textbf{Spacetime:} A four-dimensional set of points (events), each labeled by three spatial coordinates and one time coordinate.
-
+\newline
 \textbf{Worldline:} The one-dimensional curve traced by a particle as it moves through spacetime.
 The key difference between the Newtonian and relativistic views lies in how they treat the relationship between space and time.
-
 \subsection*{Newtonian Spacetime: Absolute Simultaneity}
 
 In the Newtonian picture, time flows uniformly and independently of space.  
 Spacetime is imagined as a stack of ``time slices,'' each representing all of space at one instant of universal time.  
 Simultaneity is absolute—observers everywhere agree on which events occur at the same moment.
-
 Particle trajectories move forward through these slices, unconstrained by any upper limit on their velocity.
 
 \subsection*{Relativistic Spacetime: The Light Cone Structure}
 
 Special relativity eliminates absolute time and simultaneity.  
 At each event, the invariant structure is instead the \emph{light cone}—the set of all possible directions that light rays through that event can take.
-
 Events inside the future light cone can be influenced by the event, and events inside the past light cone can influence it.  
 Physical trajectories (worldlines of particles) must always remain within the light cone—no signal or matter can travel faster than light.
-
+\newline
 \textbf{Conceptual contrast:} Newtonian spacetime has absolute simultaneity; relativistic spacetime has causal cones.
-
 \subsection*{The Invariant Spacetime Interval}
-
-
 The unification of space and time into a single four-dimensional entity is supported by the existence of a quantity invariant under all changes of inertial frames.
-
+\newline
 \textbf{Analogy with Euclidean Geometry:}
 In a two-dimensional plane,
 \[
@@ -205,18 +252,17 @@ The projections $\Delta x$ and $\Delta y$ change, but the distance $\Delta s$ do
 
   % Two side-by-side images
   \begin{minipage}{0.48\linewidth}
-    \includesvg[width=\linewidth]{LightCone.svg}
+    \includesvg[width=\linewidth]{images/LightCone.svg}
   \end{minipage}
   \hfill
   \begin{minipage}{0.48\linewidth}
-    \includesvg[width=\linewidth]{WorldlineCones.svg}
+    \includesvg[width=\linewidth]{images/WorldlineCones.svg}
   \end{minipage}
 
   \caption{Left: Newtonian spacetime slices. Right: Relativistic light cone structure.  
   (See \href{https://github.com/Abdulrahman-MA/GeneralRelativityGraduationProject/blob/main/ChapterOnePlots.ipynb}{source notebook}).}
   \vspace{-10pt}
 \end{wrapfigure}
-
 Likewise, in spacetime the invariant quantity (the \emph{interval}) is
 \[
 (\Delta s)^2 = - (c \Delta t)^2 + (\Delta x)^2 + (\Delta y)^2 + (\Delta z)^2
@@ -225,18 +271,14 @@ and remains the same for all inertial observers:
 \[
 (\Delta s)^2 = - (c \Delta t')^2 + (\Delta x')^2 + (\Delta y')^2 + (\Delta z')^2
 \]
-\newline
-\newline
 This invariance defines the geometry of flat spacetime, known as \textbf{Minkowski space}.
-
+\newline
 \subsection*{Minkowski Space: Coordinates and Metric}
-
 We define spacetime coordinates $x^\mu$ ($\mu = 0,1,2,3$):
 \[
 x^0 = ct, \quad x^1 = x, \quad x^2 = y, \quad x^3 = z
 \]
 and often use units where $c = 1$.
-
 The metric tensor of flat spacetime is
 \begin{equation}\label{eq:minkowski-metric}
 \eta_{\mu\nu} =
@@ -251,7 +293,6 @@ so that
 \[
 (\Delta s)^2 = \eta_{\mu\nu} \, \Delta x^\mu \Delta x^\nu
 \]
-
 \subsection*{Causal Structure and Proper Time}
 
 Intervals in spacetime fall into three classes:
@@ -280,7 +321,6 @@ ensuring that light travel time is equal in both directions.
 \subsection*{The Twin Paradox}
 
 An inertial observer’s proper time between two events $A$ and $C$ is simply $\Delta \tau = \Delta t$.  
-
 A traveling twin moving out and back with velocity $v$ experiences a total proper time
 \[
 \Delta \tau_{\text{moving}} =
@@ -571,7 +611,6 @@ The natural action of the gradient (a dual vector) on the tangent vector to a cu
 \begin{equation}
     \partial_\mu\phi \frac{dx^\mu}{d\lambda} = \frac{d\phi}{d\lambda}
 \end{equation}
-Here is the LaTeX code for Section 1.6, formatted to match your document's style.
 
 \section{Tensors}
 
@@ -902,6 +941,117 @@ For extended systems like fluids or fields, we use the \textbf{energy-momentum t
         T^{\mu\nu}_{\text{dust}} = \rho U^\mu U^\nu
     \end{equation}
     Dust has zero pressure.
+    here we assumed rest frame so now we are going to see how would the $N^\mu$ and the $T^{\mu\nu}$ look like in an moving frame where we use $U^{\mu'}$.
+    on the inertial frame we have $U^\mu = (1,0,0,0)$ which give 
+    $$N^\mu = n U^\mu = (n,0,0,0) $$  
+    and also we have the energy tensor: 
+    \begin{equation}
+    T^{\mu\nu} = \rho U^\mu U^\nu = \rho 
+    \begin{pmatrix}
+        1 \\
+        0 \\
+        0 \\
+        0 
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 & 0 & 0 & 0
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+    \rho & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0
+    \end{pmatrix}
+    \end{equation}
+    Now if we move to a transformed frame where the particles are moving with some velocity $U^{\mu'}$ the four-velocity transforms as:
+    \begin{equation}
+        U^{\mu'} = {\Lambda^{\mu'}}_\mu U^\mu
+    \end{equation}
+    so the number flux and the energy tensor will transform as:
+    \begin{align*}     
+        N^{\mu'} &= {\Lambda^{\mu'}}_\mu N^\mu \\
+        T^{\mu'\nu'} &= {\Lambda^{\mu'}}_\mu \ {\Lambda^{\nu'}}_\nu \ T^{\mu\nu}
+    \end{align*}
+    where ${\Lambda^{\mu'}}_\mu$ is the transformation matrix corresponding to the new frame. if we start with lorentz rotation around arbitrary direction:
+    \begin{equation}
+        {\Lambda^{\mu'}}_\nu =
+        \begin{pmatrix}
+        1 & 0 & 0 & 0 \\
+        0 & R_{11} & R_{12} & R_{13} \\
+        0 & R_{21} & R_{22} & R_{23} \\
+        0 & R_{31} & R_{32} & R_{33}
+        \end{pmatrix}
+    \end{equation}
+    where $R_{ij}$ are the components of the 3D rotation matrix. applying this transformation to the four-velocity in the rest frame will give us the same four-velocity in the rest frame since the time component will remain unchanged and the spatial components will be zero.
+    \begin{equation}
+        U^{\mu'} = {\Lambda^{\mu'}}_\mu U^\mu = 
+        \begin{pmatrix}
+        1 & 0 & 0 & 0 \\
+        0 & R_{11} & R_{12} & R_{13} \\
+        0 & R_{21} & R_{22} & R_{23} \\
+        0 & R_{31} & R_{32} & R_{33}
+        \end{pmatrix}
+        \begin{pmatrix}
+            1 \\
+            0\\
+            0 \\
+            0
+        \end{pmatrix} = U^\mu
+    \end{equation}
+    we can clearly see that the $U^\mu$ will remain the same after the transformation and so that the energy-tensor and the number density will be the same. So now let's consider a boost in an arbitrary direction with velocity components $(v_x, v_y, v_z)$:
+    \begin{equation}
+    {\Lambda^{\mu'}}_\mu =
+        \begin{pmatrix}
+        \gamma & -\gamma v_x & -\gamma v_y & -\gamma v_z \\
+        -\gamma v_x & 1+(\gamma-1)\frac{v_x^2}{v^2} & (\gamma-1)\frac{v_x v_y}{v^2} & (\gamma-1)\frac{v_x v_z}{v^2} \\
+        -\gamma v_y & (\gamma-1)\frac{v_y v_x}{v^2} & 1+(\gamma-1)\frac{v_y^2}{v^2} & (\gamma-1)\frac{v_y v_z}{v^2} \\
+        -\gamma v_z & (\gamma-1)\frac{v_z v_x}{v^2} & (\gamma-1)\frac{v_z v_y}{v^2} & 1+(\gamma-1)\frac{v_z^2}{v^2}
+        \end{pmatrix}
+    \end{equation}
+    \begin{align*}
+        U^{\mu'} &=\Lambda^{\mu'}_\mu U^\mu \\
+        &=
+         \begin{pmatrix}
+        \gamma & -\gamma v_x & -\gamma v_y & -\gamma v_z \\
+        -\gamma v_x & 1+(\gamma-1)\frac{v_x^2}{v^2} & (\gamma-1)\frac{v_x v_y}{v^2} & (\gamma-1)\frac{v_x v_z}{v^2} \\
+        -\gamma v_y & (\gamma-1)\frac{v_y v_x}{v^2} & 1+(\gamma-1)\frac{v_y^2}{v^2} & (\gamma-1)\frac{v_y v_z}{v^2} \\
+        -\gamma v_z & (\gamma-1)\frac{v_z v_x}{v^2} & (\gamma-1)\frac{v_z v_y}{v^2} & 1+(\gamma-1)\frac{v_z^2}{v^2}
+        \end{pmatrix}
+        \begin{pmatrix}
+            1 \\
+            0\\
+            0 \\
+            0
+        \end{pmatrix} \\
+        &= \gamma
+        \begin{pmatrix}
+            1 \\
+            -v_x \\
+            -v_y \\
+            -v_z
+        \end{pmatrix}
+    \end{align*}
+    so now we can calculate the number-flux and the energy tensor four-vector in this frame:
+    \begin{equation}
+    N^{\mu'} = n U^{\mu'} = n \gamma 
+    \begin{pmatrix}
+        1 \\
+        -v_x \\
+        -v_y \\
+        -v_z
+    \end{pmatrix}
+    \end{equation}
+    now for the energy tensor we have:
+    \begin{equation}
+    T^{\mu'\nu'} = \rho U^{\mu'} U^{\nu'} = \rho \gamma^2
+    \begin{pmatrix}
+        1 & -v_x & -v_y & -v_z \\
+        -v_x & v_x^2 & v_x v_y & v_x v_z \\
+        -v_y & v_y v_x & v_y^2 & v_y v_z \\
+        -v_z & v_z v_x & v_z v_y & v_z^2
+    \end{pmatrix}
+    \end{equation}
 
     \item \textbf{Perfect Fluid:} A fluid that is completely characterized by its rest-frame energy density $\rho$ and an isotropic rest-frame pressure $p$. In its rest frame, its energy-momentum tensor is:
     \begin{equation}
@@ -918,6 +1068,27 @@ For extended systems like fluids or fields, we use the \textbf{energy-momentum t
         T^{\mu\nu} = (\rho+p)U^\mu U^\nu + p\eta^{\mu\nu}
     \end{equation}
     The physics of a specific perfect fluid is determined by an \textbf{equation of state}, $p = p(\rho)$. An important example is \textbf{vacuum energy}, for which $p_{\text{vac}} = -\rho_{\text{vac}}$, leading to $T^{\mu\nu}_{\text{vac}} = -\rho_{\text{vac}}\eta^{\mu\nu}$.
+    Again, the four-velocity will be the same after transforming under rotation on arbitrary direction, and for the boost in arbitrary direction we will have:
+    $$T^{\mu'\nu'} = (\rho + p) U^{\mu'} U^{\nu'} + p \eta^{\mu\nu}$$
+    $$= (\rho + p)
+    \begin{pmatrix}
+        \gamma \\
+        -\gamma v_x \\
+        -\gamma v_y \\
+        -\gamma v_z
+    \end{pmatrix}
+    \begin{pmatrix}
+        \gamma & -\gamma v_x & -\gamma v_y & -\gamma v_z
+    \end{pmatrix}+ p \ dig(-1,1,1,1) $$
+
+    $$ =
+    \begin{pmatrix}
+    \gamma^2(\rho + p) - p & -\gamma^2 v_x (\rho + p) & -\gamma^2 v_y (\rho + p) & -\gamma^2 v_z (\rho + p) \\
+    -\gamma^2 v_x (\rho + p) & \gamma^2 v_x^2 (\rho + p) + p & \gamma^2 v_x v_y (\rho + p) & \gamma^2 v_x v_z (\rho + p) \\
+    -\gamma^2 v_y (\rho + p) & \gamma^2 v_y v_x (\rho + p) & \gamma^2 v_y^2 (\rho + p) + p & \gamma^2 v_y v_z (\rho + p) \\
+    -\gamma^2 v_z (\rho + p) & \gamma^2 v_z v_x (\rho + p) & \gamma^2 v_z v_y (\rho + p) & \gamma^2 v_z^2 (\rho + p) + p
+    \end{pmatrix} 
+    $$
 \end{itemize}
 
 \subsection*{Conservation of Energy-Momentum}

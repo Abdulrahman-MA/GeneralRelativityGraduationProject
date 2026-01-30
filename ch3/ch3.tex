@@ -1,0 +1,1779 @@
+\documentclass[11pt, a4paper]{report}
+
+% ----- PACKAGES -----
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage[margin=0.8in]{geometry}
+\usepackage{hyperref}
+\usepackage{svg}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{subcaption}
+\usepackage{float}
+
+
+\hypersetup{
+    colorlinks = true,
+    linkcolor  = blue,
+    filecolor  = magenta,
+    urlcolor   = cyan
+}
+
+
+% Optional: make links blue but not boxed
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue
+}
+% ----- CHAPTER TITLE CUSTOMIZATION -----
+\titleformat{\chapter}[display]
+  {\normalfont\Large\bfseries}
+  {\chaptertitlename\ \thechapter}
+  {1em}
+  {}
+\titlespacing*{\chapter}
+  {0pt}
+  {5pt}
+  {15pt}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\itshape} % bold + italic for section titles
+  {\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\itshape} % italic, same size as default subsection
+  {\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries\itshape} % italic, same size as default subsubsection
+  {\thesubsubsection}{1em}{}
+
+% ----- HEADER & FOOTER SETUP -----
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+% ----- TITLE PAGE INFORMATION -----
+\title{Notes: Special Relativity and Flat Spacetime}
+\author{Abdelrahman Mohamed Anwar}
+\date{\today}
+
+% add: clickable equation reference macro (uses hyperref)
+\newcommand{\eqn}[1]{\hyperref[#1]{\eqref{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DOCUMENT BEGINS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MAIN CONTENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Curvature}
+\section{Overview}
+
+\subsection*{Curvature and the Metric}
+We intuitively know that a surface like a sphere is curved, while a plane is flat. In General Relativity, we must formalize this using the metric tensor \(g_{\mu\nu}\). Curvature depends on the metric, but the relationship is subtle: even a flat space can have a complicated-looking metric if we choose a weird coordinate system (like polar coordinates). Our goal is to construct a mathematical object—the curvature tensor—that tells us whether the space is genuinely curved, independent of our coordinate choice.
+
+\subsection*{The Mathematical Roadmap}
+This chapter builds a hierarchy of structures, starting from the metric and ending with Einstein's equations. Here is the summary of the key objects we will derive.
+
+\subsubsection*{1. The Connection (Christoffel Symbols)}
+To do calculus in curved space, we need a way to connect vectors lying in tangent spaces at different points. This structure is called a \textbf{connection}. In GR, we use a unique connection derived from the metric, characterized by the \textbf{Christoffel symbols} \(\Gamma^\lambda_{\mu\nu}\):
+\begin{equation}
+\label{eq:christoffel_preview}
+\Gamma_{\mu\nu}^{\lambda} = \frac{1}{2}g^{\lambda\sigma} (\partial_{\mu}g_{\nu\sigma} + \partial_{\nu}g_{\sigma\mu} - \partial_{\sigma}g_{\mu\nu}).
+\end{equation}
+\emph{Note:} \(\Gamma\) is not a tensor; it is a tool to correct for the "turning" of the coordinate grid.
+
+\subsubsection*{2. The Covariant Derivative}
+The partial derivative \(\partial_\mu\) is not a good operator in curved space because it doesn't transform as a tensor. We replace it with the \textbf{Covariant Derivative} \(\nabla_\mu\), constructed using the connection:
+\begin{equation}
+\label{eq:cov_deriv_preview}
+\nabla_{\mu}V^{\nu} = \partial_{\mu}V^{\nu} + \Gamma_{\mu\sigma}^{\nu}V^{\sigma}.
+\end{equation}
+Here, \(V^\nu\) is a vector field. The extra term \(\Gamma V\) subtracts the changes that are purely due to the coordinate system curving, leaving behind the true geometric change of the vector.
+
+\subsubsection*{3. Geodesics}
+A straight line is a path that does not accelerate. In curved space, this generalizes to a \textbf{geodesic}. A curve \(x^\mu(\lambda)\) is a geodesic if it satisfies the geodesic equation:
+\begin{equation}
+\label{eq:geodesic_preview}
+\frac{d^{2}x^{\mu}}{d\lambda^{2}} + \Gamma_{\rho\sigma}^{\mu} \frac{dx^{\rho}}{d\lambda} \frac{dx^{\sigma}}{d\lambda} = 0.
+\end{equation}
+This equation says that the "acceleration" of the path (second derivative) is exactly canceled by the curvature of the coordinates (the \(\Gamma\) terms), meaning the particle is freely falling.
+
+\subsubsection*{4. The Riemann Curvature Tensor}
+Finally, the definitive measure of curvature is the \textbf{Riemann tensor} \(R^\rho_{\sigma\mu\nu}\). It is constructed from derivatives of the connection:
+\begin{equation}
+\label{eq:riemann_preview}
+{R^{\rho}}_{\sigma\mu\nu} = \partial_{\mu}\Gamma_{\nu\sigma}^{\rho} - \partial_{\nu}\Gamma_{\mu\sigma}^{\rho} + \Gamma_{\mu\lambda}^{\rho}\Gamma_{\nu\sigma}^{\lambda} - \Gamma_{\nu\lambda}^{\rho}\Gamma_{\mu\sigma}^{\lambda}.
+\end{equation}
+
+\paragraph{Intuition:} This tensor vanishes (\(R=0\)) if and only if the space is perfectly flat. If any component is non-zero, the space is curved. Einstein's equation will eventually link parts of this tensor to the energy and momentum of matter in the universe.
+\section{Covariant Derivatives}
+
+\subsection*{The Problem with Partial Derivatives}
+In flat space with inertial coordinates, the partial derivative operator \(\partial_\mu\) is sufficient to map tensors to tensors. However, on a general manifold, the partial derivative of a tensor does not transform as a tensor.
+
+Let us verify this failure for a vector field \(V^\nu\). We transform coordinates from \(x^\mu\) to \(x^{\mu'}\). The transformation law for the vector itself is:
+\begin{equation}
+V^{\nu'} = \frac{\partial x^{\nu'}}{\partial x^\nu} V^\nu.
+\end{equation}
+Taking the partial derivative \(\partial_{\mu'} = \frac{\partial x^\mu}{\partial x^{\mu'}} \partial_\mu\) of this expression:
+\begin{align}
+\partial_{\mu'} V^{\nu'} &= \frac{\partial x^\mu}{\partial x^{\mu'}} \partial_\mu \left( \frac{\partial x^{\nu'}}{\partial x^\nu} V^\nu \right) \\
+&= \frac{\partial x^\mu}{\partial x^{\mu'}} \left[ \left( \partial_\mu \frac{\partial x^{\nu'}}{\partial x^\nu} \right) V^\nu + \frac{\partial x^{\nu'}}{\partial x^\nu} (\partial_\mu V^\nu) \right] \\
+&= \underbrace{\frac{\partial x^\mu}{\partial x^{\mu'}} \frac{\partial x^{\nu'}}{\partial x^\nu} (\partial_\mu V^\nu)}_{\text{Tensor part}} + \underbrace{\frac{\partial x^\mu}{\partial x^{\mu'}} \frac{\partial^2 x^{\nu'}}{\partial x^\mu \partial x^\nu} V^\nu}_{\text{Non-tensorial part}}.
+\end{align}
+The second term involves the second derivative of the coordinate transformation. Unless the transformation is linear (as in Special Relativity), this term is non-zero, meaning \(\partial_{\mu'} V^{\nu'}\) is not a tensor.
+
+\paragraph{Intuition:} The partial derivative compares a vector at point \(x\) with a vector at \(x + dx\). In curvilinear coordinates (or curved space), the coordinate basis vectors themselves change direction and length between these points. The "non-tensorial part" above essentially captures the changes in the coordinate grid, contaminating our measurement of how the vector field itself is changing.
+
+\subsection*{Defining the Covariant Derivative}
+We seek a new operator \(\nabla_\mu\) (the covariant derivative) that fixes this by accounting for the background geometry. We postulate that \(\nabla_\mu\) is a linear map from \((k, l)\) tensors to \((k, l+1)\) tensors satisfying the Leibniz rule:
+\begin{equation}
+\nabla (T \otimes S) = (\nabla T) \otimes S + T \otimes (\nabla S).
+\end{equation}
+For a vector \(V^\nu\), we define the covariant derivative as the partial derivative plus a linear correction term involving the connection coefficients \(\Gamma^\nu_{\mu\lambda}\):
+\begin{equation}
+\label{eq:cov_deriv_vector}
+\nabla_\mu V^\nu = \partial_\mu V^\nu + \Gamma^\nu_{\mu\lambda} V^\lambda.
+\end{equation}
+\emph{Note: \(\Gamma^\nu_{\mu\lambda}\) is not a tensor. It is a set of \(n^3\) functions (coefficients) specifically designed to cancel the non-tensorial trash generated by the partial derivative.}
+
+\subsection*{Transformation Law for Connection Coefficients}
+We can derive exactly how \(\Gamma\) must transform by demanding that \(\nabla_\mu V^\nu\) acts like a tensor. The target transformation law is:
+\begin{equation}
+\nabla_{\mu'} V^{\nu'} = \frac{\partial x^\mu}{\partial x^{\mu'}} \frac{\partial x^{\nu'}}{\partial x^\nu} \nabla_\mu V^\nu.
+\end{equation}
+Let us expand both sides.
+\textbf{LHS (Primed coordinates):}
+\begin{equation}
+\nabla_{\mu'} V^{\nu'} = \partial_{\mu'} V^{\nu'} + \Gamma^{\nu'}_{\mu'\lambda'} V^{\lambda'}.
+\end{equation}
+Substituting the partial derivative result we found earlier:
+\begin{equation}
+\label{eq:lhs_gamma_trans}
+\nabla_{\mu'} V^{\nu'} = \frac{\partial x^\mu}{\partial x^{\mu'}} \frac{\partial x^{\nu'}}{\partial x^\nu} \partial_\mu V^\nu + \frac{\partial x^\mu}{\partial x^{\mu'}} V^\nu \frac{\partial^2 x^{\nu'}}{\partial x^\mu \partial x^\nu} + \Gamma^{\nu'}_{\mu'\lambda'} V^{\lambda'}.
+\end{equation}
+\textbf{RHS (Transformed Unprimed coordinates):}
+\begin{equation}
+\frac{\partial x^\mu}{\partial x^{\mu'}} \frac{\partial x^{\nu'}}{\partial x^\nu} \left( \partial_\mu V^\nu + \Gamma^\nu_{\mu\lambda} V^\lambda \right) = \frac{\partial x^\mu}{\partial x^{\mu'}} \frac{\partial x^{\nu'}}{\partial x^\nu} \partial_\mu V^\nu + \frac{\partial x^\mu}{\partial x^{\mu'}} \frac{\partial x^{\nu'}}{\partial x^\nu} \Gamma^\nu_{\mu\lambda} V^\lambda.
+\end{equation}
+Equating LHS and RHS, the term with \(\partial_\mu V^\nu\) cancels on both sides. We are left with:
+\begin{equation}
+\frac{\partial x^\mu}{\partial x^{\mu'}} V^\nu \frac{\partial^2 x^{\nu'}}{\partial x^\mu \partial x^\nu} + \Gamma^{\nu'}_{\mu'\lambda'} V^{\lambda'} = \frac{\partial x^\mu}{\partial x^{\mu'}} \frac{\partial x^{\nu'}}{\partial x^\nu} \Gamma^\nu_{\mu\lambda} V^\lambda.
+\end{equation}
+We want to isolate \(\Gamma^{\nu'}_{\mu'\lambda'}\). First, rewrite dummy indices to factor out the vector \(V\). On the LHS term \(\Gamma^{\nu'}_{\mu'\lambda'} V^{\lambda'}\), rewrite \(V^{\lambda'} = \frac{\partial x^\lambda}{\partial x^{\lambda'}} V^\lambda\).
+On the LHS second derivative term, change dummy index \(\nu \to \lambda\) so it acts on \(V^\lambda\).
+\begin{equation}
+\left( \Gamma^{\nu'}_{\mu'\lambda'} \frac{\partial x^\lambda}{\partial x^{\lambda'}} + \frac{\partial x^\mu}{\partial x^{\mu'}} \frac{\partial^2 x^{\nu'}}{\partial x^\mu \partial x^\lambda} \right) V^\lambda = \left( \frac{\partial x^\mu}{\partial x^{\mu'}} \frac{\partial x^{\nu'}}{\partial x^\nu} \Gamma^\nu_{\mu\lambda} \right) V^\lambda.
+\end{equation}
+Since this must hold for \emph{any} vector \(V^\lambda\), the terms in the parentheses must be equal:
+\begin{equation}
+\Gamma^{\nu'}_{\mu'\lambda'} \frac{\partial x^\lambda}{\partial x^{\lambda'}} = \frac{\partial x^\mu}{\partial x^{\mu'}} \frac{\partial x^{\nu'}}{\partial x^\nu} \Gamma^\nu_{\mu\lambda} - \frac{\partial x^\mu}{\partial x^{\mu'}} \frac{\partial^2 x^{\nu'}}{\partial x^\mu \partial x^\lambda}.
+\end{equation}
+Multiply by \(\frac{\partial x^{\lambda'}}{\partial x^\lambda}\) to isolate \(\Gamma^{\nu'}_{\mu'\lambda'}\). Note that \(\frac{\partial x^\lambda}{\partial x^{\lambda'}} \frac{\partial x^{\sigma'}}{\partial x^\lambda} = \delta^{\sigma'}_{\lambda'}\).
+\begin{equation}
+\label{eq:gamma_transformation}
+\Gamma^{\nu'}_{\mu'\lambda'} = \frac{\partial x^\mu}{\partial x^{\mu'}} \frac{\partial x^\lambda}{\partial x^{\lambda'}} \frac{\partial x^{\nu'}}{\partial x^\nu} \Gamma^\nu_{\mu\lambda} - \frac{\partial x^\mu}{\partial x^{\mu'}} \frac{\partial x^{\lambda}}{\partial x^{\lambda'}} \frac{\partial^2 x^{\nu'}}{\partial x^\mu \partial x^\lambda}.
+\end{equation}
+% (Shortcut: combined trivial algebraic simplifications — grouped the partial derivative factors.)
+This is the transformation law for the connection coefficients. The second term is the inhomogeneous part that makes \(\Gamma\) non-tensorial.
+
+\subsection*{Covariant Derivative of One-Forms}
+To find the rule for one-forms \(\omega_\nu\), we assume two additional properties:
+\begin{enumerate}
+    \item Commutation with contraction: \(\nabla_\mu (V^\lambda \omega_\lambda) = \partial_\mu (V^\lambda \omega_\lambda)\) (since \(V^\lambda \omega_\lambda\) is a scalar).
+    \item Leibniz rule holds.
+\end{enumerate}
+Let's expand the derivative of the scalar contraction:
+\begin{align}
+\nabla_\mu (\omega_\lambda V^\lambda) &= (\nabla_\mu \omega_\lambda) V^\lambda + \omega_\lambda (\nabla_\mu V^\lambda) \\
+\partial_\mu (\omega_\lambda V^\lambda) &= (\nabla_\mu \omega_\lambda) V^\lambda + \omega_\lambda (\partial_\mu V^\lambda + \Gamma^\lambda_{\mu\sigma} V^\sigma).
+\end{align}
+We also know directly that \(\partial_\mu (\omega_\lambda V^\lambda) = (\partial_\mu \omega_\lambda) V^\lambda + \omega_\lambda (\partial_\mu V^\lambda)\). Equating the two lines:
+\begin{equation}
+(\partial_\mu \omega_\lambda) V^\lambda + \omega_\lambda \partial_\mu V^\lambda = (\nabla_\mu \omega_\lambda) V^\lambda + \omega_\lambda \partial_\mu V^\lambda + \omega_\lambda \Gamma^\lambda_{\mu\sigma} V^\sigma.
+\end{equation}
+Cancel \(\omega_\lambda \partial_\mu V^\lambda\) from both sides:
+\begin{equation}
+(\partial_\mu \omega_\lambda) V^\lambda = (\nabla_\mu \omega_\lambda) V^\lambda + \omega_\sigma \Gamma^\sigma_{\mu\lambda} V^\lambda.
+\end{equation}
+% (Shortcut: Relabeled dummy indices \(\lambda \leftrightarrow \sigma\) in the last term to factor out \(V^\lambda\).)
+Since \(V^\lambda\) is arbitrary:
+\begin{equation}
+\partial_\mu \omega_\lambda = \nabla_\mu \omega_\lambda + \Gamma^\sigma_{\mu\lambda} \omega_\sigma \quad \Longrightarrow \quad \nabla_\mu \omega_\lambda = \partial_\mu \omega_\lambda - \Gamma^\sigma_{\mu\lambda} \omega_\sigma.
+\end{equation}
+Notice the sign change compared to vectors. This pattern generalizes to any tensor: \textbf{add} a \(\Gamma\) term for every upper index, and \textbf{subtract} a \(\Gamma\) term for every lower index.
+
+\subsection*{The Christoffel Connection}
+There are infinitely many possible connections \(\Gamma\) on a manifold. However, general relativity uses a specific unique connection derived from the metric \(g_{\mu\nu}\). This connection is defined by two constraints:
+\begin{enumerate}
+    \item \textbf{Torsion-Free:} \(\Gamma^\lambda_{\mu\nu} = \Gamma^\lambda_{\nu\mu}\). (The coefficients are symmetric in lower indices).
+    \item \textbf{Metric Compatibility:} \(\nabla_\rho g_{\mu\nu} = 0\). (The metric is covariantly constant).
+\end{enumerate}
+
+\subsubsection*{1. Vanishing Covariant Derivative of the Inverse Metric}
+We aim to show $\nabla_\rho g^{\mu\nu} = 0$.
+Start with the definition of the inverse metric:
+\begin{equation}
+    g^{\mu\sigma} g_{\sigma\nu} = \delta^\mu_\nu
+\end{equation}
+Apply the covariant derivative $\nabla_\rho$ to both sides. Recall that $\nabla_\rho \delta^\mu_\nu = 0$:
+\begin{equation}
+    \nabla_\rho (g^{\mu\sigma} g_{\sigma\nu}) = 0
+\end{equation}
+Expand using the Leibniz (product) rule:
+\begin{equation}
+    (\nabla_\rho g^{\mu\sigma}) g_{\sigma\nu} + g^{\mu\sigma} (\nabla_\rho g_{\sigma\nu}) = 0
+\end{equation}
+Assume metric compatibility ($\nabla_\rho g_{\sigma\nu} = 0$). The second term vanishes:
+\begin{equation}
+    (\nabla_\rho g^{\mu\sigma}) g_{\sigma\nu} = 0
+\end{equation}
+Contract with the inverse metric $g^{\nu\lambda}$:
+\begin{equation}
+    (\nabla_\rho g^{\mu\sigma}) g_{\sigma\nu} g^{\nu\lambda} = 0
+\end{equation}
+Using $g_{\sigma\nu} g^{\nu\lambda} = \delta^\lambda_\sigma$:
+\begin{equation}
+    (\nabla_\rho g^{\mu\sigma}) \delta^\lambda_\sigma = \nabla_\rho g^{\mu\lambda} = 0 \quad \text{(Q.E.D.)}
+\end{equation}
+
+\subsubsection*{2. Vanishing Covariant Derivative of the Levi-Civita Tensor}
+We aim to show $\nabla_\lambda \epsilon_{\mu\nu\rho\sigma} = 0$.
+The Levi-Civita tensor is defined using the permutation symbol $\tilde{\epsilon}_{\mu\nu\rho\sigma}$ (constants $0, \pm 1$) and the metric determinant $g$:
+\begin{equation}
+    \epsilon_{\mu\nu\rho\sigma} = \sqrt{|g|} \, \tilde{\epsilon}_{\mu\nu\rho\sigma}
+\end{equation}
+Consider a \textbf{Locally Inertial Coordinate System} (Riemann Normal Coordinates) at a point $p$. In these coordinates:
+\begin{equation}
+    \Gamma^\alpha_{\beta\gamma}(p) = 0 \quad \text{and} \quad \partial_\lambda g_{\mu\nu}(p) = 0
+\end{equation}
+Consequently, the partial derivative of the determinant vanishes:
+\begin{equation}
+    \partial_\lambda g = g g^{\mu\nu} \partial_\lambda g_{\mu\nu} = 0 \implies \partial_\lambda \sqrt{|g|} = 0
+\end{equation}
+In this frame, the covariant derivative reduces to the partial derivative:
+\begin{equation}
+    \nabla_\lambda \epsilon_{\mu\nu\rho\sigma} = \partial_\lambda (\sqrt{|g|} \tilde{\epsilon}_{\mu\nu\rho\sigma}) = (\partial_\lambda \sqrt{|g|}) \tilde{\epsilon}_{\mu\nu\rho\sigma} + \sqrt{|g|} (\partial_\lambda \tilde{\epsilon}_{\mu\nu\rho\sigma})
+\end{equation}
+Since $\tilde{\epsilon}$ are constants ($\partial \tilde{\epsilon} = 0$) and $\partial \sqrt{|g|} = 0$:
+\begin{equation}
+    \nabla_\lambda \epsilon_{\mu\nu\rho\sigma} = 0
+\end{equation}
+Since $\nabla_\lambda \epsilon_{\mu\nu\rho\sigma}$ is a tensor, if it vanishes in one coordinate system, it vanishes in all coordinate systems.
+\begin{equation}
+    \nabla_\lambda \epsilon_{\mu\nu\rho\sigma} = 0 \quad \text{(Q.E.D.)}
+\end{equation}
+\newline
+We can derive an explicit formula for this connection (called the \textbf{Christoffel symbols}) by permuting the indices of the metric compatibility equation.
+
+First, write the definition of metric compatibility:
+\begin{equation}
+\label{eq:metric_comp_1}
+\nabla_\rho g_{\mu\nu} = \partial_\rho g_{\mu\nu} - \Gamma^\lambda_{\rho\mu} g_{\lambda\nu} - \Gamma^\lambda_{\rho\nu} g_{\mu\lambda} = 0.
+\end{equation}
+Permute indices cyclically (\(\rho \to \mu \to \nu \to \rho\)):
+\begin{equation}
+\label{eq:metric_comp_2}
+\nabla_\mu g_{\nu\rho} = \partial_\mu g_{\nu\rho} - \Gamma^\lambda_{\mu\nu} g_{\lambda\rho} - \Gamma^\lambda_{\mu\rho} g_{\nu\lambda} = 0.
+\end{equation}
+\begin{equation}
+\label{eq:metric_comp_3}
+\nabla_\nu g_{\rho\mu} = \partial_\nu g_{\rho\mu} - \Gamma^\lambda_{\nu\rho} g_{\lambda\mu} - \Gamma^\lambda_{\nu\mu} g_{\rho\lambda} = 0.
+\end{equation}
+We define a linear combination: \((\ref{eq:metric_comp_1}) - (\ref{eq:metric_comp_2}) - (\ref{eq:metric_comp_3}) = 0\).
+\begin{align*}
+&\left(\partial_\rho g_{\mu\nu} - \Gamma^\lambda_{\rho\mu} g_{\lambda\nu} - \Gamma^\lambda_{\rho\nu} g_{\mu\lambda}\right)  \\
+-& \left(\partial_\mu g_{\nu\rho} - \Gamma^\lambda_{\mu\nu} g_{\lambda\rho} - \Gamma^\lambda_{\mu\rho} g_{\nu\lambda}\right) \\
+-& \left(\partial_\nu g_{\rho\mu} - \Gamma^\lambda_{\nu\rho} g_{\lambda\mu} - \Gamma^\lambda_{\nu\mu} g_{\rho\lambda}\right) = 0.
+\end{align*}
+Now we use the symmetries:
+\begin{itemize}
+    \item Metric symmetry: \(g_{\alpha\beta} = g_{\beta\alpha}\).
+    \item Torsion-free connection: \(\Gamma^\lambda_{\alpha\beta} = \Gamma^\lambda_{\beta\alpha}\).
+\end{itemize}
+Let's group the \(\Gamma\) terms.
+\begin{itemize}
+    \item Terms with \(g_{\nu\lambda}\): \(-\Gamma^\lambda_{\rho\mu} g_{\lambda\nu}\) (from eq 1) cancels with \(+\Gamma^\lambda_{\mu\rho} g_{\nu\lambda}\) (from eq 2).
+    \item Terms with \(g_{\mu\lambda}\): \(-\Gamma^\lambda_{\rho\nu} g_{\mu\lambda}\) (from eq 1) cancels with \(+\Gamma^\lambda_{\nu\rho} g_{\lambda\mu}\) (from eq 3).
+    \item Terms with \(g_{\rho\lambda}\): We are left with \(+\Gamma^\lambda_{\mu\nu} g_{\lambda\rho}\) (from eq 2) and \(+\Gamma^\lambda_{\nu\mu} g_{\rho\lambda}\) (from eq 3). These sum to \(2\Gamma^\lambda_{\mu\nu} g_{\lambda\rho}\).
+\end{itemize}
+The equation simplifies to:
+\begin{equation}
+\partial_\rho g_{\mu\nu} - \partial_\mu g_{\nu\rho} - \partial_\nu g_{\rho\mu} + 2 \Gamma^\lambda_{\mu\nu} g_{\lambda\rho} = 0.
+\end{equation}
+Solving for the \(\Gamma\) term:
+\begin{equation}
+2 \Gamma^\lambda_{\mu\nu} g_{\lambda\rho} = \partial_\mu g_{\nu\rho} + \partial_\nu g_{\rho\mu} - \partial_\rho g_{\mu\nu}.
+\end{equation}
+Multiply both sides by \(\frac{1}{2} g^{\sigma\rho}\) (the inverse metric) to raise the index \(\lambda \to \sigma\):
+\begin{equation}
+\label{eq:christoffel_formula}
+\Gamma^\sigma_{\mu\nu} = \frac{1}{2} g^{\sigma\rho} ( \partial_\mu g_{\nu\rho} + \partial_\nu g_{\rho\mu} - \partial_\rho g_{\mu\nu} ).
+\end{equation}
+% FIGURE: A diagram showing parallel transport on a sphere (e.g. a vector moving from equator to pole), illustrating why the derivative needs geometric correction.
+\paragraph{Intuition:} This formula tells us that the "force" (connection) needed to keep a coordinate system straight depends entirely on the rates of change of the metric components. If the metric is constant (flat space Cartesian), all partials are zero, and \(\Gamma = 0\).
+
+\subsection*{Example: Polar Coordinates in Flat Space}
+Consider the plane \(\mathbb{R}^2\) with polar coordinates \((r, \theta)\). The metric is:
+\begin{equation}
+ds^2 = dr^2 + r^2 d\theta^2 \quad \Longrightarrow \quad g_{\mu\nu} = \begin{pmatrix} 1 & 0 \\ 0 & r^2 \end{pmatrix}, \quad g^{\mu\nu} = \begin{pmatrix} 1 & 0 \\ 0 & r^{-2} \end{pmatrix}.
+\end{equation}
+Let us calculate \(\Gamma^\theta_{r\theta}\). Using the formula:
+\begin{equation}
+\Gamma^\theta_{r\theta} = \frac{1}{2} g^{\theta\lambda} ( \partial_r g_{\theta\lambda} + \partial_\theta g_{\lambda r} - \partial_\lambda g_{r\theta} ).
+\end{equation}
+The sum over \(\lambda\) involves \(\lambda=r\) and \(\lambda=\theta\).
+Since \(g^{\theta\lambda}\) is diagonal, only \(\lambda=\theta\) contributes:
+\begin{equation}
+\Gamma^\theta_{r\theta} = \frac{1}{2} g^{\theta\theta} ( \partial_r g_{\theta\theta} + \partial_\theta g_{\theta r} - \partial_\theta g_{r\theta} ).
+\end{equation}
+Substitute \(g_{\theta\theta} = r^2\) and \(g_{\theta r} = 0\):
+\begin{equation}
+\Gamma^\theta_{r\theta} = \frac{1}{2} \left(\frac{1}{r^2}\right) ( \partial_r (r^2) + 0 - 0 ) = \frac{1}{2r^2} (2r) = \frac{1}{r}.
+\end{equation}
+Similarly, for \(\Gamma^r_{\theta\theta}\):
+\begin{align}
+\Gamma^r_{\theta\theta} &= \frac{1}{2} g^{rr} ( \partial_\theta g_{\theta r} + \partial_\theta g_{r\theta} - \partial_r g_{\theta\theta} ) \\
+&= \frac{1}{2} (1) ( 0 + 0 - \partial_r(r^2) ) \\
+&= -r.
+\end{align}
+(Note: \(\Gamma\) vanishes for coordinates where the metric is constant, like Cartesian coordinates).
+
+\subsection*{Divergence Formula}
+A useful identity relates the trace of the Christoffel symbol to the determinant of the metric \(g = \det(g_{\mu\nu})\).
+\begin{equation}
+    \Gamma^\mu_{\mu\lambda} = \frac{1}{\sqrt{|g|}} \partial_\lambda \sqrt{|g|}
+\end{equation}
+where $g = \det(g_{\mu\nu})$.
+
+\subsection*{Step 1: Expand the Definition}
+We start with the general definition of the Christoffel symbol:
+\begin{equation}
+    \Gamma^\sigma_{\rho\lambda} = \frac{1}{2} g^{\sigma\nu} (\partial_\rho g_{\nu\lambda} + \partial_\lambda g_{\nu\rho} - \partial_\nu g_{\rho\lambda})
+\end{equation}
+Contracting the indices by setting $\sigma = \mu$ and $\rho = \mu$:
+\begin{equation}
+    \Gamma^\mu_{\mu\lambda} = \frac{1}{2} g^{\mu\nu} (\partial_\mu g_{\nu\lambda} + \partial_\lambda g_{\mu\nu} - \partial_\nu g_{\mu\lambda})
+\end{equation}
+Since $\mu$ and $\nu$ are dummy summation indices and the metric is symmetric ($g_{\mu\nu} = g_{\nu\mu}$), the first term $g^{\mu\nu}\partial_\mu g_{\nu\lambda}$ cancels the third term $-g^{\mu\nu}\partial_\nu g_{\mu\lambda}$. We are left with:
+\begin{equation} \label{eq:gamma_contracted}
+    \Gamma^\mu_{\mu\lambda} = \frac{1}{2} g^{\mu\nu} \partial_\lambda g_{\mu\nu}
+\end{equation}
+
+\subsection*{Step 2: Derivative of the Determinant}
+Recall Cramer's rule for the inverse of a matrix. The inverse metric $g^{\mu\nu}$ is related to the cofactor of the metric element $g_{\mu\nu}$ by:
+\begin{equation}
+    g^{\mu\nu} = \frac{1}{g} \text{adj}(g)_{\mu\nu}
+\end{equation}
+Rearranging this, we find the partial derivative of the determinant with respect to the component:
+\begin{equation}
+    \frac{\partial g}{\partial g_{\mu\nu}}=\frac{\partial(\text{adj}(g)_{\mu\nu} \ g_{\mu \nu})}{\partial g_{\mu \nu}} =  \text{adj}(g)_{\mu\nu}
+\end{equation}
+we now get 
+\begin{equation}
+    \frac{\partial g}{\partial g_{\mu\nu}} = g g^{\mu\nu}
+\end{equation}
+Using the chain rule, the derivative of the determinant $g$ with respect to the parameter $\lambda$ is:
+\begin{equation}
+    \partial_\lambda g = \frac{\partial g}{\partial g_{\mu\nu}} \partial_\lambda g_{\mu\nu} = (g g^{\mu\nu}) \partial_\lambda g_{\mu\nu}
+\end{equation}
+Dividing both sides by $g$, we obtain the identity:
+\begin{equation} \label{eq:trace_identity}
+    g^{\mu\nu} \partial_\lambda g_{\mu\nu} = \frac{1}{g} \partial_\lambda g
+\end{equation}
+
+\subsection*{Step 3: Substitution}
+Substituting the result from Eq. (\ref{eq:trace_identity}) back into Eq. (\ref{eq:gamma_contracted}):
+\begin{equation}
+    \Gamma^\mu_{\mu\lambda} = \frac{1}{2} \left( \frac{1}{g} \partial_\lambda g \right)
+\end{equation}
+Using the logarithmic derivative rule $\frac{1}{x}dx = d(\ln x)$:
+\begin{equation}
+    \Gamma^\mu_{\mu\lambda} = \frac{1}{2} \partial_\lambda (\ln |g|) = \partial_\lambda (\ln |g|^{1/2})
+\end{equation}
+This yields the final result:
+\begin{equation}
+    \Gamma^\mu_{\mu\lambda} = \frac{1}{\sqrt{|g|}} \partial_\lambda \sqrt{|g|}
+\end{equation}
+we can now get the useful divergence formula:
+\begin{equation}
+    \nabla_\mu V^\mu = \frac{1}{\sqrt{|g|}} \partial_\mu (\sqrt{|g|} V^\mu)
+\end{equation}
+There is also other formuls on of them is stock's theorem in curved space:
+\begin{equation}
+    \int_{\mathcal{V}} d^n x \sqrt{|g|} \nabla_\mu V^\mu = \int_{\partial \mathcal{V}} d^{n-1} x \sqrt{|\gamma|} n_\mu V^\mu
+\end{equation}
+\section{Parallel Transport and Geodesics}
+
+\subsection*{The Concept of Parallel Transport}
+In flat space, comparing vectors at different points is easy: we just slide the vector from point \(A\) to point \(B\) keeping its components constant. This "sliding" is called \textbf{parallel transport}. In curved space, however, the result of parallel transport depends on the path taken.
+
+% FIGURE: Parallel transport of a vector on a sphere. Show a vector starting at the equator, moving to the pole, and comparing it to one transported along a different path (e.g., rotated along the equator first).
+
+To formalize this, we look for a way to "keep the vector constant" relative to the local geometry as we move along a path \(x^\mu(\lambda)\). In flat space, "constant" means \(\frac{d V^\mu}{d\lambda} = 0\). In curved space, we replace the ordinary derivative with the covariant derivative projected along the path. We define the \textbf{directional covariant derivative} (or intrinsic derivative) \(\frac{D}{d\lambda}\) as:
+\begin{equation}
+\frac{D}{d\lambda} = \frac{dx^\mu}{d\lambda} \nabla_\mu.
+\end{equation}
+The condition for a vector \(V^\mu\) to be parallel transported along a curve \(x^\mu(\lambda)\) is that its directional covariant derivative vanishes:
+\begin{equation}
+\label{eq:parallel_transport}
+\frac{D V^\mu}{d\lambda} \equiv \frac{dx^\nu}{d\lambda} \nabla_\nu V^\mu = 0.
+\end{equation}
+Expanding the covariant derivative \(\nabla_\nu V^\mu = \partial_\nu V^\mu + \Gamma^\mu_{\nu\sigma} V^\sigma\):
+\begin{equation}
+\frac{dx^\nu}{d\lambda} \left( \frac{\partial V^\mu}{\partial x^\nu} + \Gamma^\mu_{\nu\sigma} V^\sigma \right) = 0.
+\end{equation}
+Using the chain rule \(\frac{dx^\nu}{d\lambda} \partial_\nu = \frac{d}{d\lambda}\), we get the differential equation for parallel transport:
+\begin{equation}
+\frac{d V^\mu}{d\lambda} + \Gamma^\mu_{\sigma\rho} \frac{dx^\sigma}{d\lambda} V^\rho = 0.
+\end{equation}
+\paragraph{Intuition:} This equation tells us exactly how the components \(V^\mu\) must change (\(dV/d\lambda\)) to compensate for the twisting of the coordinate system (\(\Gamma\)) so that the vector remains "geometrically constant."
+
+\subsection*{Geodesics: Definition 1 (Parallel Transport)}
+A straight line in flat space is a curve that never turns; its tangent vector always points in the same direction. Generalizing this to curved space, a \textbf{geodesic} is a curve whose tangent vector \(U^\mu = \frac{dx^\mu}{d\lambda}\) is parallel transported along itself.
+
+Substituting \(V^\mu = \frac{dx^\mu}{d\lambda}\) into the parallel transport equation (\ref{eq:parallel_transport}):
+\begin{equation}
+\frac{D}{d\lambda} \left( \frac{dx^\mu}{d\lambda} \right) = 0.
+\end{equation}
+Expanding this:
+\begin{equation}
+\frac{d}{d\lambda} \left( \frac{dx^\mu}{d\lambda} \right) + \Gamma^\mu_{\rho\sigma} \frac{dx^\rho}{d\lambda} \frac{dx^\sigma}{d\lambda} = 0.
+\end{equation}
+This yields the \textbf{Geodesic Equation}:
+\begin{equation}
+\label{eq:geodesic_eq}
+\frac{d^2 x^\mu}{d\lambda^2} + \Gamma^\mu_{\rho\sigma} \frac{dx^\rho}{d\lambda} \frac{dx^\sigma}{d\lambda} = 0.
+\end{equation}
+\paragraph{Note on Affine Parameters:} This form of the equation is only valid if \(\lambda\) is an \textbf{affine parameter} (like proper time \(\tau\) for massive particles). If we choose a weird parameter (like \(\alpha = \lambda^3\)), the RHS would not be zero, but proportional to \(dx^\mu/d\alpha\).
+
+\subsection*{Geodesics: Definition 2 (Variational Principle)}
+A second way to define a straight line is the "shortest path" between two points. In spacetime, for timelike paths, geodesics actually \emph{maximize} the proper time \(\tau\).
+
+We define the action as the proper time integral:
+\begin{equation}
+\tau = \int \sqrt{-g_{\mu\nu} \frac{dx^\mu}{d\lambda} \frac{dx^\nu}{d\lambda}} d\lambda.
+\end{equation}
+Varying the square root is messy. It is a standard "trick" to instead vary the "energy" integral \(I\), which yields the same paths if we parameterize by proper time:
+\begin{equation}
+I = \frac{1}{2} \int g_{\mu\nu} \dot{x}^\mu \dot{x}^\nu d\tau,
+\end{equation}
+where \(\dot{x}^\mu \equiv \frac{dx^\mu}{d\tau}\). We consider a variation \(x^\mu(\tau) \to x^\mu(\tau) + \delta x^\mu(\tau)\) that vanishes at the endpoints.
+The variation of the integral is:
+\begin{equation}
+\delta I = \frac{1}{2} \int \left[ \delta (g_{\mu\nu}) \dot{x}^\mu \dot{x}^\nu + g_{\mu\nu} \delta (\dot{x}^\mu) \dot{x}^\nu + g_{\mu\nu} \dot{x}^\mu \delta (\dot{x}^\nu) \right] d\tau.
+\end{equation}
+We use two facts:
+1. The metric varies because it depends on position: \(\delta g_{\mu\nu} = \partial_\sigma g_{\mu\nu} \delta x^\sigma\).
+2. Variation commutes with differentiation: \(\delta \dot{x}^\mu = \frac{d}{d\tau}(\delta x^\mu)\).
+
+Substituting these into \(\delta I\):
+\begin{equation}
+\delta I = \frac{1}{2} \int \left[ (\partial_\sigma g_{\mu\nu}) \dot{x}^\mu \dot{x}^\nu \delta x^\sigma + g_{\mu\nu} \frac{d(\delta x^\mu)}{d\tau} \dot{x}^\nu + g_{\mu\nu} \dot{x}^\mu \frac{d(\delta x^\nu)}{d\tau} \right] d\tau.
+\end{equation}
+The last two terms are identical (by relabeling indices \(\mu \leftrightarrow \nu\) and using symmetry of \(g\)). We combine them:
+\begin{equation}
+\delta I = \frac{1}{2} \int \left[ (\partial_\sigma g_{\mu\nu}) \dot{x}^\mu \dot{x}^\nu \delta x^\sigma + 2 g_{\mu\nu} \dot{x}^\nu \frac{d(\delta x^\mu)}{d\tau} \right] d\tau.
+\end{equation}
+Now, integrate the second term by parts to move the derivative off \(\delta x^\mu\):
+\begin{equation}
+\int g_{\mu\nu} \dot{x}^\nu \frac{d(\delta x^\mu)}{d\tau} d\tau = \underbrace{\left[ g_{\mu\nu} \dot{x}^\nu \delta x^\mu \right]_{\text{boundaries}}}_{=0} - \int \frac{d}{d\tau} (g_{\mu\nu} \dot{x}^\nu) \delta x^\mu d\tau.
+\end{equation}
+Use the chain rule on the time derivative: \(\frac{d}{d\tau} (g_{\mu\nu}) = \partial_\rho g_{\mu\nu} \dot{x}^\rho\).
+\begin{equation}
+\frac{d}{d\tau} (g_{\mu\nu} \dot{x}^\nu) = (\partial_\rho g_{\mu\nu} \dot{x}^\rho) \dot{x}^\nu + g_{\mu\nu} \ddot{x}^\nu.
+\end{equation}
+Substitute this back into the expression for \(\delta I\) and factor out \(\delta x^\sigma\). (We relabel dummy index \(\mu \to \sigma\) in the second term to match the first term's \(\delta x^\sigma\)):
+\begin{equation}
+\delta I = \int \left[ \frac{1}{2} \partial_\sigma g_{\mu\nu} \dot{x}^\mu \dot{x}^\nu - \left( g_{\sigma\nu} \ddot{x}^\nu + \partial_\mu g_{\sigma\nu} \dot{x}^\mu \dot{x}^\nu \right) \right] \delta x^\sigma d\tau.
+\end{equation}
+% (Shortcut: combined integration by parts result and relabeled indices for factorization.)
+We want to group the \(\dot{x} \dot{x}\) terms. In the term \(\partial_\mu g_{\sigma\nu} \dot{x}^\mu \dot{x}^\nu\), we can split the sum since \(\mu\) and \(\nu\) are symmetric dummies: \(\partial_\mu g_{\sigma\nu} \dot{x}^\mu \dot{x}^\nu = \frac{1}{2} (\partial_\mu g_{\sigma\nu} + \partial_\nu g_{\sigma\mu}) \dot{x}^\mu \dot{x}^\nu\).
+Now the term in the brackets is:
+\begin{equation}
+-g_{\sigma\nu} \ddot{x}^\nu + \frac{1}{2} \left( \partial_\sigma g_{\mu\nu} - \partial_\mu g_{\sigma\nu} - \partial_\nu g_{\sigma\mu} \right) \dot{x}^\mu \dot{x}^\nu.
+\end{equation}
+For \(\delta I = 0\) for all variations \(\delta x^\sigma\), the bracket term must vanish.
+\begin{equation}
+g_{\sigma\nu} \ddot{x}^\nu + \frac{1}{2} \left( \partial_\mu g_{\sigma\nu} + \partial_\nu g_{\sigma\mu} - \partial_\sigma g_{\mu\nu} \right) \dot{x}^\mu \dot{x}^\nu = 0.
+\end{equation}
+Multiply by the inverse metric \(g^{\lambda\sigma}\):
+\begin{equation}
+\ddot{x}^\lambda + \frac{1}{2} g^{\lambda\sigma} ( \partial_\mu g_{\sigma\nu} + \partial_\nu g_{\sigma\mu} - \partial_\sigma g_{\mu\nu} ) \dot{x}^\mu \dot{x}^\nu = 0.
+\end{equation}
+We recognize the Christoffel symbol formula (\(\Gamma^\lambda_{\mu\nu}\)) in the second term! Thus, the shortest path equation is exactly the geodesic equation derived from parallel transport:
+\begin{equation}
+\frac{d^2 x^\lambda}{d\tau^2} + \Gamma^\lambda_{\mu\nu} \frac{dx^\mu}{d\tau} \frac{dx^\nu}{d\tau} = 0.
+\end{equation}
+\paragraph{Intuition:} We have proven that "straightest" (parallel tangent) and "shortest" (extremal proper time) are identical definitions in curved spacetime, provided the connection is the metric-compatible (Christoffel) one.
+
+\subsection*{Null Geodesics}
+For massless particles (photons), the proper time vanishes (\(ds^2 = 0\)), so \(\tau\) cannot be used as a parameter. However, the path is still a geodesic. We simply use an affine parameter \(\lambda\) such that the tangent vector is the 4-momentum \(p^\mu = \frac{dx^\mu}{d\lambda}\).
+
+The equation of motion is still:
+\begin{equation}
+\frac{d^2 x^\mu}{d\lambda^2} + \Gamma^\mu_{\rho\sigma} \frac{dx^\rho}{d\lambda} \frac{dx^\sigma}{d\lambda} = 0 \quad \text{or} \quad p^\nu \nabla_\nu p^\mu = 0.
+\end{equation}
+An observer with 4-velocity \(U^\mu\) measures the energy of this photon to be:
+\begin{equation}
+E = - p_\mu U^\mu.
+\end{equation}
+\section{Properties of Geodesics}
+
+\subsection*{Affine Parameters}
+When we derived the geodesic equation \(\frac{D}{d\lambda} (\frac{dx^\mu}{d\lambda}) = 0\), we implicitly assumed a "good" parameterization. For massive particles, we used proper time \(\tau\). However, any linear transformation of the parameter works just as well.
+
+If \(\lambda\) is a parameter such that the geodesic equation holds:
+\begin{equation}
+\frac{d^2 x^\mu}{d\lambda^2} + \Gamma^\mu_{\rho\sigma} \frac{dx^\rho}{d\lambda} \frac{dx^\sigma}{d\lambda} = 0,
+\end{equation}
+then \(\lambda\) is called an \textbf{affine parameter}.
+Consider a new parameter \(\alpha(\lambda)\). By the chain rule:
+\begin{equation}
+\frac{dx^\mu}{d\lambda} = \frac{dx^\mu}{d\alpha} \frac{d\alpha}{d\lambda}.
+\end{equation}
+Differentiating again with respect to \(\lambda\):
+\begin{align}
+\frac{d^2 x^\mu}{d\lambda^2} &= \frac{d}{d\lambda} \left( \frac{dx^\mu}{d\alpha} \frac{d\alpha}{d\lambda} \right) \\
+&= \frac{d}{d\lambda} \left( \frac{dx^\mu}{d\alpha} \right) \frac{d\alpha}{d\lambda} + \frac{dx^\mu}{d\alpha} \frac{d^2\alpha}{d\lambda^2} \\
+&= \left( \frac{d^2 x^\mu}{d\alpha^2} \frac{d\alpha}{d\lambda} \right) \frac{d\alpha}{d\lambda} + \frac{dx^\mu}{d\alpha} \frac{d^2\alpha}{d\lambda^2} \\
+&= \frac{d^2 x^\mu}{d\alpha^2} \left( \frac{d\alpha}{d\lambda} \right)^2 + \frac{dx^\mu}{d\alpha} \frac{d^2\alpha}{d\lambda^2}.
+\end{align}
+Substitute this into the geodesic equation:
+\begin{equation}
+\left[ \frac{d^2 x^\mu}{d\alpha^2} \left( \frac{d\alpha}{d\lambda} \right)^2 + \frac{dx^\mu}{d\alpha} \frac{d^2\alpha}{d\lambda^2} \right] + \Gamma^\mu_{\rho\sigma} \left( \frac{dx^\rho}{d\alpha} \frac{d\alpha}{d\lambda} \right) \left( \frac{dx^\sigma}{d\alpha} \frac{d\alpha}{d\lambda} \right) = 0.
+\end{equation}
+Grouping terms by \((d\alpha/d\lambda)^2\):
+\begin{equation}
+\left( \frac{d\alpha}{d\lambda} \right)^2 \left[ \frac{d^2 x^\mu}{d\alpha^2} + \Gamma^\mu_{\rho\sigma} \frac{dx^\rho}{d\alpha} \frac{dx^\sigma}{d\alpha} \right] + \frac{dx^\mu}{d\alpha} \frac{d^2\alpha}{d\lambda^2} = 0.
+\end{equation}
+If \(\alpha\) is also an affine parameter, the term in the brackets must vanish (it's the geodesic equation for \(\alpha\)). This requires the remaining term to vanish:
+\begin{equation}
+\frac{dx^\mu}{d\alpha} \frac{d^2\alpha}{d\lambda^2} = 0 \quad \Longrightarrow \quad \frac{d^2\alpha}{d\lambda^2} = 0.
+\end{equation}
+The solution is a linear transformation:
+\begin{equation}
+\alpha = a\lambda + b,
+\end{equation}
+where \(a\) and \(b\) are constants. Thus, affine parameters are unique up to linear transformations.
+
+\paragraph{Intuition:} Just like in Newtonian mechanics where Newton's laws look simplest if time flows uniformly (\(F=ma\)), in GR geodesics look simplest if the "clock" (parameter) ticks uniformly. If you use a weird clock (like logarithmic time), the equation acquires "fictitious force" terms (the \(d^2\alpha/d\lambda^2\) part).
+
+\subsection*{Four-Momentum and Energy}
+For timelike geodesics (massive particles), we define the four-momentum using proper time \(\tau\):
+\begin{equation}
+p^\mu = m U^\mu = m \frac{dx^\mu}{d\tau}.
+\end{equation}
+The geodesic equation can be written as conservation of momentum along the path:
+\begin{equation}
+p^\lambda \nabla_\lambda p^\mu = 0.
+\end{equation}
+For \textbf{null geodesics} (photons), \(d\tau = 0\), so we cannot define velocity \(U^\mu\). Instead, we choose an affine parameter \(\lambda\) such that the tangent vector \emph{is} the momentum:
+\begin{equation}
+p^\mu = \frac{dx^\mu}{d\lambda}.
+\end{equation}
+This \(p^\mu\) satisfies the null condition \(p_\mu p^\mu = 0\) (or \(g_{\mu\nu} p^\mu p^\nu = 0\)).
+
+How do we measure energy? In Special Relativity, \(E = \gamma m\). In General Relativity, energy is frame-dependent. If an observer has 4-velocity \(U^\mu_{\text{obs}}\) (where \(U \cdot U = -1\)), they measure the energy of a particle with momentum \(p^\mu\) as the projection of \(p^\mu\) onto their time axis:
+\begin{equation}
+E = - p_\mu U^\mu_{\text{obs}}.
+\end{equation}
+This formula works for both massive and massless particles.
+
+\paragraph{Intuition:} Energy is just "the time component of momentum." But "time component" depends on whose time you are using. The dot product \(-p \cdot U\) picks out the component of \(p\) parallel to the observer's worldline \(U\).
+
+% FIGURE: Diagram showing a timelike curve approximated by a "jagged" sequence of null curves, illustrating why timelike geodesics maximize proper time.
+\subsection*{Maximizing Proper Time}
+We previously stated that geodesics maximize proper time. Why maximize and not minimize?
+Consider two points \(A\) and \(B\) in spacetime connected by a timelike geodesic.
+We can always construct a path between them made of "jagged" light rays (null curves).
+Since \(ds^2 = 0\) for light, the total proper time along this jagged path is \(\tau = \int d\tau = 0\).
+Since \(\tau_{\text{geodesic}} > 0\) and \(\tau_{\text{jagged}} = 0\), the geodesic is clearly not a minimum!
+Thus, locally, timelike geodesics are curves of \textbf{maximal} proper time. This explains the Twin Paradox: the twin who stays home (follows a geodesic) experiences the most proper time (ages the most). The traveling twin accelerates (leaves the geodesic) and thus experiences less time.
+
+\subsection*{The Exponential Map and Riemann Normal Coordinates}
+We can use geodesics to construct a special coordinate system that looks locally flat. This relies on the exponential map.
+At a point \(p\), take a tangent vector \(k \in T_p\). There is a unique geodesic \(x^\mu(\lambda)\) starting at \(p\) with initial tangent \(k\):
+\begin{equation}
+x^\mu(0) = x^\mu_p, \quad \frac{dx^\mu}{d\lambda}\bigg|_0 = k^\mu.
+\end{equation}
+We define the point \(\text{exp}_p(k)\) as the point located at \(\lambda=1\) along this geodesic.
+\begin{equation}
+\text{exp}_p(k) = x^\mu(\lambda=1).
+\end{equation}
+This maps the flat tangent space \(T_p\) onto the curved manifold \(M\) near \(p\).
+
+% FIGURE: Diagram of the exponential map: A flat plane (tangent space Tp) with vector k mapping to a point on the curved surface M via a geodesic.
+
+We define \textbf{Riemann Normal Coordinates} (RNC) \(x^{\hat{\mu}}\) by choosing an orthonormal basis \(\hat{e}_{(\hat{\mu})}\) in \(T_p\) and assigning coordinates to a point \(q\) based on the vector \(k\) that maps to it:
+\begin{equation}
+x^{\hat{\mu}}(q) = k^{\hat{\mu}}.
+\end{equation}
+In these coordinates, the geodesics through \(p\) are simply straight lines passing through the origin:
+\begin{equation}
+x^{\hat{\mu}}(\lambda) = \lambda k^{\hat{\mu}}.
+\end{equation}
+Let us prove that the Christoffel symbols vanish at \(p\) in RNC.
+Plug the straight line solution \(x^{\hat{\mu}}(\lambda) = \lambda k^{\hat{\mu}}\) into the geodesic equation at \(p\) (where \(\lambda=0\)):
+\begin{equation}
+\underbrace{\frac{d^2 x^{\hat{\mu}}}{d\lambda^2}}_{=0} + \Gamma^{\hat{\mu}}_{\hat{\rho}\hat{\sigma}}(p) \underbrace{\frac{dx^{\hat{\rho}}}{d\lambda}}_{k^{\hat{\rho}}} \underbrace{\frac{dx^{\hat{\sigma}}}{d\lambda}}_{k^{\hat{\sigma}}} = 0.
+\end{equation}
+Since the second derivative of a linear function is zero, we get:
+\begin{equation}
+\Gamma^{\hat{\mu}}_{\hat{\rho}\hat{\sigma}}(p) k^{\hat{\rho}} k^{\hat{\sigma}} = 0.
+\end{equation}
+This must hold for \emph{any} vector \(k\). The only way a quadratic form \(M_{\rho\sigma} k^\rho k^\sigma\) vanishes for all \(k\) is if the symmetric part of \(M\) is zero. Since the Christoffel connection is torsion-free (\(\Gamma^{\hat{\mu}}_{\hat{\rho}\hat{\sigma}} = \Gamma^{\hat{\mu}}_{\hat{\sigma}\hat{\rho}}\)), it is entirely symmetric. Therefore:
+\begin{equation}
+\Gamma^{\hat{\mu}}_{\hat{\rho}\hat{\sigma}}(p) = 0.
+\end{equation}
+Finally, applying metric compatibility \(\nabla_\rho g_{\mu\nu} = 0\) at \(p\):
+\begin{equation}
+\nabla_\rho g_{\mu\nu} = \partial_\rho g_{\mu\nu} - \Gamma^\lambda_{\rho\mu} g_{\lambda\nu} - \Gamma^\lambda_{\rho\nu} g_{\mu\lambda} = 0.
+\end{equation}
+Since \(\Gamma=0\) at \(p\), this implies:
+\begin{equation}
+\partial_{\hat{\rho}} g_{\hat{\mu}\hat{\nu}}(p) = 0.
+\end{equation}
+\paragraph{Intuition:} Riemann Normal Coordinates are the rigorous realization of "locally inertial frames" (freely falling elevators). At the specific point \(p\), gravity "disappears" (metric derivatives vanish), but second derivatives of the metric (curvature) cannot be made to vanish. Gravity is not a force field; it is tidal deviations between geodesics.
+\section{The Expanding Universe Revisited}
+
+\subsection*{Metric and Lagrangian}
+We consider the spatially flat expanding universe metric (Robertson-Walker metric with \(k=0\)):
+\begin{equation}
+ds^2 = -dt^2 + a^2(t) \delta_{ij} dx^i dx^j.
+\end{equation}
+Here, \(a(t)\) is the scale factor describing the expansion. To find the Christoffel symbols, we use the variational method with the "energy" integral \(I\):
+\begin{equation}
+I = \frac{1}{2} \int g_{\mu\nu} \dot{x}^\mu \dot{x}^\nu d\tau = \frac{1}{2} \int \left[ -(\dot{t})^2 + a^2(t) \delta_{ij} \dot{x}^i \dot{x}^j \right] d\tau,
+\end{equation}
+where dots denote differentiation with respect to proper time \(\tau\) (or an affine parameter).
+
+\subsection*{Derivation of Connection Coefficients}
+\textbf{1. Time Component Equation}
+Vary the action with respect to \(t\): \(t(\tau) \to t(\tau) + \delta t(\tau)\).
+The scale factor depends on \(t\), so \(\delta(a^2) = 2a \frac{da}{dt} \delta t = 2a \dot{a} \delta t\).
+The variation is:
+\begin{equation}
+\delta I = \frac{1}{2} \int \left[ -2\dot{t} \delta \dot{t} + 2a\dot{a} \delta_{ij} \dot{x}^i \dot{x}^j \delta t \right] d\tau.
+\end{equation}
+Integrate the first term by parts (\(\int \dot{t} \delta \dot{t} = -\int \ddot{t} \delta t\)):
+\begin{equation}
+\delta I = \int \left[ \ddot{t} + a\dot{a} \delta_{ij} \dot{x}^i \dot{x}^j \right] \delta t d\tau = 0.
+\end{equation}
+This yields the equation of motion for \(t\):
+\begin{equation}
+\ddot{t} + a\dot{a} \delta_{ij} \dot{x}^i \dot{x}^j = 0.
+\end{equation}
+Compare this to the general geodesic equation for \(\mu=0\):
+\begin{equation}
+\ddot{t} + \Gamma^0_{\rho\sigma} \dot{x}^\rho \dot{x}^\sigma = 0.
+\end{equation}
+The quadratic terms in the equation of motion are purely spatial (\(\dot{x}^i \dot{x}^j\)). There are no \(\dot{t}^2\) or \(\dot{t}\dot{x}^i\) terms. Thus:
+\begin{align}
+\Gamma^0_{00} &= 0, \\
+\Gamma^0_{0i} &= \Gamma^0_{i0} = 0, \\
+\Gamma^0_{ij} &= a\dot{a} \delta_{ij}.
+\end{align}
+
+\textbf{2. Spatial Component Equation}
+Vary with respect to a spatial coordinate \(x^k\): \(x^k \to x^k + \delta x^k\).
+The metric coefficients for \(x\) do not depend on \(x\) (spatial homogeneity), so the variation is only in the derivative terms:
+\begin{equation}
+\delta I = \frac{1}{2} \int \left[ 2 a^2(t) \delta_{ij} \dot{x}^i \delta \dot{x}^j \right] d\tau = \int a^2 \delta_{kj} \dot{x}^j \delta \dot{x}^k d\tau.
+\end{equation}
+(We used the Kronecker delta to set \(i=k\)).
+Integrate by parts:
+\begin{equation}
+\delta I = -\int \frac{d}{d\tau} (a^2 \dot{x}^k) \delta x^k d\tau = 0.
+\end{equation}
+Expanding the time derivative (product rule):
+\begin{equation}
+\frac{d}{d\tau} (a^2 \dot{x}^k) = a^2 \ddot{x}^k + 2a \frac{da}{d\tau} \dot{x}^k = a^2 \ddot{x}^k + 2a (\dot{a} \dot{t}) \dot{x}^k = 0.
+\end{equation}
+Dividing by \(a^2\):
+\begin{equation}
+\ddot{x}^k + 2\frac{\dot{a}}{a} \dot{t} \dot{x}^k = 0.
+\end{equation}
+Compare to the geodesic equation for \(\mu=k\):
+\begin{equation}
+\ddot{x}^k + \Gamma^k_{\rho\sigma} \dot{x}^\rho \dot{x}^\sigma = 0.
+\end{equation}
+The cross terms \(\dot{x}^0 \dot{x}^k\) correspond to \(\Gamma^k_{0k}\) and \(\Gamma^k_{k0}\). Since the connection is symmetric:
+\begin{equation}
+2\Gamma^k_{0j} \dot{t} \dot{x}^j = 2\frac{\dot{a}}{a} \delta^k_j \dot{t} \dot{x}^j \implies \Gamma^k_{0j} = \frac{\dot{a}}{a} \delta^k_j.
+\end{equation}
+The purely spatial terms \(\Gamma^k_{ij}\) vanish because there is no \(\dot{x}^i \dot{x}^j\) term in the equation of motion.
+\begin{align}
+\Gamma^k_{0j} &= \frac{\dot{a}}{a} \delta^k_j, \\
+\Gamma^k_{ij} &= 0, \quad \Gamma^k_{00} = 0.
+\end{align}
+\paragraph{Intuition:} The non-zero \(\Gamma^k_{0j}\) term acts like a "friction" or "drag" term in the equation of motion (\(\ddot{x} \propto -\dot{a}/a \dot{x}\)). As the universe expands (\(\dot{a} > 0\)), the peculiar velocity of a particle decays.
+
+\subsection*{Cosmological Redshift}
+Consider a photon (null geodesic) moving in the \(x\)-direction. The null condition \(ds^2=0\) implies:
+\begin{equation}
+-dt^2 + a^2 dx^2 = 0 \implies \frac{dx}{dt} = \frac{1}{a(t)}.
+\end{equation}
+We need the behavior of the energy. We assume an affine parameter \(\lambda\). The \(t\)-component of the geodesic equation is:
+\begin{equation}
+\frac{d^2 t}{d\lambda^2} + \Gamma^0_{ij} \frac{dx^i}{d\lambda} \frac{dx^j}{d\lambda} = \frac{d^2 t}{d\lambda^2} + a\dot{a} \left(\frac{dx}{d\lambda}\right)^2 = 0.
+\end{equation}
+From the null condition, we can relate \(dx/d\lambda\) to \(dt/d\lambda\):
+\begin{equation}
+\left(\frac{dt}{d\lambda}\right)^2 = a^2 \left(\frac{dx}{d\lambda}\right)^2 \implies \left(\frac{dx}{d\lambda}\right)^2 = \frac{1}{a^2} \left(\frac{dt}{d\lambda}\right)^2.
+\end{equation}
+Substitute this back into the geodesic equation:
+\begin{equation}
+\frac{d^2 t}{d\lambda^2} + a\dot{a} \left[ \frac{1}{a^2} \left(\frac{dt}{d\lambda}\right)^2 \right] = 0 \implies \frac{d^2 t}{d\lambda^2} + \frac{\dot{a}}{a} \left(\frac{dt}{d\lambda}\right)^2 = 0.
+\end{equation}
+This equation can be rewritten using the chain rule: \(\frac{\dot{a}}{a} (\frac{dt}{d\lambda})^2 = \frac{1}{a} \frac{da}{dt} \frac{dt}{d\lambda} \frac{dt}{d\lambda} = \frac{1}{a} \frac{da}{d\lambda} \frac{dt}{d\lambda}\).
+\begin{equation}
+\frac{d}{d\lambda} \left( \frac{dt}{d\lambda} \right) + \frac{1}{a} \frac{da}{d\lambda} \left( \frac{dt}{d\lambda} \right) = 0.
+\end{equation}
+This is equivalent to:
+\begin{equation}
+\frac{1}{dt/d\lambda} \frac{d}{d\lambda} \left( \frac{dt}{d\lambda} \right) = - \frac{1}{a} \frac{da}{d\lambda} \implies \frac{d}{d\lambda} \ln \left( \frac{dt}{d\lambda} \right) = - \frac{d}{d\lambda} \ln a.
+\end{equation}
+Integrating gives:
+\begin{equation}
+\frac{dt}{d\lambda} = \frac{\omega_0}{a(t)}.
+\end{equation}
+The energy measured by a comoving observer (velocity \(U^\mu = (1, 0, 0, 0)\)) is:
+\begin{equation}
+E = -p_\mu U^\mu = -g_{00} p^0 U^0 = -(-1) \frac{dt}{d\lambda} (1) = \frac{\omega_0}{a(t)}.
+\end{equation}
+Thus, the energy (and frequency) of a photon is inversely proportional to the scale factor.
+\begin{equation}
+\frac{E_2}{E_1} = \frac{a_1}{a_2}.
+\end{equation}
+\paragraph{Intuition:} As the universe stretches by a factor of 2, the wavelength of light traveling through it also stretches by a factor of 2, reducing its energy by half. This is distinct from Doppler shift; it happens continuously along the path.
+
+\subsection*{Conservation of Energy-Momentum}
+The conservation law in curved space is \(\nabla_\mu T^{\mu\nu} = 0\). For a perfect fluid, the energy-momentum tensor is:
+\begin{equation}
+T^{\mu\nu} = (\rho + p)U^\mu U^\nu + p g^{\mu\nu}.
+\end{equation}
+For a comoving fluid, \(U^\mu = (1, 0, 0, 0)\). The tensor components are diagonal:
+\begin{equation}
+T^{00} = \rho, \quad T^{ij} = g^{ij} p = \frac{p}{a^2} \delta^{ij}.
+\end{equation}
+\textbf{Time Component} (\(\nu=0\)):
+Expand \(\nabla_\mu T^{\mu 0} = \partial_\mu T^{\mu 0} + \Gamma^\mu_{\mu\lambda} T^{\lambda 0} + \Gamma^0_{\mu\lambda} T^{\mu\lambda} = 0\).
+1. \(\partial_\mu T^{\mu 0} = \partial_0 \rho = \dot{\rho}\).
+2. \(\Gamma^\mu_{\mu\lambda} T^{\lambda 0}\): Only \(\lambda=0\) contributes.
+   \(\Gamma^\mu_{\mu 0} = \Gamma^0_{00} + \Gamma^i_{i 0} = 0 + \delta^i_i \frac{\dot{a}}{a} = 3\frac{\dot{a}}{a}\).
+   Term is \(3\frac{\dot{a}}{a} \rho\).
+3. \(\Gamma^0_{\mu\lambda} T^{\mu\lambda}\): Since \(T\) is diagonal, \(\mu=\lambda\).
+   \(\Gamma^0_{00} T^{00} + \Gamma^0_{ij} T^{ij} = 0 + (a\dot{a} \delta_{ij}) (\frac{p}{a^2} \delta^{ij}) = a\dot{a} \frac{p}{a^2} (3) = 3\frac{\dot{a}}{a} p\).
+Combining these:
+\begin{equation}
+\dot{\rho} + 3\frac{\dot{a}}{a} (\rho + p) = 0.
+\end{equation}
+\textbf{Spatial Component} (\(\nu=i\)):
+A similar expansion shows \(\partial_i p = 0\), meaning pressure is spatially uniform.
+
+\textbf{Fluid Evolution:}
+Given an equation of state \(p = w\rho\), the continuity equation becomes:
+\begin{equation}
+\frac{\dot{\rho}}{\rho} = -3(1+w) \frac{\dot{a}}{a} \implies \rho \propto a^{-3(1+w)}.
+\end{equation}
+\begin{itemize}
+    \item \textbf{Matter (Dust):} \(w=0 \implies \rho \propto a^{-3}\) (Volume expansion).
+    \item \textbf{Radiation:} \(w=1/3 \implies \rho \propto a^{-4}\) (Volume expansion + Redshift).
+    \item \textbf{Vacuum Energy:} \(w=-1 \implies \rho \propto \text{const}\).
+\end{itemize}
+\paragraph{Intuition:} "Conservation of energy" \(\nabla_\mu T^{\mu\nu}=0\) does \emph{not} imply total energy \(\int \rho dV\) is constant. For radiation, total energy decreases as the universe expands because photons lose energy to the gravitational field (the expansion). For vacuum energy, total energy increases because the energy density is constant while the volume grows.
+\section{The Riemann Curvature Tensor}
+
+\subsection*{Curvature and Parallel Transport}
+We have seen that parallel transport depends on the path taken. To quantify this, consider moving a vector \(V^\sigma\) around an infinitesimal closed loop defined by two vectors \(A^\mu\) and \(B^\nu\). The change in the vector \(\delta V^\rho\) after completing the loop is a linear transformation of the original vector, proportional to the area of the loop:
+\begin{equation}
+\delta V^\rho = {R^\rho}_{\sigma\mu\nu} V^\sigma A^\mu B^\nu.
+\end{equation}
+Here, \({R^\rho}_{\sigma\mu\nu}\) is the Riemann Curvature Tensor. It measures the non-commutativity of parallel transport.
+% FIGURE: Diagram of a vector transported around a small loop defined by vectors A and B, showing the gap \delta V upon return.
+
+\subsection*{Derivation via Commutator of Covariant Derivatives}
+A more efficient way to calculate the Riemann tensor is to evaluate the commutator of two covariant derivatives acting on a vector field \(V^\rho\). The failure of covariant derivatives to commute \([\nabla_\mu, \nabla_\nu] \neq 0\) is the hallmark of curvature.
+
+We compute \([\nabla_\mu, \nabla_\nu] V^\rho = \nabla_\mu (\nabla_\nu V^\rho) - \nabla_\nu (\nabla_\mu V^\rho)\).
+First, consider the term \(\nabla_\mu (\nabla_\nu V^\rho)\). Note that \(\nabla_\nu V^\rho\) is a \((1,1)\) tensor (one upper index \(\rho\), one lower index \(\nu\)). We apply the covariant derivative rule for such a tensor:
+\begin{equation}
+\nabla_\mu (\nabla_\nu V^\rho) = \partial_\mu (\nabla_\nu V^\rho) - \Gamma^\lambda_{\mu\nu} (\nabla_\lambda V^\rho) + \Gamma^\rho_{\mu\sigma} (\nabla_\nu V^\sigma).
+\end{equation}
+Now, expand the inner covariant derivative \(\nabla_\nu V^\rho = \partial_\nu V^\rho + \Gamma^\rho_{\nu\lambda} V^\lambda\):
+\begin{align}
+\nabla_\mu (\nabla_\nu V^\rho) &= \partial_\mu (\partial_\nu V^\rho + \Gamma^\rho_{\nu\sigma} V^\sigma) - \Gamma^\lambda_{\mu\nu} \nabla_\lambda V^\rho + \Gamma^\rho_{\mu\lambda} (\partial_\nu V^\lambda + \Gamma^\lambda_{\nu\sigma} V^\sigma) \nonumber \\
+&= \partial_\mu \partial_\nu V^\rho + (\partial_\mu \Gamma^\rho_{\nu\sigma}) V^\sigma + \Gamma^\rho_{\nu\sigma} (\partial_\mu V^\sigma) \nonumber \\
+&\quad - \Gamma^\lambda_{\mu\nu} \nabla_\lambda V^\rho + \Gamma^\rho_{\mu\lambda} \partial_\nu V^\lambda + \Gamma^\rho_{\mu\lambda} \Gamma^\lambda_{\nu\sigma} V^\sigma.
+\end{align}
+(Note: We relabeled dummy indices to \(\sigma\) and \(\lambda\) strategically to factor out \(V^\sigma\) later).
+
+Now, subtract the same expression with \(\mu\) and \(\nu\) interchanged.
+1. The partial derivatives commute: \(\partial_\mu \partial_\nu V^\rho - \partial_\nu \partial_\mu V^\rho = 0\).
+2. The terms \(\Gamma^\rho_{\nu\sigma} \partial_\mu V^\sigma\) (from the first part) and \(\Gamma^\rho_{\nu\lambda} \partial_\mu V^\lambda\) (from the second part, relabeled) cancel. Specifically:
+   In \(\nabla_\mu \nabla_\nu\): Term is \(+ \Gamma^\rho_{\nu\sigma} \partial_\mu V^\sigma\).
+   In \(\nabla_\nu \nabla_\mu\): Term is \(+ \Gamma^\rho_{\mu\sigma} \partial_\nu V^\sigma\).
+   Wait, looking at the indices carefully: \(\Gamma^\rho_{\mu\lambda} \partial_\nu V^\lambda\) in the first expansion cancels with the \(\Gamma^\rho_{\nu\sigma} \partial_\mu V^\sigma\) term from the subtracted expansion (after dummy index relabeling).
+
+We are left with the terms proportional to \(V^\sigma\) and the connection term:
+\begin{equation}
+[\nabla_\mu, \nabla_\nu] V^\rho = \left( \partial_\mu \Gamma^\rho_{\nu\sigma} - \partial_\nu \Gamma^\rho_{\mu\sigma} + \Gamma^\rho_{\mu\lambda} \Gamma^\lambda_{\nu\sigma} - \Gamma^\rho_{\nu\lambda} \Gamma^\lambda_{\mu\sigma} \right) V^\sigma - (\Gamma^\lambda_{\mu\nu} - \Gamma^\lambda_{\nu\mu}) \nabla_\lambda V^\rho.
+\end{equation}
+We identify the two key tensors here:
+1. The Torsion Tensor: \(T^\lambda_{\mu\nu} = \Gamma^\lambda_{\mu\nu} - \Gamma^\lambda_{\nu\mu} = 2\Gamma^\lambda_{[\mu\nu]}\).
+2. The Riemann Curvature Tensor:
+\begin{equation}
+\label{eq:riemann_def}
+{R^\rho}_{\sigma\mu\nu} = \partial_\mu \Gamma^\rho_{\nu\sigma} - \partial_\nu \Gamma^\rho_{\mu\sigma} + \Gamma^\rho_{\mu\lambda} \Gamma^\lambda_{\nu\sigma} - \Gamma^\rho_{\nu\lambda} \Gamma^\lambda_{\mu\sigma}.
+\end{equation}
+Thus, the commutator is:
+\begin{equation}
+[\nabla_\mu, \nabla_\nu] V^\rho = {R^\rho}_{\sigma\mu\nu} V^\sigma - T^\lambda_{\mu\nu} \nabla_\lambda V^\rho.
+\end{equation}
+If we assume the connection is torsion-free (Christoffel connection), \(T^\lambda_{\mu\nu} = 0\), and the expression simplifies to a linear map on the vector:
+\begin{equation}
+[\nabla_\mu, \nabla_\nu] V^\rho = {R^\rho}_{\sigma\mu\nu} V^\sigma.
+\end{equation}
+So now we going to proof that it's the same one that appears in the parallel transport around a loop.
+% Placeholder for the photo
+\begin{figure}[htbp]
+    \centering
+    \includesvg[width=\linewidth,height=0.2\textheight,keepaspectratio]{images/Loop.svg}
+    \caption{Parallel transport of a vector $V^{\alpha}$ around the closed loop $A \rightarrow B \rightarrow C \rightarrow D \rightarrow A$.}
+    \label{fig:diamond}
+\end{figure}
+
+\section*{Derivation of the Riemann Curvature Tensor}
+
+We calculate the change in a vector $V^{\alpha}$ after parallel transporting it around a closed "diamond" loop defined by two coordinate displacements, $dx^{\sigma}$ and $dx^{\lambda}$. The vertices of the loop are defined as follows:
+\begin{itemize}
+    \item $A: (x^{\sigma}, x^{\lambda})$
+    \item $B: (x^{\sigma} + dx^{\sigma}, x^{\lambda})$
+    \item $C: (x^{\sigma} + dx^{\sigma}, x^{\lambda} + dx^{\lambda})$
+    \item $D: (x^{\sigma}, x^{\lambda} + dx^{\lambda})$
+\end{itemize}
+
+The condition for parallel transport is $\nabla_{\vec{e}} V^{\alpha} = 0$, which leads to the differential equation:
+\begin{equation}
+    \frac{\partial V^{\alpha}}{\partial x^{\nu}} = -{\Gamma^{\alpha}}_{\nu\mu} V^{\mu}
+\end{equation}
+
+We integrate this equation along each leg of the loop:
+
+\textbf{Leg I ($A \rightarrow B$):} Constant $x^{\lambda}$, increasing $x^{\sigma}$.
+\begin{equation}
+    V^{\alpha}(B) = V_{init}^{\alpha} - \int_{I} {\Gamma^{\alpha}}_{\sigma\mu} V^{\mu} dx^{\sigma} \quad \text{}
+\end{equation}
+
+\textbf{Leg II ($B \rightarrow C$):} Constant $x^{\sigma} + dx^{\sigma}$, increasing $x^{\lambda}$.
+\begin{equation}
+    V^{\alpha}(C) = V^{\alpha}(B) - \int_{II} {\Gamma^{\alpha}}_{\lambda\mu} V^{\mu} dx^{\lambda} \quad \text{}
+\end{equation}
+
+\textbf{Leg III ($C \rightarrow D$):} Constant $x^{\lambda} + dx^{\lambda}$, decreasing $x^{\sigma}$ (note the sign change).
+\begin{equation}
+    V^{\alpha}(D) = V^{\alpha}(C) + \int_{III} {\Gamma^{\alpha}}_{\sigma\mu} V^{\mu} dx^{\sigma} \quad \text{}
+\end{equation}
+
+\textbf{Leg IV ($D \rightarrow A$):} Constant $x^{\sigma}$, decreasing $x^{\lambda}$.
+\begin{equation}
+    V_{final}^{\alpha} = V^{\alpha}(D) + \int_{IV} {\Gamma^{\alpha}}_{\lambda\mu} V^{\mu} dx^{\lambda} \quad \text{}
+\end{equation}
+
+The total change in the vector is $\delta V^{\alpha} = V_{final}^{\alpha} - V_{init}^{\alpha}$. Summing the contributions gives:
+\begin{equation}
+    \delta V^{\alpha} = \int_{IV} {\Gamma^{\alpha}}_{\lambda\mu} V^{\mu} dx^{\lambda} - \int_{II} {\Gamma^{\alpha}}_{\lambda\mu} V^{\mu} dx^{\lambda} + \int_{III} {\Gamma^{\alpha}}_{\sigma\mu} V^{\mu} dx^{\sigma} - \int_{I} {\Gamma^{\alpha}}_{\sigma\mu} V^{\mu} dx^{\sigma}
+\end{equation}
+
+We group terms by the direction of integration. Using the approximation that the difference between integrals along parallel paths is proportional to the derivative of the integrand:
+\begin{align}
+    \int_{III} - \int_{I} &\approx \delta x^{\lambda} \int \frac{\partial}{\partial x^{\lambda}} ({\Gamma^{\alpha}}_{\sigma\mu} V^{\mu}) dx^{\sigma} \\
+    \int_{IV} - \int_{II} &\approx -\delta x^{\sigma} \int \frac{\partial}{\partial x^{\sigma}} ({\Gamma^{\alpha}}_{\lambda\mu} V^{\mu}) dx^{\lambda}
+\end{align}
+Note the negative sign in the second term because Leg IV is at $x^{\sigma}$ while Leg II is at $x^{\sigma} + dx^{\sigma}$. This allows us to write the total change as:
+\begin{equation}
+    \delta V^{\alpha} \approx \delta x^{\lambda} \delta x^{\sigma} \left[ \frac{\partial}{\partial x^{\lambda}} ({\Gamma^{\alpha}}_{\sigma\mu} V^{\mu}) - \frac{\partial}{\partial x^{\sigma}} ({\Gamma^{\alpha}}_{\lambda\mu} V^{\mu}) \right]
+\end{equation}
+
+Expanding the derivatives using the product rule:
+\begin{equation}
+    \delta V^{\alpha} \approx \delta x^{\lambda} \delta x^{\sigma} \left[ (\partial_{\lambda} {\Gamma^{\alpha}}_{\sigma\mu}) V^{\mu} + {\Gamma^{\alpha}}_{\sigma\mu} (\partial_{\lambda} V^{\mu}) - (\partial_{\sigma} {\Gamma^{\alpha}}_{\lambda\mu}) V^{\mu} - {\Gamma^{\alpha}}_{\lambda\mu} (\partial_{\sigma} V^{\mu}) \right]
+\end{equation}
+
+Since the vector is parallel transported, we substitute the derivatives of the vector components: $\partial_{\nu} V^{\mu} = -{\Gamma^{\mu}}_{\nu\rho} V^{\rho}$.
+\begin{equation}
+    \delta V^{\alpha} \approx \delta x^{\lambda} \delta x^{\sigma} \left[ (\partial_{\lambda} {\Gamma^{\alpha}}_{\sigma\mu} - \partial_{\sigma} {\Gamma^{\alpha}}_{\lambda\mu}) V^{\mu} + {\Gamma^{\alpha}}_{\sigma\mu} (-{\Gamma^{\mu}}_{\lambda\nu} V^{\nu}) - {\Gamma^{\alpha}}_{\lambda\mu} (-{\Gamma^{\mu}}_{\sigma\nu} V^{\nu}) \right]
+\end{equation}
+
+Cleaning up the expression and relabeling dummy indices to factor out $V^{\mu}$ (swapping $\mu \leftrightarrow \nu$ in the last two terms):
+\begin{equation}
+    \delta V^{\alpha} = \left[ \partial_{\lambda} {\Gamma^{\alpha}}_{\sigma\mu} - \partial_{\sigma} {\Gamma^{\alpha}}_{\lambda\mu} + {\Gamma^{\alpha}}_{\lambda\nu} {\Gamma^{\nu}}_{\sigma\mu} - {\Gamma^{\alpha}}_{\sigma\nu} {\Gamma^{\nu}}_{\lambda\mu} \right] \delta x^{\lambda} \delta x^{\sigma} V^{\mu}
+\end{equation}
+
+The term in the brackets is defined as the Riemann curvature tensor, ${R^{\alpha}}_{\mu\lambda\sigma}$:
+\begin{equation}
+    {R^{\alpha}}_{\mu\lambda\sigma} = \partial_{\lambda} {\Gamma^{\alpha}}_{\sigma\mu} - \partial_{\sigma} {\Gamma^{\alpha}}_{\lambda\mu} + {\Gamma^{\alpha}}_{\lambda\nu} {\Gamma^{\nu}}_{\sigma\mu} - {\Gamma^{\alpha}}_{\sigma\nu} {\Gamma^{\nu}}_{\lambda\mu}
+\end{equation}
+
+Thus, the change in the vector is given by:
+\begin{equation}
+    \delta V^{\alpha} = {R^{\alpha}}_{\mu\lambda\sigma} V^{\mu} \delta x^{\lambda} \delta x^{\sigma}
+\end{equation}
+\paragraph{Intuition:} The Riemann tensor is composed of "derivatives of \(\Gamma\)" and "products of \(\Gamma\)". Since \(\Gamma \sim \partial g\), the curvature involves second derivatives of the metric \(\partial^2 g\). This matches our expectation that curvature describes the "acceleration" or "flexing" of the grid lines, not just their slope.
+\section*{Theorem: Flatness and Constant Metrics}
+
+We wish to prove two statements regarding the relationship between the Riemann tensor and the metric:
+\begin{enumerate}
+    \item If there exists a coordinate system where the metric components are constant everywhere ($\partial_\sigma g_{\mu\nu} = 0$), then the Riemann tensor vanishes ($R^\rho{}_{\sigma\mu\nu} = 0$).
+    \item Conversely, if the Riemann tensor vanishes everywhere, there exists a coordinate system in which the metric components are constant.
+\end{enumerate}
+
+\subsection*{Part 1: Constant Metric $\implies$ Zero Curvature}
+This direction is straightforward. If we are in a coordinate system such that $\partial_\sigma g_{\mu\nu} = 0$ everywhere (not just at a point), then the Christoffel symbols vanish because they depend on derivatives of the metric:
+\begin{equation}
+    \Gamma^\rho_{\mu\nu} = 0 \quad \text{and} \quad \partial_\sigma \Gamma^\rho_{\mu\nu} = 0.
+\end{equation}
+By the definition of the Riemann tensor [Eq. (3.113)], if $\Gamma$ and $\partial \Gamma$ are zero, then:
+\begin{equation}
+    R^\rho{}_{\sigma\mu\nu} = 0.
+\end{equation}
+Since $R^\rho{}_{\sigma\mu\nu} = 0$ is a tensor equation, if it is true in one coordinate system, it must be true in \textit{any} coordinate system. Thus, a vanishing Riemann tensor is a necessary condition for finding coordinates where $g_{\mu\nu}$ is constant.
+
+\subsection*{Part 2: Zero Curvature $\implies$ Constant Metric}
+We assume $R^\rho{}_{\sigma\mu\nu} = 0$ everywhere. We construct a one-form $\omega = \omega_\mu dx^\mu$ at a point $p$. For any path $x^\mu(\lambda)$ through $p$, we define a field along the path by parallel transport:
+\begin{equation}
+    \frac{dx^\mu}{d\lambda} \nabla_\mu \omega_\nu = 0. \label{eq:parallel}
+\end{equation}
+Because the Riemann tensor vanishes, parallel transport is path-independent. We can therefore define a unique one-form field $\omega_\mu$ throughout the manifold. Since Eq. (\ref{eq:parallel}) must hold for arbitrary paths (arbitrary $dx^\mu/d\lambda$), the field must be covariantly constant:
+\begin{equation}
+    \nabla_\mu \omega_\nu = 0. \label{eq:cov_const}
+\end{equation}
+The antisymmetric part of this equation is the exterior derivative:
+\begin{equation}
+    \nabla_{[\mu} \omega_{\nu]} = \partial_{[\mu} \omega_{\nu]} = 0 \implies d\omega = 0.
+\end{equation}
+Since $\omega$ is closed ($d\omega=0$), and assuming a topologically simple region, it is also exact. Thus, there exists a scalar function $\alpha$ such that:
+\begin{equation}
+    \omega_\mu = \partial_\mu \alpha.
+\end{equation}
+
+We repeat this procedure to construct a set of $n$ one-forms $\hat{\theta}^{(a)}$ (where $a \in \{1 \dots n\}$). We choose the initial one-forms at point $p$ to form a normalized basis for the dual space $T^*_p$, such that the metric at $p$ takes the canonical form:
+\begin{equation}
+    ds^2(p) = \eta_{ab} \, \hat{\theta}^{(a)} \otimes \hat{\theta}^{(b)}.
+\end{equation}
+Here, $\eta_{ab}$ is a diagonal matrix with entries $\pm 1$ (depending on the signature).
+
+Now, parallel transport this entire set of basis forms all over the manifold. Since the Riemann tensor vanishes, the result is independent of the path. Since the metric is automatically parallel-transported (metric compatibility $\nabla g = 0$), the relationship between the metric and the basis remains unchanged everywhere:
+\begin{equation}
+    ds^2(\text{anywhere}) = \eta_{ab} \, \hat{\theta}^{(a)} \otimes \hat{\theta}^{(b)}.
+\end{equation}
+We have found a basis where the metric components are constant. However, this is just an abstract basis. To show that these correspond to coordinates, we recall that the one-forms are closed and therefore exact. Thus, there exist functions $y^a$ such that:
+\begin{equation}
+    \hat{\theta}^{(a)} = dy^a.
+\end{equation}
+These $n$ functions $y^a$ are precisely the coordinates we sought. In this coordinate system, the metric becomes:
+\begin{equation}
+    ds^2 = \eta_{ab} \, dy^a dy^b.
+\end{equation}
+We have verified that if the Riemann tensor vanishes, the metric is effectively that of flat space, perhaps written in a "perverse" coordinate system.
+\section{Properties of the Riemann Tensor}
+
+\subsection*{Symmetries of the Riemann Tensor}
+The Riemann tensor has \(n^4\) components in \(n\) dimensions (256 in 4D), but symmetries reduce this number significantly. To derive these, we evaluate the tensor in locally inertial coordinates (where \(\Gamma=0\) but \(\partial \Gamma \neq 0\)) at a point \(p\).
+In these coordinates, the Riemann tensor with all lower indices is:
+\begin{equation}
+R_{\rho\sigma\mu\nu} = g_{\rho\lambda} {R^\lambda}_{\sigma\mu\nu} = \frac{1}{2} (\partial_\mu \partial_\sigma g_{\rho\nu} - \partial_\mu \partial_\rho g_{\nu\sigma} - \partial_\nu \partial_\sigma g_{\rho\mu} + \partial_\nu \partial_\rho g_{\mu\sigma}).
+\end{equation}
+% (Shortcut: Substituted Christoffel derivative terms into Riemann definition and used metric compatibility to lower index. Terms with product of \Gamma vanished.)
+
+From this form, the symmetries are manifest:
+1.  Antisymmetry in the first pair:
+    \begin{equation}
+    R_{\rho\sigma\mu\nu} = -R_{\sigma\rho\mu\nu}.
+    \end{equation}
+2.  Antisymmetry in the last pair:
+    \begin{equation}
+    R_{\rho\sigma\mu\nu} = -R_{\rho\sigma\nu\mu}.
+    \end{equation}
+3.  Symmetry under exchange of pairs:
+    \begin{equation}
+    R_{\rho\sigma\mu\nu} = R_{\mu\nu\rho\sigma}.
+    \end{equation}
+4.  First Bianchi Identity (Algebraic): The sum of cyclic permutations of the last three indices vanishes.
+    \begin{equation}
+    R_{\rho\sigma\mu\nu} + R_{\rho\mu\nu\sigma} + R_{\rho\nu\sigma\mu} = 0.
+    \end{equation}
+    This is equivalent to the vanishing of the totally antisymmetric part: \(R_{\rho[\sigma\mu\nu]} = 0\).
+
+\paragraph{Intuition:} These symmetries reduce the number of independent components from 256 to just 20 in 4D spacetime. These 20 numbers represent the "true" curvature degrees of freedom that cannot be removed by coordinate transformations (unlike the metric components themselves, which can be set to \(\eta_{\mu\nu}\) to first order).
+
+\subsection*{Counting Independent Components}
+We calculate the number of independent components.
+We can view \(R_{\rho\sigma\mu\nu}\) as a symmetric matrix where the rows/columns are the antisymmetric pairs \([\rho\sigma]\) and \([\mu\nu]\).
+An \(n \times n\) antisymmetric matrix has \(M = \frac{1}{2}n(n-1)\) independent components.
+A symmetric matrix of size \(M \times M\) has \(\frac{1}{2}M(M+1)\) components.
+This gives the count before applying the algebraic Bianchi identity:
+\begin{equation}
+\frac{1}{2} \left[ \frac{1}{2}n(n-1) \right] \left[ \frac{1}{2}n(n-1) + 1 \right] = \frac{1}{8} (n^4 - 2n^3 + 3n^2 - 2n).
+\end{equation}
+The algebraic Bianchi identity \(R_{\rho[\sigma\mu\nu]} = 0\) imposes further constraints. The number of totally antisymmetric 4-index tensors is \(\binom{n}{4} = \frac{n(n-1)(n-2)(n-3)}{24}\).
+Subtracting these constraints yields the final count of independent components:
+\begin{equation}
+\frac{1}{12} n^2 (n^2 - 1).
+\end{equation}
+In \(n=4\) dimensions, this yields \(\frac{16(15)}{12} = 20\) components.
+
+\subsection*{The Second Bianchi Identity (Differential)}
+There is also a differential identity relating the derivatives of the Riemann tensor. By differentiating the expression for \(R\) in locally inertial coordinates (where \(\partial g=0\), so \(\Gamma=0\), but \(\partial^2 g \neq 0\)):
+\begin{equation}
+\nabla_\lambda R_{\rho\sigma\mu\nu} = \partial_\lambda R_{\rho\sigma\mu\nu} \quad (\text{at } p).
+\end{equation}
+Summing cyclic permutations of the first three indices (the derivative index plus the first pair):
+\begin{equation}
+\nabla_\lambda R_{\rho\sigma\mu\nu} + \nabla_\rho R_{\sigma\lambda\mu\nu} + \nabla_\sigma R_{\lambda\rho\mu\nu} = 0.
+\end{equation}
+Using antisymmetry, this is compactly written as:
+\begin{equation}
+\nabla_{[\lambda} R_{\rho\sigma]\mu\nu} = 0.
+\end{equation}
+This is the Second Bianchi Identity. It is analogous to the Jacobi identity for commutators or the identity \(d^2 = 0\) for exterior derivatives.
+
+\subsection*{Ricci Tensor and Scalar}
+We can decompose the Riemann tensor into trace parts and trace-free parts.
+The Ricci Tensor \(R_{\mu\nu}\) is defined by contracting the first and third indices:
+\begin{equation}
+R_{\mu\nu} = {R^\lambda}_{\mu\lambda\nu}.
+\end{equation}
+Properties:
+\begin{itemize}
+    \item It is symmetric: \(R_{\mu\nu} = R_{\nu\mu}\) (follows from the symmetries of Riemann).
+    \item It encodes the change in volume of a shape as it moves along geodesics (as we will see later).
+\end{itemize}
+
+The Ricci Scalar (or Curvature Scalar) \(R\) is the trace of the Ricci tensor:
+\begin{equation}
+R = {R^\mu}_\mu = g^{\mu\nu} R_{\mu\nu}.
+\end{equation}
+This is a single number at every point in spacetime describing the intrinsic curvature.
+
+\subsection*{The Einstein Tensor}
+We contract the Second Bianchi Identity twice to find a conserved tensor.
+Start with:
+\begin{equation}
+\nabla_\lambda R_{\rho\sigma\mu\nu} + \nabla_\rho R_{\sigma\lambda\mu\nu} + \nabla_\sigma R_{\lambda\rho\mu\nu} = 0.
+\end{equation}
+Contract with \(g^{\nu\sigma} g^{\mu\lambda}\):
+\begin{equation}
+\nabla^\mu R_{\rho\mu} - \nabla_\rho R + \nabla^\nu R_{\rho\nu} = 0.
+\end{equation}
+(Note: we used antisymmetry to rearrange indices).
+Combining terms gives \(2\nabla^\mu R_{\rho\mu} - \nabla_\rho R = 0\), or:
+\begin{equation}
+\nabla^\mu \left( R_{\rho\mu} - \frac{1}{2} R g_{\rho\mu} \right) = 0.
+\end{equation}
+The term in parentheses is so important it gets its own name, the Einstein Tensor \(G_{\mu\nu}\):
+\begin{equation}
+G_{\mu\nu} = R_{\mu\nu} - \frac{1}{2} R g_{\mu\nu}.
+\end{equation}
+The identity guarantees that the Einstein tensor is divergence-free:
+\begin{equation}
+\nabla^\mu G_{\mu\nu} = 0.
+\end{equation}
+\paragraph{Intuition:} This geometric conservation law is crucial for General Relativity. Since energy-momentum is conserved (\(\nabla^\mu T_{\mu\nu} = 0\)), Einstein realized that \(G_{\mu\nu}\) is the geometric object that must be proportional to \(T_{\mu\nu}\).
+
+\subsection*{The Weyl Tensor}
+The "trace-free" part of the Riemann tensor is called the Weyl Tensor \(C_{\rho\sigma\mu\nu}\). It contains the information about tidal forces that preserve volume but distort shape (shearing).
+In \(n\) dimensions, it is defined by subtracting the traces (Ricci parts) from the Riemann tensor:
+\begin{equation}
+C_{\rho\sigma\mu\nu} = R_{\rho\sigma\mu\nu} - \frac{2}{n-2} (g_{\rho[\mu} R_{\nu]\sigma} - g_{\sigma[\mu} R_{\nu]\rho}) + \frac{2}{(n-1)(n-2)} g_{\rho[\mu} g_{\nu]\sigma} R.
+\end{equation}
+Properties:
+\begin{itemize}
+    \item It has the same symmetries as the Riemann tensor.
+    \item It is totally traceless: \({C^\lambda}_{\sigma\lambda\nu} = 0\).
+    \item It is conformally invariant: If we rescale the metric \(g_{\mu\nu} \to \Omega^2(x) g_{\mu\nu}\), the Weyl tensor \({C^\rho}_{\sigma\mu\nu}\) (with one index up) is unchanged.
+    \item It vanishes identically in \(n=3\) dimensions or fewer. In 3D, the Ricci tensor determines the full curvature. In 4D+, you can have curvature (gravity) even in vacuum (\(R_{\mu\nu}=0\)) due to the Weyl tensor (e.g., gravitational waves).
+\end{itemize}
+\section{Mathematical Interlude: Diffeomorphisms and Lie Derivatives}
+
+\subsection*{Active vs. Passive Transformations}
+In General Relativity, we often speak of "coordinate transformations." Traditionally, we view these as \textit{passive}: the manifold $M$ stays frozen, and we simply change the labels (charts) we use to describe points.
+
+However, there is an equivalent \textit{active} perspective called a \textbf{diffeomorphism}. A diffeomorphism is a smooth, invertible map $\phi: M \to M$ that moves points around on the manifold.
+\begin{itemize}
+    \item \textit{Passive:} Change the map, keep points fixed.
+    \item \textit{Active:} Keep the map fixed, move the points.
+\end{itemize}
+Diffeomorphisms allow us to compare tensors at different points by "pulling" a tensor from point $\phi(p)$ back to point $p$. This ability allows us to define a derivative operator that does not depend on a connection: the Lie Derivative.
+
+% FIGURE: Diagram showing a manifold M with a mapping \phi taking point p to \phi(p), and the pullback of a vector field returning to p.
+
+\subsection*{The Lie Derivative}
+We want to measure how a tensor field changes as we move along the flow of a vector field $V^\mu$. The integral curves of $V^\mu$ define a one-parameter family of diffeomorphisms $\phi_t$. To take a derivative, we compare the tensor $T$ at point $p$ with the tensor at a nearby point $\phi_t(p)$.
+
+Because tensors at different points live in different tangent spaces, we cannot subtract them directly. Instead, we use the diffeomorphism to \textbf{pull back} the tensor from $\phi_t(p)$ to $p$. The \textbf{Lie Derivative} is defined as:
+\begin{equation}
+\mathcal{L}_V T = \lim_{t \to 0} \frac{\phi_t^* [T(\phi_t(p))] - T(p)}{t}.
+\end{equation}
+This operator satisfies the Leibniz rule and is linear. Crucially, it requires no connection ($\Gamma$) or metric ($g$), only the vector field $V$ that defines the flow.
+
+\subsection*{Calculating the Lie Derivative}
+To derive explicit formulas, it is convenient to choose a coordinate system adapted to the vector field $V$. We choose coordinates $\{x^1, x^2, \dots, x^n\}$ such that $V$ points entirely along the $x^1$ direction:
+\begin{equation}
+V^\mu = (1, 0, \dots, 0) \implies V = \frac{\partial}{\partial x^1}.
+\end{equation}
+In this coordinate system, the flow $\phi_t$ is simply a shift in the $x^1$ coordinate: $x^1 \to x^1 + t$. The Lie derivative reduces to a partial derivative:
+\begin{equation}
+\mathcal{L}_V T^{\mu \dots}_{\nu \dots} = \frac{\partial}{\partial x^1} T^{\mu \dots}_{\nu \dots}.
+\end{equation}
+However, this expression is coordinate-dependent. We want a covariant formula.
+
+\textbf{1. Lie Derivative of a Vector}
+Let $U^\mu$ be another vector field. In our adapted coordinates, $\mathcal{L}_V U^\mu = \partial_1 U^\mu$.
+Now consider the commutator (Lie Bracket) of the two vectors:
+\begin{equation}
+[V, U]^\mu = V^\nu \partial_\nu U^\mu - U^\nu \partial_\nu V^\mu.
+\end{equation}
+In our adapted coordinates where $V^\nu = \delta^\nu_1$ (so $\partial_\nu V^\mu = 0$):
+\begin{equation}
+[V, U]^\mu = 1 \cdot \partial_1 U^\mu - 0 = \frac{\partial U^\mu}{\partial x^1}.
+\end{equation}
+Since $\mathcal{L}_V U$ and $[V, U]$ have the same components in this coordinate system, and both are tensors, they must be equal in \textit{all} coordinate systems.
+\begin{equation}
+\mathcal{L}_V U^\mu = [V, U]^\mu = V^\nu \partial_\nu U^\mu - U^\nu \partial_\nu V^\mu.
+\end{equation}
+
+\textbf{2. Lie Derivative of a One-Form}
+Let $\omega_\mu$ be a one-form. To find $\mathcal{L}_V \omega_\mu$, we look at the scalar contraction $S = \omega_\mu U^\mu$.
+Since $S$ is a scalar function, its Lie derivative is just the directional derivative:
+\begin{equation}
+\mathcal{L}_V (\omega_\mu U^\mu) = V^\nu \partial_\nu (\omega_\mu U^\mu).
+\end{equation}
+We can also apply the Leibniz rule to the Lie derivative:
+\begin{equation}
+\mathcal{L}_V (\omega_\mu U^\mu) = (\mathcal{L}_V \omega)_\mu U^\mu + \omega_\mu (\mathcal{L}_V U)^\mu.
+\end{equation}
+Equating the two expressions:
+\begin{equation}
+V^\nu (\partial_\nu \omega_\mu) U^\mu + V^\nu \omega_\mu (\partial_\nu U^\mu) = (\mathcal{L}_V \omega)_\mu U^\mu + \omega_\mu (V^\nu \partial_\nu U^\mu - U^\nu \partial_\nu V^\mu).
+\end{equation}
+The terms involving derivatives of $U$ cancel out ($V^\nu \omega_\mu \partial_\nu U^\mu$ on both sides). We are left with terms proportional to $U^\mu$:
+\begin{equation}
+V^\nu (\partial_\nu \omega_\mu) U^\mu = (\mathcal{L}_V \omega)_\mu U^\mu - \omega_\nu (\partial_\mu V^\nu) U^\mu.
+\end{equation}
+(Note: we relabeled indices in the last term to factor out $U^\mu$). Since this holds for arbitrary $U^\mu$, we have:
+\begin{equation}
+\mathcal{L}_V \omega_\mu = V^\nu \partial_\nu \omega_\mu + \omega_\nu \partial_\mu V^\nu.
+\end{equation}
+
+\textbf{3. General Tensor Formula}
+The pattern generalizes. For an arbitrary tensor, the Lie derivative consists of a partial derivative term plus a correction term for each index.
+\begin{itemize}
+    \item Upper indices get a minus sign and derive the vector $V$: $-\partial V$.
+    \item Lower indices get a plus sign and derive the vector $V$: $+\partial V$.
+\end{itemize}
+\begin{equation}
+\mathcal{L}_V {T^\mu}_\nu = V^\lambda \partial_\lambda {T^\mu}_\nu - (\partial_\lambda V^\mu) {T^\lambda}_\nu + (\partial_\nu V^\lambda) {T^\mu}_\lambda.
+\end{equation}
+\textit{Intuition:} If we replace partial derivatives $\partial$ with covariant derivatives $\nabla$ (assuming a torsion-free connection), all the connection coefficients $\Gamma$ cancel out. Thus, we can write the formula manifestly covariantly:
+\begin{equation}
+\mathcal{L}_V {T^\mu}_\nu = V^\lambda \nabla_\lambda {T^\mu}_\nu - (\nabla_\lambda V^\mu) {T^\lambda}_\nu + (\nabla_\nu V^\lambda) {T^\mu}_\lambda.
+\end{equation}
+
+\subsection*{Symmetries and the Metric}
+We can now rigorously define a symmetry. A diffeomorphism $\phi$ is a symmetry of a tensor $T$ if pulling the tensor back leaves it unchanged: $\phi^* T = T$.
+For infinitesimal symmetries generated by a vector field $K^\mu$, this corresponds to a vanishing Lie derivative:
+\begin{equation}
+\mathcal{L}_K T = 0.
+\end{equation}
+The most important symmetries are **Isometries**, which are symmetries of the metric tensor $g_{\mu\nu}$.
+\begin{equation}
+\mathcal{L}_K g_{\mu\nu} = 0.
+\end{equation}
+Let us expand this using the general formula for a $(0, 2)$ tensor:
+\begin{equation}
+\mathcal{L}_K g_{\mu\nu} = K^\sigma \nabla_\sigma g_{\mu\nu} + g_{\lambda\nu} \nabla_\mu K^\lambda + g_{\mu\lambda} \nabla_\nu K^\lambda.
+\end{equation}
+If we use the metric-compatible connection (Christoffel), then $\nabla_\sigma g_{\mu\nu} = 0$. The first term vanishes. We lower the indices on the $K$ terms:
+\begin{equation}
+\mathcal{L}_K g_{\mu\nu} = \nabla_\mu K_\nu + \nabla_\nu K_\mu.
+\end{equation}
+Thus, the condition for $K^\mu$ to generate a symmetry is:
+\begin{equation}
+\nabla_\mu K_\nu + \nabla_\nu K_\mu = 0 \quad \implies \quad \nabla_{(\mu} K_{\nu)} = 0.
+\end{equation}
+This rigorously derives **Killing's Equation**, which we used in Section 3.8.
+
+\section{Symmetries and Killing Vectors}
+
+\subsection*{Isometries and Conservation Laws}
+Real-world metrics are often approximated by solutions with high degrees of symmetry (e.g., spherical symmetry for stars, isotropy for cosmology). A symmetry of the metric is formally called an \textbf{isometry}. Physically, if a metric \(g_{\mu\nu}\) is independent of a specific coordinate \(x^{\sigma_*}\) (meaning \(\partial_{\sigma_*} g_{\mu\nu} = 0\)), the geometry looks the same as we translate along that coordinate.
+
+This symmetry leads directly to a conservation law for particle motion. Recall the geodesic equation derived earlier for a particle with four-momentum \(p_\mu\):
+\begin{equation}
+m \frac{dp_\mu}{d\tau} = \frac{1}{2} (\partial_\mu g_{\nu\lambda}) p^\nu p^\lambda.
+\end{equation}
+If the metric is independent of \(x^{\sigma_*}\), then \(\partial_{\sigma_*} g_{\nu\lambda} = 0\). Consequently, the RHS vanishes for the component \(\mu = \sigma_*\):
+\begin{equation}
+\frac{dp_{\sigma_*}}{d\tau} = 0.
+\end{equation}
+Thus, the momentum component \(p_{\sigma_*}\) is a constant of motion along the geodesic.
+
+\paragraph{Intuition:} This is the General Relativistic version of Noether's theorem. Independence of spatial position implies conservation of linear momentum; independence of time implies conservation of energy.
+
+\subsection*{Killing Vectors}
+We want to express this symmetry in a coordinate-independent language. We define a vector field \(K^\mu\) that "generates" the symmetry. If the metric is independent of \(x^{\sigma_*}\), the generator is the coordinate basis vector \(K = \partial_{\sigma_*}\), which has components \(K^\mu = \delta^\mu_{\sigma_*}\).
+
+In terms of this vector, the conserved quantity \(p_{\sigma_*}\) is the scalar product:
+\begin{equation}
+p_{\sigma_*} = K^\nu p_\nu.
+\end{equation}
+We now ask: what is the general condition on a vector field \(K^\mu\) such that \(K^\nu p_\nu\) is conserved along \textit{any} geodesic? We evaluate the derivative along the path:
+\begin{equation}
+\frac{d}{d\tau} (K_\nu p^\nu) = p^\mu \nabla_\mu (K_\nu p^\nu) = 0.
+\end{equation}
+Expanding the covariant derivative via the Leibniz rule:
+\begin{equation}
+p^\mu \nabla_\mu (K_\nu p^\nu) = p^\mu ( \nabla_\mu K_\nu ) p^\nu + K_\nu ( p^\mu \nabla_\mu p^\nu ).
+\end{equation}
+The second term vanishes because \(p^\mu\) follows a geodesic (\(p^\mu \nabla_\mu p^\nu = 0\)).
+The first term involves the contraction of \(\nabla_\mu K_\nu\) with \(p^\mu p^\nu\). Since \(p^\mu p^\nu\) is symmetric in \(\mu\) and \(\nu\), it will only contract with the symmetric part of \(\nabla_\mu K_\nu\).
+\begin{equation}
+p^\mu p^\nu \nabla_\mu K_\nu = p^\mu p^\nu \nabla_{(\mu} K_{\nu)}.
+\end{equation}
+For this to vanish for \textit{any} momentum \(p^\mu\), the symmetric part of the derivative must vanish. This yields \textbf{Killing's Equation}:
+\begin{equation}
+\label{eq:killing_eq}
+\nabla_{(\mu} K_{\nu)} = \frac{1}{2} (\nabla_\mu K_\nu + \nabla_\nu K_\mu) = 0.
+\end{equation}
+Any vector field \(K^\mu\) satisfying this equation is called a \textbf{Killing vector field}.
+
+\paragraph{Intuition:} The condition \(\nabla_{(\mu} K_{\nu)} = 0\) geometrically means that if you flow along the vector field \(K\), distances between neighboring points do not change. The metric is "dragged" into itself.
+
+\subsection*{Properties of Killing Vectors}
+Killing vectors satisfy several useful identities related to curvature:
+1.  \textbf{Second Derivative:} The second derivative of a Killing vector is determined by the Riemann tensor:
+    \begin{equation}
+    \nabla_\mu \nabla_\sigma K^\rho = {R^\rho}_{\sigma\mu\nu} K^\nu.
+    \end{equation}
+2.  \textbf{Ricci Scalar:} The geometry does not change along the symmetry direction, so the directional derivative of the curvature scalar vanishes:
+    \begin{equation}
+    K^\lambda \nabla_\lambda R = 0.
+    \end{equation}
+
+\subsection*{Conserved Currents}
+Killing vectors allow us to define conserved quantities for fields, not just particles. Given a Killing vector \(K^\mu\) and an energy-momentum tensor \(T^{\mu\nu}\) that satisfies local conservation (\(\nabla_\mu T^{\mu\nu} = 0\)), we can construct a current:
+\begin{equation}
+J^\mu_T = K_\nu T^{\mu\nu}.
+\end{equation}
+We verify its conservation by taking the divergence:
+\begin{equation}
+\nabla_\mu J^\mu_T = \nabla_\mu (K_\nu T^{\mu\nu}) = (\nabla_\mu K_\nu) T^{\mu\nu} + K_\nu (\nabla_\mu T^{\mu\nu}).
+\end{equation}
+The second term is zero by conservation of \(T^{\mu\nu}\).
+The first term vanishes because \(T^{\mu\nu}\) is symmetric, while \(\nabla_\mu K_\nu\) is antisymmetric (by Killing's equation).
+\begin{equation}
+\nabla_\mu J^\mu_T = 0.
+\end{equation}
+If the spacetime admits a timelike Killing vector \(K^\mu\) (time translation symmetry), we can define the total conserved energy of the system by integrating this current over a spacelike hypersurface \(\Sigma\):
+\begin{equation}
+E_T = \int_\Sigma J^\mu_T n_\mu \sqrt{\gamma} d^3x.
+\end{equation}
+
+\subsection*{Example: Symmetries of \(\mathbb{R}^3\)}
+Consider Euclidean 3-space with Cartesian coordinates and metric:
+\begin{equation}
+ds^2 = dx^2 + dy^2 + dz^2.
+\end{equation}
+The metric is constant, so it is independent of all coordinates.
+\textbf{Translations:}
+There are three obvious Killing vectors corresponding to translations along the axes:
+\begin{equation}
+X = \partial_x = (1, 0, 0), \quad Y = \partial_y = (0, 1, 0), \quad Z = \partial_z = (0, 0, 1).
+\end{equation}
+
+\textbf{Rotations:}
+There are also symmetries under rotation. Consider a rotation about the \(z\)-axis. In polar coordinates, the metric is \(ds^2 = dr^2 + r^2 d\theta^2 + dz^2\), which is independent of \(\theta\). Thus \(R = \partial_\theta\) is a Killing vector.
+To find its Cartesian components, we use the coordinate transformation \(x = r \cos\theta, y = r \sin\theta\). The vector field is:
+\begin{equation}
+R_z = \frac{\partial x}{\partial \theta}\partial_x + \frac{\partial y}{\partial \theta}\partial_y = -y \partial_x + x \partial_y.
+\end{equation}
+So the components are \(R_z^\mu = (-y, x, 0)\).
+Let us verify Killing's equation explicitly for \(R_z\). In Cartesian coordinates, \(\Gamma = 0\), so \(\nabla_\mu = \partial_\mu\). The covariant components are \(K_\mu = \delta_{\mu\nu} R_z^\nu = (-y, x, 0)\).
+\begin{align}
+\nabla_x K_x &= \partial_x (-y) = 0. \\
+\nabla_y K_y &= \partial_y (x) = 0. \\
+\nabla_x K_y + \nabla_y K_x &= \partial_x (x) + \partial_y (-y) = 1 + (-1) = 0.
+\end{align}
+The equation holds. The full set of rotational Killing vectors is:
+\begin{align}
+R_z^\mu &= (-y, x, 0) \quad (\text{Rotation about } z), \\
+R_y^\mu &= (z, 0, -x) \quad (\text{Rotation about } y), \\
+R_x^\mu &= (0, -z, y) \quad (\text{Rotation about } x).
+\end{align}
+
+\subsection*{Example: Symmetries of \(S^2\)}
+Consider the 2-sphere with metric:
+\begin{equation}
+ds^2 = d\theta^2 + \sin^2\theta d\phi^2.
+\end{equation}
+The metric is independent of \(\phi\), so we immediately identify the first Killing vector (rotation about the z-axis):
+\begin{equation}
+R = \partial_\phi.
+\end{equation}
+The sphere behaves like the surface of a ball in \(\mathbb{R}^3\), so it must have 3 rotational symmetries total. However, the other two rotations (about x and y) are not obvious in these coordinates because they change the \(\theta\) coordinate. By transforming the Cartesian Killing vectors to spherical coordinates, we find:
+\begin{align}
+S &= \cos\phi \,\partial_\theta - \cot\theta \sin\phi \,\partial_\phi, \\
+T &= -\sin\phi \,\partial_\theta - \cot\theta \cos\phi \,\partial_\phi.
+\end{align}
+You can verify that these messy vectors satisfy \(\nabla_{(\mu} K_{\nu)} = 0\) using the connection coefficients for the sphere calculated in previous sections.
+
+% FIGURE: Diagram of a sphere showing the flow lines of the Killing vector \partial_\phi (latitudinal circles) vs the complex flow of the other Killing vectors.
+\section{Maximally Symmetric Spaces}
+
+\subsection*{Counting Isometries}
+We ask: what is the most symmetric a space can possibly be? To quantify this, we count the number of independent isometries (Killing vectors).
+In a flat Euclidean space $\mathbb{R}^n$, we have:
+\begin{itemize}
+    \item \textbf{Translations:} $n$ directions (moving any point to any other point).
+    \item \textbf{Rotations:} Rotations about a point. A rotation is defined by a plane spanned by two axes. The number of independent planes in $n$ dimensions is the number of pairs of axes: $\binom{n}{2} = \frac{1}{2}n(n-1)$.
+\end{itemize}
+The total number of independent symmetries is the sum:
+\begin{equation}
+\text{Number of Killing Vectors} = n + \frac{1}{2}n(n-1) = \frac{1}{2}n(n+1).
+\end{equation}
+A manifold that possesses this maximum number of Killing vectors ($\frac{1}{2}n(n+1)$) is called a \textbf{Maximally Symmetric Space}.
+Because there are isometries mapping any point to any other point (homogeneity) and any direction to any other direction (isotropy), the curvature scalar $R$ must be constant everywhere, and the curvature tensor must look the same in all directions.
+
+\subsection*{The Curvature Tensor of a Maximally Symmetric Space}
+We can derive the specific form of the Riemann tensor for such a space. In locally inertial coordinates at a point $p$, the metric is $g_{\mu\nu} = \eta_{\mu\nu}$. Since the space is isotropic, the Riemann tensor components must be invariant under Lorentz transformations (or rotations).
+The only rank-4 tensor we can construct from the metric that shares the symmetries of the Riemann tensor ($R_{\rho\sigma\mu\nu} = -R_{\sigma\rho\mu\nu} = -R_{\rho\sigma\nu\mu} = R_{\mu\nu\rho\sigma}$) is composed of products of the metric itself:
+\begin{equation}
+R_{\rho\sigma\mu\nu} \propto (g_{\rho\mu} g_{\sigma\nu} - g_{\rho\nu} g_{\sigma\mu}).
+\end{equation}
+We determine the proportionality constant by contracting indices to find the Ricci scalar $R$.
+First, find the Ricci tensor by contracting $\rho$ and $\mu$:
+\begin{equation}
+R_{\sigma\nu} = g^{\rho\mu} R_{\rho\sigma\mu\nu} \propto g^{\rho\mu} (g_{\rho\mu} g_{\sigma\nu} - g_{\rho\nu} g_{\sigma\mu}) = (\delta^\mu_\mu g_{\sigma\nu} - \delta^\mu_\nu g_{\sigma\mu}) = (n g_{\sigma\nu} - g_{\sigma\nu}) = (n-1) g_{\sigma\nu}.
+\end{equation}
+Next, find the Ricci scalar by contracting $\sigma$ and $\nu$:
+\begin{equation}
+R = g^{\sigma\nu} R_{\sigma\nu} \propto (n-1) g^{\sigma\nu} g_{\sigma\nu} = n(n-1).
+\end{equation}
+So the constant of proportionality is $\frac{R}{n(n-1)}$. The full Riemann tensor is:
+\begin{equation}
+R_{\rho\sigma\mu\nu} = \frac{R}{n(n-1)} (g_{\rho\mu} g_{\sigma\nu} - g_{\rho\nu} g_{\sigma\mu}).
+\end{equation}
+This formula holds for any maximally symmetric space. It is fully characterized by the single constant $R$.
+
+\subsection*{Classification by Curvature}
+Since $R$ is constant, we categorize these spaces by the sign of $R$:
+\begin{itemize}
+    \item \textbf{Positive ($R > 0$):} The sphere $S^n$.
+    \item \textbf{Zero ($R = 0$):} Flat Euclidean space $\mathbb{R}^n$.
+    \item \textbf{Negative ($R < 0$):} The hyperboloid $H^n$.
+\end{itemize}
+
+\subsection*{Example: The Poincaré Half-Plane ($H^2$)}
+A concrete representation of the 2-dimensional hyperboloid $H^2$ is the Poincaré half-plane.
+\textbf{Coordinates:} $(x, y)$ with $y > 0$.
+\textbf{Metric:}
+\begin{equation}
+ds^2 = \frac{a^2}{y^2} (dx^2 + dy^2).
+\end{equation}
+Here $a$ is a constant related to the radius of curvature.
+% FIGURE: Plot of the upper half plane y>0. Show geodesics as semicircles centered on the x-axis and vertical lines.
+
+\paragraph{Distance Measurements}
+Let's measure the distance along a vertical line ($x = \text{const}$) from $y_1$ to $y_2$.
+\begin{equation}
+L = \int_{y_1}^{y_2} \sqrt{g_{yy}} dy = \int_{y_1}^{y_2} \sqrt{\frac{a^2}{y^2}} dy = a \int_{y_1}^{y_2} \frac{dy}{y} = a \ln \left( \frac{y_2}{y_1} \right).
+\end{equation}
+Intuition: As $y \to 0$, the distance diverges. The boundary $y=0$ is infinitely far away.
+
+\paragraph{Christoffel Symbols}
+The non-zero metric components are $g_{xx} = g_{yy} = a^2 y^{-2}$.
+The inverse components are $g^{xx} = g^{yy} = a^{-2} y^2$.
+Derivatives:
+\begin{equation}
+\partial_y g_{xx} = \partial_y (a^2 y^{-2}) = -2a^2 y^{-3}, \quad \partial_y g_{yy} = -2a^2 y^{-3}.
+\end{equation}
+(Derivatives with respect to $x$ vanish).
+Calculate $\Gamma^x_{xy}$:
+\begin{equation}
+\Gamma^x_{xy} = \frac{1}{2} g^{xx} (\partial_x g_{xy} + \partial_y g_{xx} - \partial_x g_{xy}) = \frac{1}{2} (a^{-2} y^2) (-2a^2 y^{-3}) = -y^{-1}.
+\end{equation}
+Calculate $\Gamma^y_{xx}$:
+\begin{equation}
+\Gamma^y_{xx} = \frac{1}{2} g^{yy} (\partial_x g_{yx} + \partial_x g_{xy} - \partial_y g_{xx}) = \frac{1}{2} (a^{-2} y^2) (-(-2a^2 y^{-3})) = y^{-1}.
+\end{equation}
+Calculate $\Gamma^y_{yy}$:
+\begin{equation}
+\Gamma^y_{yy} = \frac{1}{2} g^{yy} (\partial_y g_{yy}) = \frac{1}{2} (a^{-2} y^2) (-2a^2 y^{-3}) = -y^{-1}.
+\end{equation}
+Summary of symbols:
+\begin{equation}
+\Gamma^x_{xy} = \Gamma^x_{yx} = -\frac{1}{y}, \quad \Gamma^y_{xx} = \frac{1}{y}, \quad \Gamma^y_{yy} = -\frac{1}{y}.
+\end{equation}
+
+\paragraph{Geodesics}
+The geodesic equations turn out to be:
+\begin{equation}
+\frac{d^2 x}{d\tau^2} - \frac{2}{y} \frac{dx}{d\tau} \frac{dy}{d\tau} = 0, \quad \frac{d^2 y}{d\tau^2} + \frac{1}{y} \left( \frac{dx}{d\tau} \right)^2 - \frac{1}{y} \left( \frac{dy}{d\tau} \right)^2 = 0.
+\end{equation}
+It can be shown that the solutions satisfy $(x-x_0)^2 + y^2 = L^2$.
+Geometrically, the geodesics are \textbf{semicircles} centered on the x-axis (or vertical straight lines).
+
+\paragraph{Curvature Calculation}
+We compute one component of the Riemann tensor, ${R^x}_{yxy}$.
+\begin{equation}
+{R^x}_{yxy} = \partial_x \Gamma^x_{yy} - \partial_y \Gamma^x_{xy} + \Gamma^x_{x\lambda} \Gamma^\lambda_{yy} - \Gamma^x_{y\lambda} \Gamma^\lambda_{xy}.
+\end{equation}
+Terms:\\
+1. $\partial_x \Gamma^x_{yy} = \partial_x (-1/y) = 0$.\\
+
+2. $\partial_y \Gamma^x_{xy} = \partial_y (-1/y) = +y^{-2}$. So the term is $-y^{-2}$.\\
+
+3. $\Gamma^x_{x\lambda} \Gamma^\lambda_{yy}$: Only $\lambda=y$ contributes (since $\Gamma^y_{yy} \neq 0$).\\
+
+   $\Gamma^x_{xy} \Gamma^y_{yy} = (-1/y)(-1/y) = y^{-2}$.\\
+
+4. $\Gamma^x_{y\lambda} \Gamma^\lambda_{xy}$: Sum over $\lambda=x, y$.\\
+
+   $\lambda=x: \Gamma^x_{yx} \Gamma^x_{xx} = (-1/y)(0) = 0$.\\
+
+   $\lambda=y: \Gamma^x_{yy} \Gamma^y_{xy} = (-1/y)(0) = 0$ (Wait, $\Gamma^y_{xy}=0$).\\
+
+Summing them up:
+\begin{equation}
+{R^x}_{yxy} = 0 - (y^{-2}) + y^{-2} - 0 = 0?
+\end{equation}
+\textit{Correction:} Let me re-evaluate term 4 carefully.
+$\Gamma^x_{y\lambda} \Gamma^\lambda_{xy}$.
+$\lambda=x \to \Gamma^x_{yx} \Gamma^x_{xx}$. We know $\Gamma^x_{xx}$ was not calculated above. Let's check $\Gamma^x_{xx} = \frac{1}{2}g^{xx}(\partial_x g_{xx} + \dots) = 0$. Correct.
+$\lambda=y \to \Gamma^x_{yy} \Gamma^y_{xy}$. We check $\Gamma^y_{xy} = \frac{1}{2}g^{yy}(\partial_x g_{yy} + \partial_y g_{xy} - \partial_x g_{yy}) = 0$. Correct.
+Wait, let's re-evaluate Term 3: $\Gamma^x_{x\lambda} \Gamma^\lambda_{yy}$.
+Indices: Sum over $\lambda$.
+$\lambda=x$: $\Gamma^x_{xx} \Gamma^x_{yy} = 0$.
+$\lambda=y$: $\Gamma^x_{xy} \Gamma^y_{yy} = (-y^{-1})(-y^{-1}) = y^{-2}$.
+Let's re-evaluate Term 2: $-\partial_y \Gamma^x_{xy} = -\partial_y (-y^{-1}) = -(y^{-2}) = -y^{-2}$.
+So sum is $-y^{-2} + y^{-2} = 0$? This implies zero curvature, which is wrong for a hyperboloid.
+Let's check the definition of Riemann again:
+${R^\rho}_{\sigma\mu\nu} = \partial_\mu \Gamma^\rho_{\nu\sigma} - \partial_\nu \Gamma^\rho_{\mu\sigma} + \Gamma^\rho_{\mu\lambda} \Gamma^\lambda_{\nu\sigma} - \Gamma^\rho_{\nu\lambda} \Gamma^\lambda_{\mu\sigma}$.
+We want ${R^x}_{yxy}$. Indices: $\rho=x, \sigma=y, \mu=x, \nu=y$.
+\begin{equation}
+{R^x}_{yxy} = \partial_x \Gamma^x_{yy} - \partial_y \Gamma^x_{xy} + \Gamma^x_{x\lambda} \Gamma^\lambda_{yy} - \Gamma^x_{y\lambda} \Gamma^\lambda_{xy}.
+\end{equation}
+1. $\partial_x \Gamma^x_{yy} = 0$.\\
+2. $-\partial_y \Gamma^x_{xy} = -\partial_y (-y^{-1}) = -(y^{-2})$.\\
+3. Sum $\lambda$: $\Gamma^x_{xx}\Gamma^x_{yy} + \Gamma^x_{xy}\Gamma^y_{yy} = (0) + (-y^{-1})(-y^{-1}) = +y^{-2}$.\\
+4. Sum $\lambda$: $\Gamma^x_{yx}\Gamma^x_{xy} + \Gamma^x_{yy}\Gamma^y_{xy} = (-y^{-1})(-y^{-1}) + (0) = +y^{-2}$.\\
+Result:
+\begin{equation}
+{R^x}_{yxy} = 0 - y^{-2} + y^{-2} - y^{-2} = -y^{-2}.
+\end{equation}
+This is non-zero. Correct.
+
+Lower the index to get $R_{xyxy}$:
+\begin{equation}
+R_{xyxy} = g_{xx} {R^x}_{yxy} = (a^2 y^{-2}) (-y^{-2}) = -a^2 y^{-4}.
+\end{equation}
+Calculate Ricci Tensor $R_{yy}$:
+\begin{equation}
+R_{yy} = {R^x}_{yxy} = -y^{-2}.
+\end{equation}
+Calculate Ricci Tensor $R_{xx}$:
+\begin{equation}
+R_{xx} = {R^y}_{xyx} = g^{yy} R_{yxyx} = g^{yy} (-R_{xyxy}) = (a^{-2} y^2) (a^2 y^{-4}) = y^{-2} \dots
+\end{equation}
+Wait, symmetry $R_{xyxy} = -a^2 y^{-4}$.
+$R_{xx} = g^{yy} R_{yxyx}$. Note $R_{yxyx} = -R_{xyyx} = R_{xyxy} = -a^2 y^{-4}$.
+So $R_{xx} = (a^{-2} y^2) (-a^2 y^{-4}) = -y^{-2}$.
+Ricci Scalar $R$:
+\begin{equation}
+R = g^{xx} R_{xx} + g^{yy} R_{yy} = (a^{-2} y^2)(-y^{-2}) + (a^{-2} y^2)(-y^{-2}) = -a^{-2} - a^{-2} = -\frac{2}{a^2}.
+\end{equation}
+The curvature scalar is constant and negative. This confirms $H^2$ is a maximally symmetric space of negative curvature.
+
+\subsection*{Global Topology vs Local Geometry}
+The curvature $R$ is a \textbf{local} property. It tells us about the geometry in a neighborhood of a point. It does not fix the \textbf{global} topology.
+Example: The Torus $T^2$.
+We can define a flat metric on a square $ds^2 = dx^2 + dy^2$ and identify opposite edges ($x \sim x+L, y \sim y+L$).
+Locally, the metric is Euclidean everywhere, so $R=0$.
+Globally, it is a torus, not an infinite plane.
+This distinction is captured by the \textbf{Gauss-Bonnet Theorem} for compact 2D surfaces:
+\begin{equation}
+\chi(M) = \frac{1}{4\pi} \int_M R \sqrt{|g|} d^2x = 2(1-g).
+\end{equation}
+Here $g$ is the genus (number of holes).
+\begin{itemize}
+    \item Sphere ($g=0$): $\int R > 0$. Requires positive curvature.
+    \item Torus ($g=1$): $\int R = 0$. Can be flat.
+    \item Higher genus ($g \geq 2$): $\int R < 0$. Requires negative curvature.
+\end{itemize}
+In String Theory, we sum over these topologies (worldsheets). We often use a "fiducial metric" that is maximally symmetric for each topology: the round metric for the sphere, flat for the torus, and hyperbolic for higher genus surfaces.
+
+\subsection*{Lorentzian Signatures}
+The classification extends to spacetime (Lorentzian metric):
+\begin{itemize}
+    \item $R = 0$: \textbf{Minkowski Space} (Flat).
+    \item $R > 0$: \textbf{de Sitter Space (dS)} (Positive curvature, like a sphere).
+    \item $R < 0$: \textbf{Anti-de Sitter Space (AdS)} (Negative curvature, like a hyperboloid).
+\end{itemize}
+\section{Geodesic Deviation}
+
+\subsection*{The Question of Parallel Lines}
+In Euclidean geometry, the \textbf{Parallel Postulate} states that initially parallel lines remain parallel forever. In curved spacetime, this is false. Geodesics that start parallel can converge or diverge. For example, two longitude lines on Earth start parallel at the equator (both perpendicular to the equator) but converge at the pole.
+
+This convergence or divergence is the most direct physical manifestation of curvature. In General Relativity, it corresponds to \textbf{tidal forces}. If you are falling into a black hole, the gravity at your feet is stronger than at your head, stretching you. This stretching is exactly the relative acceleration of the geodesics followed by your head and your feet.
+
+\subsection*{The Setup: A Family of Geodesics}
+Consider a family of geodesics \(\gamma_s(t)\).
+\begin{itemize}
+    \item \(t\) is the affine parameter (e.g., proper time) along each geodesic.
+    \item \(s\) is a parameter that labels \textit{which} geodesic we are on.
+\end{itemize}
+This defines a 2D surface in the manifold mapped by coordinates \((s, t)\) to points \(x^\mu(s, t)\).
+We define two vector fields:
+1.  \textbf{Tangent Vector} \(T^\mu\): Points along the geodesic (velocity).
+    \begin{equation}
+    T^\mu = \frac{\partial x^\mu}{\partial t}.
+    \end{equation}
+2.  \textbf{Deviation Vector} \(S^\mu\): Points from one geodesic to its neighbor (separation).
+    \begin{equation}
+    S^\mu = \frac{\partial x^\mu}{\partial s}.
+    \end{equation}
+% FIGURE: Diagram showing a bundle of geodesic curves parameterized by s. Vectors T point along the curves, vectors S point between them.
+
+\subsection*{The Commutator Property}
+Since \(T\) and \(S\) are coordinate basis vectors for the sub-manifold spanned by \((s, t)\) (specifically \(T = \partial_t\) and \(S = \partial_s\)), partial derivatives with respect to \(s\) and \(t\) commute.
+\begin{equation}
+\frac{\partial}{\partial s} \left( \frac{\partial x^\mu}{\partial t} \right) = \frac{\partial}{\partial t} \left( \frac{\partial x^\mu}{\partial s} \right) \implies \partial_s T^\mu = \partial_t S^\mu.
+\end{equation}
+In covariant language, the Lie derivative vanishes \([S, T] = 0\). This implies a crucial identity relating their covariant derivatives:
+\begin{equation}
+\label{eq:commutator_ST}
+T^\nu \nabla_\nu S^\mu = S^\nu \nabla_\nu T^\mu \quad (\text{or } \nabla_T S = \nabla_S T).
+\end{equation}
+(Proof: \([S, T]^\mu = S^\nu \nabla_\nu T^\mu - T^\nu \nabla_\nu S^\mu = 0\)).
+
+\subsection*{Relative Velocity and Acceleration}
+We want to see how the separation \(S^\mu\) changes as we move along the geodesic (increment \(t\)).
+The \textbf{relative velocity} of the geodesics is the rate of change of \(S^\mu\):
+\begin{equation}
+V^\mu = \frac{D S^\mu}{dt} = T^\nu \nabla_\nu S^\mu.
+\end{equation}
+The \textbf{relative acceleration} is the second rate of change:
+\begin{equation}
+A^\mu = \frac{D^2 S^\mu}{dt^2} = \frac{D}{dt} (V^\mu) = T^\rho \nabla_\rho (T^\nu \nabla_\nu S^\mu).
+\end{equation}
+
+\subsection*{Derivation of the Geodesic Deviation Equation}
+We now manipulate the expression for \(A^\mu\) to find a relation to curvature.
+Start with the definition:
+\begin{equation}
+A^\mu = T^\rho \nabla_\rho (T^\nu \nabla_\nu S^\mu).
+\end{equation}
+Step 1: Use the commutator property (\ref{eq:commutator_ST}) to swap \(T\) and \(S\) inside the parentheses (\(\nabla_T S \to \nabla_S T\)):
+\begin{equation}
+A^\mu = T^\rho \nabla_\rho (S^\nu \nabla_\nu T^\mu).
+\end{equation}
+Step 2: Apply the Leibniz rule to expand the outer derivative:
+\begin{equation}
+A^\mu = (T^\rho \nabla_\rho S^\nu)(\nabla_\nu T^\mu) + S^\nu T^\rho \nabla_\rho \nabla_\nu T^\mu.
+\end{equation}
+Step 3: In the second term, we want to swap the order of differentiation \(\nabla_\rho \nabla_\nu\) to \(\nabla_\nu \nabla_\rho\). The definition of the Riemann tensor tells us:
+\begin{equation}
+[\nabla_\rho, \nabla_\nu] T^\mu = {R^\mu}_{\sigma\rho\nu} T^\sigma \implies \nabla_\rho \nabla_\nu T^\mu = \nabla_\nu \nabla_\rho T^\mu + {R^\mu}_{\sigma\rho\nu} T^\sigma.
+\end{equation}
+Substitute this into our expression for \(A^\mu\):
+\begin{equation}
+A^\mu = (T^\rho \nabla_\rho S^\nu)(\nabla_\nu T^\mu) + S^\nu T^\rho \left( \nabla_\nu \nabla_\rho T^\mu + {R^\mu}_{\sigma\rho\nu} T^\sigma \right).
+\end{equation}
+Step 4: Distribute terms. The term with the Riemann tensor is:
+\begin{equation}
+S^\nu T^\rho {R^\mu}_{\sigma\rho\nu} T^\sigma = {R^\mu}_{\sigma\rho\nu} T^\sigma T^\rho S^\nu.
+\end{equation}
+The remaining derivative term is \(S^\nu T^\rho \nabla_\nu \nabla_\rho T^\mu\). We use Leibniz rule "in reverse" to pull \(S^\nu\) outside:
+\begin{equation}
+S^\nu T^\rho \nabla_\nu \nabla_\rho T^\mu = S^\nu \nabla_\nu (T^\rho \nabla_\rho T^\mu) - S^\nu (\nabla_\nu T^\rho) (\nabla_\rho T^\mu).
+\end{equation}
+Step 5: Apply the Geodesic Equation. Since \(T\) is a geodesic tangent vector, \(T^\rho \nabla_\rho T^\mu = 0\). Therefore:
+\begin{equation}
+S^\nu \nabla_\nu (\underbrace{T^\rho \nabla_\rho T^\mu}_{0}) = 0.
+\end{equation}
+So the second derivative term simplifies to just \(- (S^\nu \nabla_\nu T^\rho) (\nabla_\rho T^\mu)\).
+Combining everything, we have:
+\begin{equation}
+A^\mu = \underbrace{(T^\rho \nabla_\rho S^\nu)(\nabla_\nu T^\mu)}_{\text{Term 1}} - \underbrace{(S^\nu \nabla_\nu T^\rho)(\nabla_\rho T^\mu)}_{\text{Term 2}} + {R^\mu}_{\sigma\rho\nu} T^\sigma T^\rho S^\nu.
+\end{equation}
+Look closely at Term 1 and Term 2.
+Using the commutator property again (\(T^\rho \nabla_\rho S^\nu = S^\rho \nabla_\rho T^\nu\)):
+Term 1 becomes \((S^\rho \nabla_\rho T^\nu)(\nabla_\nu T^\mu)\).
+This cancels exactly with Term 2 (after relabeling dummy indices).
+
+We are left with the \textbf{Geodesic Deviation Equation}:
+\begin{equation}
+\label{eq:geodesic_deviation}
+\frac{D^2 S^\mu}{dt^2} = {R^\mu}_{\nu\rho\sigma} T^\nu T^\rho S^\sigma.
+\end{equation}
+(Note: Indices on Riemann were relabeled to match standard form \({R^\mu}_{\nu\rho\sigma} T^\nu T^\rho S^\sigma\)).
+
+\subsection*{Physical Interpretation: Tidal Forces}
+This equation is the precise mathematical statement that \textbf{gravity is curvature}.
+\begin{itemize}
+    \item \textbf{LHS:} The relative acceleration of two nearby particles falling freely. In Newtonian physics, this is the "tidal force" (difference in gravitational force).
+    \item \textbf{RHS:} The Riemann tensor. This shows that tidal acceleration is proportional to curvature, the square of the velocity, and the separation distance.
+\end{itemize}
+
+\paragraph{Example: Falling towards Earth}
+Consider two particles falling radially towards the Earth from space.
+\begin{itemize}
+    \item \textbf{Math:} They move on radial geodesics. As they get closer to Earth, the geodesics converge toward the center of the Earth. The separation vector \(S^\mu\) (pointing horizontally between them) shrinks. Thus, there is a relative acceleration \(\frac{D^2 S}{dt^2}\) pointing inward (negative).
+    \item \textbf{Physics:} The Newtonian tidal tensor is \(\mathcal{E}_{ij} = \partial_i \partial_j \Phi\). The equation becomes roughly \(\frac{d^2 S^i}{dt^2} \approx - \partial_i \partial_j \Phi S^j\).
+    \item \textbf{Geometry:} This convergence proves spacetime is curved (\(R \neq 0\)). If spacetime were flat, parallel paths would stay parallel forever (\(A^\mu = 0\)).
+\end{itemize}
+This equation is frequently used to detect gravitational waves. As a wave passes, the curvature \(R\) oscillates, causing the distance \(S\) between test masses in an interferometer (like LIGO) to oscillate.
+\section{Supplement: Stokes's Theorem and Conservation Laws}
+
+\subsection*{The Generalized Stokes's Theorem}
+In calculus, you learned the Fundamental Theorem of Calculus: $\int_a^b \frac{df}{dx} dx = f(b) - f(a)$. This relates an integral over a volume (the interval) to values on the boundary (the endpoints).
+Stokes's Theorem generalizes this to manifolds of any dimension $n$. Let $M$ be an $n$-dimensional manifold with boundary $\partial M$. Let $\omega$ be an $(n-1)$-form. The theorem states:
+\begin{equation}
+\int_M d\omega = \int_{\partial M} \omega.
+\end{equation}
+This single elegant equation encompasses the divergence theorem, Green's theorem, and classical Stokes's theorem.
+
+\paragraph{Intuition:} The exterior derivative $d$ measures how a form changes "locally." Integrating this change over the whole interior sums up to the net "flow" across the boundary. It is the ultimate statement that "what happens inside must cross the edge to get out."
+
+\subsection*{Deriving the Vector Calculus Version}
+To make this useful for physics (like Electromagnetism), we need to translate it into vector notation using the metric and covariant derivatives.
+
+\textbf{Step 1: Relate the form to a vector.}
+Let the $(n-1)$-form $\omega$ be the Hodge dual of a vector field $V^\mu$:
+\begin{equation}
+\omega = *V.
+\end{equation}
+In components, using the Levi-Civita tensor $\epsilon$:
+\begin{equation}
+\omega_{\mu_1 \dots \mu_{n-1}} = \epsilon_{\nu \mu_1 \dots \mu_{n-1}} V^\nu.
+\end{equation}
+
+\textbf{Step 2: Calculate the exterior derivative.}
+The exterior derivative $d\omega$ is an $n$-form. Any $n$-form is proportional to the volume element $\epsilon$. We can find the proportionality factor by taking the dual again.
+Identity: For a vector $V$, the divergence is related to the duals by:
+\begin{equation}
+*d(*V) = (-1)^s \nabla_\mu V^\mu,
+\end{equation}
+where $s$ depends on the signature ($-1$ for Lorentzian, $+1$ for Euclidean).
+Therefore, the $n$-form $d\omega$ is:
+\begin{equation}
+d\omega = (\nabla_\mu V^\mu) \epsilon = (\nabla_\mu V^\mu) \sqrt{|g|} d^n x.
+\end{equation}
+This handles the left-hand side of Stokes's theorem: it is the integral of the divergence.
+
+\textbf{Step 3: Handle the boundary integral.}
+The boundary $\partial M$ is an $(n-1)$-dimensional hypersurface. It has an induced metric $\gamma_{ij}$ and an induced volume element $\hat{\epsilon}$.
+The restriction of our form $\omega$ to the boundary is determined by the unit normal vector $n^\mu$ to the boundary:
+\begin{equation}
+\omega|_{\partial M} = (n_\mu V^\mu) \hat{\epsilon} = (n_\mu V^\mu) \sqrt{|\gamma|} d^{n-1} y.
+\end{equation}
+\textbf{Orientation convention:}
+\begin{itemize}
+    \item If the boundary is \textbf{timelike}, $n^\mu$ points \textbf{inward}.
+    \item If the boundary is \textbf{spacelike}, $n^\mu$ points \textbf{outward}.
+\end{itemize}
+
+\textbf{Step 4: The Final Formula.}
+Equating the two sides gives the Divergence Theorem on curved manifolds:
+\begin{equation}
+\label{eq:divergence_theorem}
+\int_M \nabla_\mu V^\mu \sqrt{|g|} d^n x = \int_{\partial M} n_\mu V^\mu \sqrt{|\gamma|} d^{n-1} y.
+\end{equation}
+
+\paragraph{Intuition:} The total "stuff" created inside a region (sum of divergence) equals the flux of "stuff" pushing out through the walls (normal component on boundary).
+
+\subsection*{Application: Conservation of Charge}
+Assume we have a current vector $J^\mu$ that is locally conserved:
+\begin{equation}
+\nabla_\mu J^\mu = 0.
+\end{equation}
+We define the total charge $Q_\Sigma$ on a spacelike hypersurface $\Sigma$ (like "all space at time $t$") as:
+\begin{equation}
+Q_\Sigma = - \int_\Sigma *J = - \int_\Sigma n_\mu J^\mu \sqrt{|\gamma|} d^{n-1} y.
+\end{equation}
+(The minus sign is a convention to make charge positive when $n^\mu$ is future-pointing).
+
+Does this charge change with time? Consider a 4D region $R$ bounded by two time slices $\Sigma_1$ (past) and $\Sigma_2$ (future).
+Apply Stokes's theorem to the current $J$ over region $R$:
+\begin{equation}
+\int_R \nabla_\mu J^\mu \sqrt{|g|} d^4 x = \int_{\partial R} n_\mu J^\mu \sqrt{|\gamma|} d^3 y.
+\end{equation}
+The LHS is zero because the current is conserved.
+The RHS is the sum of integrals over the boundaries $\Sigma_1$ and $\Sigma_2$ (assuming fields vanish at spatial infinity).
+Note that on $\Sigma_1$ the normal points inward (future), and on $\Sigma_2$ it points outward (future). However, the boundary orientation convention in Stokes's theorem implies a relative minus sign.
+\begin{equation}
+0 = Q(\Sigma_2) - Q(\Sigma_1) \implies Q(\Sigma_1) = Q(\Sigma_2).
+\end{equation}
+Thus, charge is globally conserved: the value is independent of the choice of time slice.
+
+% FIGURE: A spacetime diagram showing a 4D region R sandwiched between two time slices Sigma_1 and Sigma_2.
+
+\subsection*{Application: Gauss's Law}
+We can calculate charge using only the field at the boundary (spatial infinity), without integrating over the interior volume.
+Maxwell's equations relate the field strength $F^{\mu\nu}$ to the current:
+\begin{equation}
+\nabla_\nu F^{\mu\nu} = J^\mu.
+\end{equation}
+Substitute this into the charge definition:
+\begin{equation}
+Q = - \int_\Sigma n_\mu J^\mu \sqrt{|\gamma|} d^3 y = - \int_\Sigma n_\mu (\nabla_\nu F^{\mu\nu}) \sqrt{|\gamma|} d^3 y.
+\end{equation}
+Now, apply Stokes's theorem \textit{again}, but on the spatial hypersurface $\Sigma$ itself. The boundary of the spatial volume $\Sigma$ is the "surface at infinity" $\partial \Sigma$ (a 2-sphere).
+\begin{equation}
+Q = \int_{\partial \Sigma} n_\mu \sigma_\nu F^{\mu\nu} \sqrt{|\gamma^{(2)}|} d^2 z.
+\end{equation}
+Here:
+\begin{itemize}
+    \item $\Sigma$ is the 3D space.
+    \item $\partial \Sigma$ is the 2D boundary sphere at infinity.
+    \item $n_\mu$ is the normal to time (timelike).
+    \item $\sigma_\nu$ is the normal to the sphere (radial spacelike).
+\end{itemize}
+
+\textbf{Example: Point Charge in Minkowski Space}
+Metric: $ds^2 = -dt^2 + dr^2 + r^2 d\Omega^2$.
+Electric field: $E^r = \frac{q}{4\pi r^2}$ (radial).
+Field tensor: $F^{tr} = E^r$.
+Normals: $n_\mu = (1, 0, 0, 0)$ (time), $\sigma_\nu = (0, 1, 0, 0)$ (radial).
+Contract the normals with the tensor:
+\begin{equation}
+n_\mu \sigma_\nu F^{\mu\nu} = n_t \sigma_r F^{tr} = (-1)(1) E^r = - \frac{q}{4\pi r^2}.
+\end{equation}
+(Note: $n_\mu$ is covariant, so $n_t = -1$ in $-+++$ signature).
+Integrate over the sphere at infinity. Area element $\sqrt{|\gamma^{(2)}|} d^2 z = r^2 \sin\theta d\theta d\phi$.
+\begin{equation}
+Q = \int_{S^2} \left( - \frac{q}{4\pi r^2} \right) (r^2 d\Omega) \times (-1 \text{ from formula sign}) = \frac{q}{4\pi} \int d\Omega = \frac{q}{4\pi} (4\pi) = q.
+\end{equation}
+It works! We recovered the charge $q$ solely by integrating the field flux at infinity.
+\end{document}

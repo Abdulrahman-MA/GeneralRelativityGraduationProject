@@ -19,19 +19,19 @@
 \contentsline {section}{\numberline {1.6}The Riemann Curvature Tensor}{16}{section.1.6}%
 \contentsline {paragraph}{Intuition:}{19}{equation.1.157}%
 \contentsline {section}{\numberline {1.7}Properties of the Riemann Tensor}{20}{section.1.7}%
-\contentsline {paragraph}{Intuition:}{20}{equation.1.172}%
-\contentsline {paragraph}{Intuition:}{22}{equation.1.184}%
-\contentsline {section}{\numberline {1.8}Mathematical Interlude: Diffeomorphisms and Lie Derivatives}{22}{section.1.8}%
-\contentsline {section}{\numberline {1.9}Symmetries and Killing Vectors}{25}{section.1.9}%
-\contentsline {paragraph}{Intuition:}{25}{equation.1.205}%
-\contentsline {paragraph}{Intuition:}{25}{equation.1.210}%
-\contentsline {section}{\numberline {1.10}Maximally Symmetric Spaces}{27}{section.1.10}%
-\contentsline {paragraph}{Distance Measurements}{28}{equation.1.235}%
-\contentsline {paragraph}{Christoffel Symbols}{28}{equation.1.236}%
-\contentsline {paragraph}{Geodesics}{29}{equation.1.241}%
-\contentsline {paragraph}{Curvature Calculation}{29}{equation.1.242}%
-\contentsline {section}{\numberline {1.11}Geodesic Deviation}{30}{section.1.11}%
-\contentsline {paragraph}{Example: Falling towards Earth}{32}{equation.1.267}%
-\contentsline {section}{\numberline {1.12}Supplement: Stokes's Theorem and Conservation Laws}{33}{section.1.12}%
-\contentsline {paragraph}{Intuition:}{33}{equation.1.268}%
-\contentsline {paragraph}{Intuition:}{34}{equation.1.274}%
+\contentsline {paragraph}{Intuition:}{22}{AMS.12}%
+\contentsline {paragraph}{Intuition:}{24}{equation.1.189}%
+\contentsline {section}{\numberline {1.8}Mathematical Interlude: Diffeomorphisms and Lie Derivatives}{26}{section.1.8}%
+\contentsline {section}{\numberline {1.9}Symmetries and Killing Vectors}{28}{section.1.9}%
+\contentsline {paragraph}{Intuition:}{28}{equation.1.221}%
+\contentsline {paragraph}{Intuition:}{29}{equation.1.226}%
+\contentsline {section}{\numberline {1.10}Maximally Symmetric Spaces}{39}{section.1.10}%
+\contentsline {paragraph}{Distance Measurements}{41}{equation.1.315}%
+\contentsline {paragraph}{Christoffel Symbols}{42}{equation.1.316}%
+\contentsline {paragraph}{Geodesics}{42}{equation.1.321}%
+\contentsline {paragraph}{Curvature Calculation}{42}{equation.1.322}%
+\contentsline {section}{\numberline {1.11}Geodesic Deviation}{47}{section.1.11}%
+\contentsline {paragraph}{Example: Falling towards Earth}{50}{equation.1.380}%
+\contentsline {section}{\numberline {1.12}Supplement: Stokes's Theorem and Conservation Laws}{50}{section.1.12}%
+\contentsline {paragraph}{Intuition:}{50}{equation.1.381}%
+\contentsline {paragraph}{Intuition:}{51}{equation.1.387}%

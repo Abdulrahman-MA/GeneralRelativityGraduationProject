@@ -1,0 +1,2546 @@
+\documentclass[11pt, a4paper]{report}
+
+% ----- PACKAGES -----
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage[margin=0.8in]{geometry}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{xcolor}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue
+}
+
+% ----- CHAPTER TITLE CUSTOMIZATION -----
+\titleformat{\chapter}[display]
+  {\normalfont\Large\bfseries}
+  {\chaptertitlename\ \thechapter}
+  {1em}
+  {}
+\titlespacing*{\chapter}
+  {0pt}
+  {5pt}
+  {15pt}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\itshape}
+  {\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\itshape}
+  {\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries\itshape} 
+  {\thesubsubsection}{1em}{}
+
+% ----- HEADER & FOOTER SETUP -----
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+% ----- TITLE PAGE INFORMATION -----
+\title{Notes: Gravitation and Einstein's Equation}
+\author{Abdelrahman Mohamed Anwar}
+\date{\today}
+
+% ----- DOCUMENT BEGINS -----
+\begin{document}
+
+\tableofcontents
+
+\chapter{The Schwarzschild Solution}
+\section{The Schwarzschild Solution}
+
+\subsection{Metric Ansatz and Symmetry Justification}
+
+We aim to describe the exterior gravitational field of a non-rotating, unevolving, spherically symmetric massive body. We begin by considering the metric of flat Minkowski space in spherical coordinates $x^\mu = (t, r, \theta, \phi)$, which inherently possesses spherical symmetry:
+\begin{equation}
+ds_{\text{Minkowski}}^2 = -dt^2 + dr^2 + r^2 d\Omega^2,
+\end{equation}
+where $d\Omega^2$ represents the line element of a unit two-sphere:
+\begin{equation}
+d\Omega^2 = d\theta^2 + \sin^2\theta \, d\phi^2.
+\end{equation}
+
+To describe a curved spacetime that maintains these physical symmetries, we must impose constraints on the general metric tensor $g_{\mu\nu}$. 
+
+First, we require the spacetime to be static. The rigorous condition for a static metric dictates that all metric components are independent of the time coordinate $t$, and the metric is invariant under time reversal, $t \rightarrow -t$. Let us examine a generic metric containing off-diagonal time-space components:
+\begin{equation}
+ds^2 = g_{tt} dt^2 + 2 g_{ti} dt dx^i + g_{ij} dx^i dx^j.
+\end{equation}
+Applying the time reversal transformation $t \rightarrow -t$, the differential transforms as $dt \rightarrow -dt$. Substituting this into the metric yields:
+\begin{equation}
+ds^2 = g_{tt} (-dt)^2 + 2 g_{ti} (-dt) dx^i + g_{ij} dx^i dx^j,
+\end{equation}
+\begin{equation}
+ds^2 = g_{tt} dt^2 - 2 g_{ti} dt dx^i + g_{ij} dx^i dx^j.
+\end{equation}
+For the geometry to remain invariant under this transformation, the cross terms must equate to their negative counterparts:
+\begin{equation}
+2 g_{ti} dt dx^i = -2 g_{ti} dt dx^i.
+\end{equation}
+This condition mandates that $g_{ti} = 0$. Consequently, a static spacetime admits no cross terms between the temporal and spatial coordinates. 
+
+Second, we impose spherical symmetry. The metric must preserve the $SO(3)$ symmetry of the spheres, implying that the angular dependence must remain strictly proportional to $d\Omega^2$. The remaining metric components cannot depend on the angular coordinates $(\theta, \phi)$ and are strictly functions of the radial coordinate $r$. To ensure the signature of the metric remains Lorentzian $(-, +, +, +)$ throughout the spacetime, we express the unknown metric coefficients as exponential functions. The most general static, spherically symmetric metric ansatz is therefore:
+\begin{equation}
+ds^2 = -e^{2\alpha(r)} dt^2 + e^{2\beta(r)} dr^2 + e^{2\gamma(r)} r^2 d\Omega^2.
+\end{equation}
+
+In general relativity, coordinates hold no intrinsic physical meaning a priori, granting the freedom to perform diffeomorphisms to simplify the metric. We perform a coordinate transformation to absorb the arbitrary function $e^{2\gamma(r)}$ into the definition of the radial coordinate. Let us define a new radial coordinate $\overline{r}$ as:
+\begin{equation}
+\overline{r} = e^{\gamma(r)} r.
+\end{equation}
+To express the metric in terms of $\overline{r}$, we compute its total differential. Applying the product and chain rules with respect to $r$:
+\begin{equation}
+d\overline{r} = \frac{d}{dr} \left( e^{\gamma(r)} r \right) dr,
+\end{equation}
+\begin{equation}
+d\overline{r} = \left( \frac{d}{dr} \left( e^{\gamma(r)} \right) r + e^{\gamma(r)} \frac{d}{dr} (r) \right) dr,
+\end{equation}
+\begin{equation}
+d\overline{r} = \left( e^{\gamma(r)} \frac{d\gamma(r)}{dr} r + e^{\gamma(r)} \right) dr.
+\end{equation}
+Factoring out $e^{\gamma(r)}$ yields:
+\begin{equation}
+d\overline{r} = e^{\gamma(r)} \left( 1 + r \frac{d\gamma(r)}{dr} \right) dr.
+\end{equation}
+We isolate $dr$ to substitute back into the metric:
+\begin{equation}
+dr = e^{-\gamma(r)} \left( 1 + r \frac{d\gamma(r)}{dr} \right)^{-1} d\overline{r}.
+\end{equation}
+Squaring this differential, we obtain:
+\begin{equation}
+dr^2 = e^{-2\gamma(r)} \left( 1 + r \frac{d\gamma(r)}{dr} \right)^{-2} d\overline{r}^2.
+\end{equation}
+We now substitute $dr^2$ and $e^{2\gamma(r)} r^2 = \overline{r}^2$ into the general ansatz:
+\begin{equation}
+ds^2 = -e^{2\alpha(r)} dt^2 + e^{2\beta(r)} \left[ e^{-2\gamma(r)} \left( 1 + r \frac{d\gamma(r)}{dr} \right)^{-2} d\overline{r}^2 \right] + \overline{r}^2 d\Omega^2,
+\end{equation}
+\begin{equation}
+ds^2 = -e^{2\alpha(r)} dt^2 + e^{2\beta(r) - 2\gamma(r)} \left( 1 + r \frac{d\gamma(r)}{dr} \right)^{-2} d\overline{r}^2 + \overline{r}^2 d\Omega^2.
+\end{equation}
+Since $r$ is a function of $\overline{r}$, the functions $\alpha(r)$ and $\beta(r)$ are implicitly functions of $\overline{r}$. We can group the factors modulating $d\overline{r}^2$ into a single new exponential function. Let us define:
+\begin{equation}
+e^{2\overline{\beta}(\overline{r})} = e^{2\beta(r) - 2\gamma(r)} \left( 1 + r \frac{d\gamma(r)}{dr} \right)^{-2},
+\end{equation}
+and assign $\overline{\alpha}(\overline{r}) = \alpha(r)$. The transformed metric takes the form:
+\begin{equation}
+ds^2 = -e^{2\overline{\alpha}(\overline{r})} dt^2 + e^{2\overline{\beta}(\overline{r})} d\overline{r}^2 + \overline{r}^2 d\Omega^2.
+\end{equation}
+Because coordinates are mere labels, we are free to drop the overbars and formally replace $\overline{r} \rightarrow r$, recovering the familiar radial coordinate label. The resulting metric is precisely as general as the original ansatz but exhibits a significantly simpler algebraic structure:
+\begin{equation}
+ds^2 = -e^{2\alpha(r)} dt^2 + e^{2\beta(r)} dr^2 + r^2 d\Omega^2.
+\end{equation}
+
+% END OF PART 1
+
+
+\subsection{Inverse Metric and Determinant}
+
+\subsubsection{Covariant Metric Tensor Components}
+We establish the covariant components of the metric tensor, denoted by $g_{\mu\nu}$, arising from the static, spherically symmetric line element derived in Part 1. We adopt the coordinate system $x^\mu = (x^0, x^1, x^2, x^3) = (t, r, \theta, \phi)$. The invariant interval is given by:
+\begin{equation}
+ds^2 = g_{\mu\nu} dx^\mu dx^\nu = -e^{2\alpha(r)} dt^2 + e^{2\beta(r)} dr^2 + r^2 d\theta^2 + r^2 \sin^2\theta \, d\phi^2.
+\end{equation}
+By direct comparison with the general quadratic form $g_{\mu\nu} dx^\mu dx^\nu$, we extract the non-vanishing covariant components of the metric tensor:
+\begin{align}
+g_{tt} &= -e^{2\alpha(r)}, \\
+g_{rr} &= e^{2\beta(r)}, \\
+g_{\theta\theta} &= r^2, \\
+g_{\phi\phi} &= r^2 \sin^2\theta.
+\end{align}
+All off-diagonal components (where $\mu \neq \nu$) are strictly zero:
+\begin{equation}
+g_{\mu\nu} = 0 \quad \text{for} \quad \mu \neq \nu.
+\end{equation}
+We can represent the covariant metric tensor explicitly in matrix form as:
+\begin{equation}
+g_{\mu\nu} = \begin{pmatrix}
+-e^{2\alpha(r)} & 0 & 0 & 0 \\
+0 & e^{2\beta(r)} & 0 & 0 \\
+0 & 0 & r^2 & 0 \\
+0 & 0 & 0 & r^2 \sin^2\theta
+\end{pmatrix}.
+\end{equation}
+
+\subsubsection{Computation of the Inverse Metric Tensor}
+The contravariant metric tensor (or inverse metric), denoted by $g^{\mu\nu}$, is defined by the fundamental identity:
+\begin{equation}
+g^{\mu\lambda} g_{\lambda\nu} = \delta^\mu_\nu,
+\end{equation}
+where $\delta^\mu_\nu$ is the Kronecker delta, taking the value $1$ when $\mu = \nu$ and $0$ when $\mu \neq \nu$, and we implicitly sum over the dummy index $\lambda \in \{t, r, \theta, \phi\}$.
+
+We compute the diagonal elements by setting $\mu = \nu$. Let us explicitly expand the summation for the temporal component $\mu = \nu = t$:
+\begin{equation}
+\sum_{\lambda} g^{t\lambda} g_{\lambda t} = \delta^t_t.
+\end{equation}
+\begin{equation}
+g^{tt} g_{tt} + g^{tr} g_{rt} + g^{t\theta} g_{\theta t} + g^{t\phi} g_{\phi t} = 1.
+\end{equation}
+Substituting the known values $g_{rt} = 0$, $g_{\theta t} = 0$, and $g_{\phi t} = 0$, the equation simplifies to:
+\begin{equation}
+g^{tt} g_{tt} = 1.
+\end{equation}
+Substituting the explicit function for $g_{tt}$:
+\begin{equation}
+g^{tt} \left( -e^{2\alpha(r)} \right) = 1.
+\end{equation}
+Solving for the contravariant component $g^{tt}$:
+\begin{equation}
+g^{tt} = \frac{1}{-e^{2\alpha(r)}}.
+\end{equation}
+\begin{equation}
+g^{tt} = -e^{-2\alpha(r)}.
+\end{equation}
+
+Applying the identical summation expansion to the remaining diagonal components $\mu = \nu = r$, $\mu = \nu = \theta$, and $\mu = \nu = \phi$ yields:
+\begin{align}
+g^{rr} g_{rr} &= 1, \\
+g^{\theta\theta} g_{\theta\theta} &= 1, \\
+g^{\phi\phi} g_{\phi\phi} &= 1.
+\end{align}
+Substituting the respective covariant components and solving:
+\begin{align}
+g^{rr} &= \frac{1}{g_{rr}} = \frac{1}{e^{2\beta(r)}} = e^{-2\beta(r)}, \\
+g^{\theta\theta} &= \frac{1}{g_{\theta\theta}} = \frac{1}{r^2}, \\
+g^{\phi\phi} &= \frac{1}{g_{\phi\phi}} = \frac{1}{r^2 \sin^2\theta}.
+\end{align}
+
+To verify that the off-diagonal components of the inverse metric vanish, we set $\mu \neq \nu$. Let us take $\mu = t$ and $\nu = r$ as an example, expanding the sum over $\lambda$:
+\begin{equation}
+\sum_{\lambda} g^{t\lambda} g_{\lambda r} = \delta^t_r.
+\end{equation}
+\begin{equation}
+g^{tt} g_{tr} + g^{tr} g_{rr} + g^{t\theta} g_{\theta r} + g^{t\phi} g_{\phi r} = 0.
+\end{equation}
+Substituting $g_{tr} = 0$, $g_{\theta r} = 0$, and $g_{\phi r} = 0$:
+\begin{equation}
+g^{tr} g_{rr} = 0.
+\end{equation}
+Since $g_{rr} = e^{2\beta(r)} \neq 0$, it must follow that:
+\begin{equation}
+g^{tr} = 0.
+\end{equation}
+By symmetry and identical algebraic expansion for all $\mu \neq \nu$, we conclude that all off-diagonal components $g^{\mu\nu}$ vanish. The explicit matrix representation of the inverse metric is:
+\begin{equation}
+g^{\mu\nu} = \begin{pmatrix}
+-e^{-2\alpha(r)} & 0 & 0 & 0 \\
+0 & e^{-2\beta(r)} & 0 & 0 \\
+0 & 0 & \frac{1}{r^2} & 0 \\
+0 & 0 & 0 & \frac{1}{r^2 \sin^2\theta}
+\end{pmatrix}.
+\end{equation}
+
+\subsubsection{Verification of the Inverse Metric via Matrix Multiplication}
+We rigorously verify the inverse relation by performing the explicit matrix multiplication $g^{\mu\lambda} g_{\lambda\nu}$, which must yield the identity matrix $I$ (equivalent to the components of $\delta^\mu_\nu$):
+\begin{equation}
+g^{\mu\lambda} g_{\lambda\nu} = \begin{pmatrix}
+-e^{-2\alpha(r)} & 0 & 0 & 0 \\
+0 & e^{-2\beta(r)} & 0 & 0 \\
+0 & 0 & \frac{1}{r^2} & 0 \\
+0 & 0 & 0 & \frac{1}{r^2 \sin^2\theta}
+\end{pmatrix}
+\begin{pmatrix}
+-e^{2\alpha(r)} & 0 & 0 & 0 \\
+0 & e^{2\beta(r)} & 0 & 0 \\
+0 & 0 & r^2 & 0 \\
+0 & 0 & 0 & r^2 \sin^2\theta
+\end{pmatrix}.
+\end{equation}
+Performing the row-by-column multiplications for the diagonal elements:
+\begin{align}
+(g \cdot g)_{tt} &= \left(-e^{-2\alpha(r)}\right)\left(-e^{2\alpha(r)}\right) + 0 + 0 + 0, \\
+(g \cdot g)_{rr} &= 0 + \left(e^{-2\beta(r)}\right)\left(e^{2\beta(r)}\right) + 0 + 0, \\
+(g \cdot g)_{\theta\theta} &= 0 + 0 + \left(\frac{1}{r^2}\right)\left(r^2\right) + 0, \\
+(g \cdot g)_{\phi\phi} &= 0 + 0 + 0 + \left(\frac{1}{r^2 \sin^2\theta}\right)\left(r^2 \sin^2\theta\right).
+\end{align}
+Evaluating the products of the exponential and algebraic terms:
+\begin{align}
+(g \cdot g)_{tt} &= e^{-2\alpha(r) + 2\alpha(r)} = e^0 = 1, \\
+(g \cdot g)_{rr} &= e^{-2\beta(r) + 2\beta(r)} = e^0 = 1, \\
+(g \cdot g)_{\theta\theta} &= 1, \\
+(g \cdot g)_{\phi\phi} &= 1.
+\end{align}
+Since the product of two diagonal matrices yields another diagonal matrix, the off-diagonal terms are trivially zero. Thus, we reconstruct the Kronecker delta matrix:
+\begin{equation}
+g^{\mu\lambda} g_{\lambda\nu} = \begin{pmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix} = \delta^\mu_\nu.
+\end{equation}
+This completes the verification.
+
+\subsubsection{Computation of the Metric Determinant}
+Let $g$ denote the determinant of the covariant metric tensor, defined as $g = \det(g_{\mu\nu})$. Because the matrix representation of $g_{\mu\nu}$ is purely diagonal, its determinant is exactly the product of its diagonal elements:
+\begin{equation}
+g = g_{tt} g_{rr} g_{\theta\theta} g_{\phi\phi}.
+\end{equation}
+Substituting the explicit covariant components into this product:
+\begin{equation}
+g = \left( -e^{2\alpha(r)} \right) \left( e^{2\beta(r)} \right) \left( r^2 \right) \left( r^2 \sin^2\theta \right).
+\end{equation}
+We group the constant sign, the exponential terms, and the polynomial/trigonometric terms:
+\begin{equation}
+g = - \left( e^{2\alpha(r)} e^{2\beta(r)} \right) \left( r^2 \cdot r^2 \right) \left( \sin^2\theta \right).
+\end{equation}
+Applying the exponent addition rule $e^A e^B = e^{A+B}$:
+\begin{equation}
+g = - e^{2\alpha(r) + 2\beta(r)} r^4 \sin^2\theta.
+\end{equation}
+Factoring the coefficient of $2$ in the exponential term yields the final expression for the determinant:
+\begin{equation}
+g = - e^{2(\alpha(r) + \beta(r))} r^4 \sin^2\theta.
+\end{equation}
+
+\subsubsection{Computation of the Invariant Volume Element Factor}
+In tensorial integration and the derivation of covariant divergence, the invariant volume element involves the factor $\sqrt{-g}$. We compute this explicitly. First, we determine $-g$:
+\begin{equation}
+-g = - \left( - e^{2(\alpha(r) + \beta(r))} r^4 \sin^2\theta \right).
+\end{equation}
+\begin{equation}
+-g = e^{2(\alpha(r) + \beta(r))} r^4 \sin^2\theta.
+\end{equation}
+Taking the principal square root of both sides:
+\begin{equation}
+\sqrt{-g} = \sqrt{e^{2(\alpha(r) + \beta(r))} r^4 \sin^2\theta}.
+\end{equation}
+We distribute the square root (which is equivalent to raising to the power of $\frac{1}{2}$) across the multiplicative factors:
+\begin{equation}
+\sqrt{-g} = \left( e^{2(\alpha(r) + \beta(r))} \right)^{\frac{1}{2}} \left( r^4 \right)^{\frac{1}{2}} \left( \sin^2\theta \right)^{\frac{1}{2}}.
+\end{equation}
+Applying the power rule $(x^a)^b = x^{ab}$ to each term:
+\begin{align}
+\left( e^{2(\alpha(r) + \beta(r))} \right)^{\frac{1}{2}} &= e^{\alpha(r) + \beta(r)}, \\
+\left( r^4 \right)^{\frac{1}{2}} &= r^2, \\
+\left( \sin^2\theta \right)^{\frac{1}{2}} &= \sin\theta.
+\end{align}
+(Note: we assume the standard spherical coordinate domain $0 \leq \theta \leq \pi$, wherein $\sin\theta \geq 0$, so the principal root is simply $\sin\theta$).
+Multiplying these simplified factors yields the final explicit form:
+\begin{equation}
+\sqrt{-g} = e^{\alpha(r) + \beta(r)} r^2 \sin\theta.
+\end{equation}
+
+% END OF PART 2
+
+
+\subsection*{Deriving Christoffel Symbols via the Lagrangian Method}
+
+We begin by defining the Lagrangian $\mathcal{L}$ for the geodesics of a test particle moving in the spacetime. The Lagrangian is given by the kinetic term associated with the metric:
+\begin{equation}
+    \mathcal{L} = g_{\mu\nu} \dot{x}^\mu \dot{x}^\nu
+\end{equation}
+where $\dot{x}^\mu = \frac{dx^\mu}{d\lambda}$ denotes the derivative with respect to an affine parameter $\lambda$. Using the time-dependent spherically symmetric metric, $ds^2 = -e^{2\alpha(t,r)} dt^2 + e^{2\beta(t,r)} dr^2 + r^2 d\Omega^2$, we explicitly expand the Lagrangian in the coordinates $(t, r, \theta, \phi)$:
+\begin{equation}
+    \mathcal{L} = -e^{2\alpha(t,r)} \dot{t}^2 + e^{2\beta(t,r)} \dot{r}^2 + r^2 \dot{\theta}^2 + r^2 \sin^2\theta \dot{\phi}^2
+\end{equation}
+
+The motion of a particle traversing a geodesic satisfies the Euler-Lagrange equations for each coordinate $x^\mu$:
+\begin{equation}
+    \frac{d}{d\lambda} \left( \frac{\partial \mathcal{L}}{\partial \dot{x}^\mu} \right) - \frac{\partial \mathcal{L}}{\partial x^\mu} = 0 \label{eq:EL_general}
+\end{equation}
+We will evaluate this equation for each coordinate independently, manipulate the result into the canonical geodesic form, and extract the corresponding Christoffel symbols by matching the coefficients term-by-term with the general geodesic equation:
+\begin{equation}
+    \ddot{x}^\mu + \Gamma^\mu_{\rho\sigma} \dot{x}^\rho \dot{x}^\sigma = 0 \label{eq:geodesic_general}
+\end{equation}
+\subsubsection*{1. The $t$-equation}
+
+We evaluate the Euler-Lagrange equation \eqref{eq:EL_general} for $x^\mu = t$. 
+The derivative with respect to the velocity $\dot{t}$ is:
+\begin{equation}
+    \frac{\partial \mathcal{L}}{\partial \dot{t}} = -2e^{2\alpha(r)} \dot{t}
+\end{equation}
+Taking the total derivative with respect to $\lambda$ requires applying the chain rule to the exponential factor, keeping in mind that $\alpha$ depends only on $r$:
+\begin{align}
+    \frac{d}{d\lambda} \left( \frac{\partial \mathcal{L}}{\partial \dot{t}} \right) &= -2 \frac{d}{d\lambda} \left( e^{2\alpha(r)} \right) \dot{t} - 2e^{2\alpha(r)} \ddot{t} \nonumber \\
+    &= -2 \left( e^{2\alpha(r)} \cdot 2 \frac{\partial \alpha}{\partial r} \dot{r} \right) \dot{t} - 2e^{2\alpha(r)} \ddot{t} \nonumber \\
+    &= -4e^{2\alpha(r)} \partial_r \alpha \, \dot{t}\dot{r} - 2e^{2\alpha(r)} \ddot{t}
+\end{align}
+The derivative of the Lagrangian with respect to the coordinate $t$ is exactly zero, as the metric is static:
+\begin{equation}
+    \frac{\partial \mathcal{L}}{\partial t} = 0
+\end{equation}
+Substituting these into the Euler-Lagrange equation:
+\begin{equation}
+    -2e^{2\alpha(r)} \ddot{t} - 4e^{2\alpha(r)} \partial_r \alpha \, \dot{t}\dot{r} = 0
+\end{equation}
+We divide the entire equation by $-2e^{2\alpha(r)}$ to isolate $\ddot{t}$:
+\begin{equation}
+    \ddot{t} + 2\partial_r \alpha \, \dot{t}\dot{r} = 0
+\end{equation}
+Simplifying:
+\begin{equation}
+    \ddot{t} + 2 (\partial_r \alpha) \dot{t}\dot{r} = 0 \label{eq:geo_t}
+\end{equation}
+
+Comparing equation \eqref{eq:geo_t} directly to the canonical $t$-geodesic equation:
+\begin{equation}
+    \ddot{t} + \Gamma^t_{tt}\dot{t}^2 + \Gamma^t_{rr}\dot{r}^2 + \Gamma^t_{\theta\theta}\dot{\theta}^2 + \Gamma^t_{\phi\phi}\dot{\phi}^2 + 2\Gamma^t_{tr}\dot{t}\dot{r} + \dots = 0
+\end{equation}
+We immediately extract the following non-zero Christoffel symbol by coefficient matching:
+\begin{equation}
+    \Gamma^t_{tr} = \partial_r \alpha
+\end{equation}
+
+\subsubsection*{2. The $r$-equation}
+
+We evaluate the Euler-Lagrange equation for $x^\mu = r$. 
+The derivative with respect to $\dot{r}$ is:
+\begin{equation}
+    \frac{\partial \mathcal{L}}{\partial \dot{r}} = 2e^{2\beta(r)} \dot{r}
+\end{equation}
+Taking the total derivative with respect to $\lambda$:
+\begin{align}
+    \frac{d}{d\lambda} \left( \frac{\partial \mathcal{L}}{\partial \dot{r}} \right) &= 2 \left( e^{2\beta(r)} \cdot 2 \frac{\partial \beta}{\partial r} \dot{r} \right) \dot{r} + 2e^{2\beta(r)} \ddot{r} \nonumber \\
+    &= 4e^{2\beta(r)} \partial_r \beta \, \dot{r}^2 + 2e^{2\beta(r)} \ddot{r}
+\end{align}
+The derivative of the Lagrangian with respect to the coordinate $r$ is:
+\begin{equation}
+    \frac{\partial \mathcal{L}}{\partial r} = -2\dot{t}^2 e^{2\alpha(r)} \partial_r \alpha + 2\dot{r}^2 e^{2\beta(r)} \partial_r \beta + 2r\dot{\theta}^2 + 2r\sin^2\theta \dot{\phi}^2
+\end{equation}
+Substituting these into the Euler-Lagrange equation:
+\begin{equation}
+    2e^{2\beta(r)} \ddot{r} + 4e^{2\beta(r)} \partial_r \beta \, \dot{r}^2 - \left( -2e^{2\alpha(r)} \partial_r \alpha \, \dot{t}^2 + 2e^{2\beta(r)} \partial_r \beta \, \dot{r}^2 + 2r\dot{\theta}^2 + 2r\sin^2\theta \dot{\phi}^2 \right) = 0
+\end{equation}
+Divide the entire equation by $2e^{2\beta(r)}$ to isolate $\ddot{r}$:
+\begin{equation}
+    \ddot{r} + 2\partial_r \beta \, \dot{r}^2 + e^{2(\alpha - \beta)} \partial_r \alpha \, \dot{t}^2 - \partial_r \beta \, \dot{r}^2 - r e^{-2\beta} \dot{\theta}^2 - r \sin^2\theta e^{-2\beta} \dot{\phi}^2 = 0
+\end{equation}
+Simplifying the algebraically similar $\dot{r}^2$ terms:
+\begin{equation}
+    \ddot{r} + e^{2(\alpha - \beta)} (\partial_r \alpha) \dot{t}^2 + (\partial_r \beta) \dot{r}^2 - r e^{-2\beta} \dot{\theta}^2 - r \sin^2\theta e^{-2\beta} \dot{\phi}^2 = 0 \label{eq:geo_r}
+\end{equation}
+
+Comparing equation \eqref{eq:geo_r} with the canonical $r$-geodesic equation:
+\begin{equation}
+    \ddot{r} + \Gamma^r_{tt}\dot{t}^2 + \Gamma^r_{rr}\dot{r}^2 + \Gamma^r_{\theta\theta}\dot{\theta}^2 + \Gamma^r_{\phi\phi}\dot{\phi}^2 + 2\Gamma^r_{tr}\dot{t}\dot{r} + \dots = 0
+\end{equation}
+We extract the following non-zero Christoffel symbols:
+\begin{align}
+    \Gamma^r_{tt} &= e^{2(\alpha - \beta)} \partial_r \alpha \\
+    \Gamma^r_{rr} &= \partial_r \beta \\
+    \Gamma^r_{\theta\theta} &= -r e^{-2\beta} \\
+    \Gamma^r_{\phi\phi} &= -r e^{-2\beta} \sin^2\theta
+\end{align}
+
+\subsubsection*{3. The $\theta$-equation}
+
+We evaluate the Euler-Lagrange equation for $x^\mu = \theta$.
+The derivative with respect to $\dot{\theta}$ is:
+\begin{equation}
+    \frac{\partial \mathcal{L}}{\partial \dot{\theta}} = 2r^2 \dot{\theta}
+\end{equation}
+Taking the total derivative with respect to $\lambda$:
+\begin{equation}
+    \frac{d}{d\lambda} \left( \frac{\partial \mathcal{L}}{\partial \dot{\theta}} \right) = 4r\dot{r}\dot{\theta} + 2r^2 \ddot{\theta}
+\end{equation}
+The derivative of the Lagrangian with respect to the coordinate $\theta$ is:
+\begin{equation}
+    \frac{\partial \mathcal{L}}{\partial \theta} = 2r^2 \sin\theta \cos\theta \, \dot{\phi}^2
+\end{equation}
+Substituting these into the Euler-Lagrange equation:
+\begin{equation}
+    2r^2 \ddot{\theta} + 4r\dot{r}\dot{\theta} - 2r^2 \sin\theta \cos\theta \, \dot{\phi}^2 = 0
+\end{equation}
+Divide the entire equation by $2r^2$:
+\begin{equation}
+    \ddot{\theta} + (-\sin\theta \cos\theta) \dot{\phi}^2 + 2 \left(\frac{1}{r}\right) \dot{r}\dot{\theta} = 0 \label{eq:geo_theta}
+\end{equation}
+
+Comparing equation \eqref{eq:geo_theta} to the canonical $\theta$-geodesic equation:
+\begin{equation}
+    \ddot{\theta} + \Gamma^\theta_{\phi\phi}\dot{\phi}^2 + 2\Gamma^\theta_{r\theta}\dot{r}\dot{\theta} + \dots = 0
+\end{equation}
+We extract the non-zero Christoffel symbols:
+\begin{align}
+    \Gamma^\theta_{\phi\phi} &= -\sin\theta \cos\theta \\
+    \Gamma^\theta_{r\theta} &= \frac{1}{r}
+\end{align}
+
+\subsubsection*{4. The $\phi$-equation}
+
+We evaluate the Euler-Lagrange equation for $x^\mu = \phi$.
+The derivative with respect to $\dot{\phi}$ is:
+\begin{equation}
+    \frac{\partial \mathcal{L}}{\partial \dot{\phi}} = 2r^2 \sin^2\theta \, \dot{\phi}
+\end{equation}
+Taking the total derivative with respect to $\lambda$:
+\begin{align}
+    \frac{d}{d\lambda} \left( \frac{\partial \mathcal{L}}{\partial \dot{\phi}} \right) &= 2 \frac{d}{d\lambda} (r^2 \sin^2\theta) \dot{\phi} + 2r^2 \sin^2\theta \, \ddot{\phi} \nonumber \\
+    &= 2 \left( 2r\dot{r} \sin^2\theta + r^2 (2\sin\theta\cos\theta)\dot{\theta} \right) \dot{\phi} + 2r^2 \sin^2\theta \, \ddot{\phi} \nonumber \\
+    &= 4r\sin^2\theta \, \dot{r}\dot{\phi} + 4r^2 \sin\theta \cos\theta \, \dot{\theta}\dot{\phi} + 2r^2 \sin^2\theta \, \ddot{\phi}
+\end{align}
+The derivative of the Lagrangian with respect to the coordinate $\phi$ is strictly zero:
+\begin{equation}
+    \frac{\partial \mathcal{L}}{\partial \phi} = 0
+\end{equation}
+Substituting these into the Euler-Lagrange equation:
+\begin{equation}
+    2r^2 \sin^2\theta \, \ddot{\phi} + 4r\sin^2\theta \, \dot{r}\dot{\phi} + 4r^2 \sin\theta \cos\theta \, \dot{\theta}\dot{\phi} = 0
+\end{equation}
+Divide the entire equation by $2r^2 \sin^2\theta$ to isolate $\ddot{\phi}$:
+\begin{equation}
+    \ddot{\phi} + \frac{2}{r} \dot{r}\dot{\phi} + 2 \frac{\cos\theta}{\sin\theta} \dot{\theta}\dot{\phi} = 0
+\end{equation}
+Simplifying utilizing $\cot\theta = \frac{\cos\theta}{\sin\theta}$:
+\begin{equation}
+    \ddot{\phi} + 2 \left(\frac{1}{r}\right) \dot{r}\dot{\phi} + 2 (\cot\theta) \dot{\theta}\dot{\phi} = 0 \label{eq:geo_phi}
+\end{equation}
+
+Comparing equation \eqref{eq:geo_phi} to the canonical $\phi$-geodesic equation:
+\begin{equation}
+    \ddot{\phi} + 2\Gamma^\phi_{r\phi}\dot{r}\dot{\phi} + 2\Gamma^\phi_{\theta\phi}\dot{\theta}\dot{\phi} + \dots = 0
+\end{equation}
+We extract the non-zero Christoffel symbols:
+\begin{align}
+    \Gamma^\phi_{r\phi} &= \frac{1}{r} \\
+    \Gamma^\phi_{\theta\phi} &= \cot\theta
+\end{align}
+
+\subsubsection*{5. Summary and Verification of Symmetry}
+
+The complete list of explicitly derived non-zero Christoffel symbols obtained from the Lagrangian action method for the static metric is:
+\begin{align}
+    \Gamma^t_{tr} &= \partial_r \alpha \\
+    \Gamma^r_{tt} &= e^{2(\alpha - \beta)} \partial_r \alpha \\
+    \Gamma^r_{rr} &= \partial_r \beta \\
+    \Gamma^r_{\theta\theta} &= -r e^{-2\beta} \\
+    \Gamma^r_{\phi\phi} &= -r e^{-2\beta} \sin^2\theta \\
+    \Gamma^\theta_{r\theta} &= \frac{1}{r} \\
+    \Gamma^\theta_{\phi\phi} &= -\sin\theta \cos\theta \\
+    \Gamma^\phi_{r\phi} &= \frac{1}{r} \\
+    \Gamma^\phi_{\theta\phi} &= \cot\theta
+\end{align}
+
+To verify the mathematical symmetry required by the torsion-free Levi-Civita connection ($\Gamma^\mu_{\rho\sigma} = \Gamma^\mu_{\sigma\rho}$), we observe the coefficient matching for the mixed derivative terms carefully. For instance, in equation \eqref{eq:geo_t}, the term $2\partial_r \alpha \dot{t}\dot{r}$ directly matches the general geodesic summation over $\rho$ and $\sigma$, which expands to $\Gamma^t_{tr}\dot{t}\dot{r} + \Gamma^t_{rt}\dot{r}\dot{t}$. Because $\dot{t}\dot{r} = \dot{r}\dot{t}$, this sum is $2\Gamma^t_{tr}\dot{t}\dot{r}$, perfectly satisfying $\Gamma^t_{tr} = \Gamma^t_{rt} = \partial_r \alpha$. This exact factor of 2 appears identically in equations \eqref{eq:geo_theta} and \eqref{eq:geo_phi} for all respective cross-terms ($\dot{r}\dot{\theta}, \dot{r}\dot{\phi}, \dot{\theta}\dot{\phi}$), fully guaranteeing the structural lower-index symmetry of the derived Christoffel symbols without any a priori assumptions.
+% END OF PART 3
+
+\subsection{Derivation of the Ricci Tensor}
+
+\subsubsection{The Contracted Christoffel Symbol Identity}
+The Ricci tensor $R_{\mu\nu}$ is defined as the contraction of the first and third indices of the Riemann tensor:
+\begin{equation}
+R_{\mu\nu} = {R^\lambda}_{\mu\lambda\nu} = \partial_\lambda \Gamma^\lambda_{\mu\nu} - \partial_\nu \Gamma^\lambda_{\mu\lambda} + \Gamma^\lambda_{\sigma\lambda} \Gamma^\sigma_{\mu\nu} - \Gamma^\lambda_{\sigma\nu} \Gamma^\sigma_{\mu\lambda}.
+\end{equation}
+To simplify the computation, we utilize the identity for the contracted Christoffel symbol, which relates the trace of the connection to the determinant of the metric $g$:
+\begin{equation}
+\Gamma^\lambda_{\mu\lambda} = \partial_\mu \ln \sqrt{-g}.
+\end{equation}
+We derived $\sqrt{-g}$ for the Schwarzschild metric ansatz in Part 2:
+\begin{equation}
+\sqrt{-g} = e^{\alpha(r) + \beta(r)} r^2 \sin\theta.
+\end{equation}
+Taking the natural logarithm yields:
+\begin{equation}
+\ln \sqrt{-g} = \alpha(r) + \beta(r) + 2\ln r + \ln(\sin\theta).
+\end{equation}
+We evaluate the partial derivatives of this expression to find the non-zero components of the contracted Christoffel symbols. For the radial coordinate ($\mu = r$):
+\begin{equation}
+\Gamma^\lambda_{r\lambda} = \partial_r \left[ \alpha(r) + \beta(r) + 2\ln r + \ln(\sin\theta) \right].
+\end{equation}
+\begin{equation}
+\Gamma^\lambda_{r\lambda} = \partial_r\alpha + \partial_r\beta + \frac{2}{r}.
+\end{equation}
+For the polar angle ($\mu = \theta$):
+\begin{equation}
+\Gamma^\lambda_{\theta\lambda} = \partial_\theta \left[ \alpha(r) + \beta(r) + 2\ln r + \ln(\sin\theta) \right].
+\end{equation}
+\begin{equation}
+\Gamma^\lambda_{\theta\lambda} = \frac{1}{\sin\theta} \cos\theta = \cot\theta.
+\end{equation}
+The temporal and azimuthal derivatives vanish ($\Gamma^\lambda_{t\lambda} = 0$ and $\Gamma^\lambda_{\phi\lambda} = 0$). We will substitute these identities directly into the Ricci tensor formula.
+
+\subsubsection{Temporal Component: $R_{tt}$}
+Expanding the definition of the Ricci tensor for $\mu=t, \nu=t$:
+\begin{equation}
+R_{tt} = \partial_\lambda \Gamma^\lambda_{tt} - \partial_t \Gamma^\lambda_{t\lambda} + \Gamma^\lambda_{\sigma\lambda} \Gamma^\sigma_{tt} - \Gamma^\lambda_{\sigma t} \Gamma^\sigma_{t\lambda}.
+\end{equation}
+Since $\Gamma^\lambda_{t\lambda} = 0$, the second term $\partial_t \Gamma^\lambda_{t\lambda}$ vanishes. We expand the summation over $\lambda$ in the first term. The only non-zero component of the form $\Gamma^\lambda_{tt}$ is $\Gamma^r_{tt}$:
+\begin{equation}
+\partial_\lambda \Gamma^\lambda_{tt} = \partial_r \Gamma^r_{tt}.
+\end{equation}
+Substituting $\Gamma^r_{tt} = e^{2(\alpha-\beta)} \partial_r\alpha$:
+\begin{equation}
+\partial_r \Gamma^r_{tt} = \partial_r \left( e^{2(\alpha-\beta)} \partial_r\alpha \right).
+\end{equation}
+Applying the product and chain rules:
+\begin{equation}
+\partial_r \Gamma^r_{tt} = 2(\partial_r\alpha - \partial_r\beta)e^{2(\alpha-\beta)}\partial_r\alpha + e^{2(\alpha-\beta)}\partial_r^2\alpha.
+\end{equation}
+\begin{equation}
+\partial_r \Gamma^r_{tt} = e^{2(\alpha-\beta)} \left[ 2(\partial_r\alpha)^2 - 2\partial_r\alpha\partial_r\beta + \partial_r^2\alpha \right].
+\end{equation}
+Next, we expand the third term $\Gamma^\lambda_{\sigma\lambda} \Gamma^\sigma_{tt}$. Summing over $\sigma$, the only non-zero $\Gamma^\sigma_{tt}$ is for $\sigma=r$:
+\begin{equation}
+\Gamma^\lambda_{\sigma\lambda} \Gamma^\sigma_{tt} = \Gamma^\lambda_{r\lambda} \Gamma^r_{tt}.
+\end{equation}
+Substituting the derived identity for $\Gamma^\lambda_{r\lambda}$:
+\begin{equation}
+\Gamma^\lambda_{r\lambda} \Gamma^r_{tt} = \left( \partial_r\alpha + \partial_r\beta + \frac{2}{r} \right) \left( e^{2(\alpha-\beta)} \partial_r\alpha \right).
+\end{equation}
+\begin{equation}
+\Gamma^\lambda_{r\lambda} \Gamma^r_{tt} = e^{2(\alpha-\beta)} \left[ (\partial_r\alpha)^2 + \partial_r\alpha\partial_r\beta + \frac{2}{r}\partial_r\alpha \right].
+\end{equation}
+Finally, we expand the fourth term $-\Gamma^\lambda_{\sigma t} \Gamma^\sigma_{t\lambda}$ by summing over all valid index pairs $(\lambda, \sigma)$ that produce non-zero Christoffel symbols. The non-zero terms require $\{\lambda=t, \sigma=r\}$ and $\{\lambda=r, \sigma=t\}$:
+\begin{equation}
+-\Gamma^\lambda_{\sigma t} \Gamma^\sigma_{t\lambda} = -\left( \Gamma^t_{rt} \Gamma^r_{tt} + \Gamma^r_{tt} \Gamma^t_{tr} \right).
+\end{equation}
+Using symmetry $\Gamma^t_{rt} = \Gamma^t_{tr}$:
+\begin{equation}
+-\Gamma^\lambda_{\sigma t} \Gamma^\sigma_{t\lambda} = -2 \Gamma^t_{tr} \Gamma^r_{tt}.
+\end{equation}
+Substituting the known symbols:
+\begin{equation}
+-\Gamma^\lambda_{\sigma t} \Gamma^\sigma_{t\lambda} = -2 (\partial_r\alpha) \left( e^{2(\alpha-\beta)} \partial_r\alpha \right) = e^{2(\alpha-\beta)} \left[ -2(\partial_r\alpha)^2 \right].
+\end{equation}
+Assembling all terms for $R_{tt}$:
+\begin{align}
+R_{tt} &= e^{2(\alpha-\beta)} \left[ 2(\partial_r\alpha)^2 - 2\partial_r\alpha\partial_r\beta + \partial_r^2\alpha \right] \nonumber \\
+&\quad + e^{2(\alpha-\beta)} \left[ (\partial_r\alpha)^2 + \partial_r\alpha\partial_r\beta + \frac{2}{r}\partial_r\alpha \right] \nonumber \\
+&\quad + e^{2(\alpha-\beta)} \left[ -2(\partial_r\alpha)^2 \right].
+\end{align}
+Factoring out $e^{2(\alpha-\beta)}$ and canceling algebraically:
+\begin{equation}
+R_{tt} = e^{2(\alpha-\beta)} \left[ \partial_r^2\alpha + (\partial_r\alpha)^2 - \partial_r\alpha\partial_r\beta + \frac{2}{r}\partial_r\alpha \right].
+\end{equation}
+
+\subsubsection{Radial Component: $R_{rr}$}
+Expanding the definition for $\mu=r, \nu=r$:
+\begin{equation}
+R_{rr} = \partial_\lambda \Gamma^\lambda_{rr} - \partial_r \Gamma^\lambda_{r\lambda} + \Gamma^\lambda_{\sigma\lambda} \Gamma^\sigma_{rr} - \Gamma^\lambda_{\sigma r} \Gamma^\sigma_{r\lambda}.
+\end{equation}
+Summing over $\lambda$ for the first term ($\Gamma^r_{rr}$ is the only non-zero component):
+\begin{equation}
+\partial_\lambda \Gamma^\lambda_{rr} = \partial_r \Gamma^r_{rr} = \partial_r (\partial_r\beta) = \partial_r^2\beta.
+\end{equation}
+For the second term, we differentiate our log-determinant identity:
+\begin{equation}
+-\partial_r \Gamma^\lambda_{r\lambda} = -\partial_r \left( \partial_r\alpha + \partial_r\beta + \frac{2}{r} \right) = -\partial_r^2\alpha - \partial_r^2\beta + \frac{2}{r^2}.
+\end{equation}
+For the third term, the sum over $\sigma$ isolates $\sigma=r$:
+\begin{equation}
+\Gamma^\lambda_{\sigma\lambda} \Gamma^\sigma_{rr} = \Gamma^\lambda_{r\lambda} \Gamma^r_{rr}.
+\end{equation}
+Substituting the identity:
+\begin{equation}
+\Gamma^\lambda_{r\lambda} \Gamma^r_{rr} = \left( \partial_r\alpha + \partial_r\beta + \frac{2}{r} \right) (\partial_r\beta) = \partial_r\alpha\partial_r\beta + (\partial_r\beta)^2 + \frac{2}{r}\partial_r\beta.
+\end{equation}
+For the fourth term, $-\Gamma^\lambda_{\sigma r} \Gamma^\sigma_{r\lambda}$, we must sum over all non-zero diagonal pairings where $\lambda = \sigma$, because $\Gamma^\sigma_{r\lambda}$ is only non-zero when the upper index matches the non-radial lower index:
+\begin{equation}
+-\Gamma^\lambda_{\sigma r} \Gamma^\sigma_{r\lambda} = -\left( \Gamma^t_{tr} \Gamma^t_{rt} + \Gamma^r_{rr} \Gamma^r_{rr} + \Gamma^\theta_{\theta r} \Gamma^\theta_{r\theta} + \Gamma^\phi_{\phi r} \Gamma^\phi_{r\phi} \right).
+\end{equation}
+Substituting the individual Christoffel symbols:
+\begin{equation}
+-\Gamma^\lambda_{\sigma r} \Gamma^\sigma_{r\lambda} = -\left[ (\partial_r\alpha)^2 + (\partial_r\beta)^2 + \left(\frac{1}{r}\right)^2 + \left(\frac{1}{r}\right)^2 \right].
+\end{equation}
+\begin{equation}
+-\Gamma^\lambda_{\sigma r} \Gamma^\sigma_{r\lambda} = -(\partial_r\alpha)^2 - (\partial_r\beta)^2 - \frac{2}{r^2}.
+\end{equation}
+Assembling all terms for $R_{rr}$:
+\begin{align}
+R_{rr} &= \partial_r^2\beta - \partial_r^2\alpha - \partial_r^2\beta + \frac{2}{r^2} \nonumber \\
+&\quad + \partial_r\alpha\partial_r\beta + (\partial_r\beta)^2 + \frac{2}{r}\partial_r\beta \nonumber \\
+&\quad - (\partial_r\alpha)^2 - (\partial_r\beta)^2 - \frac{2}{r^2}.
+\end{align}
+Canceling strictly opposite terms ($\partial_r^2\beta$, $\frac{2}{r^2}$, and $(\partial_r\beta)^2$):
+\begin{equation}
+R_{rr} = -\partial_r^2\alpha - (\partial_r\alpha)^2 + \partial_r\alpha\partial_r\beta + \frac{2}{r}\partial_r\beta.
+\end{equation}
+
+\subsubsection{Polar Component: $R_{\theta\theta}$}
+Expanding the definition for $\mu=\theta, \nu=\theta$:
+\begin{equation}
+R_{\theta\theta} = \partial_\lambda \Gamma^\lambda_{\theta\theta} - \partial_\theta \Gamma^\lambda_{\theta\lambda} + \Gamma^\lambda_{\sigma\lambda} \Gamma^\sigma_{\theta\theta} - \Gamma^\lambda_{\sigma\theta} \Gamma^\sigma_{\theta\lambda}.
+\end{equation}
+Summing over $\lambda$ for the first term:
+\begin{equation}
+\partial_\lambda \Gamma^\lambda_{\theta\theta} = \partial_r \Gamma^r_{\theta\theta} = \partial_r \left( -re^{-2\beta} \right).
+\end{equation}
+Applying the product rule:
+\begin{equation}
+\partial_r \Gamma^r_{\theta\theta} = -e^{-2\beta} - r \left( -2\partial_r\beta e^{-2\beta} \right) = e^{-2\beta} \left( 2r\partial_r\beta - 1 \right).
+\end{equation}
+For the second term, we differentiate the angular part of the log-determinant identity:
+\begin{equation}
+-\partial_\theta \Gamma^\lambda_{\theta\lambda} = -\partial_\theta (\cot\theta) = \csc^2\theta.
+\end{equation}
+For the third term, the sum over $\sigma$ isolates $\sigma=r$:
+\begin{equation}
+\Gamma^\lambda_{\sigma\lambda} \Gamma^\sigma_{\theta\theta} = \Gamma^\lambda_{r\lambda} \Gamma^r_{\theta\theta}.
+\end{equation}
+Substituting the components:
+\begin{equation}
+\Gamma^\lambda_{r\lambda} \Gamma^r_{\theta\theta} = \left( \partial_r\alpha + \partial_r\beta + \frac{2}{r} \right) \left( -re^{-2\beta} \right) = e^{-2\beta} \left( -r\partial_r\alpha - r\partial_r\beta - 2 \right).
+\end{equation}
+For the fourth term, we sum $-\Gamma^\lambda_{\sigma\theta} \Gamma^\sigma_{\theta\lambda}$ over non-zero valid pairs. The required pairs are $\{\lambda=\phi, \sigma=\phi\}$, $\{\lambda=r, \sigma=\theta\}$, and $\{\lambda=\theta, \sigma=r\}$:
+\begin{equation}
+-\Gamma^\lambda_{\sigma\theta} \Gamma^\sigma_{\theta\lambda} = -\left( \Gamma^\phi_{\phi\theta} \Gamma^\phi_{\theta\phi} + \Gamma^r_{\theta\theta} \Gamma^\theta_{\theta r} + \Gamma^\theta_{r\theta} \Gamma^r_{\theta\theta} \right).
+\end{equation}
+\begin{equation}
+-\Gamma^\lambda_{\sigma\theta} \Gamma^\sigma_{\theta\lambda} = -\left[ (\cot\theta)^2 + \left( -re^{-2\beta} \right) \left(\frac{1}{r}\right) + \left(\frac{1}{r}\right) \left( -re^{-2\beta} \right) \right].
+\end{equation}
+\begin{equation}
+-\Gamma^\lambda_{\sigma\theta} \Gamma^\sigma_{\theta\lambda} = -\cot^2\theta + 2e^{-2\beta}.
+\end{equation}
+Assembling all terms for $R_{\theta\theta}$:
+\begin{equation}
+R_{\theta\theta} = e^{-2\beta} \left( 2r\partial_r\beta - 1 \right) + \csc^2\theta + e^{-2\beta} \left( -r\partial_r\alpha - r\partial_r\beta - 2 \right) - \cot^2\theta + 2e^{-2\beta}.
+\end{equation}
+We group the trigonometric terms and use the Pythagorean identity $\csc^2\theta - \cot^2\theta = 1$:
+\begin{equation}
+R_{\theta\theta} = e^{-2\beta} \left[ 2r\partial_r\beta - 1 - r\partial_r\alpha - r\partial_r\beta - 2 + 2 \right] + 1.
+\end{equation}
+\begin{equation}
+R_{\theta\theta} = e^{-2\beta} \left[ r\partial_r\beta - r\partial_r\alpha - 1 \right] + 1.
+\end{equation}
+
+\subsubsection{Azimuthal Component: $R_{\phi\phi}$}
+Expanding the definition for $\mu=\phi, \nu=\phi$:
+\begin{equation}
+R_{\phi\phi} = \partial_\lambda \Gamma^\lambda_{\phi\phi} - \partial_\phi \Gamma^\lambda_{\phi\lambda} + \Gamma^\lambda_{\sigma\lambda} \Gamma^\sigma_{\phi\phi} - \Gamma^\lambda_{\sigma\phi} \Gamma^\sigma_{\phi\lambda}.
+\end{equation}
+Summing over $\lambda$ for the first term requires both $\lambda=r$ and $\lambda=\theta$:
+\begin{equation}
+\partial_\lambda \Gamma^\lambda_{\phi\phi} = \partial_r \Gamma^r_{\phi\phi} + \partial_\theta \Gamma^\theta_{\phi\phi}.
+\end{equation}
+We compute each derivative separately:
+\begin{equation}
+\partial_r \left( -re^{-2\beta}\sin^2\theta \right) = \sin^2\theta \left( -e^{-2\beta} + 2r\partial_r\beta e^{-2\beta} \right).
+\end{equation}
+\begin{equation}
+\partial_\theta \left( -\sin\theta\cos\theta \right) = -\cos^2\theta + \sin^2\theta.
+\end{equation}
+The second term vanishes since $\Gamma^\lambda_{\phi\lambda} = 0$:
+\begin{equation}
+-\partial_\phi \Gamma^\lambda_{\phi\lambda} = 0.
+\end{equation}
+For the third term, summing over $\sigma$ requires $\sigma=r$ and $\sigma=\theta$:
+\begin{equation}
+\Gamma^\lambda_{\sigma\lambda} \Gamma^\sigma_{\phi\phi} = \Gamma^\lambda_{r\lambda} \Gamma^r_{\phi\phi} + \Gamma^\lambda_{\theta\lambda} \Gamma^\theta_{\phi\phi}.
+\end{equation}
+Substituting the respective identities and symbols:
+\begin{equation}
+\Gamma^\lambda_{\sigma\lambda} \Gamma^\sigma_{\phi\phi} = \left( \partial_r\alpha + \partial_r\beta + \frac{2}{r} \right) \left( -re^{-2\beta}\sin^2\theta \right) + (\cot\theta) \left( -\sin\theta\cos\theta \right).
+\end{equation}
+\begin{equation}
+\Gamma^\lambda_{\sigma\lambda} \Gamma^\sigma_{\phi\phi} = \sin^2\theta \, e^{-2\beta} \left( -r\partial_r\alpha - r\partial_r\beta - 2 \right) - \cos^2\theta.
+\end{equation}
+For the fourth term, we sum $-\Gamma^\lambda_{\sigma\phi} \Gamma^\sigma_{\phi\lambda}$ over valid pairs. The non-zero combinations are $\{\lambda=r, \sigma=\phi\}$, $\{\lambda=\phi, \sigma=r\}$, $\{\lambda=\theta, \sigma=\phi\}$, and $\{\lambda=\phi, \sigma=\theta\}$:
+\begin{equation}
+-\Gamma^\lambda_{\sigma\phi} \Gamma^\sigma_{\phi\lambda} = -\left( \Gamma^r_{\phi\phi} \Gamma^\phi_{\phi r} + \Gamma^\phi_{r\phi} \Gamma^r_{\phi\phi} + \Gamma^\theta_{\phi\phi} \Gamma^\phi_{\phi\theta} + \Gamma^\phi_{\theta\phi} \Gamma^\theta_{\phi\phi} \right).
+\end{equation}
+\begin{equation}
+-\Gamma^\lambda_{\sigma\phi} \Gamma^\sigma_{\phi\lambda} = -2\Gamma^r_{\phi\phi} \Gamma^\phi_{\phi r} - 2\Gamma^\theta_{\phi\phi} \Gamma^\phi_{\phi\theta}.
+\end{equation}
+\begin{equation}
+-\Gamma^\lambda_{\sigma\phi} \Gamma^\sigma_{\phi\lambda} = -2\left( -re^{-2\beta}\sin^2\theta \right)\left(\frac{1}{r}\right) - 2\left(-\sin\theta\cos\theta\right)\left(\frac{\cos\theta}{\sin\theta}\right).
+\end{equation}
+\begin{equation}
+-\Gamma^\lambda_{\sigma\phi} \Gamma^\sigma_{\phi\lambda} = 2e^{-2\beta}\sin^2\theta + 2\cos^2\theta.
+\end{equation}
+Assembling all terms for $R_{\phi\phi}$:
+\begin{align}
+R_{\phi\phi} &= \sin^2\theta \left( -e^{-2\beta} + 2r\partial_r\beta e^{-2\beta} \right) - \cos^2\theta + \sin^2\theta \nonumber \\
+&\quad + \sin^2\theta \, e^{-2\beta} \left( -r\partial_r\alpha - r\partial_r\beta - 2 \right) - \cos^2\theta \nonumber \\
+&\quad + 2e^{-2\beta}\sin^2\theta + 2\cos^2\theta.
+\end{align}
+Notice that the purely angular terms completely cancel: $-\cos^2\theta - \cos^2\theta + 2\cos^2\theta = 0$. We factor out $\sin^2\theta$ from the remaining terms:
+\begin{equation}
+R_{\phi\phi} = \sin^2\theta \left[ e^{-2\beta} \left( -1 + 2r\partial_r\beta - r\partial_r\alpha - r\partial_r\beta - 2 + 2 \right) + 1 \right].
+\end{equation}
+\begin{equation}
+R_{\phi\phi} = \sin^2\theta \left[ e^{-2\beta} \left( r\partial_r\beta - r\partial_r\alpha - 1 \right) + 1 \right].
+\end{equation}
+This confirms the structural symmetry condition $R_{\phi\phi} = \sin^2\theta \, R_{\theta\theta}$.
+
+% END OF PART 4
+
+\subsection{Einstein Equations and Solution}
+
+\subsubsection{The Vacuum Condition}
+The exterior gravitational field of a massive body is situated in a region devoid of matter and energy. Therefore, the energy-momentum tensor vanishes, $T_{\mu\nu} = 0$. By the Einstein field equations, this mandates that the Ricci tensor must vanish identically everywhere in the exterior spacetime:
+\begin{equation}
+R_{\mu\nu} = 0.
+\end{equation}
+This establishes a system of non-linear ordinary differential equations for the unknown metric functions $\alpha(r)$ and $\beta(r)$. From the derivation of the Ricci tensor components, the non-trivial vacuum equations are:
+\begin{align}
+R_{tt} &= e^{2(\alpha-\beta)} \left[ \partial_r^2\alpha + (\partial_r\alpha)^2 - \partial_r\alpha\partial_r\beta + \frac{2}{r}\partial_r\alpha \right] = 0, \\
+R_{rr} &= -\partial_r^2\alpha - (\partial_r\alpha)^2 + \partial_r\alpha\partial_r\beta + \frac{2}{r}\partial_r\beta = 0, \\
+R_{\theta\theta} &= e^{-2\beta} \left[ r(\partial_r\beta - \partial_r\alpha) - 1 \right] + 1 = 0.
+\end{align}
+(The equation $R_{\phi\phi} = \sin^2\theta R_{\theta\theta} = 0$ provides no additional constraints beyond $R_{\theta\theta} = 0$.)
+
+\subsubsection{Derivation of the Constraint $\alpha = -\beta$}
+To decouple the differential equations, we construct a linear combination of the temporal and radial equations designed to eliminate the second derivatives of the metric functions. We multiply $R_{tt}$ by the factor $e^{2(\beta-\alpha)}$ and add the result to $R_{rr}$:
+\begin{equation}
+e^{2(\beta-\alpha)} R_{tt} + R_{rr} = 0.
+\end{equation}
+Substituting the explicit forms of the Ricci tensor components:
+\begin{align}
+e^{2(\beta-\alpha)} R_{tt} + R_{rr} &= \left[ \partial_r^2\alpha + (\partial_r\alpha)^2 - \partial_r\alpha\partial_r\beta + \frac{2}{r}\partial_r\alpha \right] \nonumber \\
+&\quad + \left[ -\partial_r^2\alpha - (\partial_r\alpha)^2 + \partial_r\alpha\partial_r\beta + \frac{2}{r}\partial_r\beta \right].
+\end{align}
+The second-order derivatives $\partial_r^2\alpha$ and the non-linear first-order terms strictly cancel:
+\begin{equation}
+e^{2(\beta-\alpha)} R_{tt} + R_{rr} = \frac{2}{r}\partial_r\alpha + \frac{2}{r}\partial_r\beta = 0.
+\end{equation}
+Factoring the algebraic multiplier yields:
+\begin{equation}
+\frac{2}{r} \left( \partial_r\alpha + \partial_r\beta \right) = 0.
+\end{equation}
+Since $r \neq 0$ in the exterior region, the term within the parenthesis must vanish identically. By linearity of the derivative operator, this becomes:
+\begin{equation}
+\partial_r \left( \alpha + \beta \right) = 0.
+\end{equation}
+Integrating with respect to the radial coordinate $r$:
+\begin{equation}
+\alpha(r) + \beta(r) = c,
+\end{equation}
+where $c$ is a constant of integration. We resolve this constant by exploiting coordinate freedom. A rescaling of the time coordinate $t \rightarrow \tilde{t} = e^{-c} t$ transforms the temporal metric component as $g_{\tilde{t}\tilde{t}} = e^{2c} g_{tt} = -e^{2(\alpha + c)}$. We can formally absorb the integration constant $c$ into the definition of the time coordinate without altering the geometry. Imposing this choice effectively sets $c = 0$, strictly yielding:
+\begin{equation}
+\alpha(r) = -\beta(r).
+\end{equation}
+
+\subsubsection{Explicit Solution of the Differential Equations}
+With the constraint $\beta(r) = -\alpha(r)$, we now address the angular vacuum equation $R_{\theta\theta} = 0$:
+\begin{equation}
+e^{-2\beta} \left[ r(\partial_r\beta - \partial_r\alpha) - 1 \right] + 1 = 0.
+\end{equation}
+Substituting $\beta = -\alpha$ and consequently $\partial_r\beta = -\partial_r\alpha$:
+\begin{equation}
+e^{2\alpha} \left[ r(-\partial_r\alpha - \partial_r\alpha) - 1 \right] + 1 = 0.
+\end{equation}
+\begin{equation}
+e^{2\alpha} \left( -2r\partial_r\alpha - 1 \right) + 1 = 0.
+\end{equation}
+Rearranging terms by isolating the exponential function:
+\begin{equation}
+e^{2\alpha} \left( 2r\partial_r\alpha + 1 \right) = 1.
+\end{equation}
+We recognize the left-hand side as the result of the product rule applied to the function $r e^{2\alpha}$. We compute the total radial derivative explicitly to verify:
+\begin{equation}
+\partial_r \left( r e^{2\alpha} \right) = \left( \partial_r r \right) e^{2\alpha} + r \left( \partial_r e^{2\alpha} \right).
+\end{equation}
+\begin{equation}
+\partial_r \left( r e^{2\alpha} \right) = e^{2\alpha} + r \left( 2\partial_r\alpha \, e^{2\alpha} \right).
+\end{equation}
+\begin{equation}
+\partial_r \left( r e^{2\alpha} \right) = e^{2\alpha} \left( 1 + 2r\partial_r\alpha \right).
+\end{equation}
+Consequently, the differential equation $R_{\theta\theta} = 0$ simplifies to exactly:
+\begin{equation}
+\partial_r \left( r e^{2\alpha} \right) = 1.
+\end{equation}
+Integrating both sides with respect to $r$:
+\begin{equation}
+\int \partial_r \left( r e^{2\alpha} \right) dr = \int 1 \, dr.
+\end{equation}
+\begin{equation}
+r e^{2\alpha(r)} = r + C_1,
+\end{equation}
+where $C_1$ is a new constant of integration. Dividing by the radial coordinate $r$:
+\begin{equation}
+e^{2\alpha(r)} = 1 + \frac{C_1}{r}.
+\end{equation}
+We define the integration constant as $C_1 = -R_S$, where $R_S$ will be physically identified as the Schwarzschild radius. The final form for the temporal metric component coefficient is:
+\begin{equation}
+e^{2\alpha(r)} = 1 - \frac{R_S}{r}.
+\end{equation}
+Using the symmetry constraint $\beta(r) = -\alpha(r)$, the radial metric component coefficient is:
+\begin{equation}
+e^{2\beta(r)} = e^{-2\alpha(r)} = \left( 1 - \frac{R_S}{r} \right)^{-1}.
+\end{equation}
+These explicit forms for $\alpha(r)$ and $\beta(r)$ identically satisfy the remaining vacuum equation $R_{rr} = 0$ (and consequently $R_{tt} = 0$), concluding the integration of the Einstein equations for this geometric ansatz.
+
+% END OF PART 5
+
+\subsection{Final Schwarzschild Metric and Interpretation}
+
+\subsubsection{Substitution of the Metric Functions}
+We established the general static, spherically symmetric metric ansatz as:
+\begin{equation}
+ds^2 = -e^{2\alpha(r)} dt^2 + e^{2\beta(r)} dr^2 + r^2 d\Omega^2,
+\end{equation}
+where $d\Omega^2 = d\theta^2 + \sin^2\theta \, d\phi^2$. By solving the vacuum Einstein field equations $R_{\mu\nu} = 0$, we derived the explicit forms for the exponential metric functions:
+\begin{align}
+e^{2\alpha(r)} &= 1 - \frac{R_S}{r}, \\
+e^{2\beta(r)} &= \left( 1 - \frac{R_S}{r} \right)^{-1},
+\end{align}
+where $R_S$ is a constant of integration. Substituting these functions directly into the metric ansatz yields the spacetime geometry in terms of the undetermined constant $R_S$:
+\begin{equation}
+ds^2 = -\left( 1 - \frac{R_S}{r} \right) dt^2 + \left( 1 - \frac{R_S}{r} \right)^{-1} dr^2 + r^2 d\Omega^2.
+\end{equation}
+
+\subsubsection{The Weak-Field Limit and the Schwarzschild Radius}
+To bestow physical meaning upon the integration constant $R_S$, we mandate that the exact solution must asymptotically reduce to the known weak-field Newtonian limit at large spatial distances ($r \gg R_S$). In the weak-field, stationary approximation, the temporal component of the metric tensor relates to the Newtonian gravitational potential $\Phi$ via:
+\begin{equation}
+g_{tt} \approx -(1 + 2\Phi).
+\end{equation}
+For a spherically symmetric body of mass $M$, the classical Newtonian gravitational potential is given by:
+\begin{equation}
+\Phi = -\frac{GM}{r}.
+\end{equation}
+Substituting this potential into the weak-field metric relation yields the expected asymptotic form of the temporal component:
+\begin{equation}
+g_{tt} \approx -\left[ 1 + 2\left(-\frac{GM}{r}\right) \right],
+\end{equation}
+\begin{equation}
+g_{tt} \approx -\left( 1 - \frac{2GM}{r} \right).
+\end{equation}
+We now isolate the exact temporal component $g_{tt}$ from our derived vacuum solution:
+\begin{equation}
+g_{tt} = -\left( 1 - \frac{R_S}{r} \right).
+\end{equation}
+Equating the exact component to the weak-field limit approximation dictates:
+\begin{equation}
+-\left( 1 - \frac{R_S}{r} \right) = -\left( 1 - \frac{2GM}{r} \right).
+\end{equation}
+Multiplying both sides by $-1$ and subtracting $1$ yields:
+\begin{equation}
+-\frac{R_S}{r} = -\frac{2GM}{r}.
+\end{equation}
+Multiplying by $-r$ (valid for $r \neq 0$) strictly determines the constant of integration:
+\begin{equation}
+R_S = 2GM.
+\end{equation}
+This physically significant distance parameter $R_S$ is defined as the Schwarzschild radius.
+
+\subsubsection{The Final Schwarzschild Metric}
+Having rigorously determined the integration constant in terms of the mass $M$ of the gravitating body and the gravitational constant $G$, we substitute $R_S = 2GM$ back into the derived line element. The complete, exact Schwarzschild metric describing the exterior vacuum spacetime of a spherically symmetric mass is:
+\begin{equation}
+ds^2 = -\left( 1 - \frac{2GM}{r} \right) dt^2 + \left( 1 - \frac{2GM}{r} \right)^{-1} dr^2 + r^2 d\Omega^2.
+\end{equation}
+Expanding the angular differential element $d\Omega^2$ for absolute completeness, we obtain the final explicit form:
+\begin{equation}
+ds^2 = -\left( 1 - \frac{2GM}{r} \right) dt^2 + \left( 1 - \frac{2GM}{r} \right)^{-1} dr^2 + r^2 d\theta^2 + r^2 \sin^2\theta \, d\phi^2.
+\end{equation}
+
+% END OF PART 6
+
+\section{Brikhoff's Theorem}
+\subsection{General Spherically Symmetric Metric}
+
+We begin by constructing the metric on a general spherically symmetric spacetime in the arbitrary coordinates $(a, b, \theta, \phi)$. By the assumption of spherical symmetry, there are no cross terms between the angular directions along the 2-spheres and the transverse directions. Specifically, a basis vector such as $\partial_a$ must be orthogonal to the angular basis vector $\partial_\theta$, ensuring the absence of terms like $da \, d\theta$. The line element is therefore written as:
+\begin{equation}
+ds^{2}=g_{aa}(a,b)da^{2}+g_{ab}(a,b)(da db+db da)+g_{bb}(a,b)db^{2}+r^{2}(a,b)d\Omega^{2}
+\end{equation}
+Here, $r(a,b)$ acts as an arbitrary function representing the areal radius, and $d\Omega^2 = d\theta^2 + \sin^2\theta d\phi^2$ is the standard line element of a unit sphere. Since the tensor product of coordinate differentials in a line element is symmetric ($da db = db da$), we can explicitly combine the cross terms:
+\begin{equation}
+ds^{2}=g_{aa}(a,b)da^{2}+2g_{ab}(a,b)da db+g_{bb}(a,b)db^{2}+r^{2}(a,b)d\Omega^{2}
+\end{equation}
+
+To simplify the geometry, we change the coordinate basis from $(a,b)$ to $(a,r)$ by inverting the function $r(a,b)$ to solve for $b(a,r)$. This transformation is valid provided $r$ is not a function of $a$ alone. We compute the exact differential of the new function $b(a,r)$ using the chain rule:
+\begin{equation}
+db = \frac{\partial b}{\partial a} da + \frac{\partial b}{\partial r} dr
+\end{equation}
+
+We must substitute this expression into the $(a,b)$ metric. First, we expand the squared differential $db^2$:
+\begin{align}
+db^2 &= \left( \frac{\partial b}{\partial a} da + \frac{\partial b}{\partial r} dr \right)^2 \nonumber \\
+&= \left( \frac{\partial b}{\partial a} \right)^2 da^2 + 2 \left( \frac{\partial b}{\partial a} \right) \left( \frac{\partial b}{\partial r} \right) da dr + \left( \frac{\partial b}{\partial r} \right)^2 dr^2
+\end{align}
+
+Next, we expand the cross term $2g_{ab} da db$:
+\begin{align}
+2g_{ab} da db &= 2g_{ab} da \left( \frac{\partial b}{\partial a} da + \frac{\partial b}{\partial r} dr \right) \nonumber \\
+&= 2g_{ab} \frac{\partial b}{\partial a} da^2 + 2g_{ab} \frac{\partial b}{\partial r} da dr
+\end{align}
+
+Substituting these expanded terms back into the metric yields:
+\begin{align}
+ds^{2} &= g_{aa} da^{2} + \left[ 2g_{ab} \frac{\partial b}{\partial a} da^2 + 2g_{ab} \frac{\partial b}{\partial r} da dr \right] \nonumber \\
+&\quad + g_{bb} \left[ \left( \frac{\partial b}{\partial a} \right)^2 da^2 + 2 \left( \frac{\partial b}{\partial a} \right) \left( \frac{\partial b}{\partial r} \right) da dr + \left( \frac{\partial b}{\partial r} \right)^2 dr^2 \right] + r^{2}d\Omega^{2}
+\end{align}
+
+We now group the terms by the fundamental differentials $da^2$, $da dr$, and $dr^2$:
+\begin{align}
+ds^{2} &= \left[ g_{aa} + 2g_{ab} \frac{\partial b}{\partial a} + g_{bb} \left( \frac{\partial b}{\partial a} \right)^2 \right] da^{2} \nonumber \\
+&\quad + 2 \left[ g_{ab} \frac{\partial b}{\partial r} + g_{bb} \left( \frac{\partial b}{\partial a} \right) \left( \frac{\partial b}{\partial r} \right) \right] da dr \nonumber \\
+&\quad + \left[ g_{bb} \left( \frac{\partial b}{\partial r} \right)^2 \right] dr^{2} + r^{2}d\Omega^{2}
+\end{align}
+
+We define the quantities inside the square brackets as our new effective metric components in the $(a,r)$ coordinate system, denoted as $\tilde{g}_{aa}(a,r)$, $\tilde{g}_{ar}(a,r)$, and $\tilde{g}_{rr}(a,r)$:
+\begin{align}
+\tilde{g}_{aa}(a,r) &= g_{aa} + 2g_{ab} \frac{\partial b}{\partial a} + g_{bb} \left( \frac{\partial b}{\partial a} \right)^2 \\
+\tilde{g}_{ar}(a,r) &= g_{ab} \frac{\partial b}{\partial r} + g_{bb} \frac{\partial b}{\partial a} \frac{\partial b}{\partial r} \\
+\tilde{g}_{rr}(a,r) &= g_{bb} \left( \frac{\partial b}{\partial r} \right)^2
+\end{align}
+
+Dropping the tildes for simplicity, the metric takes the form:
+\begin{equation}
+ds^{2}=g_{aa}(a,r)da^{2}+g_{ar}(a,r)(da dr+dr da)+g_{rr}(a,r)dr^{2}+r^{2}d\Omega^{2}
+\end{equation}
+where we have explicitly split $2g_{ar} da dr$ back into $g_{ar}(da dr + dr da)$ to match the required canonical form.
+
+Our next objective is to eliminate the off-diagonal $da dr$ cross term entirely by introducing a new time coordinate $t(a,r)$. The exact differential of $t(a,r)$ is given by:
+\begin{equation}
+dt = \frac{\partial t}{\partial a} da + \frac{\partial t}{\partial r} dr
+\end{equation}
+
+Squaring this differential produces:
+\begin{equation}
+dt^{2} = \left( \frac{\partial t}{\partial a} \right)^2 da^{2} + 2 \left( \frac{\partial t}{\partial a} \right) \left( \frac{\partial t}{\partial r} \right) da dr + \left( \frac{\partial t}{\partial r} \right)^2 dr^{2}
+\end{equation}
+
+We demand that the metric be reducible to the strictly diagonal form:
+\begin{equation}
+ds^{2} = m(t,r)dt^{2} + n(t,r)dr^{2} + r^{2}d\Omega^{2}
+\end{equation}
+
+To establish the equivalence, we substitute our expanded expression for $dt^2$ into this target diagonal form:
+\begin{align}
+m(t,r)dt^{2} + n(t,r)dr^{2} &= m(t,r) \left[ \left( \frac{\partial t}{\partial a} \right)^2 da^{2} + 2 \left( \frac{\partial t}{\partial a} \right) \left( \frac{\partial t}{\partial r} \right) da dr + \left( \frac{\partial t}{\partial r} \right)^2 dr^{2} \right] + n(t,r)dr^{2} \nonumber \\
+&= \left[ m(t,r) \left( \frac{\partial t}{\partial a} \right)^2 \right] da^{2} + 2 \left[ m(t,r) \left( \frac{\partial t}{\partial a} \right) \left( \frac{\partial t}{\partial r} \right) \right] da dr \nonumber \\
+&\quad + \left[ m(t,r) \left( \frac{\partial t}{\partial r} \right)^2 + n(t,r) \right] dr^{2}
+\end{align}
+
+For this expanded target metric to identically match our $(a,r)$ metric, the coefficients of $da^2$, $da dr$, and $dr^2$ must strictly equal $g_{aa}$, $g_{ar}$, and $g_{rr}$ respectively. This equivalence yields a system of three coupled partial differential equations:
+\begin{align}
+g_{aa} &= m \left( \frac{\partial t}{\partial a} \right)^2 \\
+g_{ar} &= m \left( \frac{\partial t}{\partial a} \right) \left( \frac{\partial t}{\partial r} \right) \\
+g_{rr} &= m \left( \frac{\partial t}{\partial r} \right)^2 + n
+\end{align}
+
+These represent three distinct equations for the three unknown functions $t(a,r)$, $m(t,r)$, and $n(t,r)$. Because the system is exactly constrained (up to initial conditions for $t$), we are mathematically guaranteed to find a solution that diagonalizes the metric. The line element is successfully brought to the form:
+\begin{equation}
+ds^{2}=m(t,r)dt^{2}+n(t,r)dr^{2}+r^{2}d\Omega^{2}
+\end{equation}
+
+Finally, we must enforce the geometric requirement that spacetime possesses a Lorentzian signature. By analogy with flat Minkowski spacetime where the metric is $ds^2 = -dt^2 + dr^2 + r^2 d\Omega^2$, we identify $t$ as the temporal coordinate and deduce that the coefficient $m(t,r)$ must be strictly negative. To intrinsically guarantee that $m$ remains negative and $n$ remains positive, we introduce two arbitrary real-valued functions $\alpha(t,r)$ and $\beta(t,r)$:
+\begin{equation}
+m(t,r) = -e^{2\alpha(t,r)}
+\end{equation}
+\begin{equation}
+n(t,r) = e^{2\beta(t,r)}
+\end{equation}
+
+Substituting these definitions into the diagonalized metric, we arrive at the standard general form for a spherically symmetric Lorentzian spacetime:
+\begin{equation}
+ds^{2}=-e^{2\alpha(t,r)}dt^{2}+e^{2\beta(t,r)}dr^{2}+r^{2}d\Omega^{2}
+\end{equation}
+
+% END OF PART 1
+
+\subsection{Inverse Metric and Determinant}
+
+\subsubsection*{The Covariant Metric Tensor}
+From the general spherically symmetric line element derived in Part 1,
+\begin{equation}
+    ds^2 = -e^{2\alpha(t,r)} dt^2 + e^{2\beta(t,r)} dr^2 + r^2 d\theta^2 + r^2 \sin^2\theta \, d\phi^2,
+\end{equation}
+we can read off the non-zero components of the covariant metric tensor $g_{\mu\nu}$. Since there are no cross terms (e.g., $dt \, dr$, $d\theta \, d\phi$), the metric is strictly diagonal. In the coordinate basis $x^\mu = (t, r, \theta, \phi)$, the metric components are:
+\begin{align}
+    g_{tt} &= -e^{2\alpha(t,r)} \\
+    g_{rr} &= e^{2\beta(t,r)} \\
+    g_{\theta\theta} &= r^2 \\
+    g_{\phi\phi} &= r^2 \sin^2\theta
+\end{align}
+All off-diagonal components vanish identically: $g_{\mu\nu} = 0$ for $\mu \neq \nu$.
+
+\subsubsection*{The Contravariant (Inverse) Metric Tensor}
+The inverse metric tensor $g^{\mu\nu}$ is defined by the algebraic relation:
+\begin{equation}
+    g^{\mu\lambda} g_{\lambda\nu} = \delta^\mu_\nu
+\end{equation}
+where $\delta^\mu_\nu$ is the Kronecker delta. Because the covariant metric tensor is purely diagonal, its matrix representation is also diagonal, and the inverse matrix is simply obtained by taking the algebraic reciprocal of each individual main diagonal element. Therefore, the non-zero components of the contravariant metric tensor $g^{\mu\nu}$ are:
+\begin{align}
+    g^{tt} &= \frac{1}{g_{tt}} = \frac{1}{-e^{2\alpha(t,r)}} = -e^{-2\alpha(t,r)} \\
+    g^{rr} &= \frac{1}{g_{rr}} = \frac{1}{e^{2\beta(t,r)}} = e^{-2\beta(t,r)} \\
+    g^{\theta\theta} &= \frac{1}{g_{\theta\theta}} = \frac{1}{r^2} = r^{-2} \\
+    g^{\phi\phi} &= \frac{1}{g_{\phi\phi}} = \frac{1}{r^2 \sin^2\theta} = r^{-2} \csc^2\theta
+\end{align}
+Similarly, all off-diagonal components of the inverse metric vanish: $g^{\mu\nu} = 0$ for $\mu \neq \nu$.
+
+\subsubsection*{Verification of the Inverse Metric}
+To maintain full mathematical rigor, we explicitly verify the inverse condition $g^{\mu\lambda} g_{\lambda\nu} = \delta^\mu_\nu$ by expanding the summation over the dummy index $\lambda \in \{t, r, \theta, \phi\}$.
+
+For the diagonal temporal component ($\mu = \nu = t$):
+\begin{align}
+    g^{t\lambda} g_{\lambda t} &= g^{tt} g_{tt} + \underbrace{g^{tr} g_{rt}}_{0} + \underbrace{g^{t\theta} g_{\theta t}}_{0} + \underbrace{g^{t\phi} g_{\phi t}}_{0} \nonumber \\
+    &= \left( -e^{-2\alpha(t,r)} \right) \left( -e^{2\alpha(t,r)} \right) \nonumber \\
+    &= e^{-2\alpha(t,r) + 2\alpha(t,r)} = e^0 = 1 = \delta^t_t
+\end{align}
+
+For the diagonal radial component ($\mu = \nu = r$):
+\begin{align}
+    g^{r\lambda} g_{\lambda r} &= \underbrace{g^{rt} g_{tr}}_{0} + g^{rr} g_{rr} + \underbrace{g^{r\theta} g_{\theta r}}_{0} + \underbrace{g^{r\phi} g_{\phi r}}_{0} \nonumber \\
+    &= \left( e^{-2\beta(t,r)} \right) \left( e^{2\beta(t,r)} \right) \nonumber \\
+    &= e^{-2\beta(t,r) + 2\beta(t,r)} = e^0 = 1 = \delta^r_r
+\end{align}
+
+For the diagonal polar component ($\mu = \nu = \theta$):
+\begin{align}
+    g^{\theta\lambda} g_{\lambda \theta} &= \underbrace{g^{\theta t} g_{t \theta}}_{0} + \underbrace{g^{\theta r} g_{r \theta}}_{0} + g^{\theta\theta} g_{\theta\theta} + \underbrace{g^{\theta\phi} g_{\phi \theta}}_{0} \nonumber \\
+    &= \left( r^{-2} \right) \left( r^2 \right) \nonumber \\
+    &= r^{-2+2} = r^0 = 1 = \delta^\theta_\theta
+\end{align}
+
+For the diagonal azimuthal component ($\mu = \nu = \phi$):
+\begin{align}
+    g^{\phi\lambda} g_{\lambda \phi} &= \underbrace{g^{\phi t} g_{t \phi}}_{0} + \underbrace{g^{\phi r} g_{r \phi}}_{0} + \underbrace{g^{\phi\theta} g_{\theta \phi}}_{0} + g^{\phi\phi} g_{\phi\phi} \nonumber \\
+    &= \left( r^{-2} \csc^2\theta \right) \left( r^2 \sin^2\theta \right) \nonumber \\
+    &= \left( \frac{1}{r^2 \sin^2\theta} \right) \left( r^2 \sin^2\theta \right) = 1 = \delta^\phi_\phi
+\end{align}
+
+For the off-diagonal components ($\mu \neq \nu$), we examine $\mu = t, \nu = r$ as a representative example. Since $g^{\mu\nu}$ and $g_{\mu\nu}$ are strictly diagonal, at least one term in each product within the summation will be identically zero:
+\begin{align}
+    g^{t\lambda} g_{\lambda r} &= g^{tt} \underbrace{g_{tr}}_{0} + \underbrace{g^{tr}}_{0} g_{rr} + \underbrace{g^{t\theta}}_{0} \underbrace{g_{\theta r}}_{0} + \underbrace{g^{t\phi}}_{0} \underbrace{g_{\phi r}}_{0} \nonumber \\
+    &= \left( -e^{-2\alpha(t,r)} \right) (0) + (0) \left( e^{2\beta(t,r)} \right) + 0 + 0 \nonumber \\
+    &= 0 = \delta^t_r
+\end{align}
+By the diagonal symmetry of the matrices, this result holds trivially for all off-diagonal contractions ($\mu \neq \nu$). Thus, the inverse relationship is rigorously verified.
+
+\subsubsection*{Computation of the Metric Determinant}
+The determinant of the covariant metric tensor, conventionally denoted as $g \equiv \det(g_{\mu\nu})$, is the determinant of the $4 \times 4$ metric matrix. For any purely diagonal matrix, the determinant simplifies to the direct product of its main diagonal elements:
+\begin{equation}
+    g = \det(g_{\mu\nu}) = \prod_{\mu} g_{\mu\mu} = g_{tt} g_{rr} g_{\theta\theta} g_{\phi\phi}
+\end{equation}
+
+Substituting the explicit, non-zero components into this product:
+\begin{equation}
+    g = \left( -e^{2\alpha(t,r)} \right) \left( e^{2\beta(t,r)} \right) \left( r^2 \right) \left( r^2 \sin^2\theta \right)
+\end{equation}
+
+We mathematically consolidate the terms step-by-step. First, we group the exponential terms together and the polynomial $r$ terms together:
+\begin{align}
+    g &= - \left( e^{2\alpha(t,r)} e^{2\beta(t,r)} \right) \left( r^2 \cdot r^2 \right) \sin^2\theta \nonumber \\
+    &= - e^{2\alpha(t,r) + 2\beta(t,r)} \left( r^4 \right) \sin^2\theta
+\end{align}
+
+Factoring out the common factor of $2$ in the exponential argument, we arrive at the final closed-form expression for the metric determinant:
+\begin{equation}
+    g = -e^{2(\alpha(t,r) + \beta(t,r))} r^4 \sin^2\theta
+\end{equation}
+
+\subsubsection*{Computation of the Invariant Volume Measure}
+In General Relativity, integration over the spacetime manifold utilizes the invariant volume measure element, $\sqrt{-g}$. We first isolate the positive quantity $-g$ by multiplying the previous result by $-1$:
+\begin{equation}
+    -g = e^{2(\alpha(t,r) + \beta(t,r))} r^4 \sin^2\theta
+\end{equation}
+
+Next, we apply the square root operator to both sides of the equation:
+\begin{equation}
+    \sqrt{-g} = \sqrt{ e^{2(\alpha(t,r) + \beta(t,r))} r^4 \sin^2\theta }
+\end{equation}
+
+Since the factors inside the square root are products of strictly positive real numbers (assuming the standard coordinate ranges where $r > 0$ and $0 < \theta < \pi$), we can safely distribute the square root over each multiplicative factor:
+\begin{align}
+    \sqrt{-g} &= \sqrt{ e^{2(\alpha(t,r) + \beta(t,r))} } \cdot \sqrt{ r^4 } \cdot \sqrt{ \sin^2\theta } \nonumber \\
+    &= \left( e^{2(\alpha(t,r) + \beta(t,r))} \right)^{1/2} \left( r^4 \right)^{1/2} \left( \sin\theta \right) \nonumber \\
+    &= e^{\alpha(t,r) + \beta(t,r)} r^2 \sin\theta
+\end{align}
+
+This yields the final rigorous form for the scalar density used in the spacetime measure element:
+\begin{equation}
+    \sqrt{-g} = e^{\alpha(t,r) + \beta(t,r)} r^2 \sin\theta
+\end{equation}
+
+% END OF PART 2
+
+\subsection{Christoffel Symbols (Time-Dependent Case)}
+
+\subsubsection*{The General Christoffel Symbol Formula}
+
+The Christoffel symbols of the second kind, which encode the connection coefficients for the metric, are defined by the equation:
+\begin{equation}
+    \Gamma^\lambda_{\mu\nu} = \frac{1}{2} \sum_{\sigma \in \{t, r, \theta, \phi\}} g^{\lambda\sigma} (\partial_\mu g_{\nu\sigma} + \partial_\nu g_{\mu\sigma} - \partial_\sigma g_{\mu\nu}) \label{eq:christoffel_def}
+\end{equation}
+
+Because our coordinate basis $(t, r, \theta, \phi)$ yields a strictly diagonal metric and inverse metric, all off-diagonal components vanish ($g^{\lambda\sigma} = 0$ for $\lambda \neq \sigma$). Consequently, the summation over the dummy index $\sigma$ explicitly collapses to a single non-zero term where $\sigma = \lambda$:
+\begin{equation}
+    \Gamma^\lambda_{\mu\nu} = \frac{1}{2} g^{\lambda\lambda} (\partial_\mu g_{\nu\lambda} + \partial_\nu g_{\mu\lambda} - \partial_\lambda g_{\mu\nu}) \label{eq:christoffel_diag}
+\end{equation}
+(Note: The repeated index $\lambda$ in equation \eqref{eq:christoffel_diag} is fixed by the left-hand side and does not imply summation). We will use this reduced formula to compute all non-zero components, maintaining both time ($t$) and radial ($r$) dependencies for full generality.
+
+\subsubsection*{1. The Temporal Components ($\lambda = t$)}
+
+For $\lambda = t$, the relevant inverse metric component is $g^{tt} = -e^{-2\alpha(t,r)}$. 
+Equation \eqref{eq:christoffel_diag} becomes:
+\begin{equation}
+    \Gamma^t_{\mu\nu} = \frac{1}{2} g^{tt} (\partial_\mu g_{\nu t} + \partial_\nu g_{\mu t} - \partial_t g_{\mu\nu}) \label{eq:gamma_t_general}
+\end{equation}
+
+\textbf{Case $\mu = t, \nu = t$:}
+\begin{align}
+    \Gamma^t_{tt} &= \frac{1}{2} g^{tt} (\partial_t g_{tt} + \partial_t g_{tt} - \partial_t g_{tt}) \nonumber \\
+    &= \frac{1}{2} g^{tt} \partial_t g_{tt} \nonumber \\
+    &= \frac{1}{2} \left( -e^{-2\alpha(t,r)} \right) \partial_t \left( -e^{2\alpha(t,r)} \right) \nonumber \\
+    &= \frac{1}{2} \left( -e^{-2\alpha(t,r)} \right) \left( -2 e^{2\alpha(t,r)} \partial_t \alpha(t,r) \right) \nonumber \\
+    &= \left( \frac{2}{2} \right) \left( e^{-2\alpha(t,r)} e^{2\alpha(t,r)} \right) \partial_t \alpha(t,r) \nonumber \\
+    &= \partial_t \alpha(t,r)
+\end{align}
+
+\textbf{Case $\mu = t, \nu = r$:}
+Since the metric is diagonal, $g_{rt} = 0$.
+\begin{align}
+    \Gamma^t_{tr} &= \frac{1}{2} g^{tt} (\partial_t g_{rt} + \partial_r g_{tt} - \partial_t g_{tr}) \nonumber \\
+    &= \frac{1}{2} g^{tt} (0 + \partial_r g_{tt} - 0) \nonumber \\
+    &= \frac{1}{2} g^{tt} \partial_r g_{tt} \nonumber \\
+    &= \frac{1}{2} \left( -e^{-2\alpha(t,r)} \right) \partial_r \left( -e^{2\alpha(t,r)} \right) \nonumber \\
+    &= \frac{1}{2} \left( -e^{-2\alpha(t,r)} \right) \left( -2 e^{2\alpha(t,r)} \partial_r \alpha(t,r) \right) \nonumber \\
+    &= \partial_r \alpha(t,r)
+\end{align}
+By the fundamental symmetry of the Christoffel symbols in their lower indices ($\Gamma^\lambda_{\mu\nu} = \Gamma^\lambda_{\nu\mu}$), it immediately follows that $\Gamma^t_{rt} = \partial_r \alpha(t,r)$.
+
+\textbf{Case $\mu = r, \nu = r$:}
+\begin{align}
+    \Gamma^t_{rr} &= \frac{1}{2} g^{tt} (\partial_r g_{rt} + \partial_r g_{rt} - \partial_t g_{rr}) \nonumber \\
+    &= \frac{1}{2} g^{tt} (0 + 0 - \partial_t g_{rr}) \nonumber \\
+    &= -\frac{1}{2} g^{tt} \partial_t g_{rr} \nonumber \\
+    &= -\frac{1}{2} \left( -e^{-2\alpha(t,r)} \right) \partial_t \left( e^{2\beta(t,r)} \right) \nonumber \\
+    &= \frac{1}{2} e^{-2\alpha(t,r)} \left( 2 e^{2\beta(t,r)} \partial_t \beta(t,r) \right) \nonumber \\
+    &= e^{2(\beta(t,r) - \alpha(t,r))} \partial_t \beta(t,r)
+\end{align}
+
+For the angular components ($\mu, \nu \in \{\theta, \phi\}$), the required derivatives are $\partial_t g_{\theta\theta} = \partial_t (r^2) = 0$ and $\partial_t g_{\phi\phi} = \partial_t (r^2 \sin^2\theta) = 0$. Consequently, $\Gamma^t_{\theta\theta} = 0$ and $\Gamma^t_{\phi\phi} = 0$.
+
+\subsubsection*{2. The Radial Components ($\lambda = r$)}
+
+For $\lambda = r$, the relevant inverse metric component is $g^{rr} = e^{-2\beta(t,r)}$. 
+Equation \eqref{eq:christoffel_diag} becomes:
+\begin{equation}
+    \Gamma^r_{\mu\nu} = \frac{1}{2} g^{rr} (\partial_\mu g_{\nu r} + \partial_\nu g_{\mu r} - \partial_r g_{\mu\nu})
+\end{equation}
+
+\textbf{Case $\mu = t, \nu = t$:}
+Since $g_{tr} = 0$:
+\begin{align}
+    \Gamma^r_{tt} &= \frac{1}{2} g^{rr} (\partial_t g_{tr} + \partial_t g_{tr} - \partial_r g_{tt}) \nonumber \\
+    &= -\frac{1}{2} g^{rr} \partial_r g_{tt} \nonumber \\
+    &= -\frac{1}{2} \left( e^{-2\beta(t,r)} \right) \partial_r \left( -e^{2\alpha(t,r)} \right) \nonumber \\
+    &= -\frac{1}{2} \left( e^{-2\beta(t,r)} \right) \left( -2 e^{2\alpha(t,r)} \partial_r \alpha(t,r) \right) \nonumber \\
+    &= e^{2(\alpha(t,r) - \beta(t,r))} \partial_r \alpha(t,r)
+\end{align}
+
+\textbf{Case $\mu = t, \nu = r$:}
+\begin{align}
+    \Gamma^r_{tr} &= \frac{1}{2} g^{rr} (\partial_t g_{rr} + \partial_r g_{tr} - \partial_r g_{tr}) \nonumber \\
+    &= \frac{1}{2} g^{rr} \partial_t g_{rr} \nonumber \\
+    &= \frac{1}{2} \left( e^{-2\beta(t,r)} \right) \partial_t \left( e^{2\beta(t,r)} \right) \nonumber \\
+    &= \frac{1}{2} \left( e^{-2\beta(t,r)} \right) \left( 2 e^{2\beta(t,r)} \partial_t \beta(t,r) \right) \nonumber \\
+    &= \partial_t \beta(t,r)
+\end{align}
+By symmetry, $\Gamma^r_{rt} = \partial_t \beta(t,r)$.
+
+\textbf{Case $\mu = r, \nu = r$:}
+\begin{align}
+    \Gamma^r_{rr} &= \frac{1}{2} g^{rr} (\partial_r g_{rr} + \partial_r g_{rr} - \partial_r g_{rr}) \nonumber \\
+    &= \frac{1}{2} g^{rr} \partial_r g_{rr} \nonumber \\
+    &= \frac{1}{2} \left( e^{-2\beta(t,r)} \right) \partial_r \left( e^{2\beta(t,r)} \right) \nonumber \\
+    &= \frac{1}{2} \left( e^{-2\beta(t,r)} \right) \left( 2 e^{2\beta(t,r)} \partial_r \beta(t,r) \right) \nonumber \\
+    &= \partial_r \beta(t,r)
+\end{align}
+
+\textbf{Case $\mu = \theta, \nu = \theta$:}
+\begin{align}
+    \Gamma^r_{\theta\theta} &= \frac{1}{2} g^{rr} (\partial_\theta g_{\theta r} + \partial_\theta g_{r\theta} - \partial_r g_{\theta\theta}) \nonumber \\
+    &= -\frac{1}{2} g^{rr} \partial_r g_{\theta\theta} \nonumber \\
+    &= -\frac{1}{2} \left( e^{-2\beta(t,r)} \right) \partial_r \left( r^2 \right) \nonumber \\
+    &= -\frac{1}{2} e^{-2\beta(t,r)} (2r) \nonumber \\
+    &= -r e^{-2\beta(t,r)}
+\end{align}
+
+\textbf{Case $\mu = \phi, \nu = \phi$:}
+\begin{align}
+    \Gamma^r_{\phi\phi} &= \frac{1}{2} g^{rr} (\partial_\phi g_{\phi r} + \partial_\phi g_{r\phi} - \partial_r g_{\phi\phi}) \nonumber \\
+    &= -\frac{1}{2} g^{rr} \partial_r g_{\phi\phi} \nonumber \\
+    &= -\frac{1}{2} \left( e^{-2\beta(t,r)} \right) \partial_r \left( r^2 \sin^2\theta \right) \nonumber \\
+    &= -\frac{1}{2} e^{-2\beta(t,r)} \left( 2r \sin^2\theta \right) \nonumber \\
+    &= -r e^{-2\beta(t,r)} \sin^2\theta
+\end{align}
+
+\subsubsection*{3. The Polar Components ($\lambda = \theta$)}
+
+For $\lambda = \theta$, the relevant inverse metric component is $g^{\theta\theta} = r^{-2}$.
+Equation \eqref{eq:christoffel_diag} becomes:
+\begin{equation}
+    \Gamma^\theta_{\mu\nu} = \frac{1}{2} g^{\theta\theta} (\partial_\mu g_{\nu\theta} + \partial_\nu g_{\mu\theta} - \partial_\theta g_{\mu\nu})
+\end{equation}
+
+\textbf{Case $\mu = r, \nu = \theta$:}
+\begin{align}
+    \Gamma^\theta_{r\theta} &= \frac{1}{2} g^{\theta\theta} (\partial_r g_{\theta\theta} + \partial_\theta g_{r\theta} - \partial_\theta g_{r\theta}) \nonumber \\
+    &= \frac{1}{2} g^{\theta\theta} \partial_r g_{\theta\theta} \nonumber \\
+    &= \frac{1}{2} \left( \frac{1}{r^2} \right) \partial_r \left( r^2 \right) \nonumber \\
+    &= \frac{1}{2} \left( \frac{1}{r^2} \right) (2r) \nonumber \\
+    &= \frac{1}{r}
+\end{align}
+By symmetry, $\Gamma^\theta_{\theta r} = \frac{1}{r}$.
+
+\textbf{Case $\mu = \phi, \nu = \phi$:}
+\begin{align}
+    \Gamma^\theta_{\phi\phi} &= \frac{1}{2} g^{\theta\theta} (\partial_\phi g_{\phi\theta} + \partial_\phi g_{\theta\phi} - \partial_\theta g_{\phi\phi}) \nonumber \\
+    &= -\frac{1}{2} g^{\theta\theta} \partial_\theta g_{\phi\phi} \nonumber \\
+    &= -\frac{1}{2} \left( \frac{1}{r^2} \right) \partial_\theta \left( r^2 \sin^2\theta \right) \nonumber \\
+    &= -\frac{1}{2} \left( \frac{1}{r^2} \right) \left( r^2 \cdot 2\sin\theta\cos\theta \right) \nonumber \\
+    &= -\sin\theta\cos\theta
+\end{align}
+
+\subsubsection*{4. The Azimuthal Components ($\lambda = \phi$)}
+
+For $\lambda = \phi$, the relevant inverse metric component is $g^{\phi\phi} = \frac{1}{r^2 \sin^2\theta}$.
+Equation \eqref{eq:christoffel_diag} becomes:
+\begin{equation}
+    \Gamma^\phi_{\mu\nu} = \frac{1}{2} g^{\phi\phi} (\partial_\mu g_{\nu\phi} + \partial_\nu g_{\mu\phi} - \partial_\phi g_{\mu\nu})
+\end{equation}
+
+\textbf{Case $\mu = r, \nu = \phi$:}
+\begin{align}
+    \Gamma^\phi_{r\phi} &= \frac{1}{2} g^{\phi\phi} (\partial_r g_{\phi\phi} + \partial_\phi g_{r\phi} - \partial_\phi g_{r\phi}) \nonumber \\
+    &= \frac{1}{2} g^{\phi\phi} \partial_r g_{\phi\phi} \nonumber \\
+    &= \frac{1}{2} \left( \frac{1}{r^2 \sin^2\theta} \right) \partial_r \left( r^2 \sin^2\theta \right) \nonumber \\
+    &= \frac{1}{2} \left( \frac{1}{r^2 \sin^2\theta} \right) \left( 2r \sin^2\theta \right) \nonumber \\
+    &= \frac{1}{r}
+\end{align}
+By symmetry, $\Gamma^\phi_{\phi r} = \frac{1}{r}$.
+
+\textbf{Case $\mu = \theta, \nu = \phi$:}
+\begin{align}
+    \Gamma^\phi_{\theta\phi} &= \frac{1}{2} g^{\phi\phi} (\partial_\theta g_{\phi\phi} + \partial_\phi g_{\theta\phi} - \partial_\phi g_{\theta\phi}) \nonumber \\
+    &= \frac{1}{2} g^{\phi\phi} \partial_\theta g_{\phi\phi} \nonumber \\
+    &= \frac{1}{2} \left( \frac{1}{r^2 \sin^2\theta} \right) \partial_\theta \left( r^2 \sin^2\theta \right) \nonumber \\
+    &= \frac{1}{2} \left( \frac{1}{r^2 \sin^2\theta} \right) \left( r^2 \cdot 2\sin\theta\cos\theta \right) \nonumber \\
+    &= \frac{\sin\theta\cos\theta}{\sin^2\theta} \nonumber \\
+    &= \frac{\cos\theta}{\sin\theta} \nonumber \\
+    &= \cot\theta
+\end{align}
+By symmetry, $\Gamma^\phi_{\phi\theta} = \cot\theta$. All other components identically vanish due to the diagonal structure of the metric and the independence of the coordinates from $\phi$.
+
+
+% END OF PART 3
+
+\subsection{Riemann Curvature Tensor}
+
+The Riemann curvature tensor measures the non-commutativity of covariant derivatives acting on vector fields. It is intrinsically related to the tidal forces experienced in the spacetime geometry. The tensor is defined entirely in terms of the Christoffel symbols and their partial derivatives[cite: 1, 2]:
+\begin{equation}
+    {R^\rho}_{\sigma\mu\nu} = \partial_\mu \Gamma^\rho_{\nu\sigma} - \partial_\nu \Gamma^\rho_{\mu\sigma} + \Gamma^\rho_{\mu\lambda}\Gamma^\lambda_{\nu\sigma} - \Gamma^\rho_{\nu\lambda}\Gamma^\lambda_{\mu\sigma}
+\end{equation}
+Because the Riemann tensor has 256 components in 4-dimensional spacetime, we will explicitly construct a set of representative non-zero components to rigorously demonstrate the derivation process, keeping both time and radial dependencies active[cite: 2].
+
+\subsubsection*{1. Derivation of ${R^t}_{rtr}$}
+
+We assign the indices $(\rho, \sigma, \mu, \nu) = (t, r, t, r)$. Substituting these into the definition of the Riemann tensor yields:
+\begin{equation}
+    {R^t}_{rtr} = \partial_t \Gamma^t_{rr} - \partial_r \Gamma^t_{tr} + \Gamma^t_{t\lambda}\Gamma^\lambda_{rr} - \Gamma^t_{r\lambda}\Gamma^\lambda_{tr}
+\end{equation}
+
+We explicitly expand the summations over the dummy index $\lambda \in \{t, r, \theta, \phi\}$:
+\begin{align}
+    \Gamma^t_{t\lambda}\Gamma^\lambda_{rr} &= \Gamma^t_{tt}\Gamma^t_{rr} + \Gamma^t_{tr}\Gamma^r_{rr} + \Gamma^t_{t\theta}\Gamma^\theta_{rr} + \Gamma^t_{t\phi}\Gamma^\phi_{rr} \label{eq:Rtrtr_sum1} \\
+    \Gamma^t_{r\lambda}\Gamma^\lambda_{tr} &= \Gamma^t_{rt}\Gamma^t_{tr} + \Gamma^t_{rr}\Gamma^r_{tr} + \Gamma^t_{r\theta}\Gamma^\theta_{tr} + \Gamma^t_{r\phi}\Gamma^\phi_{tr} \label{eq:Rtrtr_sum2}
+\end{align}
+
+From the Christoffel symbols derived in Part 3, we know that all components with mixed angular and non-angular lower indices vanish (e.g., $\Gamma^\theta_{rr} = \Gamma^\phi_{rr} = \Gamma^\theta_{tr} = \Gamma^\phi_{tr} = 0$ and $\Gamma^t_{t\theta} = \Gamma^t_{t\phi} = \Gamma^t_{r\theta} = \Gamma^t_{r\phi} = 0$). Equations \eqref{eq:Rtrtr_sum1} and \eqref{eq:Rtrtr_sum2} thus reduce to:
+\begin{align}
+    \Gamma^t_{t\lambda}\Gamma^\lambda_{rr} &= \Gamma^t_{tt}\Gamma^t_{rr} + \Gamma^t_{tr}\Gamma^r_{rr} \\
+    \Gamma^t_{r\lambda}\Gamma^\lambda_{tr} &= \Gamma^t_{rt}\Gamma^t_{tr} + \Gamma^t_{rr}\Gamma^r_{tr}
+\end{align}
+
+We now evaluate the four fundamental terms of ${R^t}_{rtr}$ individually, substituting the explicit non-zero Christoffel symbols:
+\textbf{Term 1:}
+\begin{align}
+    \partial_t \Gamma^t_{rr} &= \partial_t \left( e^{2(\beta(t,r) - \alpha(t,r))} \partial_t \beta(t,r) \right) \nonumber \\
+    &= \left( \partial_t e^{2(\beta(t,r) - \alpha(t,r))} \right) \partial_t \beta(t,r) + e^{2(\beta(t,r) - \alpha(t,r))} \partial_t^2 \beta(t,r) \nonumber \\
+    &= 2(\partial_t \beta(t,r) - \partial_t \alpha(t,r)) e^{2(\beta(t,r) - \alpha(t,r))} \partial_t \beta(t,r) + e^{2(\beta(t,r) - \alpha(t,r))} \partial_t^2 \beta(t,r)
+\end{align}
+
+\textbf{Term 2:}
+\begin{equation}
+    -\partial_r \Gamma^t_{tr} = -\partial_r \left( \partial_r \alpha(t,r) \right) = -\partial_r^2 \alpha(t,r)
+\end{equation}
+
+\textbf{Term 3:}
+\begin{align}
+    \Gamma^t_{tt}\Gamma^t_{rr} + \Gamma^t_{tr}\Gamma^r_{rr} &= (\partial_t \alpha(t,r)) \left( e^{2(\beta(t,r) - \alpha(t,r))} \partial_t \beta(t,r) \right) + (\partial_r \alpha(t,r))(\partial_r \beta(t,r)) \nonumber \\
+    &= e^{2(\beta(t,r) - \alpha(t,r))} \partial_t \alpha(t,r) \partial_t \beta(t,r) + \partial_r \alpha(t,r) \partial_r \beta(t,r)
+\end{align}
+
+\textbf{Term 4:}
+\begin{align}
+    -\left(\Gamma^t_{rt}\Gamma^t_{tr} + \Gamma^t_{rr}\Gamma^r_{tr}\right) &= - \left[ (\partial_r \alpha(t,r))(\partial_r \alpha(t,r)) + \left( e^{2(\beta(t,r) - \alpha(t,r))} \partial_t \beta(t,r) \right) (\partial_t \beta(t,r)) \right] \nonumber \\
+    &= -(\partial_r \alpha(t,r))^2 - e^{2(\beta(t,r) - \alpha(t,r))} (\partial_t \beta(t,r))^2
+\end{align}
+
+Summing these four terms and organizing them by the exponential prefactor $e^{2(\beta(t,r) - \alpha(t,r))}$ and standard derivative terms[cite: 2]:
+\begin{align}
+    {R^t}_{rtr} &= e^{2(\beta - \alpha)} \left[ 2(\partial_t \beta)^2 - 2\partial_t \alpha \partial_t \beta + \partial_t^2 \beta + \partial_t \alpha \partial_t \beta - (\partial_t \beta)^2 \right] \nonumber \\
+    &\quad + \left[ -\partial_r^2 \alpha + \partial_r \alpha \partial_r \beta - (\partial_r \alpha)^2 \right]
+\end{align}
+Combining algebraically similar terms yields the final expression:
+\begin{equation}
+    {R^t}_{rtr} = e^{2(\beta - \alpha)} \left[ \partial_t^2 \beta + (\partial_t \beta)^2 - \partial_t \alpha \partial_t \beta \right] - \left[ \partial_r^2 \alpha + (\partial_r \alpha)^2 - \partial_r \alpha \partial_r \beta \right]
+\end{equation}
+
+\subsubsection*{2. Derivation of ${R^\theta}_{\phi\theta\phi}$}
+
+We assign the indices $(\rho, \sigma, \mu, \nu) = (\theta, \phi, \theta, \phi)$. The Riemann definition is:
+\begin{equation}
+    {R^\theta}_{\phi\theta\phi} = \partial_\theta \Gamma^\theta_{\phi\phi} - \partial_\phi \Gamma^\theta_{\theta\phi} + \Gamma^\theta_{\theta\lambda}\Gamma^\lambda_{\phi\phi} - \Gamma^\theta_{\phi\lambda}\Gamma^\lambda_{\theta\phi}
+\end{equation}
+
+We observe from Part 3 that $\Gamma^\theta_{\theta\phi} = 0$, causing the term $\partial_\phi \Gamma^\theta_{\theta\phi}$ to vanish entirely.
+We expand the summations over $\lambda$ for the remaining terms:
+\begin{align}
+    \Gamma^\theta_{\theta\lambda}\Gamma^\lambda_{\phi\phi} &= \Gamma^\theta_{\theta t}\Gamma^t_{\phi\phi} + \Gamma^\theta_{\theta r}\Gamma^r_{\phi\phi} + \Gamma^\theta_{\theta\theta}\Gamma^\theta_{\phi\phi} + \Gamma^\theta_{\theta\phi}\Gamma^\phi_{\phi\phi} \\
+    \Gamma^\theta_{\phi\lambda}\Gamma^\lambda_{\theta\phi} &= \Gamma^\theta_{\phi t}\Gamma^t_{\theta\phi} + \Gamma^\theta_{\phi r}\Gamma^r_{\theta\phi} + \Gamma^\theta_{\phi\theta}\Gamma^\theta_{\theta\phi} + \Gamma^\theta_{\phi\phi}\Gamma^\phi_{\theta\phi}
+\end{align}
+Applying the identically zero Christoffel symbols simplifies these to:
+\begin{align}
+    \Gamma^\theta_{\theta\lambda}\Gamma^\lambda_{\phi\phi} &= \Gamma^\theta_{\theta r}\Gamma^r_{\phi\phi} \\
+    \Gamma^\theta_{\phi\lambda}\Gamma^\lambda_{\theta\phi} &= \Gamma^\theta_{\phi\phi}\Gamma^\phi_{\theta\phi}
+\end{align}
+
+We evaluate the terms sequentially:
+\textbf{Term 1:}
+\begin{align}
+    \partial_\theta \Gamma^\theta_{\phi\phi} &= \partial_\theta (-\sin\theta \cos\theta) \nonumber \\
+    &= -(\cos\theta \cos\theta - \sin\theta \sin\theta) \nonumber \\
+    &= \sin^2\theta - \cos^2\theta
+\end{align}
+
+\textbf{Term 2:}
+\begin{align}
+    \Gamma^\theta_{\theta r}\Gamma^r_{\phi\phi} &= \left( \frac{1}{r} \right) \left( -r e^{-2\beta(t,r)} \sin^2\theta \right) \nonumber \\
+    &= -e^{-2\beta(t,r)} \sin^2\theta
+\end{align}
+
+\textbf{Term 3:}
+\begin{align}
+    -\Gamma^\theta_{\phi\phi}\Gamma^\phi_{\theta\phi} &= - \left( -\sin\theta \cos\theta \right) \left( \cot\theta \right) \nonumber \\
+    &= \sin\theta \cos\theta \left( \frac{\cos\theta}{\sin\theta} \right) \nonumber \\
+    &= \cos^2\theta
+\end{align}
+
+Summing the evaluated terms[cite: 2]:
+\begin{align}
+    {R^\theta}_{\phi\theta\phi} &= (\sin^2\theta - \cos^2\theta) - e^{-2\beta(t,r)} \sin^2\theta + \cos^2\theta \nonumber \\
+    &= \sin^2\theta - e^{-2\beta(t,r)} \sin^2\theta \nonumber \\
+    &= (1 - e^{-2\beta(t,r)}) \sin^2\theta
+\end{align}
+
+\subsubsection*{3. Derivation of ${R^r}_{\theta r\theta}$}
+
+We assign the indices $(\rho, \sigma, \mu, \nu) = (r, \theta, r, \theta)$. The definition reads:
+\begin{equation}
+    {R^r}_{\theta r\theta} = \partial_r \Gamma^r_{\theta\theta} - \partial_\theta \Gamma^r_{r\theta} + \Gamma^r_{r\lambda}\Gamma^\lambda_{\theta\theta} - \Gamma^r_{\theta\lambda}\Gamma^\lambda_{r\theta}
+\end{equation}
+
+Since $\Gamma^r_{r\theta} = 0$, the partial derivative $\partial_\theta \Gamma^r_{r\theta} = 0$. 
+Expanding the summations over $\lambda$:
+\begin{align}
+    \Gamma^r_{r\lambda}\Gamma^\lambda_{\theta\theta} &= \Gamma^r_{rt}\Gamma^t_{\theta\theta} + \Gamma^r_{rr}\Gamma^r_{\theta\theta} + \Gamma^r_{r\theta}\Gamma^\theta_{\theta\theta} + \Gamma^r_{r\phi}\Gamma^\phi_{\theta\theta} = \Gamma^r_{rr}\Gamma^r_{\theta\theta} \\
+    \Gamma^r_{\theta\lambda}\Gamma^\lambda_{r\theta} &= \Gamma^r_{\theta t}\Gamma^t_{r\theta} + \Gamma^r_{\theta r}\Gamma^r_{r\theta} + \Gamma^r_{\theta\theta}\Gamma^\theta_{r\theta} + \Gamma^r_{\theta\phi}\Gamma^\phi_{r\theta} = \Gamma^r_{\theta\theta}\Gamma^\theta_{r\theta}
+\end{align}
+
+Evaluating the non-zero terms:
+\textbf{Term 1:}
+\begin{align}
+    \partial_r \Gamma^r_{\theta\theta} &= \partial_r \left( -r e^{-2\beta(t,r)} \right) \nonumber \\
+    &= -e^{-2\beta(t,r)} - r \left( -2 \partial_r \beta(t,r) e^{-2\beta(t,r)} \right) \nonumber \\
+    &= -e^{-2\beta(t,r)} + 2r e^{-2\beta(t,r)} \partial_r \beta(t,r)
+\end{align}
+
+\textbf{Term 2:}
+\begin{align}
+    \Gamma^r_{rr}\Gamma^r_{\theta\theta} &= (\partial_r \beta(t,r)) \left( -r e^{-2\beta(t,r)} \right) \nonumber \\
+    &= -r e^{-2\beta(t,r)} \partial_r \beta(t,r)
+\end{align}
+
+\textbf{Term 3:}
+\begin{align}
+    -\Gamma^r_{\theta\theta}\Gamma^\theta_{r\theta} &= - \left( -r e^{-2\beta(t,r)} \right) \left( \frac{1}{r} \right) \nonumber \\
+    &= e^{-2\beta(t,r)}
+\end{align}
+
+Summing these evaluated terms[cite: 2]:
+\begin{align}
+    {R^r}_{\theta r\theta} &= \left( -e^{-2\beta(t,r)} + 2r e^{-2\beta(t,r)} \partial_r \beta(t,r) \right) - r e^{-2\beta(t,r)} \partial_r \beta(t,r) + e^{-2\beta(t,r)} \nonumber \\
+    &= 2r e^{-2\beta(t,r)} \partial_r \beta(t,r) - r e^{-2\beta(t,r)} \partial_r \beta(t,r) \nonumber \\
+    &= r e^{-2\beta(t,r)} \partial_r \beta(t,r)
+\end{align}
+
+This demonstrates the rigorous explicit expansion of the curvature tensor components directly from the connection coefficients.
+
+
+% END OF PART 4
+
+
+\subsection{Ricci Tensor}
+
+The Ricci tensor is defined by the contraction of the first and third indices of the Riemann curvature tensor[cite: 1, 2]:
+\begin{equation}
+    R_{\mu\nu} = {R^\lambda}_{\mu\lambda\nu}
+\end{equation}
+Expanding the summation over the dummy index $\lambda \in \{t, r, \theta, \phi\}$ gives the explicit formula for any component:
+\begin{equation}
+    R_{\mu\nu} = {R^t}_{\mu t\nu} + {R^r}_{\mu r\nu} + {R^\theta}_{\mu \theta\nu} + {R^\phi}_{\mu \phi\nu} \label{eq:ricci_sum}
+\end{equation}
+
+We will compute the non-vanishing components of the Ricci tensor ($R_{tt}, R_{rr}, R_{tr}, R_{\theta\theta}, R_{\phi\phi}$) explicitly by expanding the corresponding Riemann tensor components[cite: 2]. The definition of the Riemann tensor is:
+\begin{equation}
+    {R^\rho}_{\sigma\mu\nu} = \partial_\mu \Gamma^\rho_{\nu\sigma} - \partial_\nu \Gamma^\rho_{\mu\sigma} + \Gamma^\rho_{\mu\lambda}\Gamma^\lambda_{\nu\sigma} - \Gamma^\rho_{\nu\lambda}\Gamma^\lambda_{\mu\sigma} \label{eq:riemann_def_ricci}
+\end{equation}
+
+\subsubsection*{1. Derivation of $R_{tt}$}
+
+Applying equation \eqref{eq:ricci_sum} for $\mu=t, \nu=t$:
+\begin{equation}
+    R_{tt} = {R^t}_{ttt} + {R^r}_{trt} + {R^\theta}_{t\theta t} + {R^\phi}_{t\phi t}
+\end{equation}
+
+\textbf{Component ${R^t}_{ttt}$:}
+By the antisymmetry of the Riemann tensor in its last two indices (${R^\rho}_{\sigma\mu\nu} = -{R^\rho}_{\sigma\nu\mu}$), any component with identical last indices vanishes identically:
+\begin{equation}
+    {R^t}_{ttt} = 0
+\end{equation}
+
+\textbf{Component ${R^r}_{trt}$:}
+Using equation \eqref{eq:riemann_def_ricci} with $(\rho, \sigma, \mu, \nu) = (r, t, r, t)$:
+\begin{equation}
+    {R^r}_{trt} = \partial_r \Gamma^r_{tt} - \partial_t \Gamma^r_{rt} + \Gamma^r_{r\lambda}\Gamma^\lambda_{tt} - \Gamma^r_{t\lambda}\Gamma^\lambda_{rt}
+\end{equation}
+We expand the summations over $\lambda$, keeping only non-zero terms:
+\begin{align}
+    \Gamma^r_{r\lambda}\Gamma^\lambda_{tt} &= \Gamma^r_{rt}\Gamma^t_{tt} + \Gamma^r_{rr}\Gamma^r_{tt} \\
+    \Gamma^r_{t\lambda}\Gamma^\lambda_{rt} &= \Gamma^r_{tt}\Gamma^t_{rt} + \Gamma^r_{tr}\Gamma^r_{rt}
+\end{align}
+Substitute the Christoffel symbols derived in Part 3:
+\begin{align}
+    \partial_r \Gamma^r_{tt} &= \partial_r \left( e^{2(\alpha - \beta)} \partial_r \alpha \right) = 2(\partial_r \alpha - \partial_r \beta) e^{2(\alpha - \beta)} \partial_r \alpha + e^{2(\alpha - \beta)} \partial_r^2 \alpha \\
+    -\partial_t \Gamma^r_{rt} &= -\partial_t (\partial_t \beta) = -\partial_t^2 \beta \\
+    \Gamma^r_{rt}\Gamma^t_{tt} + \Gamma^r_{rr}\Gamma^r_{tt} &= (\partial_t \beta)(\partial_t \alpha) + (\partial_r \beta) \left( e^{2(\alpha - \beta)} \partial_r \alpha \right) \\
+    -\left( \Gamma^r_{tt}\Gamma^t_{rt} + \Gamma^r_{tr}\Gamma^r_{rt} \right) &= -\left[ \left( e^{2(\alpha - \beta)} \partial_r \alpha \right) (\partial_r \alpha) + (\partial_t \beta)(\partial_t \beta) \right] = -e^{2(\alpha - \beta)} (\partial_r \alpha)^2 - (\partial_t \beta)^2
+\end{align}
+Summing these evaluated terms and grouping by spatial and temporal derivatives:
+\begin{align}
+    {R^r}_{trt} &= e^{2(\alpha - \beta)} \left[ 2(\partial_r \alpha)^2 - 2\partial_r \alpha \partial_r \beta + \partial_r^2 \alpha + \partial_r \alpha \partial_r \beta - (\partial_r \alpha)^2 \right] \nonumber \\
+    &\quad - \partial_t^2 \beta + \partial_t \alpha \partial_t \beta - (\partial_t \beta)^2 \nonumber \\
+    &= e^{2(\alpha - \beta)} \left[ \partial_r^2 \alpha + (\partial_r \alpha)^2 - \partial_r \alpha \partial_r \beta \right] - \left[ \partial_t^2 \beta + (\partial_t \beta)^2 - \partial_t \alpha \partial_t \beta \right] \label{eq:R_r_trt}
+\end{align}
+
+\textbf{Component ${R^\theta}_{t\theta t}$:}
+\begin{equation}
+    {R^\theta}_{t\theta t} = \partial_t \Gamma^\theta_{\theta t} - \partial_\theta \Gamma^\theta_{tt} + \Gamma^\theta_{t\lambda}\Gamma^\lambda_{\theta t} - \Gamma^\theta_{\theta\lambda}\Gamma^\lambda_{tt}
+\end{equation}
+Since $\Gamma^\theta_{\theta t} = 0$ and $\Gamma^\theta_{tt} = 0$, the partial derivatives vanish. Expanding the summations:
+\begin{align}
+    \Gamma^\theta_{t\lambda}\Gamma^\lambda_{\theta t} &= \Gamma^\theta_{tr}\Gamma^r_{\theta t} = 0 \\
+    -\Gamma^\theta_{\theta\lambda}\Gamma^\lambda_{tt} &= -\Gamma^\theta_{\theta r}\Gamma^r_{tt} = -\left(\frac{1}{r}\right) \left( e^{2(\alpha - \beta)} \partial_r \alpha \right) = -\frac{1}{r} e^{2(\alpha - \beta)} \partial_r \alpha
+\end{align}
+Wait, the definition of Riemann is ${R^\rho}_{\sigma\mu\nu} = \partial_\mu \Gamma^\rho_{\nu\sigma} - \partial_\nu \Gamma^\rho_{\mu\sigma} + \dots$. For $(\rho, \sigma, \mu, \nu) = (\theta, t, \theta, t)$:
+\begin{equation}
+    {R^\theta}_{t\theta t} = \partial_\theta \Gamma^\theta_{tt} - \partial_t \Gamma^\theta_{\theta t} + \Gamma^\theta_{\theta\lambda}\Gamma^\lambda_{tt} - \Gamma^\theta_{t\lambda}\Gamma^\lambda_{\theta t}
+\end{equation}
+The partial derivatives are still zero. The sum evaluates to:
+\begin{equation}
+    \Gamma^\theta_{\theta\lambda}\Gamma^\lambda_{tt} = \Gamma^\theta_{\theta r}\Gamma^r_{tt} = \left(\frac{1}{r}\right) \left( e^{2(\alpha - \beta)} \partial_r \alpha \right) = \frac{1}{r} e^{2(\alpha - \beta)} \partial_r \alpha
+\end{equation}
+
+\textbf{Component ${R^\phi}_{t\phi t}$:}
+By identical symmetry in the $\phi$ coordinate:
+\begin{equation}
+    {R^\phi}_{t\phi t} = \Gamma^\phi_{\phi r}\Gamma^r_{tt} = \left(\frac{1}{r}\right) \left( e^{2(\alpha - \beta)} \partial_r \alpha \right) = \frac{1}{r} e^{2(\alpha - \beta)} \partial_r \alpha
+\end{equation}
+
+\textbf{Total $R_{tt}$:}
+Summing the components:
+\begin{equation}
+    R_{tt} = - \left[ \partial_t^2 \beta + (\partial_t \beta)^2 - \partial_t \alpha \partial_t \beta \right] + e^{2(\alpha - \beta)} \left[ \partial_r^2 \alpha + (\partial_r \alpha)^2 - \partial_r \alpha \partial_r \beta + \frac{2}{r} \partial_r \alpha \right]
+\end{equation}
+
+\subsubsection*{2. Derivation of $R_{rr}$}
+
+Applying equation \eqref{eq:ricci_sum} for $\mu=r, \nu=r$:
+\begin{equation}
+    R_{rr} = {R^t}_{rtr} + {R^r}_{rrr} + {R^\theta}_{r\theta r} + {R^\phi}_{r\phi r}
+\end{equation}
+
+\textbf{Component ${R^t}_{rtr}$:}
+This was fully derived in Part 4:
+\begin{equation}
+    {R^t}_{rtr} = e^{2(\beta - \alpha)} \left[ \partial_t^2 \beta + (\partial_t \beta)^2 - \partial_t \alpha \partial_t \beta \right] - \left[ \partial_r^2 \alpha + (\partial_r \alpha)^2 - \partial_r \alpha \partial_r \beta \right]
+\end{equation}
+(Note: ${R^r}_{rrr} = 0$ by antisymmetry).
+
+\textbf{Component ${R^\theta}_{r\theta r}$:}
+\begin{equation}
+    {R^\theta}_{r\theta r} = \partial_\theta \Gamma^\theta_{rr} - \partial_r \Gamma^\theta_{\theta r} + \Gamma^\theta_{\theta\lambda}\Gamma^\lambda_{rr} - \Gamma^\theta_{r\lambda}\Gamma^\lambda_{\theta r}
+\end{equation}
+\begin{align}
+    \partial_\theta \Gamma^\theta_{rr} &= 0 \\
+    -\partial_r \Gamma^\theta_{\theta r} &= -\partial_r \left( \frac{1}{r} \right) = \frac{1}{r^2} \\
+    \Gamma^\theta_{\theta\lambda}\Gamma^\lambda_{rr} &= \Gamma^\theta_{\theta r}\Gamma^r_{rr} = \left(\frac{1}{r}\right) (\partial_r \beta) = \frac{1}{r} \partial_r \beta \\
+    -\Gamma^\theta_{r\lambda}\Gamma^\lambda_{\theta r} &= -\Gamma^\theta_{r\theta}\Gamma^\theta_{\theta r} = -\left(\frac{1}{r}\right)\left(\frac{1}{r}\right) = -\frac{1}{r^2}
+\end{align}
+Summing these gives:
+\begin{equation}
+    {R^\theta}_{r\theta r} = \frac{1}{r^2} + \frac{1}{r} \partial_r \beta - \frac{1}{r^2} = \frac{1}{r} \partial_r \beta
+\end{equation}
+
+\textbf{Component ${R^\phi}_{r\phi r}$:}
+By spherical symmetry, this matches the $\theta$ component exactly:
+\begin{equation}
+    {R^\phi}_{r\phi r} = \frac{1}{r} \partial_r \beta
+\end{equation}
+
+\textbf{Total $R_{rr}$:}
+Summing the components[cite: 2]:
+\begin{equation}
+    R_{rr} = e^{2(\beta - \alpha)} \left[ \partial_t^2 \beta + (\partial_t \beta)^2 - \partial_t \alpha \partial_t \beta \right] - \left[ \partial_r^2 \alpha + (\partial_r \alpha)^2 - \partial_r \alpha \partial_r \beta - \frac{2}{r} \partial_r \beta \right]
+\end{equation}
+
+\subsubsection*{3. Derivation of $R_{tr}$}
+
+Applying equation \eqref{eq:ricci_sum} for $\mu=t, \nu=r$:
+\begin{equation}
+    R_{tr} = {R^t}_{ttr} + {R^r}_{trr} + {R^\theta}_{t\theta r} + {R^\phi}_{t\phi r}
+\end{equation}
+
+\textbf{Components ${R^t}_{ttr}$ and ${R^r}_{trr}$:}
+\begin{align}
+    {R^t}_{ttr} &= \partial_t \Gamma^t_{rt} - \partial_r \Gamma^t_{tt} + \Gamma^t_{t\lambda}\Gamma^\lambda_{rt} - \Gamma^t_{r\lambda}\Gamma^\lambda_{tt} \nonumber \\
+    &= \partial_t (\partial_r \alpha) - \partial_r (\partial_t \alpha) + \left( \Gamma^t_{tt}\Gamma^t_{rt} + \Gamma^t_{tr}\Gamma^r_{rt} \right) - \left( \Gamma^t_{rt}\Gamma^t_{tt} + \Gamma^t_{rr}\Gamma^r_{tt} \right) \nonumber \\
+    &= 0 + (\partial_t \alpha)(\partial_r \alpha) + (\partial_r \alpha)(\partial_t \beta) - (\partial_r \alpha)(\partial_t \alpha) - \left( e^{2(\beta-\alpha)}\partial_t \beta \right) \left( e^{2(\alpha-\beta)}\partial_r \alpha \right) \nonumber \\
+    &= \partial_r \alpha \partial_t \beta - \partial_t \beta \partial_r \alpha = 0
+\end{align}
+By identical summation expansion, ${R^r}_{trr} = 0$.
+
+\textbf{Component ${R^\theta}_{t\theta r}$:}
+\begin{equation}
+    {R^\theta}_{t\theta r} = \partial_\theta \Gamma^\theta_{rt} - \partial_r \Gamma^\theta_{t\theta} + \Gamma^\theta_{\theta\lambda}\Gamma^\lambda_{rt} - \Gamma^\theta_{r\lambda}\Gamma^\lambda_{t\theta}
+\end{equation}
+The connection coefficients $\Gamma^\theta_{rt}$ and $\Gamma^\theta_{t\theta}$ are zero, so the derivatives vanish.
+\begin{align}
+    \Gamma^\theta_{\theta\lambda}\Gamma^\lambda_{rt} &= \Gamma^\theta_{\theta r}\Gamma^r_{rt} = \left(\frac{1}{r}\right) (\partial_t \beta) = \frac{1}{r} \partial_t \beta \\
+    -\Gamma^\theta_{r\lambda}\Gamma^\lambda_{t\theta} &= 0
+\end{align}
+Thus, ${R^\theta}_{t\theta r} = \frac{1}{r} \partial_t \beta$.
+
+\textbf{Component ${R^\phi}_{t\phi r}$:}
+By spherical symmetry, ${R^\phi}_{t\phi r} = \frac{1}{r} \partial_t \beta$.
+
+\textbf{Total $R_{tr}$:}
+Summing the components[cite: 2]:
+\begin{equation}
+    R_{tr} = \frac{2}{r} \partial_t \beta
+\end{equation}
+
+\subsubsection*{4. Derivation of $R_{\theta\theta}$}
+
+Applying equation \eqref{eq:ricci_sum} for $\mu=\theta, \nu=\theta$:
+\begin{equation}
+    R_{\theta\theta} = {R^t}_{\theta t\theta} + {R^r}_{\theta r\theta} + {R^\theta}_{\theta\theta\theta} + {R^\phi}_{\theta\phi\theta}
+\end{equation}
+(Note: ${R^\theta}_{\theta\theta\theta} = 0$).
+
+\textbf{Component ${R^t}_{\theta t\theta}$:}
+\begin{align}
+    {R^t}_{\theta t\theta} &= \partial_\theta \Gamma^t_{\theta t} - \partial_t \Gamma^t_{\theta\theta} + \Gamma^t_{\theta\lambda}\Gamma^\lambda_{\theta t} - \Gamma^t_{t\lambda}\Gamma^\lambda_{\theta\theta} \nonumber \\
+    &= 0 - 0 + 0 - \Gamma^t_{tr}\Gamma^r_{\theta\theta} \nonumber \\
+    &= -(\partial_r \alpha) \left( -r e^{-2\beta} \right) = r e^{-2\beta} \partial_r \alpha
+\end{align}
+Wait, verifying index ordering: ${R^\rho}_{\sigma\mu\nu} \implies (\rho, \sigma, \mu, \nu) = (t, t, \theta, \theta)$? No, the trace is ${R^\lambda}_{\mu\lambda\nu}$. Thus, for $\mu=\theta, \nu=\theta$, we need ${R^t}_{\theta t\theta}$.
+\begin{equation}
+    {R^t}_{\theta t\theta} = \partial_t \Gamma^t_{\theta\theta} - \partial_\theta \Gamma^t_{t\theta} + \Gamma^t_{t\lambda}\Gamma^\lambda_{\theta\theta} - \Gamma^t_{\theta\lambda}\Gamma^\lambda_{t\theta} = 0 - 0 + \Gamma^t_{tr}\Gamma^r_{\theta\theta} - 0 = -r e^{-2\beta} \partial_r \alpha \label{eq:Rt_th_t_th}
+\end{equation}
+
+\textbf{Component ${R^r}_{\theta r\theta}$:}
+This was fully derived in Part 4:
+\begin{equation}
+    {R^r}_{\theta r\theta} = r e^{-2\beta} \partial_r \beta
+\end{equation}
+
+\textbf{Component ${R^\phi}_{\theta\phi\theta}$:}
+\begin{equation}
+    {R^\phi}_{\theta\phi\theta} = \partial_\phi \Gamma^\phi_{\theta\theta} - \partial_\theta \Gamma^\phi_{\phi\theta} + \Gamma^\phi_{\phi\lambda}\Gamma^\lambda_{\theta\theta} - \Gamma^\phi_{\theta\lambda}\Gamma^\lambda_{\phi\theta}
+\end{equation}
+\begin{align}
+    -\partial_\theta \Gamma^\phi_{\phi\theta} &= -\partial_\theta (\cot\theta) = \csc^2\theta \\
+    \Gamma^\phi_{\phi\lambda}\Gamma^\lambda_{\theta\theta} &= \Gamma^\phi_{\phi r}\Gamma^r_{\theta\theta} = \left(\frac{1}{r}\right) \left( -r e^{-2\beta} \right) = -e^{-2\beta} \\
+    -\Gamma^\phi_{\theta\lambda}\Gamma^\lambda_{\phi\theta} &= -\Gamma^\phi_{\theta\phi}\Gamma^\phi_{\phi\theta} = -(\cot\theta)(\cot\theta) = -\cot^2\theta
+\end{align}
+Using the identity $\csc^2\theta - \cot^2\theta = 1$, we find:
+\begin{equation}
+    {R^\phi}_{\theta\phi\theta} = \csc^2\theta - \cot^2\theta - e^{-2\beta} = 1 - e^{-2\beta}
+\end{equation}
+
+\textbf{Total $R_{\theta\theta}$:}
+Summing the components[cite: 2]:
+\begin{equation}
+    R_{\theta\theta} = -r e^{-2\beta} \partial_r \alpha + r e^{-2\beta} \partial_r \beta + 1 - e^{-2\beta} = e^{-2\beta} \left[ r(\partial_r \beta - \partial_r \alpha) - 1 \right] + 1
+\end{equation}
+
+\subsubsection*{5. Derivation of $R_{\phi\phi}$}
+
+Applying equation \eqref{eq:ricci_sum} for $\mu=\phi, \nu=\phi$:
+\begin{equation}
+    R_{\phi\phi} = {R^t}_{\phi t\phi} + {R^r}_{\phi r\phi} + {R^\theta}_{\phi\theta\phi} + {R^\phi}_{\phi\phi\phi}
+\end{equation}
+
+Evaluating the components analogously:
+\begin{align}
+    {R^t}_{\phi t\phi} &= \Gamma^t_{tr}\Gamma^r_{\phi\phi} = (\partial_r \alpha) \left( -r e^{-2\beta} \sin^2\theta \right) = -r e^{-2\beta} \sin^2\theta \partial_r \alpha \\
+    {R^r}_{\phi r\phi} &= \partial_r \Gamma^r_{\phi\phi} + \Gamma^r_{rr}\Gamma^r_{\phi\phi} - \Gamma^r_{\phi\phi}\Gamma^\phi_{r\phi} \nonumber \\
+    &= \partial_r \left( -r e^{-2\beta} \sin^2\theta \right) + (\partial_r \beta) \left( -r e^{-2\beta} \sin^2\theta \right) - \left( -r e^{-2\beta} \sin^2\theta \right) \left(\frac{1}{r}\right) \nonumber \\
+    &= \left( -e^{-2\beta} \sin^2\theta + 2r e^{-2\beta} \sin^2\theta \partial_r \beta \right) - r e^{-2\beta} \sin^2\theta \partial_r \beta + e^{-2\beta} \sin^2\theta \nonumber \\
+    &= r e^{-2\beta} \sin^2\theta \partial_r \beta \\
+    {R^\theta}_{\phi\theta\phi} &= (1 - e^{-2\beta}) \sin^2\theta \quad \text{(Derived in Part 4)}
+\end{align}
+
+\textbf{Total $R_{\phi\phi}$:}
+Summing the components[cite: 2]:
+\begin{align}
+    R_{\phi\phi} &= \left( -r e^{-2\beta} \partial_r \alpha + r e^{-2\beta} \partial_r \beta + 1 - e^{-2\beta} \right) \sin^2\theta \nonumber \\
+    &= R_{\theta\theta} \sin^2\theta
+\end{align}
+
+% END OF PART 5
+
+\subsection{Einstein Equations in Vacuum}
+
+\subsubsection*{The Vacuum Field Equations}
+
+In the absence of matter or energy sources, the spacetime geometry is governed by the vacuum Einstein field equations. This condition requires that the Ricci curvature tensor vanishes identically:
+\begin{equation}
+    R_{\mu\nu} = 0 \label{eq:vacuum_einstein}
+\end{equation}
+Our objective is to solve this system of partial differential equations using the non-zero components of $R_{\mu\nu}$ derived in Part 5. We will systematically analyze these components to constrain the unknown metric functions $\alpha(t,r)$ and $\beta(t,r)$[cite: 2].
+
+\subsubsection*{1. The $R_{tr}$ Equation and the Constraint on $\beta(t,r)$}
+
+We begin with the off-diagonal component $R_{tr}$[cite: 2]. From our previous derivation, we have:
+\begin{equation}
+    R_{tr} = \frac{2}{r} \partial_t \beta(t,r)
+\end{equation}
+Applying the vacuum condition \eqref{eq:vacuum_einstein}:
+\begin{equation}
+    \frac{2}{r} \partial_t \beta(t,r) = 0 \label{eq:Rtr_zero}
+\end{equation}
+For any physical point in the spacetime away from the singular origin ($r \neq 0$), we can multiply both sides of equation \eqref{eq:Rtr_zero} by $\frac{r}{2}$:
+\begin{equation}
+    \partial_t \beta(t,r) = 0 \label{eq:dt_beta_zero}
+\end{equation}
+Equation \eqref{eq:dt_beta_zero} mathematically guarantees that the metric function $\beta$ has no dependence on the temporal coordinate $t$[cite: 2]. Therefore, we can express $\beta$ as a function of the radial coordinate $r$ alone[cite: 2]:
+\begin{equation}
+    \beta(t,r) = \beta(r) \label{eq:beta_r_only}
+\end{equation}
+
+\subsubsection*{2. The $R_{\theta\theta}$ Equation and the Constraint on $\alpha(t,r)$}
+
+We next examine the angular component $R_{\theta\theta}$. Substituting the explicit result from Part 5 and applying the vacuum condition yields:
+\begin{equation}
+    R_{\theta\theta} = e^{-2\beta(r)} \left[ r(\partial_r \beta(r) - \partial_r \alpha(t,r)) - 1 \right] + 1 = 0 \label{eq:R_thetatheta_zero}
+\end{equation}
+Notice that we have explicitly substituted $\beta(t,r) = \beta(r)$ into the expression based on equation \eqref{eq:beta_r_only}.
+
+To determine the temporal behavior of $\alpha(t,r)$, we take the partial derivative of equation \eqref{eq:R_thetatheta_zero} with respect to the time coordinate $t$[cite: 2]:
+\begin{equation}
+    \partial_t \left( e^{-2\beta(r)} \left[ r(\partial_r \beta(r) - \partial_r \alpha(t,r)) - 1 \right] + 1 \right) = \partial_t (0)
+\end{equation}
+We expand this derivative systematically using the sum and product rules. Since $e^{-2\beta(r)}$ and $r$ are strictly independent of $t$, they act as constants under the operator $\partial_t$:
+\begin{equation}
+    e^{-2\beta(r)} \partial_t \left( r\partial_r \beta(r) - r\partial_r \alpha(t,r) - 1 \right) + \partial_t(1) = 0
+\end{equation}
+Evaluating the inner temporal derivatives:
+\begin{equation}
+    e^{-2\beta(r)} \left( r\underbrace{\partial_t \partial_r \beta(r)}_{0} - r\partial_t \partial_r \alpha(t,r) - \underbrace{\partial_t(1)}_{0} \right) + 0 = 0
+\end{equation}
+This simplifies to:
+\begin{equation}
+    -r e^{-2\beta(r)} \partial_t \partial_r \alpha(t,r) = 0 \label{eq:dt_dr_alpha}
+\end{equation}
+Since neither the radial coordinate $r$ (for $r \neq 0$) nor the exponential function $e^{-2\beta(r)}$ can equal zero, we must conclude[cite: 2]:
+\begin{equation}
+    \partial_t \partial_r \alpha(t,r) = 0
+\end{equation}
+Assuming sufficient smoothness to commute the partial derivatives (Schwarz's theorem), we have:
+\begin{equation}
+    \partial_r (\partial_t \alpha(t,r)) = 0
+\end{equation}
+This implies that the temporal derivative of $\alpha$ must be a function of $t$ alone, meaning there is no mixing between $t$ and $r$ dependencies. Integrating with respect to $r$ yields an additive separation of variables[cite: 2]:
+\begin{equation}
+    \alpha(t,r) = f(r) + g(t) \label{eq:alpha_separable}
+\end{equation}
+where $f(r)$ is an arbitrary function of the radial coordinate and $g(t)$ is an arbitrary function of the time coordinate[cite: 2].
+
+\subsubsection*{3. Vanishing of Time Derivatives in $R_{tt}$ and $R_{rr}$}
+
+We now substitute our constraints ($\partial_t \beta = 0$, $\partial_t^2 \beta = 0$) into the remaining diagonal Ricci components, $R_{tt}$ and $R_{rr}$, to verify that their governing dynamics are strictly spatial. 
+
+Starting with the $R_{tt}$ component derived in Part 5:
+\begin{equation}
+    R_{tt} = - \left[ \partial_t^2 \beta + (\partial_t \beta)^2 - \partial_t \alpha \partial_t \beta \right] + e^{2(\alpha - \beta)} \left[ \partial_r^2 \alpha + (\partial_r \alpha)^2 - \partial_r \alpha \partial_r \beta + \frac{2}{r} \partial_r \alpha \right] = 0
+\end{equation}
+Applying $\partial_t \beta = 0$ causes the entire first bracket to vanish exactly:
+\begin{equation}
+    R_{tt} = - \left[ 0 + 0^2 - (\partial_t \alpha)(0) \right] + e^{2(\alpha - \beta)} \left[ \partial_r^2 \alpha + (\partial_r \alpha)^2 - \partial_r \alpha \partial_r \beta + \frac{2}{r} \partial_r \alpha \right] = 0
+\end{equation}
+Furthermore, since $\alpha(t,r) = f(r) + g(t)$, all spatial derivatives of $\alpha$ isolate the function $f(r)$: $\partial_r \alpha(t,r) = f'(r)$ and $\partial_r^2 \alpha(t,r) = f''(r)$. The temporal part $g(t)$ is completely annihilated by the spatial derivatives. Because $e^{2(\alpha - \beta)} \neq 0$, we can divide it out to obtain the purely spatial differential equation:
+\begin{equation}
+    f''(r) + (f'(r))^2 - f'(r) \beta'(r) + \frac{2}{r} f'(r) = 0 \label{eq:reduced_Rtt}
+\end{equation}
+
+Next, we evaluate the $R_{rr}$ component:
+\begin{equation}
+    R_{rr} = e^{2(\beta - \alpha)} \left[ \partial_t^2 \beta + (\partial_t \beta)^2 - \partial_t \alpha \partial_t \beta \right] - \left[ \partial_r^2 \alpha + (\partial_r \alpha)^2 - \partial_r \alpha \partial_r \beta - \frac{2}{r} \partial_r \beta \right] = 0
+\end{equation}
+Again, the application of $\partial_t \beta = 0$ eliminates the entire temporal bracket:
+\begin{equation}
+    R_{rr} = e^{2(\beta - \alpha)} \left[ 0 + 0^2 - (\partial_t \alpha)(0) \right] - \left[ \partial_r^2 \alpha + (\partial_r \alpha)^2 - \partial_r \alpha \partial_r \beta - \frac{2}{r} \partial_r \beta \right] = 0
+\end{equation}
+Multiplying by $-1$ and replacing the spatial derivatives of $\alpha(t,r)$ with derivatives of $f(r)$, we obtain the second purely spatial differential equation:
+\begin{equation}
+    f''(r) + (f'(r))^2 - f'(r) \beta'(r) - \frac{2}{r} \beta'(r) = 0 \label{eq:reduced_Rrr}
+\end{equation}
+
+By systematically applying the $R_{tr} = 0$ and $R_{\theta\theta} = 0$ constraints, we have rigorously demonstrated that the fundamental structure of the spherically symmetric vacuum equations is entirely independent of temporal evolution, confirming that any spherically symmetric vacuum solution must ultimately be static.
+
+% END OF PART 6
+
+
+\subsection*{Elimination of Time Dependence (Coordinate Redefinition)}
+
+\subsubsection*{1. Separation of Variables for $\alpha(t,r)$}
+
+In Part 6, we established from the $R_{tr} = 0$ Einstein equation that $\partial_t \beta(t,r) = 0$, which immediately restricts the function $\beta$ to depend solely on the radial coordinate[cite: 2]:
+\begin{equation}
+    \beta(t,r) = \beta(r) \label{eq:beta_r}
+\end{equation}
+
+Subsequently, substituting equation \eqref{eq:beta_r} into the $R_{\theta\theta} = 0$ equation led to the strict mixed-derivative constraint[cite: 2]:
+\begin{equation}
+    \partial_t \partial_r \alpha(t,r) = 0
+\end{equation}
+
+We rigorously integrate this constraint to find the explicit functional form of $\alpha(t,r)$. First, we integrate with respect to the radial coordinate $r$:
+\begin{equation}
+    \int \left( \partial_r \left( \partial_t \alpha(t,r) \right) \right) dr = \int 0 \, dr
+\end{equation}
+\begin{equation}
+    \partial_t \alpha(t,r) = h(t)
+\end{equation}
+Here, $h(t)$ is an arbitrary integration function that depends exclusively on the time coordinate $t$, arising because the integration was performed with respect to $r$. 
+
+Next, we integrate this result with respect to the temporal coordinate $t$:
+\begin{equation}
+    \int \left( \partial_t \alpha(t,r) \right) dt = \int h(t) \, dt
+\end{equation}
+\begin{equation}
+    \alpha(t,r) = \int h(t) \, dt + f(r)
+\end{equation}
+The term $f(r)$ emerges as the constant of integration with respect to $t$, meaning it is an arbitrary function depending solely on $r$. By defining a new purely time-dependent function $g(t) = \int h(t) \, dt$, we arrive at the exact additive separation of variables[cite: 2]:
+\begin{equation}
+    \alpha(t,r) = f(r) + g(t) \label{eq:alpha_separated}
+\end{equation}
+
+\subsubsection*{2. Substitution into the Line Element}
+
+We substitute the separated functions from equations \eqref{eq:beta_r} and \eqref{eq:alpha_separated} back into the general spherically symmetric Lorentzian line element derived at the end of Part 1:
+\begin{equation}
+    ds^2 = -e^{2\alpha(t,r)} dt^2 + e^{2\beta(t,r)} dr^2 + r^2 d\Omega^2
+\end{equation}
+\begin{equation}
+    ds^2 = -e^{2(f(r) + g(t))} dt^2 + e^{2\beta(r)} dr^2 + r^2 d\Omega^2
+\end{equation}
+
+Using the algebraic properties of exponentials ($e^{A+B} = e^A e^B$), we factor the temporal metric component:
+\begin{equation}
+    ds^2 = -e^{2f(r)} e^{2g(t)} dt^2 + e^{2\beta(r)} dr^2 + r^2 d\Omega^2 \label{eq:metric_factorized}
+\end{equation}
+
+\subsubsection*{3. Coordinate Transformation to Absorb $g(t)$}
+
+Equation \eqref{eq:metric_factorized} shows that the time dependence of the entire metric is isolated within a single multiplicative factor, $e^{2g(t)}$, which acts solely on the $dt^2$ differential. This structure mathematically invites a coordinate transformation to completely eliminate this temporal dependence[cite: 2]. 
+
+We introduce a new temporal coordinate, which we will temporarily denote as $\tilde{t}$, designed specifically to absorb the $e^{2g(t)} dt^2$ term. We define the total differential $d\tilde{t}$ such that its square identically matches the time-dependent portion of the metric[cite: 2]:
+\begin{equation}
+    d\tilde{t}^2 = e^{2g(t)} dt^2 \label{eq:dttilde_squared}
+\end{equation}
+
+Taking the positive square root of both sides (to preserve the forward direction of time), we obtain the differential relationship:
+\begin{equation}
+    d\tilde{t} = e^{g(t)} dt
+\end{equation}
+
+Because $g(t)$ is a function of $t$ alone, $e^{g(t)} dt$ forms an exact differential. We can thus globally define the new time coordinate $\tilde{t}$ by direct integration:
+\begin{equation}
+    \tilde{t}(t) = \int e^{g(t)} \, dt \label{eq:t_tilde_def}
+\end{equation}
+
+We now substitute equation \eqref{eq:dttilde_squared} directly back into our factorized metric \eqref{eq:metric_factorized}:
+\begin{equation}
+    ds^2 = -e^{2f(r)} \left( e^{2g(t)} dt^2 \right) + e^{2\beta(r)} dr^2 + r^2 d\Omega^2
+\end{equation}
+\begin{equation}
+    ds^2 = -e^{2f(r)} d\tilde{t}^2 + e^{2\beta(r)} dr^2 + r^2 d\Omega^2 \label{eq:metric_ttilde}
+\end{equation}
+
+\subsubsection*{4. Final Static Metric Form}
+
+In the new coordinate system $(\tilde{t}, r, \theta, \phi)$, there is absolutely no explicit dependence on the temporal coordinate $\tilde{t}$. The geometry is therefore rigorously proven to be static[cite: 2]. 
+
+To conform to standard notation, we simply drop the tilde from our new time coordinate ($\tilde{t} \to t$) and relabel the arbitrary radial function $f(r)$ as our new, strictly radial $\alpha(r)$ function ($\alpha(r) \equiv f(r)$)[cite: 2]. Applying these relabelings to equation \eqref{eq:metric_ttilde} yields the final static metric:
+\begin{equation}
+    ds^2 = -e^{2\alpha(r)} dt^2 + e^{2\beta(r)} dr^2 + r^2 d\Omega^2 \label{eq:static_metric}
+\end{equation}
+where it is now definitively established that:
+\begin{align}
+    \alpha &= \alpha(r) \\
+    \beta &= \beta(r)
+\end{align}
+
+This complete elimination of time dependence from a purely spherically symmetric ansatz constitutes the first half of Birkhoff's Theorem: any spherically symmetric vacuum solution to the Einstein field equations must necessarily be static[cite: 2].
+
+% END OF PART 7
+
+
+\subsection*{Final Reduction to Schwarzschild Form}
+
+\subsubsection*{1. The Reduced Static Metric}
+
+In the preceding subsections, we rigorously analyzed the vacuum Einstein field equations ($R_{\mu\nu} = 0$) for a general spherically symmetric spacetime. We determined that the radial metric function $\beta$ must be strictly time-independent ($\partial_t \beta = 0$), implying $\beta(t,r) = \beta(r)$[cite: 2]. Furthermore, the temporal metric function was shown to be additively separable: $\alpha(t,r) = f(r) + g(t)$[cite: 2]. 
+
+By executing a coordinate transformation to a new temporal parameter, we absorbed the function $g(t)$ entirely[cite: 2]. This allowed us to redefine the temporal coefficient strictly as a function of the radial coordinate: $\alpha(t,r) \to \alpha(r)$[cite: 2]. 
+
+Substituting these purely radial functions back into our diagonalized line element, the spacetime metric rigorously reduces to:
+\begin{equation}
+    ds^2 = -e^{2\alpha(r)} dt^2 + e^{2\beta(r)} dr^2 + r^2 d\Omega^2 \label{eq:final_static_metric}
+\end{equation}
+where $d\Omega^2 = d\theta^2 + \sin^2\theta \, d\phi^2$ represents the standard metric on the 2-sphere.
+
+\subsubsection*{2. Emergence of the Timelike Killing Vector}
+
+Equation \eqref{eq:final_static_metric} reveals that all metric components are now manifestly independent of the temporal coordinate $t$[cite: 2]. Mathematically, this implies the existence of a continuous symmetry generated by a vector field. Specifically, we have proven a crucial geometrical result: any spherically symmetric vacuum metric necessarily possesses a timelike Killing vector field[cite: 2]. 
+
+In our chosen coordinates, this Killing vector is simply the coordinate basis vector $K = \partial_t$. A metric that possesses a Killing vector that is timelike near infinity is classified as \textit{stationary}[cite: 2]. However, our metric exhibits a more restrictive property. Because we successfully eliminated all time-space cross terms (such as $dt \, dr$ or $dt \, d\phi$) in Part 1, the timelike Killing vector is strictly orthogonal to the family of spatial hypersurfaces defined by $t = \text{constant}$[cite: 2]. A stationary metric satisfying this hypersurface-orthogonality condition is defined as \textit{static}[cite: 2]. 
+
+Thus, we conclude that the geometry of a spherically symmetric vacuum is inherently static, precluding any dynamical radial pulsations or time-dependent gravitational radiation from a purely spherically symmetric source[cite: 2].
+
+\subsubsection*{3. Birkhoff's Theorem and the Schwarzschild Solution}
+
+Notice that the static, spherically symmetric metric derived in equation \eqref{eq:final_static_metric} is precisely the same mathematical ansatz originally utilized to derive the Schwarzschild solution[cite: 2]. 
+
+By evaluating the spatial components of the vacuum Einstein equations ($R_{rr} = 0$ and $R_{\theta\theta} = 0$) for this static metric, one determines the specific functional forms of $\alpha(r)$ and $\beta(r)$. The standard derivation yields $\alpha(r) = -\beta(r)$ and subsequently $e^{2\alpha(r)} = e^{-2\beta(r)} = 1 - \frac{2GM}{r}$. 
+
+Because our derivation began from the most general possible spherically symmetric metric without assuming time-independence a priori, we have therefore proven Birkhoff's theorem: the unique spherically symmetric vacuum solution to Einstein's equations is the Schwarzschild metric[cite: 2]. 
+
+The final, fully reduced geometric form of the spacetime is:
+\begin{equation}
+    ds^2 = -\left(1-\frac{2GM}{r}\right) dt^2 + \left(1-\frac{2GM}{r}\right)^{-1} dr^2 + r^2 \left( d\theta^2 + \sin^2\theta \, d\phi^2 \right) \label{eq:schwarzschild_metric}
+\end{equation}
+
+This completes the rigorous reduction from a completely arbitrary, time-dependent, spherically symmetric coordinate basis to the exact, static Schwarzschild geometry.
+
+% END OF PART 8
+
+\section{Coordinate vs. Curvature Singularities}
+
+Inspection of the metric coefficients in equation \eqref{eq:schwarzschild_scalar} reveals two alarming locations where the components diverge or degenerate:
+\begin{enumerate}
+    \item As $r \to 0$, the temporal component $g_{tt} \to \infty$ and the radial component $g_{rr} \to 0$.
+    \item As $r \to 2GM$, the radial component $g_{rr} \to \infty$ and the temporal component $g_{tt} \to 0$.
+\end{enumerate}
+
+We must determine whether these represent true breakdowns of the spacetime geometry (curvature singularities) or merely failures of our specific coordinate chart (coordinate singularities). 
+
+A coordinate singularity occurs when the coordinate system itself becomes degenerate, even though the underlying manifold is perfectly smooth. A classical example is the origin of a flat two-dimensional plane described by polar coordinates:
+\begin{equation}
+ds^{2} = dr^{2} + r^{2}d\theta^{2}.
+\end{equation}
+The inverse metric component is $g^{\theta\theta} = 1/r^{2}$, which diverges at $r=0$. However, the intrinsic geometry is flawlessly flat ($R = 0$). 
+
+To establish the existence of a true geometric singularity, we must evaluate coordinate-invariant scalar quantities constructed from the Riemann curvature tensor ${R^{\rho}}_{\sigma\mu\nu}$. Because the Schwarzschild metric is a vacuum solution, the Ricci scalar trivially vanishes ($R = g^{\mu\nu}R_{\mu\nu} = 0$), as does the contraction of the Ricci tensor ($R^{\mu\nu}R_{\mu\nu} = 0$). To detect a divergence in the full curvature, we must compute the completely contracted square of the Riemann tensor, known as the \textbf{Kretschmann scalar}:
+\begin{equation}
+K = R^{\mu\nu\rho\sigma}R_{\mu\nu\rho\sigma}.
+\end{equation}
+
+\subsection{Explicit Calculation of the Kretschmann Scalar}
+
+To calculate $K$ without being overwhelmed by the metric coefficients of the inverse metric $g^{\mu\nu}$, it is highly advantageous to project the Riemann tensor onto a local orthonormal tetrad (vielbein) basis $e_{\hat{\mu}}$. In this basis, the metric components are simply those of flat Minkowski space, $g_{\hat{\mu}\hat{\nu}} = \eta_{\hat{\mu}\hat{\nu}}$.
+
+For the Schwarzschild metric, the natural non-coordinate orthonormal basis one-forms are:
+\begin{align}
+\hat{\omega}^{\hat{t}} &= \left(1-\frac{2GM}{r}\right)^{1/2} dt \\
+\hat{\omega}^{\hat{r}} &= \left(1-\frac{2GM}{r}\right)^{-1/2} dr \\
+\hat{\omega}^{\hat{\theta}} &= r d\theta \\
+\hat{\omega}^{\hat{\phi}} &= r \sin\theta d\phi
+\end{align}
+By solving Cartan's structural equations ($d\hat{\omega}^{\hat{\mu}} + {\hat{\omega}^{\hat{\mu}}}_{\hat{\nu}} \wedge \hat{\omega}^{\hat{\nu}} = 0$ and $\hat{\Theta}^{\hat{\mu}}_{\ \ \hat{\nu}} = d{\hat{\omega}^{\hat{\mu}}}_{\hat{\nu}} + {\hat{\omega}^{\hat{\mu}}}_{\hat{\lambda}} \wedge {\hat{\omega}^{\hat{\lambda}}}_{\hat{\nu}}$), one finds the non-vanishing, independent components of the Riemann curvature two-form, which yield the tensor components in the orthonormal frame. The non-zero independent components are:
+\begin{align}
+R_{\hat{t}\hat{r}\hat{t}\hat{r}} &= -\frac{2GM}{r^{3}} \\
+R_{\hat{t}\hat{\theta}\hat{t}\hat{\theta}} = R_{\hat{t}\hat{\phi}\hat{t}\hat{\phi}} &= \frac{GM}{r^{3}} \\
+R_{\hat{r}\hat{\theta}\hat{r}\hat{\theta}} = R_{\hat{r}\hat{\phi}\hat{r}\hat{\phi}} &= -\frac{GM}{r^{3}} \\
+R_{\hat{\theta}\hat{\phi}\hat{\theta}\hat{\phi}} &= \frac{2GM}{r^{3}}
+\end{align}
+
+Because we are in an orthonormal frame with signature $(-+++)$, raising indices requires multiplying by $-1$ for each time index $\hat{t}$ and $+1$ for each spatial index. Therefore, squaring an individual component $R_{\hat{\alpha}\hat{\beta}\hat{\gamma}\hat{\delta}}$ yields a positive contribution if it contains two time indices (since $(-1)(-1) = +1$), and a positive contribution if it contains zero time indices. 
+
+The Kretschmann scalar is the full sum over all indices:
+\begin{equation}
+K = \sum_{\mu,\nu,\rho,\sigma} R^{\hat{\mu}\hat{\nu}\hat{\rho}\hat{\sigma}}R_{\hat{\mu}\hat{\nu}\hat{\rho}\hat{\sigma}}.
+\end{equation}
+Due to the symmetries of the Riemann tensor ($R_{abcd} = -R_{bacd} = -R_{abdc} = R_{cdab}$), each strictly independent component with distinct indices generates $4$ identical terms in the summation (e.g., $R_{0101}, R_{1001}, R_{0110}, R_{1010}$ all square to the same value). 
+
+Let us sum the contributions explicitly:
+\begin{align}
+K =& \ 4 \times (R_{\hat{t}\hat{r}\hat{t}\hat{r}})^{2} \nonumber \\
+&+ 4 \times (R_{\hat{t}\hat{\theta}\hat{t}\hat{\theta}})^{2} + 4 \times (R_{\hat{t}\hat{\phi}\hat{t}\hat{\phi}})^{2} \nonumber \\
+&+ 4 \times (R_{\hat{r}\hat{\theta}\hat{r}\hat{\theta}})^{2} + 4 \times (R_{\hat{r}\hat{\phi}\hat{r}\hat{\phi}})^{2} \nonumber \\
+&+ 4 \times (R_{\hat{\theta}\hat{\phi}\hat{\theta}\hat{\phi}})^{2}.
+\end{align}
+Substituting the physical values from our tetrad basis:
+\begin{align}
+K &= 4\left(-\frac{2GM}{r^{3}}\right)^{2} + 4\left(\frac{GM}{r^{3}}\right)^{2} + 4\left(\frac{GM}{r^{3}}\right)^{2} + 4\left(-\frac{GM}{r^{3}}\right)^{2} + 4\left(-\frac{GM}{r^{3}}\right)^{2} + 4\left(\frac{2GM}{r^{3}}\right)^{2} \nonumber \\
+&= 4\left(\frac{4G^{2}M^{2}}{r^{6}}\right) + 4\left(\frac{G^{2}M^{2}}{r^{6}}\right) + 4\left(\frac{G^{2}M^{2}}{r^{6}}\right) + 4\left(\frac{G^{2}M^{2}}{r^{6}}\right) + 4\left(\frac{G^{2}M^{2}}{r^{6}}\right) + 4\left(\frac{4G^{2}M^{2}}{r^{6}}\right) \nonumber \\
+&= \frac{G^{2}M^{2}}{r^{6}} \left[ 16 + 4 + 4 + 4 + 4 + 16 \right] \nonumber \\
+K &= \frac{48G^{2}M^{2}}{r^{6}}.
+\end{align}
+
+\subsection{Physical Implications of the Singularities}
+
+The exact calculation of the Kretschmann scalar provides definitive answers regarding the nature of the divergences in the Schwarzschild metric.
+
+\subsection{The Central Singularity ($r=0$)}
+As $r \to 0$, the Kretschmann scalar diverges to infinity ($K \to \infty$). Because $K$ is a coordinate-invariant scalar, this proves unequivocally that $r=0$ is a true, physical curvature singularity. At this locus, tidal forces become infinite, and the smooth pseudo-Riemannian manifold structure of General Relativity fundamentally breaks down.
+
+\subsection{The Schwarzschild Radius ($r=2GM$)}
+Conversely, let us evaluate the Kretschmann scalar at the Schwarzschild radius, $r = 2GM$:
+\begin{equation}
+K(r=2GM) = \frac{48G^{2}M^{2}}{(2GM)^{6}} = \frac{48G^{2}M^{2}}{64G^{6}M^{6}} = \frac{3}{4G^{4}M^{4}}.
+\end{equation}
+The curvature here is strictly finite. Therefore, $r=2GM$ is definitively a \textbf{coordinate singularity}. The apparent divergence in $g_{rr}$ is an artifact of the specific choice of Schwarzschild time $t$ and radial distance $r$. The geometry itself is perfectly regular at this surface. (In subsequent sections, we will introduce Eddington-Finkelstein or Kruskal-Szekeres coordinates to smoothly cross this surface, revealing it to be the event horizon of a black hole).
+
+\subsection{Astrophysical Relevance}
+It is crucial to recognize that the Schwarzschild metric is exclusively a \textit{vacuum} solution ($T_{\mu\nu} = 0$). It is rigorously valid only in the empty space exterior to a spherically symmetric mass distribution. 
+
+For ordinary astrophysical bodies, the Schwarzschild radius is minuscule compared to the physical radius of the object. For example, the physical radius of the Sun is $R_{\odot} \approx 7 \times 10^{5} \text{ km}$, while its Schwarzschild radius is merely:
+\begin{equation}
+R_{S(\odot)} = \frac{2GM_{\odot}}{c^{2}} \approx 3 \text{ km}.
+\end{equation}
+Because $3 \text{ km} \ll 7 \times 10^{5} \text{ km}$, the surface $r=2GM$ lies deep within the stellar interior, where the vacuum metric does not apply. Inside the star, the geometry is described by the interior Schwarzschild metric (which depends on the internal pressure and density profiles of the matter) and is perfectly smooth at $r=0$. The pathological features of $r=2GM$ and $r=0$ are only realized in nature if a massive star undergoes complete gravitational collapse, forming a black hole.
+
+
+\section{Geodesics of the Schwarzschild Geometry}
+
+Having established the Schwarzschild metric as the unique, spherically symmetric vacuum solution to Einstein's field equations, our next task is to explore the physical dynamics it dictates. We accomplish this by analyzing the trajectories of freely falling test particles and photons, which are governed by the geodesic equation. 
+
+The Schwarzschild metric in standard coordinates $(t, r, \theta, \phi)$ is given by:
+\begin{equation}
+\label{eq:schwarzschild_metric_geodesic}
+ds^{2} = -\left(1-\frac{2GM}{r}\right)dt^{2} + \left(1-\frac{2GM}{r}\right)^{-1}dr^{2} + r^{2}(d\theta^{2} + \sin^{2}\theta d\phi^{2}).
+\end{equation}
+
+While one could compute the non-vanishing Christoffel symbols and substitute them directly into the standard geodesic equation ($\frac{d^{2}x^{\mu}}{d\lambda^{2}} + \Gamma^{\mu}_{\rho\sigma}\frac{dx^{\rho}}{d\lambda}\frac{dx^{\sigma}}{d\lambda} = 0$), it is mathematically more elegant and computationally efficient to exploit the symmetries of the spacetime using the Lagrangian formulation.
+
+\subsection{Symmetries and Constants of Motion}
+
+The trajectories of free particles are the extrema of the proper time functional. For an affine parameter $\lambda$, the paths are stationary points of the Lagrangian:
+\begin{equation}
+\mathcal{L} = \frac{1}{2} g_{\mu\nu} \frac{dx^{\mu}}{d\lambda} \frac{dx^{\nu}}{d\lambda}.
+\end{equation}
+Substituting the Schwarzschild metric into this Lagrangian yields:
+\begin{equation}
+\label{eq:schwarz_lagrangian}
+\mathcal{L} = \frac{1}{2} \left[ -\left(1-\frac{2GM}{r}\right)\dot{t}^{2} + \left(1-\frac{2GM}{r}\right)^{-1}\dot{r}^{2} + r^{2}\dot{\theta}^{2} + r^{2}\sin^{2}\theta \dot{\phi}^{2} \right],
+\end{equation}
+where dots denote differentiation with respect to the affine parameter $\lambda$.
+
+We immediately identify two cyclic coordinates in the Lagrangian: $t$ and $\phi$. Because $\partial\mathcal{L}/\partial t = 0$ and $\partial\mathcal{L}/\partial \phi = 0$, the corresponding canonical momenta are strictly conserved along the geodesics. 
+
+These conserved quantities correspond geometrically to the existence of continuous isometries, generated by Killing vector fields. The spacetime is static, possessing a timelike Killing vector $K = \partial_{t}$, and spherically symmetric, possessing an azimuthal spacelike Killing vector $R = \partial_{\phi}$. 
+
+The conserved quantity associated with time translation invariance is the energy (per unit rest mass) of the particle, $E$:
+\begin{equation}
+\label{eq:energy_conserved}
+-E \equiv p_{t} = \frac{\partial \mathcal{L}}{\partial \dot{t}} = -\left(1-\frac{2GM}{r}\right)\dot{t} \quad \implies \quad E = \left(1-\frac{2GM}{r}\right)\frac{dt}{d\lambda}.
+\end{equation}
+(Note: the negative sign is chosen conventionally so that $E > 0$ for regular particles).
+The conserved quantity associated with azimuthal rotational invariance is the angular momentum (per unit rest mass), $L$:
+\begin{equation}
+\label{eq:angular_conserved}
+L \equiv p_{\phi} = \frac{\partial \mathcal{L}}{\partial \dot{\phi}} = r^{2}\sin^{2}\theta \frac{d\phi}{d\lambda}.
+\end{equation}
+
+\subsection{The Orbital Plane}
+
+Because the Schwarzschild spacetime is perfectly spherically symmetric, the conservation of angular momentum implies that the motion of any single particle must be confined to a two-dimensional plane. We can rigorously prove this by examining the Euler-Lagrange equation for the polar angle $\theta$:
+\begin{equation}
+\frac{d}{d\lambda}\left( \frac{\partial \mathcal{L}}{\partial \dot{\theta}} \right) - \frac{\partial \mathcal{L}}{\partial \theta} = 0.
+\end{equation}
+Applying this to our Lagrangian \eqref{eq:schwarz_lagrangian}:
+\begin{equation}
+\frac{d}{d\lambda}(r^{2}\dot{\theta}) - r^{2}\sin\theta\cos\theta \dot{\phi}^{2} = 0.
+\end{equation}
+We are free to orient our coordinate system such that the particle's initial position and velocity lie in the equatorial plane, meaning $\theta(0) = \pi/2$ and $\dot{\theta}(0) = 0$. If we evaluate the equation of motion at this initial instant, the second term vanishes because $\cos(\pi/2) = 0$. The equation reduces to $d(r^{2}\dot{\theta})/d\lambda = 0$. Since $r \neq 0$ and $\dot{\theta}$ is initially zero, $\dot{\theta}$ must remain identically zero for all $\lambda$. 
+
+Therefore, the orbit is permanently confined to the equatorial plane, and we may rigorously set:
+\begin{equation}
+\theta = \frac{\pi}{2}, \quad \sin\theta = 1, \quad \dot{\theta} = 0.
+\end{equation}
+Under this condition, the expression for the conserved angular momentum \eqref{eq:angular_conserved} simplifies to:
+\begin{equation}
+L = r^{2} \frac{d\phi}{d\lambda}.
+\end{equation}
+
+\subsection{The Radial Equation and Effective Potential}
+
+Rather than solving the second-order differential equation for $r(\lambda)$, we can utilize a fundamental first-order integral of motion: the normalization of the four-velocity. For any geodesic parameterized by an affine parameter, the quantity $g_{\mu\nu}\dot{x}^{\mu}\dot{x}^{\nu}$ is strictly constant. We define a constant $\epsilon$ such that:
+\begin{equation}
+g_{\mu\nu}\frac{dx^{\mu}}{d\lambda}\frac{dx^{\nu}}{d\lambda} = -\epsilon.
+\end{equation}
+Here, $\epsilon = 1$ for massive particles (timelike geodesics, where $\lambda$ is the proper time $\tau$), and $\epsilon = 0$ for massless particles (null geodesics, representing photons).
+
+Expanding this normalization condition using the metric in the equatorial plane:
+\begin{equation}
+\label{eq:normalization_expanded}
+-\left(1-\frac{2GM}{r}\right)\left(\frac{dt}{d\lambda}\right)^{2} + \left(1-\frac{2GM}{r}\right)^{-1}\left(\frac{dr}{d\lambda}\right)^{2} + r^{2}\left(\frac{d\phi}{d\lambda}\right)^{2} = -\epsilon.
+\end{equation}
+We now eliminate the coordinate velocities $\dot{t}$ and $\dot{\phi}$ by substituting the conserved quantities $E$ and $L$:
+\begin{align}
+\frac{dt}{d\lambda} &= E \left(1-\frac{2GM}{r}\right)^{-1}, \\
+\frac{d\phi}{d\lambda} &= \frac{L}{r^{2}}.
+\end{align}
+Substituting these into equation \eqref{eq:normalization_expanded} yields:
+\begin{equation}
+-\left(1-\frac{2GM}{r}\right) \left[ E \left(1-\frac{2GM}{r}\right)^{-1} \right]^{2} + \left(1-\frac{2GM}{r}\right)^{-1}\left(\frac{dr}{d\lambda}\right)^{2} + r^{2}\left(\frac{L}{r^{2}}\right)^{2} = -\epsilon.
+\end{equation}
+Simplifying the terms:
+\begin{equation}
+-E^{2} \left(1-\frac{2GM}{r}\right)^{-1} + \left(1-\frac{2GM}{r}\right)^{-1}\left(\frac{dr}{d\lambda}\right)^{2} + \frac{L^{2}}{r^{2}} = -\epsilon.
+\end{equation}
+To isolate the kinetic term $(\dot{r})^{2}$, we multiply the entire equation by the metric factor $\left(1-\frac{2GM}{r}\right)$:
+\begin{equation}
+-E^{2} + \left(\frac{dr}{d\lambda}\right)^{2} + \left(1-\frac{2GM}{r}\right)\frac{L^{2}}{r^{2}} = -\epsilon \left(1-\frac{2GM}{r}\right).
+\end{equation}
+Rearranging the terms and dividing by 2 places this equation into the exact mathematical form of a classical one-dimensional energy conservation equation:
+\begin{equation}
+\label{eq:radial_energy_eq}
+\frac{1}{2}\left(\frac{dr}{d\lambda}\right)^{2} + V_{\text{eff}}(r) = \mathcal{E},
+\end{equation}
+where the total effective energy is defined as $\mathcal{E} \equiv \frac{1}{2}E^{2}$, and the \textbf{effective potential} $V_{\text{eff}}(r)$ is:
+\begin{equation}
+\label{eq:effective_potential}
+V_{\text{eff}}(r) = \frac{1}{2}\epsilon - \epsilon\frac{GM}{r} + \frac{L^{2}}{2r^{2}} - \frac{GML^{2}}{r^{3}}.
+\end{equation}
+
+\paragraph{Physical Interpretation of the Effective Potential:}
+The effective potential governs the radial motion of the particle. The terms can be understood as follows:
+1. $\frac{1}{2}\epsilon$: A constant rest-mass energy term.
+2. $-\epsilon\frac{GM}{r}$: The standard, attractive Newtonian gravitational potential.
+3. $+\frac{L^{2}}{2r^{2}}$: The repulsive classical centrifugal barrier.
+4. $-\frac{GML^{2}}{r^{3}}$: A purely relativistic, highly attractive correction. 
+
+In Newtonian mechanics, the centrifugal barrier dominates at small $r$, preventing a particle with non-zero angular momentum from ever reaching the origin. In General Relativity, the $-1/r^{3}$ term dominates as $r \to 0$. This implies that, unlike in classical mechanics, particles with angular momentum can plunge directly into the central singularity if they cross the centrifugal barrier.
+
+% FIGURE SUGGESTION: 
+% A multi-line plot showing the effective potential V_eff(r) for both massive (\epsilon=1) and massless (\epsilon=0) particles at various values of angular momentum L. Highlight the locations of stable and unstable circular orbits.
+
+\subsection{Null Geodesics: The Photon Sphere}
+
+Let us first analyze the trajectories of massless particles (photons), for which $\epsilon = 0$. The effective potential drastically simplifies to:
+\begin{equation}
+V_{\text{eff}}(r) = \frac{L^{2}}{2r^{2}} - \frac{GML^{2}}{r^{3}}.
+\end{equation}
+Circular orbits occur at the extrema of the effective potential, where the radial force vanishes ($dV_{\text{eff}}/dr = 0$). Taking the derivative:
+\begin{equation}
+\frac{dV_{\text{eff}}}{dr} = -\frac{L^{2}}{r^{3}} + \frac{3GML^{2}}{r^{4}}.
+\end{equation}
+Setting this to zero to find the critical radius $r_{c}$:
+\begin{equation}
+\frac{L^{2}}{r^{3}} = \frac{3GML^{2}}{r^{4}} \quad \implies \quad r_{c} = 3GM.
+\end{equation}
+This remarkable result shows that there exists a circular orbit for photons at $r = 3GM$, regardless of their angular momentum (so long as $L \neq 0$). This surface is known as the \textbf{photon sphere}. 
+
+To determine the stability of this orbit, we evaluate the second derivative:
+\begin{equation}
+\frac{d^{2}V_{\text{eff}}}{dr^{2}} = \frac{3L^{2}}{r^{4}} - \frac{12GML^{2}}{r^{5}}.
+\end{equation}
+Evaluating this at the photon sphere $r = 3GM$:
+\begin{equation}
+\frac{d^{2}V_{\text{eff}}}{dr^{2}}\bigg|_{r=3GM} = \frac{3L^{2}}{(3GM)^{4}} - \frac{12GML^{2}}{(3GM)^{5}} = \frac{3L^{2}}{81G^{4}M^{4}} - \frac{12L^{2}}{243G^{4}M^{4}} = \frac{L^{2}}{G^{4}M^{4}}\left(\frac{1}{27} - \frac{4}{81}\right) = -\frac{L^{2}}{81G^{4}M^{4}}.
+\end{equation}
+Since the second derivative is strictly negative, the extremum is a local maximum. The circular orbit at $r=3GM$ is therefore \textbf{highly unstable}. Any infinitesimal radial perturbation will cause the photon to either spiral inexorably into the black hole or escape to infinity.
+
+\subsection{Timelike Geodesics and the Innermost Stable Circular Orbit}
+
+We now turn to massive particles, for which $\epsilon = 1$. The effective potential is:
+\begin{equation}
+V_{\text{eff}}(r) = \frac{1}{2} - \frac{GM}{r} + \frac{L^{2}}{2r^{2}} - \frac{GML^{2}}{r^{3}}.
+\end{equation}
+We again seek circular orbits by setting the first derivative to zero:
+\begin{equation}
+\frac{dV_{\text{eff}}}{dr} = \frac{GM}{r^{2}} - \frac{L^{2}}{r^{3}} + \frac{3GML^{2}}{r^{4}} = 0.
+\end{equation}
+To find the roots, we multiply the entire equation by $r^{4}/GM$:
+\begin{equation}
+r^{2} - \left(\frac{L^{2}}{GM}\right)r + 3L^{2} = 0.
+\end{equation}
+This is a simple quadratic equation in $r$, the roots of which yield the radii of the circular orbits:
+\begin{equation}
+\label{eq:circular_radii}
+r_{c} = \frac{ \frac{L^{2}}{GM} \pm \sqrt{ \left(\frac{L^{2}}{GM}\right)^{2} - 12L^{2} } }{2} = \frac{L^{2} \pm \sqrt{L^{4} - 12G^{2}M^{2}L^{2}}}{2GM}.
+\end{equation}
+
+The physical behavior of the orbits depends intimately on the discriminant of this equation, $\Delta = L^{4} - 12G^{2}M^{2}L^{2} = L^{2}(L^{2} - 12G^{2}M^{2})$. 
+
+\paragraph{Case 1: Large Angular Momentum ($L^{2} > 12G^{2}M^{2}$)}
+If the particle has sufficient angular momentum, there are two distinct real roots. The positive sign ($+$) corresponds to a local minimum of the effective potential, representing a \textbf{stable circular orbit}. The negative sign ($-$) corresponds to a local maximum, representing an \textbf{unstable circular orbit} closer to the central mass. In the Newtonian limit ($L \to \infty$), the stable orbit approaches $r \approx L^{2}/GM$ (the classical Keplerian result), and the unstable orbit approaches $r \approx 3GM$ (the photon sphere limit).
+
+\paragraph{Case 2: The Critical Limit ($L^{2} = 12G^{2}M^{2}$)}
+As the angular momentum is decreased, the stable and unstable orbits migrate toward each other. They merge at an inflection point when the discriminant vanishes identically ($\Delta = 0$). This defines a critical minimum angular momentum required to maintain any circular orbit:
+\begin{equation}
+L_{c} = \sqrt{12}GM.
+\end{equation}
+Substituting this critical value back into equation \eqref{eq:circular_radii} gives the single, unique radius where the roots converge:
+\begin{equation}
+r_{\text{ISCO}} = \frac{12G^{2}M^{2}}{2GM} = 6GM.
+\end{equation}
+This is a monumental result in astrophysics: the \textbf{Innermost Stable Circular Orbit (ISCO)}. In Newtonian mechanics, a stable circular orbit can exist arbitrarily close to a point mass. In General Relativity, no stable circular orbit can exist at a radius smaller than $r = 6GM$. 
+
+\paragraph{Case 3: Small Angular Momentum ($L^{2} < 12G^{2}M^{2}$)}
+If the angular momentum falls below the critical threshold, the discriminant is negative, meaning there are no real roots. The effective potential possesses no extrema and becomes monotonically attractive. A particle with such angular momentum possesses no centrifugal barrier capable of halting its radial descent; regardless of its energy, it will plunge directly into the central mass.
+
+
+\section{Experimental Tests of General Relativity}
+
+Having established the theoretical framework of the Schwarzschild geometry and the corresponding geodesic equations, we now turn to the observable consequences of these phenomena. Historically, Einstein proposed three classical tests to verify General Relativity: the deflection of light, the anomalous precession of planetary perihelia, and the gravitational redshift. In this section, we rigorously derive the latter two directly from the Schwarzschild metric.
+
+\subsection{The Precession of Perihelia}
+
+In Newtonian mechanics, the two-body problem yields a perfectly closed elliptical orbit (for bound states) due to the strict $1/r^2$ nature of the gravitational force. The fact that the orbit closes upon itself after exactly $2\pi$ radians is a unique property of the $1/r$ potential (a consequence of Bertrand's theorem). In General Relativity, the relativistic correction to the effective potential alters this periodicity, causing the major axis of the ellipse to slowly precess over time. 
+
+To calculate this precession rate, we must determine the orbital shape $r(\phi)$. We begin with the radial energy equation for a massive particle ($\epsilon = 1$) derived in the previous section:
+\begin{equation}
+\label{eq:radial_energy_massive}
+\frac{1}{2}\left(\frac{dr}{d\lambda}\right)^{2} + \frac{1}{2} - \frac{GM}{r} + \frac{L^{2}}{2r^{2}} - \frac{GML^{2}}{r^{3}} = \frac{1}{2}E^{2}.
+\end{equation}
+We wish to eliminate the affine parameter $\lambda$ in favor of the azimuthal angle $\phi$. Using the chain rule and the conservation of angular momentum $L = r^{2}(d\phi/d\lambda)$, we have:
+\begin{equation}
+\frac{dr}{d\lambda} = \frac{dr}{d\phi}\frac{d\phi}{d\lambda} = \frac{L}{r^{2}}\frac{dr}{d\phi}.
+\end{equation}
+Substitute this into equation \eqref{eq:radial_energy_massive} and multiply the entire equation by 2:
+\begin{equation}
+\frac{L^{2}}{r^{4}}\left(\frac{dr}{d\phi}\right)^{2} + 1 - \frac{2GM}{r} + \frac{L^{2}}{r^{2}} - \frac{2GML^{2}}{r^{3}} = E^{2}.
+\end{equation}
+To simplify this non-linear differential equation, we perform a standard change of variables. Let $u(\phi) = 1/r(\phi)$. The derivative transforms as:
+\begin{equation}
+\frac{dr}{d\phi} = \frac{d}{d\phi}\left(u^{-1}\right) = -\frac{1}{u^{2}}\frac{du}{d\phi} = -r^{2}\frac{du}{d\phi}.
+\end{equation}
+Squaring this gives $(dr/d\phi)^{2} = r^{4}(du/d\phi)^{2}$. Substituting this back into the orbital equation yields:
+\begin{equation}
+L^{2}\left(\frac{du}{d\phi}\right)^{2} + 1 - 2GMu + L^{2}u^{2} - 2GML^{2}u^{3} = E^{2}.
+\end{equation}
+To reduce the order of the powers, we differentiate the entire equation with respect to $\phi$:
+\begin{equation}
+2L^{2}\left(\frac{du}{d\phi}\right)\frac{d^{2}u}{d\phi^{2}} - 2GM\frac{du}{d\phi} + 2L^{2}u\frac{du}{d\phi} - 6GML^{2}u^{2}\frac{du}{d\phi} = 0.
+\end{equation}
+Assuming the orbit is not a perfect circle (so $du/d\phi \neq 0$), we may divide through by $2L^{2}(du/d\phi)$ to obtain a second-order linear differential equation with a non-linear source term:
+\begin{equation}
+\frac{d^{2}u}{d\phi^{2}} + u = \frac{GM}{L^{2}} + 3GMu^{2}.
+\end{equation}
+
+For mathematical convenience, we introduce a dimensionless radial variable $x$, scaled to the Newtonian circular orbit radius:
+\begin{equation}
+x = \frac{L^{2}}{GM}u = \frac{L^{2}}{GMr}.
+\end{equation}
+Since $u = (GM/L^{2})x$, substituting this into our differential equation and multiplying by $(L^{2}/GM)$ yields the central equation for perihelion precession:
+\begin{equation}
+\label{eq:perihelion_ode}
+\frac{d^{2}x}{d\phi^{2}} - 1 + x = \frac{3G^{2}M^{2}}{L^{2}}x^{2}.
+\end{equation}
+
+\subsubsection*{Perturbative Solution}
+In Newtonian gravity, the non-linear term on the right-hand side vanishes completely, leaving a simple harmonic oscillator equation $\frac{d^{2}x}{d\phi^{2}} + x = 1$. In General Relativity, the term $\alpha \equiv 3G^{2}M^{2}/L^{2}$ is extremely small for planetary orbits, allowing us to solve equation \eqref{eq:perihelion_ode} using perturbation theory.
+
+We expand the solution into a zeroth-order Newtonian piece and a first-order relativistic correction:
+\begin{equation}
+x(\phi) = x_{0}(\phi) + x_{1}(\phi).
+\end{equation}
+Substituting this into equation \eqref{eq:perihelion_ode} and separating orders yields two equations:
+\begin{align}
+\text{Zeroth order: } & \frac{d^{2}x_{0}}{d\phi^{2}} + x_{0} = 1, \label{eq:zero_order} \\
+\text{First order: } & \frac{d^{2}x_{1}}{d\phi^{2}} + x_{1} = \alpha x_{0}^{2}. \label{eq:first_order}
+\end{align}
+
+The general solution to the zeroth-order equation \eqref{eq:zero_order} describes a classic Newtonian ellipse:
+\begin{equation}
+\label{eq:x0_solution}
+x_{0}(\phi) = 1 + e \cos\phi,
+\end{equation}
+where $e$ is the eccentricity of the orbit. (We have chosen the phase such that the perihelion, the point of closest approach where $x$ is maximized and $r$ is minimized, occurs at $\phi = 0$).
+
+We substitute $x_{0}$ into the first-order equation \eqref{eq:first_order}:
+\begin{equation}
+\frac{d^{2}x_{1}}{d\phi^{2}} + x_{1} = \alpha (1 + e \cos\phi)^{2} = \alpha (1 + 2e \cos\phi + e^{2} \cos^{2}\phi).
+\end{equation}
+Using the trigonometric identity $\cos^{2}\phi = \frac{1}{2}(1 + \cos 2\phi)$, the source term expands to:
+\begin{equation}
+\frac{d^{2}x_{1}}{d\phi^{2}} + x_{1} = \alpha \left[ \left(1 + \frac{1}{2}e^{2}\right) + 2e \cos\phi + \frac{1}{2}e^{2} \cos 2\phi \right].
+\end{equation}
+This is a driven harmonic oscillator. We must find the particular solutions for each forcing term:
+\begin{enumerate}
+    \item The constant term $\alpha(1 + e^{2}/2)$ generates a constant shift: $x_{1}^{(a)} = \alpha(1 + e^{2}/2)$.
+    \item The double-frequency term $\frac{1}{2}\alpha e^{2}\cos 2\phi$ generates an oscillation. Guessing a form $A\cos 2\phi$, we find $(-4A + A)\cos 2\phi = \frac{1}{2}\alpha e^{2}\cos 2\phi$, yielding $x_{1}^{(b)} = -\frac{1}{6}\alpha e^{2}\cos 2\phi$.
+    \item The resonant term $2\alpha e \cos\phi$ matches the natural frequency of the homogenous equation. The particular solution must be of the form $D\phi\sin\phi$. Differentiating gives:
+    \begin{align}
+    \frac{d}{d\phi}(D\phi\sin\phi) &= D\sin\phi + D\phi\cos\phi, \\
+    \frac{d^{2}}{d\phi^{2}}(D\phi\sin\phi) &= 2D\cos\phi - D\phi\sin\phi.
+    \end{align}
+    Adding $x_{1}$ back in gives $(2D\cos\phi - D\phi\sin\phi) + D\phi\sin\phi = 2D\cos\phi$. Matching coefficients requires $2D = 2\alpha e$, so $D = \alpha e$. Thus, $x_{1}^{(c)} = \alpha e \phi\sin\phi$.
+\end{enumerate}
+
+The full first-order correction is:
+\begin{equation}
+x_{1}(\phi) = \alpha \left[ \left(1 + \frac{1}{2}e^{2}\right) + e\phi\sin\phi - \frac{1}{6}e^{2}\cos 2\phi \right].
+\end{equation}
+The constant and double-frequency terms represent unobservable, microscopic adjustments to the shape of the ellipse. However, the secular term $\alpha e \phi\sin\phi$ grows continuously with every revolution. This term encapsulates the perihelion precession.
+
+\subsubsection*{Calculating the Precession Angle}
+Combining the zeroth and the dominant first-order secular term yields the approximate trajectory:
+\begin{equation}
+x(\phi) \approx 1 + e\cos\phi + \alpha e \phi \sin\phi.
+\end{equation}
+Because $\alpha$ is infinitesimally small, we can rewrite this expression using the Taylor expansion of cosine, $\cos(\phi - \delta) \approx \cos\phi + \delta\sin\phi$:
+\begin{equation}
+\label{eq:precession_phase}
+x(\phi) \approx 1 + e \cos(\phi - \alpha\phi) = 1 + e \cos[(1-\alpha)\phi].
+\end{equation}
+
+% FIGURE SUGGESTION: 
+% A 2D polar plot showing an elliptical orbit whose major axis slowly rotates counter-clockwise with each consecutive revolution, forming a rosette pattern.
+
+The particle completes a full radial orbit and returns to perihelion when the argument of the cosine reaches $2\pi$. Let this occur at angle $\phi_{p}$. We set:
+\begin{equation}
+(1 - \alpha)\phi_{p} = 2\pi \quad \implies \quad \phi_{p} = \frac{2\pi}{1-\alpha}.
+\end{equation}
+Using the binomial expansion $(1-\alpha)^{-1} \approx 1 + \alpha$, the angular position of the perihelion is:
+\begin{equation}
+\phi_{p} \approx 2\pi(1 + \alpha) = 2\pi + 2\pi\alpha.
+\end{equation}
+Therefore, instead of returning to exactly $2\pi$, the perihelion shifts forward by an angle $\Delta\phi$ per orbit:
+\begin{equation}
+\Delta\phi = 2\pi\alpha = \frac{6\pi G^{2}M^{2}}{L^{2}}.
+\end{equation}
+
+To compare this prediction with astronomical observations, we express the angular momentum $L$ in terms of the semi-major axis $a$ and eccentricity $e$ of the Newtonian ellipse. From classical orbital mechanics, $L^{2} \approx GM a (1 - e^{2})$. Substituting this into our result and restoring explicit factors of the speed of light $c$ yields Einstein's precise formula for the precession:
+\begin{equation}
+\Delta\phi = \frac{6\pi GM}{c^{2}a(1-e^{2})} \text{ radians per orbit}.
+\end{equation}
+For Mercury, this geometric correction evaluates to precisely 43.0 arcseconds per century, flawlessly resolving the historical anomaly that had plagued Newtonian celestial mechanics.
+
+\subsection{Gravitational Redshift}
+
+The second major observable consequence of the Schwarzschild geometry is the gravitational redshift. While we previously motivated this effect using the Equivalence Principle, we can now derive it rigorously and exactly from the full metric, ensuring its validity beyond the weak-field approximation.
+
+Consider an observer who is strictly stationary at a fixed radial coordinate $r$ outside a spherical mass. The four-velocity $U^{\mu} = (U^{t}, 0, 0, 0)$ of this observer must satisfy the normalization condition for massive observers, $g_{\mu\nu}U^{\mu}U^{\nu} = -1$.
+\begin{equation}
+g_{tt}(U^{t})^{2} = -1 \quad \implies \quad -\left(1-\frac{2GM}{r}\right)(U^{t})^{2} = -1.
+\end{equation}
+Solving for the time component yields the observer's four-velocity:
+\begin{equation}
+U^{\mu} = \left( \left(1-\frac{2GM}{r}\right)^{-1/2}, 0, 0, 0 \right).
+\end{equation}
+
+Now, consider a photon traveling radially outward from the mass to the observer. The photon's trajectory is a null geodesic parameterized by an affine parameter $\lambda$, possessing a four-momentum vector $p^{\mu} = dx^{\mu}/d\lambda$. 
+
+The angular frequency (energy) of the photon, strictly as measured by the stationary observer, is given by the invariant inner product of the photon's four-momentum and the observer's four-velocity:
+\begin{equation}
+\omega = -g_{\mu\nu}p^{\mu}U^{\nu}.
+\end{equation}
+Because the observer has only a time component, this reduces to:
+\begin{equation}
+\omega = -g_{tt} p^{t} U^{t} = -\left[ -\left(1-\frac{2GM}{r}\right) \right] \left( \frac{dt}{d\lambda} \right) \left(1-\frac{2GM}{r}\right)^{-1/2}.
+\end{equation}
+
+We know from our geodesic analysis that the covariant energy $E = -K_{\mu}p^{\mu}$ corresponding to the timelike Killing vector is strictly conserved along the photon's path:
+\begin{equation}
+E = \left(1-\frac{2GM}{r}\right)\frac{dt}{d\lambda} \quad \implies \quad \frac{dt}{d\lambda} = E \left(1-\frac{2GM}{r}\right)^{-1}.
+\end{equation}
+Substitute this definition of $dt/d\lambda$ into the measured frequency equation:
+\begin{align}
+\omega &= \left(1-\frac{2GM}{r}\right) \left[ E \left(1-\frac{2GM}{r}\right)^{-1} \right] \left(1-\frac{2GM}{r}\right)^{-1/2} \nonumber \\
+\omega &= E \left(1-\frac{2GM}{r}\right)^{-1/2}.
+\end{align}
+
+Because the value $E$ is a global constant of motion along the entire photon trajectory, we can relate the frequency measured by an observer emitting the photon at $r_{1}$ to an observer receiving it at a higher radius $r_{2}$. The ratio of the observed frequencies is:
+\begin{equation}
+\frac{\omega_{2}}{\omega_{1}} = \frac{ E \left(1-\frac{2GM}{r_{2}}\right)^{-1/2} }{ E \left(1-\frac{2GM}{r_{1}}\right)^{-1/2} } = \left( \frac{1-\frac{2GM}{r_{1}}}{1-\frac{2GM}{r_{2}}} \right)^{1/2}.
+\end{equation}
+This is the exact gravitational frequency shift formula for the Schwarzschild metric.
+
+\subsubsection*{The Weak-Field Limit}
+To connect this exact geometric result to familiar Newtonian concepts, we evaluate the ratio in the weak-field limit, where $2GM/r \ll 1$. We Taylor expand the square roots using $(1-x)^{n} \approx 1 - nx$:
+\begin{align}
+\frac{\omega_{2}}{\omega_{1}} &= \left(1-\frac{2GM}{r_{1}}\right)^{1/2} \left(1-\frac{2GM}{r_{2}}\right)^{-1/2} \nonumber \\
+&\approx \left(1 - \frac{GM}{r_{1}}\right) \left(1 + \frac{GM}{r_{2}}\right) \nonumber \\
+&\approx 1 - \frac{GM}{r_{1}} + \frac{GM}{r_{2}} + \mathcal{O}\left(\frac{G^{2}M^{2}}{r^{2}}\right).
+\end{align}
+Recognizing the classical Newtonian gravitational potential $\Phi(r) = -GM/r$, the shift reduces precisely to:
+\begin{equation}
+\frac{\omega_{2}}{\omega_{1}} \approx 1 + \Phi(r_{1}) - \Phi(r_{2}) = 1 - \Delta\Phi.
+\end{equation}
+If the photon is climbing out of the gravitational well ($r_{2} > r_{1}$), the potential difference is positive, and the ratio $\omega_{2}/\omega_{1} < 1$. The frequency decreases, creating a \textbf{gravitational redshift}. This demonstrates how time fundamentally flows at different rates depending on the depth within a gravitational potential, a prediction verified flawlessly by the Pound-Rebka experiment.
+
+\section{Schwarzschild Black Holes and Causal Structure}
+
+Having demonstrated that the apparent singularities at $r = 2GM$ are merely artifacts of the Schwarzschild coordinate chart, we are compelled to investigate the physical nature of the spacetime geometry at and within this radius. We define objects whose physical extent is strictly bounded by this critical radius as \textbf{black holes}. To understand the dynamics of particles and fields in this extreme gravitational regime, we must rigorously analyze the causal structure of the manifold.
+
+\subsection{Causal Structure in Schwarzschild Coordinates}
+
+The causal structure of spacetime is entirely dictated by the behavior of the light cones, which are defined by the trajectories of null geodesics ($ds^{2} = 0$). To analyze the radial propagation of light, we restrict our attention to radial null curves by setting $d\theta = 0$ and $d\phi = 0$. The Schwarzschild line element then reduces to:
+\begin{equation}
+0 = -\left(1-\frac{2GM}{r}\right)dt^{2} + \left(1-\frac{2GM}{r}\right)^{-1}dr^{2}.
+\end{equation}
+Rearranging this equation yields the coordinate velocity of a radial photon:
+\begin{equation}
+\label{eq:radial_light_cone}
+\frac{dt}{dr} = \pm \left( 1 - \frac{2GM}{r} \right)^{-1},
+\end{equation}
+where the positive sign corresponds to outgoing light rays ($r$ increasing with $t$) and the negative sign corresponds to ingoing light rays ($r$ decreasing with $t$).
+
+\paragraph{Asymptotic Behavior:} 
+In the asymptotic flat-space limit ($r \to \infty$), equation \eqref{eq:radial_light_cone} reduces to $dt/dr = \pm 1$, cleanly recovering the standard $45^{\circ}$ light cones of Minkowski spacetime. However, as the light ray approaches the Schwarzschild radius ($r \to 2GM$), the term $(1 - 2GM/r)$ approaches zero. Consequently, the derivative diverges:
+\begin{equation}
+\lim_{r \to 2GM} \frac{dt}{dr} = \pm \infty.
+\end{equation}
+Plotted on a standard spacetime diagram with $t$ on the vertical axis and $r$ on the horizontal axis, the slopes of the light cones become vertical. The light cones "close up." 
+
+This mathematical divergence implies that, according to the coordinate time $t$, an infalling photon (or massive particle) requires an infinite amount of time to reach the surface $r = 2GM$. To a distant stationary observer, the infalling object appears to slow down asymptotically, its emitted light becoming infinitely gravitationally redshifted, but it never appears to cross the horizon. However, this is an optical and coordinate illusion; calculation of the proper time $\tau$ along the infalling geodesic reveals that the observer reaches and crosses $r = 2GM$ in a finite amount of their own experienced time. The failure lies strictly in the $t$ coordinate, which ceases to be a valid global time parameter.
+
+% FIGURE SUGGESTION: 
+% A spacetime diagram in (t, r) coordinates showing the light cones asymptotically narrowing and becoming vertical as they approach the dashed vertical line at r = 2GM.
+
+\subsection{The Tortoise Coordinate}
+
+To resolve this coordinate pathology, our first strategy is to define a new spatial coordinate that pushes the problematic region to coordinate infinity, thereby "opening up" the light cones. We define the \textbf{tortoise coordinate}, $r^{*}$, by integrating equation \eqref{eq:radial_light_cone} directly:
+\begin{equation}
+dt = \pm \frac{dr}{1 - 2GM/r} \quad \implies \quad \int dt = \pm \int \frac{r}{r - 2GM} dr.
+\end{equation}
+Performing the integration yields:
+\begin{equation}
+\pm t = r + 2GM \ln\left| \frac{r}{2GM} - 1 \right| + \text{constant}.
+\end{equation}
+We formally define the tortoise coordinate as:
+\begin{equation}
+\label{eq:tortoise_def}
+r^{*} \equiv r + 2GM \ln\left| \frac{r}{2GM} - 1 \right|.
+\end{equation}
+Differentiating this definition confirms its utility:
+\begin{equation}
+dr^{*} = \left( 1 + \frac{2GM}{r - 2GM} \right) dr = \left( \frac{r}{r - 2GM} \right) dr = \left( 1 - \frac{2GM}{r} \right)^{-1} dr.
+\end{equation}
+
+We can now substitute $dr^{*}$ into the standard Schwarzschild metric. The radial kinetic term transforms as:
+\begin{equation}
+\left( 1 - \frac{2GM}{r} \right)^{-1} dr^{2} = \left( 1 - \frac{2GM}{r} \right) (dr^{*})^{2}.
+\end{equation}
+The line element in the new $(t, r^{*}, \theta, \phi)$ coordinates becomes:
+\begin{equation}
+ds^{2} = \left( 1 - \frac{2GM}{r} \right) \left[ -dt^{2} + (dr^{*})^{2} \right] + r^{2} d\Omega^{2},
+\end{equation}
+where $r$ is now implicitly understood to be a function of $r^{*}$. 
+
+In this coordinate system, radial null geodesics satisfy $-dt^{2} + (dr^{*})^{2} = 0$, meaning $dt/dr^{*} = \pm 1$. The light cones remain rigidly at $45^{\circ}$ everywhere. We have successfully prevented the light cones from degenerating. However, the cost of this transformation is that the surface $r = 2GM$ has been mapped to $r^{*} \to -\infty$. While the light cones are well-behaved, we still cannot trace trajectories \textit{through} the Schwarzschild radius in a finite coordinate span.
+
+\subsection{Eddington-Finkelstein Coordinates}
+
+To construct a coordinate system capable of penetrating the boundary at $r=2GM$, we must abandon the notion of orthogonal time and space slicing. We seek a coordinate system adapted directly to the paths of the infalling photons. 
+
+Using the tortoise coordinate, we define the \textbf{advanced Eddington-Finkelstein time coordinate}, $v$, which is constant along ingoing radial null geodesics:
+\begin{equation}
+\label{eq:advanced_v}
+v \equiv t + r^{*}.
+\end{equation}
+The differential is $dv = dt + dr^{*}$. From our derivation of the tortoise coordinate, we know $dr^{*} = (1 - 2GM/r)^{-1}dr$. Therefore, the differential of the original Schwarzschild time $t$ is:
+\begin{equation}
+dt = dv - dr^{*} = dv - \left( 1 - \frac{2GM}{r} \right)^{-1} dr.
+\end{equation}
+
+We rigorously substitute this expression for $dt$ back into the original Schwarzschild metric \eqref{eq:schwarzschild_metric_geodesic}:
+\begin{align}
+ds^{2} &= -\left( 1 - \frac{2GM}{r} \right) \left[ dv - \left( 1 - \frac{2GM}{r} \right)^{-1} dr \right]^{2} + \left( 1 - \frac{2GM}{r} \right)^{-1} dr^{2} + r^{2} d\Omega^{2} \nonumber \\
+&= -\left( 1 - \frac{2GM}{r} \right) \left[ dv^{2} - 2\left( 1 - \frac{2GM}{r} \right)^{-1} dv dr + \left( 1 - \frac{2GM}{r} \right)^{-2} dr^{2} \right] \nonumber \\
+&\quad + \left( 1 - \frac{2GM}{r} \right)^{-1} dr^{2} + r^{2} d\Omega^{2}.
+\end{align}
+Expanding the bracket:
+\begin{align}
+ds^{2} &= -\left( 1 - \frac{2GM}{r} \right)dv^{2} + 2 dv dr - \left( 1 - \frac{2GM}{r} \right)^{-1} dr^{2} + \left( 1 - \frac{2GM}{r} \right)^{-1} dr^{2} + r^{2} d\Omega^{2}.
+\end{align}
+The singular $dr^{2}$ terms cancel precisely and identically. The resulting metric in \textbf{advanced Eddington-Finkelstein coordinates} $(v, r, \theta, \phi)$ is:
+\begin{equation}
+\label{eq:eddington_metric}
+ds^{2} = -\left( 1 - \frac{2GM}{r} \right)dv^{2} + 2 dv dr + r^{2} d\Omega^{2}.
+\end{equation}
+
+\subsubsection*{Proof of Geometric Regularity}
+The metric component $g_{vv} = -(1-2GM/r)$ still vanishes at $r=2GM$, but this no longer implies a geometric degeneracy. The metric is expressed as a matrix:
+\begin{equation}
+g_{\mu\nu} = 
+\begin{pmatrix}
+-\left(1-\frac{2GM}{r}\right) & 1 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+0 & 0 & r^{2} & 0 \\
+0 & 0 & 0 & r^{2}\sin^{2}\theta
+\end{pmatrix}
+\end{equation}
+The determinant of this metric tensor is computed explicitly:
+\begin{equation}
+g = \det(g_{\mu\nu}) = (-(0) - (1)(1))(r^{2})(r^{2}\sin^{2}\theta) = -r^{4}\sin^{2}\theta.
+\end{equation}
+The determinant is entirely regular, non-zero, and negative everywhere except at the true singularity $r=0$ and the coordinate poles $\theta = 0, \pi$. Because the determinant is non-degenerate, the metric is mathematically invertible at $r=2GM$. This constitutes absolute geometric proof that the surface $r=2GM$ is merely a coordinate singularity in the original Schwarzschild chart.
+
+\subsection{The Event Horizon and the Tipping of Light Cones}
+
+We now re-examine the causal structure in the fully extended Eddington-Finkelstein coordinates. Setting $ds^{2} = 0$ for radial null curves in metric \eqref{eq:eddington_metric} gives:
+\begin{equation}
+0 = -\left( 1 - \frac{2GM}{r} \right)dv^{2} + 2 dv dr = dv \left[ -\left( 1 - \frac{2GM}{r} \right)dv + 2dr \right].
+\end{equation}
+This yields two distinct solutions for the radial light rays:
+\begin{align}
+\text{Ingoing null geodesics: } \quad &\frac{dv}{dr} = 0 \quad \implies \quad v = \text{constant}, \\
+\text{Outgoing null geodesics: } \quad &\frac{dv}{dr} = 2 \left( 1 - \frac{2GM}{r} \right)^{-1}.
+\end{align}
+
+Let us analyze the "outgoing" geodesics at different radii:
+1. \textbf{Exterior ($r > 2GM$):} Here, $(1 - 2GM/r) > 0$. Therefore, $dv/dr > 0$. As $v$ increases (moving forward in time), $r$ increases. The light ray successfully escapes to spatial infinity.
+2. \textbf{The Boundary ($r = 2GM$):} Here, $(1 - 2GM/r) = 0$. The derivative $dv/dr \to \infty$, meaning $dr/dv = 0$. The light ray is completely "frozen" at a constant radial coordinate. It propagates forward in time but fails to move outward in space.
+3. \textbf{Interior ($r < 2GM$):} Here, $(1 - 2GM/r) < 0$. Therefore, $dv/dr < 0$. Because $v$ must increase along any future-directed trajectory, $r$ must strictly \textit{decrease}. 
+
+% FIGURE SUGGESTION: 
+% A spacetime diagram in Eddington-Finkelstein coordinates (v vs r). Show the light cones tilting inward as r decreases. At r = 2GM, the outgoing edge of the light cone is exactly vertical. For r < 2GM, both edges of the light cone point toward the singularity at r = 0.
+
+\paragraph{Physical Interpretation: The Event Horizon.}
+In the region $r < 2GM$, the entire future light cone tilts entirely toward the central singularity at $r=0$. Because massive particles are restricted to move along timelike trajectories (strictly within the interior of the local light cone), and massless particles move along null trajectories (on the boundary of the light cone), \textbf{all physical objects in the interior region must move toward $r=0$}. 
+
+The surface $r=2GM$ acts as a unidirectional causal membrane. It is not a localized spatial obstruction, but a fundamentally temporal one. Once crossed, the radial coordinate $r$ acts identically to a time coordinate—it becomes dynamically inevitable. Just as an observer outside the black hole is powerless to stop the advancement of tomorrow, an observer inside the black hole is powerless to stop their descent to $r=0$. 
+
+This null hypersurface, separating the causally connected exterior from the causally disconnected interior, is the \textbf{event horizon}.
+
+\subsection{The Misleading Newtonian Analogy}
+
+It is a curious historical coincidence that one can calculate a "black hole radius" using strictly Newtonian mechanics that matches the exact general relativistic event horizon. 
+
+In classical mechanics, the escape velocity $v_{\text{esc}}$ of a mass $m$ from a central body of mass $M$ is derived by equating kinetic energy to the gravitational binding energy:
+\begin{equation}
+\frac{1}{2} m v_{\text{esc}}^{2} = \frac{GMm}{r} \quad \implies \quad v_{\text{esc}} = \sqrt{\frac{2GM}{r}}.
+\end{equation}
+If one naively demands that the escape velocity exceeds the speed of light ($v_{\text{esc}} = c = 1$), one obtains $r = 2GM$. John Michell and Pierre-Simon Laplace hypothesized "dark stars" using precisely this logic in the 18th century.
+
+However, this analogy is conceptually flawed and physically misleading. The classical escape velocity represents the initial velocity required for an unpowered, purely ballistic trajectory to reach spatial infinity. In Newtonian mechanics, even if $v_{\text{esc}} > c$, a particle could still escape if it were subjected to continuous outward acceleration (e.g., an extremely powerful rocket traveling at a constant $v = c/2$). 
+
+In General Relativity, the event horizon represents a fundamental deformation of causal structure. Because the light cones have completely tilted inwards, there are no outward-pointing timelike or null vectors whatsoever. Continuous acceleration within the horizon does not lead to escape; it merely alters the proper time required to collide with the inescapable singularity at $r=0$. The Newtonian "dark star" simply has a deep potential well; the relativistic black hole represents the end of space and time.
+
+\end{document}

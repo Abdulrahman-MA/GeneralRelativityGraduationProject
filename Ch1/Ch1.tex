@@ -16,7 +16,21 @@
 \usepackage{titlesec}
 \usepackage{wrapfig}
 \usepackage{xcolor}
-
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{
+    arrows.meta,
+    calc,
+    decorations.pathreplacing,
+    positioning,
+    patterns,
+    3d,
+    backgrounds
+}
+\pgfplotsset{compat=1.18}
 \hypersetup{
     colorlinks = true,
     linkcolor  = blue,
@@ -132,6 +146,14 @@ On the final step we can use $a = - \nabla \Phi$ to get The gravitational potent
 \begin{equation}\label{eq:poisson}
     \nabla^2 \Phi = 4\pi G \rho
 \end{equation}
+
+\begin{figure}[htbp]
+    \centering
+    \includesvg[width=0.6\textwidth]{images/poisson_derivation_diagram.svg}
+    \caption{A boundary surface $S$ enclosing volume $V$. Gravitational acceleration $\mathbf{a}$ points inward toward the mass density $\rho$, opposite to the outward area element $d\mathbf{A}$.}
+    \label{fig:grav_flux}
+\end{figure}
+
 Matter Response: The acceleration of a particle is given by the gradient of the potential:
 
 \begin{equation}\label{eq:potential-accel}
@@ -327,6 +349,34 @@ A traveling twin moving out and back with velocity $v$ experiences a total prope
 \sqrt{(\Delta t)^2-(\Delta x)^2}
 =\Delta t \sqrt{1 - v^2} < \Delta t
 \]
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=1.2]
+
+    % Axes
+    \draw[->, thick] (0,0) -- (4,0) node[right] {$x$};
+    \draw[->, thick] (0,0) -- (0,5) node[above] {$t$};
+
+    % Stationary twin
+    \draw[very thick, blue] (0,0) -- (0,4.5);
+
+    % Traveling twin
+    \draw[very thick, red] (0,0) -- (2,2.2) -- (0,4.4);
+
+    % Events
+    \filldraw (0,0) circle (2pt) node[left] {$A$};
+    \filldraw (2,2.2) circle (2pt) node[right] {$B$};
+    \filldraw (0,4.4) circle (2pt) node[left] {$C$};
+
+    % Labels
+    \node[blue,left] at (0,2.5) {Stationary};
+    \node[red,right] at (1.5,1.2) {Moving};
+
+\end{tikzpicture}
+\caption{Minkowski diagram illustrating the twin paradox. The inertial worldline maximizes proper time.}
+\end{figure}
+
 Hence, the accelerated twin ages less.  
 This is not a contradiction but a manifestation of the geometry of spacetime: the straight (inertial) worldline maximizes proper time.
 
@@ -460,6 +510,39 @@ On a spacetime diagram, a Lorentz boost appears as a transformation of the coord
     \item \textbf{Relativity of Simultaneity:} Events that are simultaneous in the $(t,x)$ frame (i.e., lie on a line of constant $t$) are not simultaneous in the $(t', x')$ frame (they do not lie on a line of constant $t'$).
 \end{itemize}
 
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=2]
+
+    % Velocity parameter
+    \def\v{0.6}
+
+    % Standard axes
+    \draw[->, thick] (-0.2,0) -- (2,0) node[right] {$x$};
+    \draw[->, thick] (0,-0.2) -- (0,2) node[above] {$t$};
+
+    % Light cone
+    \draw[dashed] (-1,-1) -- (1,1);
+    \draw[dashed] (-1,1) -- (1,-1);
+
+    % Boosted axes
+    \draw[->, blue, thick] (0,0) -- (1.4,1.4*\v)
+        node[right] {$x'$};
+
+    \draw[->, blue, thick] (0,0) -- (1.4*\v,1.4)
+        node[above] {$t'$};
+
+    % Simultaneity lines
+    \draw[red] (-0.8,1) -- (0.8,1)
+        node[right] {$t=\mathrm{const}$};
+
+    \draw[green!70!black] (-0.2,0.6) -- (1.2,0.6+1.2*\v)
+        node[right] {$t'=\mathrm{const}$};
+
+\end{tikzpicture}
+\caption{Lorentz boost as a hyperbolic rotation in spacetime. The boosted axes approach the light cone.}
+\end{figure}
+
 \section{Vectors}
 
 To probe the structure of Minkowski space in more detail, it is necessary to introduce the concepts of vectors and tensors. In spacetime, vectors are four-dimensional and are often referred to as \textbf{four-vectors}.
@@ -473,18 +556,11 @@ Beyond dimensionality, the most important concept is that each vector is located
     \item \textbf{Geometric Intuition:} The name is inspired by imagining the set of vectors at a point on a curved two-dimensional surface as comprising a plane tangent to that point. It is important to think of these vectors as existing only at that single point.
 \end{itemize}
 
-%
-% INSTRUCTION: The figure for this section should be placed here.
-%
-% FIGURE TITLE/CAPTION:
-% Figure 1.8: A suggestive drawing of the tangent space T_p, the space of all vectors at the point p.
-%
-% \begin{figure}[h]
-%   \centering
-%   % \includegraphics[width=0.7\textwidth]{path/to/your/figure.png}
-%   \caption{A suggestive drawing of the tangent space $T_p$, the space of all vectors at the point p.}
-% \end{figure}
-%
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.65\textwidth]{images/tangent_space_vectors.pdf}
+    \caption{A tangent space attached locally to a curved manifold.}
+\end{figure}
 
 A vector space is a collection of objects (vectors) that can be added together and multiplied by real numbers in a linear way. For any two vectors $V$ and $W$ and real numbers $a$ and $b$, we have:
 \begin{equation}
@@ -611,7 +687,26 @@ The natural action of the gradient (a dual vector) on the tangent vector to a cu
 \begin{equation}
     \partial_\mu\phi \frac{dx^\mu}{d\lambda} = \frac{d\phi}{d\lambda}
 \end{equation}
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=1]
 
+    % Contour lines
+    \foreach \y in {-2,-1,0,1,2}
+    {
+        \draw[blue!60] (-2,\y) -- (2,\y);
+    }
+
+    % Vector
+    \draw[->, thick, red] (-1.5,-1.5) -- (1.5,1.5)
+        node[right] {$V^\mu$};
+
+    % Label
+    \node[blue] at (2.2,1.8) {$\omega_\mu$};
+
+\end{tikzpicture}
+\caption{A one-form visualized as level surfaces. The contraction with a vector measures how many contours are pierced.}
+\end{figure}
 \section{Tensors}
 
 A straightforward generalization of vectors and dual vectors is the notion of a tensor. Just as a dual vector is a linear map from vectors to $\mathbb{R}$, a tensor is a multilinear map from a collection of dual vectors and vectors to $\mathbb{R}$.
@@ -668,7 +763,40 @@ Tensors can also be thought of as maps between other tensors. For example, a (1,
         \item \textbf{lightlike} or \textbf{null} if $V \cdot V = 0$.
         \item \textbf{spacelike} if $V \cdot V > 0$.
     \end{itemize}
+\begin{figure}[h]
+\centering
+\tdplotsetmaincoords{70}{110}
 
+\begin{tikzpicture}[tdplot_main_coords, scale=2]
+
+    % Cone
+    \draw[gray] (0,0,0) -- (0,0,1.5);
+
+    \foreach \a in {0,30,...,330}
+    {
+        \draw[gray] (0,0,0)
+        -- ({cos(\a)},{sin(\a)},1);
+    }
+
+    \draw[gray] (1,0,1)
+    arc (0:360:1);
+
+    % Timelike
+    \draw[->, thick, blue] (0,0,0) -- (0.3,0.2,1.2)
+    node[above] {Timelike};
+
+    % Lightlike
+    \draw[->, thick, red] (0,0,0) -- (1,0,1)
+    node[right] {Lightlike};
+
+    % Spacelike
+    \draw[->, thick, green!60!black]
+    (0,0,0) -- (1.3,0.3,0.4)
+    node[right] {Spacelike};
+
+\end{tikzpicture}
+\caption{Classification of vectors relative to the light cone.}
+\end{figure}
     \item \textbf{The Inverse Metric, $\eta^{\mu\nu}$:} A type (2,0) tensor defined by the relation:
     \begin{equation}
         \eta^{\mu\rho}\eta_{\rho\nu} = \delta^\mu_\nu
@@ -928,6 +1056,33 @@ For extended systems like fluids or fields, we use the \textbf{energy-momentum t
         \end{equation}
     \end{itemize}
 \end{itemize}
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=1.5]
+
+    % Cube
+    \draw (0,0) rectangle (2,2);
+    \draw (0.7,0.7) rectangle (2.7,2.7);
+
+    \draw (0,0) -- (0.7,0.7);
+    \draw (2,0) -- (2.7,0.7);
+    \draw (0,2) -- (0.7,2.7);
+    \draw (2,2) -- (2.7,2.7);
+
+    % Flux arrows
+    \draw[->, thick, blue] (2,1) -- (3,1)
+        node[right] {$T^{xx}$};
+
+    \draw[->, thick, red] (1,2) -- (1,3)
+        node[above] {$T^{yx}$};
+
+    \draw[->, thick, green!60!black]
+        (2.35,1.7) -- (3.1,2.2)
+        node[right] {$T^{xy}$};
+
+\end{tikzpicture}
+\caption{Flux interpretation of the energy-momentum tensor components.}
+\end{figure}
 
 \subsection*{Examples of Energy-Momentum Tensors}
 
@@ -1052,7 +1207,37 @@ For extended systems like fluids or fields, we use the \textbf{energy-momentum t
         -v_z & v_z v_x & v_z v_y & v_z^2
     \end{pmatrix}
     \end{equation}
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=1]
 
+    % Dust
+    \node at (-2,3) {\textbf{Dust}};
+
+    \foreach \x in {-3,-2.5,-2,-1.5}
+    {
+        \draw[blue, thick]
+        (\x,0) .. controls (\x+0.1,1.5) .. (\x,3);
+    }
+
+    % Perfect fluid
+    \node at (3,3) {\textbf{Perfect Fluid}};
+
+    \foreach \x in {2,2.5,3,3.5}
+    {
+        \draw[red, thick]
+        (\x,0) .. controls (\x+0.2,1.5) .. (\x,3);
+
+        \draw[->, gray]
+        (\x,1.5) -- ++(0.3,0);
+
+        \draw[->, gray]
+        (\x,1.5) -- ++(-0.3,0);
+    }
+
+\end{tikzpicture}
+\caption{Comparison between dust and a perfect fluid. Pressure introduces internal stresses.}
+\end{figure}
     \item \textbf{Perfect Fluid:} A fluid that is completely characterized by its rest-frame energy density $\rho$ and an isotropic rest-frame pressure $p$. In its rest frame, its energy-momentum tensor is:
     \begin{equation}
         T^{\mu\nu}_{\text{rest}} =
@@ -1162,7 +1347,34 @@ The dynamics of a system can be derived from the \textbf{principle of least acti
     \begin{equation}
         \frac{\partial L}{\partial q} - \frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}}\right) = 0
     \end{equation}
+\begin{figure}[h]
+    \centering
 
+    % ============================================================
+    % DRAWING #9 PLACEHOLDER
+    %
+    % Two-panel comparison:
+    %
+    % Panel 1:
+    % - Path q(t)
+    % - Varied path q(t)+delta q(t)
+    %
+    % Panel 2:
+    % - Surface Phi(x,y)
+    % - Ghost variation Phi + delta Phi
+    %
+    % Recommended:
+    % Python matplotlib 3D surface rendering
+    %
+    % Include with:
+    %
+    \includegraphics[width=\textwidth]{images/mechanics_vs_field_theory.pdf}
+    %
+    % ============================================================
+
+    \caption{From point-particle mechanics to classical field theory.}
+\end{figure}
+ 
     \item \textbf{Classical Field Theory:} We replace the single coordinate $q(t)$ with a set of spacetime-dependent fields, $\Phi^i(x^\mu)$. The action becomes an integral of the \textbf{Lagrange density}, $\mathcal{L}$, over all of spacetime.
     \begin{equation}
         S = \int \mathcal{L}(\Phi^i, \partial_\mu\Phi^i) \, d^4x
@@ -1224,6 +1436,35 @@ The Lagrangian density for electromagnetism coupled to a 4-current source $J^\mu
 \begin{equation}
     \mathcal{L} = -\frac{1}{4}F_{\mu\nu}F^{\mu\nu} + A_\mu J^\mu
 \end{equation}
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    node distance=1.8cm,
+    every node/.style={
+        draw,
+        rounded corners,
+        align=center,
+        minimum width=2.8cm,
+        minimum height=1cm
+    },
+    >=Stealth
+]
+
+\node (J) {$J^\mu$ \\ Source};
+\node (A) [right=of J] {$A_\mu$ \\ Potential};
+\node (F) [right=of A] {$F_{\mu\nu}$ \\ Field Tensor};
+\node (L) [below=of F] {$\mathcal{L}$ \\ Lagrangian};
+\node (M) [left=of L] {Maxwell \\ Equations};
+
+\draw[->] (J) -- (A);
+\draw[->] (A) -- (F);
+\draw[->] (F) -- (L);
+\draw[->] (L) -- (M);
+
+\end{tikzpicture}
+\caption{Logical structure of classical electromagnetic field theory.}
+\end{figure}
+
 Applying the Euler-Lagrange equations for the field $A_\nu$:
 \begin{itemize}
     \item $\frac{\partial\mathcal{L}}{\partial A_\nu} = J^\nu$

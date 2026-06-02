@@ -1,22 +1,176 @@
-\contentsline {chapter}{\numberline {1}Special Relativity and Flat Spacetime}{2}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Prelude}{2}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Space and Time, Separately and Together}{4}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Lorentz Transformations}{6}{section.1.3}%
-\contentsline {section}{\numberline {1.4}Vectors}{9}{section.1.4}%
-\contentsline {section}{\numberline {1.5}Dual Vectors (One-Forms)}{10}{section.1.5}%
-\contentsline {section}{\numberline {1.6}Tensors}{12}{section.1.6}%
-\contentsline {section}{\numberline {1.7}Manipulating Tensors}{13}{section.1.7}%
-\contentsline {section}{\numberline {1.8}Maxwell's Equations}{15}{section.1.8}%
-\contentsline {section}{\numberline {1.9}Energy and Momentum}{16}{section.1.9}%
-\contentsline {section}{\numberline {1.10}Classical Field Theory}{20}{section.1.10}%
-\contentsline {chapter}{\numberline {2}Manifolds}{23}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Gravity as Geometry}{23}{section.2.1}%
-\contentsline {section}{\numberline {2.2}What Is a Manifold?}{25}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Vectors Again}{29}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Tensors Again}{31}{section.2.4}%
-\contentsline {section}{\numberline {2.5}The Metric}{35}{section.2.5}%
-\contentsline {section}{\numberline {2.6}An Expanding Universe}{39}{section.2.6}%
-\contentsline {section}{\numberline {2.7}Causality}{40}{section.2.7}%
-\contentsline {section}{\numberline {2.8}Tensor Densities}{42}{section.2.8}%
-\contentsline {section}{\numberline {2.9}Differential Forms}{43}{section.2.9}%
-\contentsline {section}{\numberline {2.10}Integration}{46}{section.2.10}%
+\contentsline {chapter}{\numberline {1}Special Relativity and Flat Spacetime}{4}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Prelude}{4}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Space and Time, Separately and Together}{6}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Lorentz Transformations}{8}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Vectors}{11}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Dual Vectors (One-Forms)}{12}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Tensors}{14}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Manipulating Tensors}{15}{section.1.7}%
+\contentsline {section}{\numberline {1.8}Maxwell's Equations}{17}{section.1.8}%
+\contentsline {section}{\numberline {1.9}Energy and Momentum}{18}{section.1.9}%
+\contentsline {section}{\numberline {1.10}Classical Field Theory}{22}{section.1.10}%
+\contentsline {chapter}{\numberline {2}Manifolds}{25}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Gravity as Geometry}{25}{section.2.1}%
+\contentsline {section}{\numberline {2.2}What Is a Manifold?}{27}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Vectors Again}{31}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Tensors Again}{33}{section.2.4}%
+\contentsline {section}{\numberline {2.5}The Metric}{37}{section.2.5}%
+\contentsline {section}{\numberline {2.6}An Expanding Universe}{41}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Causality}{42}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Tensor Densities}{44}{section.2.8}%
+\contentsline {section}{\numberline {2.9}Differential Forms}{46}{section.2.9}%
+\contentsline {section}{\numberline {2.10}Integration}{50}{section.2.10}%
+\contentsline {chapter}{\numberline {3}Curvature}{53}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Overview}{53}{section.3.1}%
+\contentsline {paragraph}{Intuition:}{54}{equation.3.4}%
+\contentsline {section}{\numberline {3.2}Covariant Derivatives}{54}{section.3.2}%
+\contentsline {paragraph}{Intuition:}{54}{equation.3.8}%
+\contentsline {paragraph}{Intuition:}{57}{equation.3.41}%
+\contentsline {section}{\numberline {3.3}Parallel Transport and Geodesics}{59}{section.3.3}%
+\contentsline {paragraph}{Intuition:}{60}{equation.3.66}%
+\contentsline {paragraph}{Note on Affine Parameters:}{60}{equation.3.69}%
+\contentsline {paragraph}{Intuition:}{61}{equation.3.81}%
+\contentsline {section}{\numberline {3.4}Properties of Geodesics}{62}{section.3.4}%
+\contentsline {paragraph}{Intuition:}{63}{equation.3.93}%
+\contentsline {paragraph}{Intuition:}{63}{equation.3.97}%
+\contentsline {paragraph}{Intuition:}{64}{equation.3.106}%
+\contentsline {section}{\numberline {3.5}The Expanding Universe Revisited}{64}{section.3.5}%
+\contentsline {paragraph}{Intuition:}{66}{equation.3.123}%
+\contentsline {paragraph}{Intuition:}{66}{equation.3.132}%
+\contentsline {paragraph}{Intuition:}{67}{equation.3.136}%
+\contentsline {section}{\numberline {3.6}The Riemann Curvature Tensor}{67}{section.3.6}%
+\contentsline {paragraph}{Intuition:}{70}{equation.3.157}%
+\contentsline {section}{\numberline {3.7}Properties of the Riemann Tensor}{71}{section.3.7}%
+\contentsline {paragraph}{Intuition:}{73}{AMS.14}%
+\contentsline {paragraph}{Intuition:}{75}{equation.3.189}%
+\contentsline {section}{\numberline {3.8}Mathematical Interlude: Diffeomorphisms and Lie Derivatives}{77}{section.3.8}%
+\contentsline {section}{\numberline {3.9}Symmetries and Killing Vectors}{79}{section.3.9}%
+\contentsline {paragraph}{Intuition:}{79}{equation.3.221}%
+\contentsline {paragraph}{Intuition:}{80}{equation.3.226}%
+\contentsline {section}{\numberline {3.10}Maximally Symmetric Spaces}{90}{section.3.10}%
+\contentsline {paragraph}{Distance Measurements}{92}{equation.3.315}%
+\contentsline {paragraph}{Christoffel Symbols}{93}{equation.3.316}%
+\contentsline {paragraph}{Geodesics}{93}{equation.3.321}%
+\contentsline {paragraph}{Curvature Calculation}{93}{equation.3.322}%
+\contentsline {section}{\numberline {3.11}Geodesic Deviation}{98}{section.3.11}%
+\contentsline {paragraph}{Example: Falling towards Earth}{101}{equation.3.380}%
+\contentsline {section}{\numberline {3.12}Supplement: Stokes's Theorem and Conservation Laws}{101}{section.3.12}%
+\contentsline {paragraph}{Intuition:}{101}{equation.3.381}%
+\contentsline {paragraph}{Intuition:}{102}{equation.3.387}%
+\contentsline {chapter}{\numberline {4}Gravitation}{104}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Physics in Curved Spacetime}{104}{section.4.1}%
+\contentsline {paragraph}{Intuition:}{105}{equation.4.9}%
+\contentsline {section}{\numberline {4.2}Einstein's Equation}{108}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Motivating the Tensorial Equation}{108}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}The Conservation of Energy Problem}{108}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}The Einstein Tensor}{109}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}The Trace-Reversed Form}{109}{subsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.2.5}The Newtonian Limit and the Coupling Constant}{110}{subsection.4.2.5}%
+\contentsline {subsection}{\numberline {4.2.6}Vacuum Equations}{111}{subsection.4.2.6}%
+\contentsline {paragraph}{Step A: The Product Rule}{112}{Item.102}%
+\contentsline {paragraph}{Step B: Rearranging}{112}{equation.4.63}%
+\contentsline {paragraph}{Step C: Integrating and Stokes' Theorem}{112}{equation.4.64}%
+\contentsline {paragraph}{Step 1: Derivative with respect to $\phi $}{113}{equation.4.71}%
+\contentsline {paragraph}{Step 2: Derivative with respect to $\nabla _\mu \phi $}{113}{equation.4.72}%
+\contentsline {paragraph}{Step 3: Plug into the Euler-Lagrange Equation}{113}{equation.4.76}%
+\contentsline {subsection}{\numberline {4.2.7}The Hilbert Action}{114}{subsection.4.2.7}%
+\contentsline {subsection}{\numberline {4.2.8}Varying the Hilbert Action}{114}{subsection.4.2.8}%
+\contentsline {section}{\numberline {4.3}The Palatini Formulation and Identity}{115}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1} Proof the Palatini Identity}{115}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Variation of the Action and Integration by Parts}{117}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Recovering Metric Compatibility}{118}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Deriving the Vacuum Equations}{119}{subsection.4.3.4}%
+\contentsline {subsection}{\numberline {4.3.5}Including Matter: The Energy-Momentum Tensor}{119}{subsection.4.3.5}%
+\contentsline {subsection}{\numberline {4.3.6}Properties of Einstein's Equation}{120}{subsection.4.3.6}%
+\contentsline {section}{\numberline {4.4}Properties of Einstein's Equation}{121}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Degrees of Freedom and Diffeomorphism Invariance}{121}{subsection.4.4.1}%
+\contentsline {paragraph}{Mathematical and Physical Interpretation:}{121}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}The Non-Linearity of Gravity}{121}{subsection.4.4.2}%
+\contentsline {paragraph}{Intuition Example (Perturbative Gravity):}{121}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Raychaudhuri's Equation and the Attractiveness of Gravity}{121}{subsection.4.4.3}%
+\contentsline {paragraph}{Geometric and Physical Interpretation:}{122}{equation.4.144}%
+\contentsline {subsection}{\numberline {4.4.4}Derivation of the Weyl Tensor Propagation Equation}{122}{subsection.4.4.4}%
+\contentsline {subsection}{\numberline {4.4.5}Quantum Gravity and the Planck Scale}{124}{subsection.4.4.5}%
+\contentsline {section}{\numberline {4.5}The Cosmological Constant}{125}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Vacuum Energy and Lorentz Invariance}{125}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Equation of State for the Vacuum}{126}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}Modifying Einstein's Equation}{126}{subsection.4.5.3}%
+\contentsline {subsection}{\numberline {4.5.4}Lagrangian Derivation}{126}{subsection.4.5.4}%
+\contentsline {subsection}{\numberline {4.5.5}The Cosmological Constant Problem}{127}{subsection.4.5.5}%
+\contentsline {section}{\numberline {4.6}Energy Conditions}{127}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}The Weak Energy Condition (WEC)}{128}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}The Null Energy Condition (NEC)}{128}{subsection.4.6.2}%
+\contentsline {subsection}{\numberline {4.6.3}The Dominant Energy Condition (DEC)}{129}{subsection.4.6.3}%
+\contentsline {subsection}{\numberline {4.6.4}The Null Dominant Energy Condition (NDEC)}{129}{subsection.4.6.4}%
+\contentsline {subsection}{\numberline {4.6.5}The Strong Energy Condition (SEC)}{130}{subsection.4.6.5}%
+\contentsline {section}{\numberline {4.7}The Equivalence Principle Revisited}{130}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}The Approximation of Minimal Coupling}{131}{subsection.4.7.1}%
+\contentsline {section}{\numberline {4.8}Alternative Theories of Gravity}{131}{section.4.8}%
+\contentsline {subsection}{\numberline {4.8.1}Higher-Order Actions: $f(R)$ Gravity}{131}{subsection.4.8.1}%
+\contentsline {paragraph}{Physical Interpretation:}{132}{equation.4.222}%
+\contentsline {subsection}{\numberline {4.8.2}Scalar-Tensor Theories}{133}{subsection.4.8.2}%
+\contentsline {subsection}{\numberline {4.8.3}Torsion and Non-Christoffel Connections}{133}{subsection.4.8.3}%
+\contentsline {subsection}{\numberline {4.8.4}Additional Tensor Fields and Geometric Generalizations}{133}{subsection.4.8.4}%
+\contentsline {paragraph}{Physical Interpretation:}{133}{equation.4.225}%
+\contentsline {section}{\numberline {4.9}Variational Derivations of Advanced Field Equations}{134}{section.4.9}%
+\contentsline {subsection}{\numberline {4.9.1}The Electromagnetic Stress-Energy Tensor}{134}{subsection.4.9.1}%
+\contentsline {paragraph}{Properties:}{135}{equation.4.234}%
+\contentsline {subsection}{\numberline {4.9.2}The Palatini Formulation of General Relativity}{135}{subsection.4.9.2}%
+\contentsline {paragraph}{Geometric Conclusion:}{136}{equation.4.245}%
+\contentsline {chapter}{\numberline {5}The Schwarzschild Solution}{137}{chapter.5}%
+\contentsline {section}{\numberline {5.1}The Schwarzschild Solution}{137}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Metric Ansatz and Symmetry Justification}{137}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Inverse Metric and Determinant}{138}{subsection.5.1.2}%
+\contentsline {subsubsection}{Covariant Metric Tensor Components}{138}{subsection.5.1.2}%
+\contentsline {subsubsection}{Computation of the Inverse Metric Tensor}{139}{equation.5.26}%
+\contentsline {subsubsection}{Verification of the Inverse Metric via Matrix Multiplication}{140}{equation.5.44}%
+\contentsline {subsubsection}{Computation of the Metric Determinant}{141}{equation.5.54}%
+\contentsline {subsubsection}{Computation of the Invariant Volume Element Factor}{141}{equation.5.59}%
+\contentsline {subsection}{\numberline {5.1.3}Derivation of the Ricci Tensor}{145}{subsection.5.1.3}%
+\contentsline {subsubsection}{The Contracted Christoffel Symbol Identity}{145}{subsection.5.1.3}%
+\contentsline {subsubsection}{Temporal Component: $R_{tt}$}{146}{equation.5.130}%
+\contentsline {subsubsection}{Radial Component: $R_{rr}$}{147}{equation.5.143}%
+\contentsline {subsubsection}{Polar Component: $R_{\theta \theta }$}{147}{equation.5.153}%
+\contentsline {subsubsection}{Azimuthal Component: $R_{\phi \phi }$}{148}{equation.5.165}%
+\contentsline {subsection}{\numberline {5.1.4}Einstein Equations and Solution}{149}{subsection.5.1.4}%
+\contentsline {subsubsection}{The Vacuum Condition}{149}{subsection.5.1.4}%
+\contentsline {subsubsection}{Derivation of the Constraint $\alpha = -\beta $}{150}{equation.5.184}%
+\contentsline {subsubsection}{Explicit Solution of the Differential Equations}{150}{equation.5.191}%
+\contentsline {subsection}{\numberline {5.1.5}Final Schwarzschild Metric and Interpretation}{151}{subsection.5.1.5}%
+\contentsline {subsubsection}{Substitution of the Metric Functions}{151}{subsection.5.1.5}%
+\contentsline {subsubsection}{The Weak-Field Limit and the Schwarzschild Radius}{152}{equation.5.208}%
+\contentsline {subsubsection}{The Final Schwarzschild Metric}{152}{equation.5.216}%
+\contentsline {section}{\numberline {5.2}Brikhoff's Theorem}{153}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}General Spherically Symmetric Metric}{153}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Inverse Metric and Determinant}{155}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Christoffel Symbols (Time-Dependent Case)}{157}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}Riemann Curvature Tensor}{161}{subsection.5.2.4}%
+\contentsline {subsection}{\numberline {5.2.5}Ricci Tensor}{163}{subsection.5.2.5}%
+\contentsline {subsection}{\numberline {5.2.6}Einstein Equations in Vacuum}{167}{subsection.5.2.6}%
+\contentsline {section}{\numberline {5.3}Coordinate vs. Curvature Singularities}{171}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Explicit Calculation of the Kretschmann Scalar}{172}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Physical Implications of the Singularities}{173}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}The Central Singularity ($r=0$)}{173}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}The Schwarzschild Radius ($r=2GM$)}{173}{subsection.5.3.4}%
+\contentsline {subsection}{\numberline {5.3.5}Astrophysical Relevance}{173}{subsection.5.3.5}%
+\contentsline {section}{\numberline {5.4}Geodesics of the Schwarzschild Geometry}{173}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Symmetries and Constants of Motion}{174}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}The Orbital Plane}{174}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}The Radial Equation and Effective Potential}{175}{subsection.5.4.3}%
+\contentsline {paragraph}{Physical Interpretation of the Effective Potential:}{176}{equation.5.432}%
+\contentsline {subsection}{\numberline {5.4.4}Null Geodesics: The Photon Sphere}{176}{subsection.5.4.4}%
+\contentsline {subsection}{\numberline {5.4.5}Timelike Geodesics and the Innermost Stable Circular Orbit}{176}{subsection.5.4.5}%
+\contentsline {paragraph}{Case 1: Large Angular Momentum ($L^{2} > 12G^{2}M^{2}$)}{177}{equation.5.441}%
+\contentsline {paragraph}{Case 2: The Critical Limit ($L^{2} = 12G^{2}M^{2}$)}{177}{equation.5.441}%
+\contentsline {paragraph}{Case 3: Small Angular Momentum ($L^{2} < 12G^{2}M^{2}$)}{177}{equation.5.443}%
+\contentsline {section}{\numberline {5.5}Experimental Tests of General Relativity}{177}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}The Precession of Perihelia}{177}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Gravitational Redshift}{180}{subsection.5.5.2}%
+\contentsline {section}{\numberline {5.6}Schwarzschild Black Holes and Causal Structure}{181}{section.5.6}%
+\contentsline {subsection}{\numberline {5.6.1}Causal Structure in Schwarzschild Coordinates}{181}{subsection.5.6.1}%
+\contentsline {paragraph}{Asymptotic Behavior:}{182}{equation.5.478}%
+\contentsline {subsection}{\numberline {5.6.2}The Tortoise Coordinate}{182}{subsection.5.6.2}%
+\contentsline {subsection}{\numberline {5.6.3}Eddington-Finkelstein Coordinates}{183}{subsection.5.6.3}%
+\contentsline {subsection}{\numberline {5.6.4}The Event Horizon and the Tipping of Light Cones}{184}{subsection.5.6.4}%
+\contentsline {paragraph}{Physical Interpretation: The Event Horizon.}{184}{equation.5.495}%
+\contentsline {subsection}{\numberline {5.6.5}The Misleading Newtonian Analogy}{184}{subsection.5.6.5}%

@@ -1,0 +1,60 @@
+\contentsline {chapter}{\numberline {1}Gravitation}{2}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Physics in Curved Spacetime}{2}{section.1.1}%
+\contentsline {paragraph}{Intuition:}{3}{equation.1.9}%
+\contentsline {section}{\numberline {1.2}Einstein's Equation}{6}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Motivating the Tensorial Equation}{6}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}The Conservation of Energy Problem}{6}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}The Einstein Tensor}{7}{subsection.1.2.3}%
+\contentsline {subsection}{\numberline {1.2.4}The Trace-Reversed Form}{7}{subsection.1.2.4}%
+\contentsline {subsection}{\numberline {1.2.5}The Newtonian Limit and the Coupling Constant}{8}{subsection.1.2.5}%
+\contentsline {subsection}{\numberline {1.2.6}Vacuum Equations}{9}{subsection.1.2.6}%
+\contentsline {paragraph}{Step A: The Product Rule}{10}{Item.9}%
+\contentsline {paragraph}{Step B: Rearranging}{10}{equation.1.63}%
+\contentsline {paragraph}{Step C: Integrating and Stokes' Theorem}{10}{equation.1.64}%
+\contentsline {paragraph}{Step 1: Derivative with respect to $\phi $}{11}{equation.1.71}%
+\contentsline {paragraph}{Step 2: Derivative with respect to $\nabla _\mu \phi $}{11}{equation.1.72}%
+\contentsline {paragraph}{Step 3: Plug into the Euler-Lagrange Equation}{11}{equation.1.76}%
+\contentsline {subsection}{\numberline {1.2.7}The Hilbert Action}{12}{subsection.1.2.7}%
+\contentsline {subsection}{\numberline {1.2.8}Varying the Hilbert Action}{12}{subsection.1.2.8}%
+\contentsline {section}{\numberline {1.3}The Palatini Formulation and Identity}{13}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1} Proof the Palatini Identity}{13}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Variation of the Action and Integration by Parts}{15}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Recovering Metric Compatibility}{16}{subsection.1.3.3}%
+\contentsline {subsection}{\numberline {1.3.4}Deriving the Vacuum Equations}{17}{subsection.1.3.4}%
+\contentsline {subsection}{\numberline {1.3.5}Including Matter: The Energy-Momentum Tensor}{17}{subsection.1.3.5}%
+\contentsline {subsection}{\numberline {1.3.6}Properties of Einstein's Equation}{18}{subsection.1.3.6}%
+\contentsline {section}{\numberline {1.4}Properties of Einstein's Equation}{19}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Degrees of Freedom and Diffeomorphism Invariance}{19}{subsection.1.4.1}%
+\contentsline {paragraph}{Mathematical and Physical Interpretation:}{19}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}The Non-Linearity of Gravity}{19}{subsection.1.4.2}%
+\contentsline {paragraph}{Intuition Example (Perturbative Gravity):}{19}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}Raychaudhuri's Equation and the Attractiveness of Gravity}{19}{subsection.1.4.3}%
+\contentsline {paragraph}{Geometric and Physical Interpretation:}{20}{equation.1.144}%
+\contentsline {subsection}{\numberline {1.4.4}Derivation of the Weyl Tensor Propagation Equation}{20}{subsection.1.4.4}%
+\contentsline {subsection}{\numberline {1.4.5}Quantum Gravity and the Planck Scale}{22}{subsection.1.4.5}%
+\contentsline {section}{\numberline {1.5}The Cosmological Constant}{23}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}Vacuum Energy and Lorentz Invariance}{23}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}Equation of State for the Vacuum}{24}{subsection.1.5.2}%
+\contentsline {subsection}{\numberline {1.5.3}Modifying Einstein's Equation}{24}{subsection.1.5.3}%
+\contentsline {subsection}{\numberline {1.5.4}Lagrangian Derivation}{24}{subsection.1.5.4}%
+\contentsline {subsection}{\numberline {1.5.5}The Cosmological Constant Problem}{25}{subsection.1.5.5}%
+\contentsline {section}{\numberline {1.6}Energy Conditions}{25}{section.1.6}%
+\contentsline {subsection}{\numberline {1.6.1}The Weak Energy Condition (WEC)}{26}{subsection.1.6.1}%
+\contentsline {subsection}{\numberline {1.6.2}The Null Energy Condition (NEC)}{26}{subsection.1.6.2}%
+\contentsline {subsection}{\numberline {1.6.3}The Dominant Energy Condition (DEC)}{27}{subsection.1.6.3}%
+\contentsline {subsection}{\numberline {1.6.4}The Null Dominant Energy Condition (NDEC)}{27}{subsection.1.6.4}%
+\contentsline {subsection}{\numberline {1.6.5}The Strong Energy Condition (SEC)}{28}{subsection.1.6.5}%
+\contentsline {section}{\numberline {1.7}The Equivalence Principle Revisited}{28}{section.1.7}%
+\contentsline {subsection}{\numberline {1.7.1}The Approximation of Minimal Coupling}{29}{subsection.1.7.1}%
+\contentsline {section}{\numberline {1.8}Alternative Theories of Gravity}{29}{section.1.8}%
+\contentsline {subsection}{\numberline {1.8.1}Higher-Order Actions: $f(R)$ Gravity}{29}{subsection.1.8.1}%
+\contentsline {paragraph}{Physical Interpretation:}{30}{equation.1.222}%
+\contentsline {subsection}{\numberline {1.8.2}Scalar-Tensor Theories}{31}{subsection.1.8.2}%
+\contentsline {subsection}{\numberline {1.8.3}Torsion and Non-Christoffel Connections}{31}{subsection.1.8.3}%
+\contentsline {subsection}{\numberline {1.8.4}Additional Tensor Fields and Geometric Generalizations}{31}{subsection.1.8.4}%
+\contentsline {paragraph}{Physical Interpretation:}{31}{equation.1.225}%
+\contentsline {section}{\numberline {1.9}Variational Derivations of Advanced Field Equations}{32}{section.1.9}%
+\contentsline {subsection}{\numberline {1.9.1}The Electromagnetic Stress-Energy Tensor}{32}{subsection.1.9.1}%
+\contentsline {paragraph}{Properties:}{33}{equation.1.234}%
+\contentsline {subsection}{\numberline {1.9.2}The Palatini Formulation of General Relativity}{33}{subsection.1.9.2}%
+\contentsline {paragraph}{Geometric Conclusion:}{34}{equation.1.245}%

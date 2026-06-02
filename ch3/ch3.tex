@@ -1020,29 +1020,107 @@ From this form, the symmetries are manifest:
     R_{\rho\sigma\mu\nu} = R_{\mu\nu\rho\sigma}.
     \end{equation}
 4.  First Bianchi Identity (Algebraic): The sum of cyclic permutations of the last three indices vanishes.
-    \begin{equation}
-    R_{\rho\sigma\mu\nu} + R_{\rho\mu\nu\sigma} + R_{\rho\nu\sigma\mu} = 0.
-    \end{equation}
-    This is equivalent to the vanishing of the totally antisymmetric part: \(R_{\rho[\sigma\mu\nu]} = 0\).
+We define the sum of cyclic permutations of the last three indices $(\sigma, \mu, \nu)$ as $S$. Using the expression for $R_{\rho\sigma\mu\nu}$ in locally inertial coordinates:
 
+\begin{align*}
+    R_{\rho\sigma\mu\nu} &= \frac{1}{2} \left( \partial_\mu \partial_\sigma g_{\rho\nu} - \partial_\mu \partial_\rho g_{\sigma\nu} - \partial_\nu \partial_\sigma g_{\rho\mu} + \partial_\nu \partial_\rho g_{\sigma\mu} \right) \tag{1} \\
+    R_{\rho\mu\nu\sigma} &= \frac{1}{2} \left( \partial_\nu \partial_\mu g_{\rho\sigma} - \partial_\nu \partial_\rho g_{\mu\sigma} - \partial_\sigma \partial_\mu g_{\rho\nu} + \partial_\sigma \partial_\rho g_{\mu\nu} \right) \tag{2} \\
+    R_{\rho\nu\sigma\mu} &= \frac{1}{2} \left( \partial_\sigma \partial_\nu g_{\rho\mu} - \partial_\sigma \partial_\rho g_{\nu\mu} - \partial_\mu \partial_\nu g_{\rho\sigma} + \partial_\mu \partial_\rho g_{\nu\sigma} \right) \tag{3}
+\end{align*}
+
+Summing these three equations ($S = R_{\rho\sigma\mu\nu} + R_{\rho\mu\nu\sigma} + R_{\rho\nu\sigma\mu}$), we group terms to see the cancellations:
+
+\begin{align*}
+    2S = \quad & \partial_\mu \partial_\sigma g_{\rho\nu} - \partial_\sigma \partial_\mu g_{\rho\nu} \quad & \text{(Term 1 of eq. 1 and Term 3 of eq. 2)} \\
+    + & \partial_\nu \partial_\mu g_{\rho\sigma} - \partial_\mu \partial_\nu g_{\rho\sigma} \quad & \text{(Term 1 of eq. 2 and Term 3 of eq. 3)} \\
+    + & \partial_\sigma \partial_\nu g_{\rho\mu} - \partial_\nu \partial_\sigma g_{\rho\mu} \quad & \text{(Term 1 of eq. 3 and Term 3 of eq. 1)} \\
+    - & \partial_\mu \partial_\rho g_{\sigma\nu} + \partial_\mu \partial_\rho g_{\nu\sigma} \quad & \text{(Term 2 of eq. 1 and Term 4 of eq. 3)} \\
+    - & \partial_\nu \partial_\rho g_{\mu\sigma} + \partial_\nu \partial_\rho g_{\sigma\mu} \quad & \text{(Term 2 of eq. 2 and Term 4 of eq. 1)} \\
+    - & \partial_\sigma \partial_\rho g_{\nu\mu} + \partial_\sigma \partial_\rho g_{\mu\nu} \quad & \text{(Term 2 of eq. 3 and Term 4 of eq. 2)}
+\end{align*}
+
+Because the metric is symmetric ($g_{\alpha\beta} = g_{\beta\alpha}$) and partial derivatives commute ($\partial_\alpha \partial_\beta = \partial_\beta \partial_\alpha$), every row above sums to zero:
+
+\begin{equation*}
+    R_{\rho\sigma\mu\nu} + R_{\rho\mu\nu\sigma} + R_{\rho\nu\sigma\mu} = 0
+\end{equation*}    
+
+This is equivalent to the vanishing of the totally antisymmetric part: \(R_{\rho[\sigma\mu\nu]} = 0\).
+The antisymmetrization of the last three indices of the Riemann tensor is defined as the sum over all permutations $\pi$ of $(\sigma, \mu, \nu)$, weighted by the sign of the permutation $\text{sgn}(\pi)$:
+
+\begin{equation*}
+R_{\rho[\sigma\mu\nu]} = \frac{1}{3!} \sum_{\pi \in S_3} \text{sgn}(\pi) R_{\rho\pi(\sigma)\pi(\mu)\pi(\nu)}
+\end{equation*}
+
+Expanding this fully, we get:
+\begin{align*}
+R_{\rho[\sigma\mu\nu]} = \frac{1}{6} \Big( & \underbrace{R_{\rho\sigma\mu\nu}}_{\text{even}} - \underbrace{R_{\rho\sigma\nu\mu}}_{\text{odd}} + \underbrace{R_{\rho\mu\nu\sigma}}_{\text{even}} \\
+& - \underbrace{R_{\rho\mu\sigma\nu}}_{\text{odd}} + \underbrace{R_{\rho\nu\sigma\mu}}_{\text{even}} - \underbrace{R_{\rho\nu\mu\sigma}}_{\text{odd}} \Big) \tag{1}
+\end{align*}
+
+Now, we apply the antisymmetry of the last two indices from equation (3.130), which states $R_{\rho\alpha\beta\gamma} = -R_{\rho\alpha\gamma\beta}$. We use this to rewrite the "odd" terms in equation (1):
+\begin{itemize}
+    \item $-R_{\rho\sigma\nu\mu} = +R_{\rho\sigma\mu\nu}$
+    \item $-R_{\rho\mu\sigma\nu} = +R_{\rho\mu\nu\sigma}$
+    \item $-R_{\rho\nu\mu\sigma} = +R_{\rho\nu\sigma\mu}$
+\end{itemize}
+
+Substituting these back into the expansion:
+\begin{align*}
+R_{\rho[\sigma\mu\nu]} &= \frac{1}{6} \left( R_{\rho\sigma\mu\nu} + R_{\rho\sigma\mu\nu} + R_{\rho\mu\nu\sigma} + R_{\rho\mu\nu\sigma} + R_{\rho\nu\sigma\mu} + R_{\rho\nu\sigma\mu} \right) \\
+&= \frac{1}{6} \left( 2R_{\rho\sigma\mu\nu} + 2R_{\rho\mu\nu\sigma} + 2R_{\rho\nu\sigma\mu} \right) \\
+&= \frac{1}{3} \left( R_{\rho\sigma\mu\nu} + R_{\rho\mu\nu\sigma} + R_{\rho\nu\sigma\mu} \right) \tag{2}
+\end{align*}
+
+From the First Bianchi Identity (equation 3.132), we know that the sum of the cyclic permutations is zero:
+\begin{equation*}
+R_{\rho\sigma\mu\nu} + R_{\rho\mu\nu\sigma} + R_{\rho\nu\sigma\mu} = 0
+\end{equation*}
+
+Therefore:
+\begin{equation*}
+R_{\rho[\sigma\mu\nu]} = \frac{1}{3} (0) = 0
+\end{equation*}
+
+This confirms that the vanishing of the cyclic sum is mathematically equivalent to the statement that the antisymmetric part of the last three indices is zero.
 \paragraph{Intuition:} These symmetries reduce the number of independent components from 256 to just 20 in 4D spacetime. These 20 numbers represent the "true" curvature degrees of freedom that cannot be removed by coordinate transformations (unlike the metric components themselves, which can be set to \(\eta_{\mu\nu}\) to first order).
 
-\subsection*{Counting Independent Components}
-We calculate the number of independent components.
-We can view \(R_{\rho\sigma\mu\nu}\) as a symmetric matrix where the rows/columns are the antisymmetric pairs \([\rho\sigma]\) and \([\mu\nu]\).
-An \(n \times n\) antisymmetric matrix has \(M = \frac{1}{2}n(n-1)\) independent components.
-A symmetric matrix of size \(M \times M\) has \(\frac{1}{2}M(M+1)\) components.
-This gives the count before applying the algebraic Bianchi identity:
-\begin{equation}
-\frac{1}{2} \left[ \frac{1}{2}n(n-1) \right] \left[ \frac{1}{2}n(n-1) + 1 \right] = \frac{1}{8} (n^4 - 2n^3 + 3n^2 - 2n).
-\end{equation}
-The algebraic Bianchi identity \(R_{\rho[\sigma\mu\nu]} = 0\) imposes further constraints. The number of totally antisymmetric 4-index tensors is \(\binom{n}{4} = \frac{n(n-1)(n-2)(n-3)}{24}\).
-Subtracting these constraints yields the final count of independent components:
-\begin{equation}
-\frac{1}{12} n^2 (n^2 - 1).
-\end{equation}
-In \(n=4\) dimensions, this yields \(\frac{16(15)}{12} = 20\) components.
-
+\textbf{Step 1: Antisymmetry in Pairs} \\
+The Riemann tensor $R_{\rho\sigma\mu\nu}$ is antisymmetric in the first pair of indices ($\rho\sigma$) and the second pair ($\mu\nu$). For an $n$-dimensional space, the number of independent ways to choose a pair of distinct indices is equivalent to the number of strictly upper-triangular components in an $n \times n$ antisymmetric matrix. This is given by $N = \frac{1}{2}n(n-1)$. We can mathematically treat the first pair $[\rho\sigma]$ as a single composite index $A$, and the second pair $[\mu\nu]$ as another composite index $B$. Both $A$ and $B$ can take on $N$ possible values. \\
+\textbf{Step 2: Symmetry Under Pair Exchange} \\
+The Riemann tensor is symmetric when you swap the first pair with the second pair entirely: $R_{AB} = R_{BA}$. This means we can view the Riemann tensor as a large $N \times N$ symmetric matrix. The number of independent components in any $N \times N$ symmetric matrix (including its diagonal) is $\frac{1}{2}N(N+1)$. Let us explicitly substitute $N = \frac{1}{2}n(n-1)$ into this symmetric matrix formula and expand it:
+\begin{align}
+\text{Components} &= \frac{1}{2} \left[ \frac{1}{2}n(n-1) \right] \left[ \frac{1}{2}n(n-1) + 1 \right] \nonumber \\
+                  &= \frac{1}{4} (n^2 - n) \left[ \frac{1}{2}(n^2 - n) + \frac{2}{2} \right] \nonumber \\
+                  &= \frac{1}{4} (n^2 - n) \left[ \frac{1}{2}(n^2 - n + 2) \right] \nonumber \\
+                  &= \frac{1}{8} (n^2 - n) (n^2 - n + 2) \label{eq:expanded_sym_matrix}
+\end{align}
+We distribute the terms in equation \eqref{eq:expanded_sym_matrix} to get a single polynomial:
+\begin{align}
+\text{Components} &= \frac{1}{8} \left( n^2(n^2) + n^2(-n) + n^2(2) - n(n^2) - n(-n) - n(2) \right) \nonumber \\
+                  &= \frac{1}{8} (n^4 - n^3 + 2n^2 - n^3 + n^2 - 2n) \nonumber \\
+                  &= \frac{1}{8} (n^4 - 2n^3 + 3n^2 - 2n) \label{eq:initial_count}
+\end{align}
+Equation \eqref{eq:initial_count} perfectly confirms the first major polynomial provided in the text. \\
+\textbf{Step 3: The Algebraic Bianchi Identity} \\
+The tensor must also satisfy the algebraic Bianchi identity $R_{\rho[\sigma\mu\nu]} = 0$, which implies $R_{\rho\sigma\mu\nu} + R_{\rho\mu\nu\sigma} + R_{\rho\nu\sigma\mu} = 0$. This identity only provides a fundamentally new, independent constraint if all four indices ($\rho, \sigma, \mu, \nu$) are distinct. If any two indices are identical, the identity trivially reduces to $0=0$ due to the antisymmetry properties we already accounted for in Step 1. Therefore, the number of independent constraints is exactly the number of ways to choose 4 distinct indices from $n$ dimensions. This is calculated using the binomial coefficient "n choose 4":
+\begin{equation} \text{Constraints} = \binom{n}{4} = \frac{n(n-1)(n-2)(n-3)}{4 \cdot 3 \cdot 2 \cdot 1} = \frac{n^4 - 6n^3 + 11n^2 - 6n}{24} \label{eq:constraints} \end{equation}
+\textbf{Step 4: Subtracting Constraints for the Final Count} \\
+To find the true final number of independent components, we must subtract the number of Bianchi constraints \eqref{eq:constraints} from our initial symmetric matrix count \eqref{eq:initial_count}:
+\begin{equation} \text{Total} = \frac{1}{8}(n^4 - 2n^3 + 3n^2 - 2n) - \frac{1}{24}(n^4 - 6n^3 + 11n^2 - 6n) \label{eq:subtraction} \end{equation}
+To evaluate equation \eqref{eq:subtraction}, we find a common denominator of 24 by multiplying the first term by $3/3$:
+\begin{equation} \text{Total} = \frac{3(n^4 - 2n^3 + 3n^2 - 2n)}{24} - \frac{n^4 - 6n^3 + 11n^2 - 6n}{24} \label{eq:common_denom} \end{equation}
+We combine the numerators of equation \eqref{eq:common_denom} into a single fraction and distribute the negative sign:
+\begin{equation} \text{Total} = \frac{(3n^4 - 6n^3 + 9n^2 - 6n) - n^4 + 6n^3 - 11n^2 + 6n}{24} \label{eq:combined_fraction} \end{equation}
+Now, we group the like terms together in equation \eqref{eq:combined_fraction}. Notice how the $n^3$ and $n$ terms perfectly cancel out to zero:
+\begin{align}
+\text{Total} &= \frac{(3n^4 - n^4) + (-6n^3 + 6n^3) + (9n^2 - 11n^2) + (-6n + 6n)}{24} \nonumber \\
+             &= \frac{2n^4 + 0 - 2n^2 + 0}{24} \nonumber \\
+             &= \frac{2n^4 - 2n^2}{24} \label{eq:simplified_fraction}
+\end{align}
+Finally, we simplify equation \eqref{eq:simplified_fraction} by factoring out $2n^2$ from the numerator:
+\begin{equation} \text{Total} = \frac{2n^2(n^2 - 1)}{24} = \frac{1}{12}n^2(n^2 - 1) \label{eq:final_result} \end{equation}
+Equation \eqref{eq:final_result} gives us the final, elegant formula. For a standard 4-dimensional spacetime ($n=4$), plugging the value in yields $\frac{16(16-1)}{12} = \frac{16 \cdot 15}{12} = \frac{240}{12} = 20$ totally independent components.
 \subsection*{The Second Bianchi Identity (Differential)}
 There is also a differential identity relating the derivatives of the Riemann tensor. By differentiating the expression for \(R\) in locally inertial coordinates (where \(\partial g=0\), so \(\Gamma=0\), but \(\partial^2 g \neq 0\)):
 \begin{equation}
@@ -1114,6 +1192,103 @@ Properties:
     \item It is conformally invariant: If we rescale the metric \(g_{\mu\nu} \to \Omega^2(x) g_{\mu\nu}\), the Weyl tensor \({C^\rho}_{\sigma\mu\nu}\) (with one index up) is unchanged.
     \item It vanishes identically in \(n=3\) dimensions or fewer. In 3D, the Ricci tensor determines the full curvature. In 4D+, you can have curvature (gravity) even in vacuum (\(R_{\mu\nu}=0\)) due to the Weyl tensor (e.g., gravitational waves).
 \end{itemize}
+We begin by decomposing the Riemann tensor $R_{\rho\sigma\mu\nu}$ into three parts:
+\begin{enumerate}
+    \item The Weyl tensor $C_{\rho\sigma\mu\nu}$ (which is trace-free).
+    \item A part involving the Ricci tensor $R_{\mu\nu}$.
+    \item A part involving the Ricci scalar $R$.
+\end{enumerate}
+
+We write this decomposition using unknown coefficients $A$ and $B$. To maintain the symmetries of the Riemann tensor, the terms must be constructed as follows:
+\begin{align}
+    C_{\rho\sigma\mu\nu} = R_{\rho\sigma\mu\nu} 
+    &+ A \underbrace{(g_{\rho\mu} R_{\sigma\nu} - g_{\rho\nu} R_{\sigma\mu} - g_{\sigma\mu} R_{\rho\nu} + g_{\sigma\nu} R_{\rho\mu})}_{\text{Ricci Terms}} \nonumber \\
+    &+ B \underbrace{R (g_{\rho\mu} g_{\sigma\nu} - g_{\rho\nu} g_{\sigma\mu})}_{\text{Scalar Terms}} \label{eq:ansatz}
+\end{align}
+
+The defining characteristic of the Weyl tensor is that it is \textbf{trace-free} on any pair of indices. We apply the contraction $g^{\rho\mu}$ to equation (\ref{eq:ansatz}) and require the result to be zero:
+\begin{equation}
+    g^{\rho\mu} C_{\rho\sigma\mu\nu} = 0
+\end{equation}
+
+Now, we compute the trace of each term on the right-hand side of (\ref{eq:ansatz}) individually.
+
+\begin{equation}
+    g^{\rho\mu} R_{\rho\sigma\mu\nu} = R_{\sigma\nu} \quad \text{(Definition of Ricci tensor)}
+\end{equation}
+
+We contract $g^{\rho\mu}$ with the term $(g_{\rho\mu} R_{\sigma\nu} - g_{\rho\nu} R_{\sigma\mu} - g_{\sigma\mu} R_{\rho\nu} + g_{\sigma\nu} R_{\rho\mu})$:
+\begin{align*}
+    \text{Term 1: } & g^{\rho\mu} g_{\rho\mu} R_{\sigma\nu} = n R_{\sigma\nu} \quad (\text{since } g^{\rho\mu}g_{\rho\mu} = \delta^\mu_\mu = n) \\
+    \text{Term 2: } & - g^{\rho\mu} g_{\rho\nu} R_{\sigma\mu} = - \delta^\mu_\nu R_{\sigma\mu} = - R_{\sigma\nu} \\
+    \text{Term 3: } & - g^{\rho\mu} g_{\sigma\mu} R_{\rho\nu} = - \delta^\rho_\sigma R_{\rho\nu} = - R_{\sigma\nu} \\
+    \text{Term 4: } & g^{\rho\mu} g_{\sigma\nu} R_{\rho\mu} = g_{\sigma\nu} R \quad (\text{since } g^{\rho\mu}R_{\rho\mu} = R)
+\end{align*}
+Summing these, the trace of the $A$ term is:
+\begin{equation}
+    A ( n R_{\sigma\nu} - 2 R_{\sigma\nu} + g_{\sigma\nu} R ) = A [ (n-2) R_{\sigma\nu} + g_{\sigma\nu} R ]
+\end{equation}
+
+We contract $g^{\rho\mu}$ with $R (g_{\rho\mu} g_{\sigma\nu} - g_{\rho\nu} g_{\sigma\mu})$:
+\begin{align*}
+    \text{Term 1: } & R (g^{\rho\mu} g_{\rho\mu}) g_{\sigma\nu} = R (n) g_{\sigma\nu} \\
+    \text{Term 2: } & - R (g^{\rho\mu} g_{\rho\nu}) g_{\sigma\mu} = - R (\delta^\mu_\nu) g_{\sigma\mu} = - R g_{\sigma\nu}
+\end{align*}
+Summing these, the trace of the $B$ term is:
+\begin{equation}
+    B R ( n g_{\sigma\nu} - g_{\sigma\nu} ) = B (n-1) g_{\sigma\nu} R
+\end{equation}
+
+We substitute the results from steps 2a, 2b, and 2c back into the trace equation ($0 = \text{Sum of traces}$):
+\begin{equation}
+    0 = R_{\sigma\nu} + A [ (n-2) R_{\sigma\nu} + g_{\sigma\nu} R ] + B (n-1) g_{\sigma\nu} R
+\end{equation}
+
+We group the terms by $R_{\sigma\nu}$ and $g_{\sigma\nu} R$:
+\begin{equation}
+    0 = \underbrace{[ 1 + A(n-2) ]}_{\text{Must be 0}} R_{\sigma\nu} + \underbrace{[ A + B(n-1) ]}_{\text{Must be 0}} g_{\sigma\nu} R
+\end{equation}
+
+For this equation to hold for any geometry, the coefficients of $R_{\sigma\nu}$ and $g_{\sigma\nu} R$ must vanish independently.
+
+\textbf{Solving for A:}
+\begin{align*}
+    1 + A(n-2) &= 0 \\
+    A &= -\frac{1}{n-2}
+\end{align*}
+
+\textbf{Solving for B:}
+\begin{align*}
+    A + B(n-1) &= 0 \\
+    -\frac{1}{n-2} + B(n-1) &= 0 \\
+    B &= \frac{1}{(n-1)(n-2)}
+\end{align*}
+
+We have found the coefficients:
+\begin{equation*}
+    C_{\rho\sigma\mu\nu} = R_{\rho\sigma\mu\nu} - \frac{1}{n-2}(\text{Ricci Terms}) + \frac{1}{(n-1)(n-2)}(\text{Scalar Terms})
+\end{equation*}
+
+However, your image uses the notation with a factor of \textbf{2}. This is due to the antisymmetrization bracket notation $T_{[\mu\nu]}$.
+The definition is:
+\begin{equation}
+    T_{[\mu\nu]} = \frac{1}{2} (T_{\mu\nu} - T_{\nu\mu})
+\end{equation}
+
+Let's look at the Ricci term in the image:
+\begin{equation}
+    - \frac{2}{n-2} (g_{\rho[\mu} R_{\nu]\sigma} - g_{\sigma[\mu} R_{\nu]\rho})
+\end{equation}
+Expanding the first part $g_{\rho[\mu} R_{\nu]\sigma}$:
+\begin{equation}
+    g_{\rho[\mu} R_{\nu]\sigma} = \frac{1}{2} (g_{\rho\mu} R_{\nu\sigma} - g_{\rho\nu} R_{\mu\sigma})
+\end{equation}
+Multiplying by $\frac{2}{n-2}$ cancels the $\frac{1}{2}$:
+\begin{equation}
+    \frac{2}{n-2} \cdot \frac{1}{2} (g_{\rho\mu} R_{\nu\sigma} - g_{\rho\nu} R_{\mu\sigma}) = \frac{1}{n-2} (g_{\rho\mu} R_{\nu\sigma} - g_{\rho\nu} R_{\mu\sigma})
+\end{equation}
+This matches our derived coefficient $A = -\frac{1}{n-2}$ exactly. The same logic applies to the scalar term $B$.
+
 \section{Mathematical Interlude: Diffeomorphisms and Lie Derivatives}
 
 \subsection*{Active vs. Passive Transformations}
@@ -1206,7 +1381,7 @@ For infinitesimal symmetries generated by a vector field $K^\mu$, this correspon
 \begin{equation}
 \mathcal{L}_K T = 0.
 \end{equation}
-The most important symmetries are **Isometries**, which are symmetries of the metric tensor $g_{\mu\nu}$.
+The most important symmetries are Isometries, which are symmetries of the metric tensor $g_{\mu\nu}$.
 \begin{equation}
 \mathcal{L}_K g_{\mu\nu} = 0.
 \end{equation}
@@ -1222,7 +1397,7 @@ Thus, the condition for $K^\mu$ to generate a symmetry is:
 \begin{equation}
 \nabla_\mu K_\nu + \nabla_\nu K_\mu = 0 \quad \implies \quad \nabla_{(\mu} K_{\nu)} = 0.
 \end{equation}
-This rigorously derives **Killing's Equation**, which we used in Section 3.8.
+This rigorously derives Killing's Equation, which we used in Section 3.8.
 
 \section{Symmetries and Killing Vectors}
 
@@ -1272,15 +1447,176 @@ Any vector field \(K^\mu\) satisfying this equation is called a \textbf{Killing 
 
 \subsection*{Properties of Killing Vectors}
 Killing vectors satisfy several useful identities related to curvature:
+We are given a coordinate system where the metric tensor $g_{\mu\nu}$ is independent of a specific coordinate $x^\sigma$. Mathematically, this condition is:
+\begin{equation}
+    \partial_\sigma g_{\mu\nu} = 0 \label{eq:independence}
+\end{equation}
+We define the vector field $K$ as the coordinate basis vector corresponding to $x^\sigma$:
+\begin{equation}
+    K = \partial_\sigma
+\end{equation}
+In component notation, the components of this vector $K^\rho$ are given by the Kronecker delta (it has a 1 in the $\sigma$-position and 0 elsewhere):
+\begin{equation}
+    K^\rho = \delta^\rho_\sigma
+\end{equation}
+We aim to prove that $K$ satisfies Killing's Equation:
+\begin{equation}
+    \nabla_\mu K_\nu + \nabla_\nu K_\mu = 0
+\end{equation}
+
+Killing's equation is written in terms of the covariant components $K_\nu$. We lower the index using the metric:
+\begin{equation}
+    K_\nu = g_{\nu\rho} K^\rho = g_{\nu\rho} \delta^\rho_\sigma = g_{\nu\sigma}
+\end{equation}
+So, the covariant components of our vector are simply the components of the metric column corresponding to $\sigma$.
+
+We compute the term $\nabla_\mu K_\nu$ using the definition of the covariant derivative:
+\begin{equation}
+    \nabla_\mu K_\nu = \partial_\mu K_\nu - \Gamma^\lambda_{\mu\nu} K_\lambda
+\end{equation}
+Substitute $K_\nu = g_{\nu\sigma}$ and $K_\lambda = g_{\lambda\sigma}$:
+\begin{equation}
+    \nabla_\mu K_\nu = \partial_\mu g_{\nu\sigma} - \Gamma^\lambda_{\mu\nu} g_{\lambda\sigma}
+\end{equation}
+
+The term $\Gamma^\lambda_{\mu\nu} g_{\lambda\sigma}$ is actually the Christoffel symbol of the first kind, denoted $\Gamma_{\sigma\mu\nu}$. We expand it using the metric definition:
+\begin{equation}
+    \Gamma^\lambda_{\mu\nu} g_{\lambda\sigma} = \frac{1}{2} g^{\lambda\rho} (\partial_\mu g_{\nu\rho} + \partial_\nu g_{\mu\rho} - \partial_\rho g_{\mu\nu}) g_{\lambda\sigma}
+\end{equation}
+Since $g^{\lambda\rho} g_{\lambda\sigma} = \delta^\rho_\sigma$, the expression simplifies significantly by setting $\rho = \sigma$:
+\begin{equation}
+    \Gamma^\lambda_{\mu\nu} g_{\lambda\sigma} = \frac{1}{2} (\partial_\mu g_{\nu\sigma} + \partial_\nu g_{\mu\sigma} - \partial_\sigma g_{\mu\nu})
+\end{equation}
+
+Now substitute this back into our expression for $\nabla_\mu K_\nu$:
+\begin{align*}
+    \nabla_\mu K_\nu &= \partial_\mu g_{\nu\sigma} - \frac{1}{2} (\partial_\mu g_{\nu\sigma} + \partial_\nu g_{\mu\sigma} - \partial_\sigma g_{\mu\nu}) \\
+    &= \partial_\mu g_{\nu\sigma} - \frac{1}{2} \partial_\mu g_{\nu\sigma} - \frac{1}{2} \partial_\nu g_{\mu\sigma} + \frac{1}{2} \partial_\sigma g_{\mu\nu} \\
+    &= \frac{1}{2} \partial_\mu g_{\nu\sigma} - \frac{1}{2} \partial_\nu g_{\mu\sigma} + \frac{1}{2} \partial_\sigma g_{\mu\nu} \tag{A}
+\end{align*}
+
+We now calculate the left-hand side of Killing's equation by writing equation (A) and adding the same equation with $\mu$ and $\nu$ swapped:
+\begin{align*}
+    \nabla_\mu K_\nu &= \frac{1}{2} \partial_\mu g_{\nu\sigma} - \frac{1}{2} \partial_\nu g_{\mu\sigma} + \frac{1}{2} \partial_\sigma g_{\mu\nu} \\
+    \nabla_\nu K_\mu &= \frac{1}{2} \partial_\nu g_{\mu\sigma} - \frac{1}{2} \partial_\mu g_{\nu\sigma} + \frac{1}{2} \partial_\sigma g_{\nu\mu}
+\end{align*}
+Adding these two lines together:
+\begin{align*}
+    \nabla_\mu K_\nu + \nabla_\nu K_\mu = \quad & \left( \frac{1}{2} \partial_\mu g_{\nu\sigma} - \frac{1}{2} \partial_\mu g_{\nu\sigma} \right) \quad \text{(Cancels to 0)} \\
+    + & \left( - \frac{1}{2} \partial_\nu g_{\mu\sigma} + \frac{1}{2} \partial_\nu g_{\mu\sigma} \right) \quad \text{(Cancels to 0)} \\
+    + & \left( \frac{1}{2} \partial_\sigma g_{\mu\nu} + \frac{1}{2} \partial_\sigma g_{\nu\mu} \right)
+\end{align*}
+Since the metric is symmetric ($g_{\mu\nu} = g_{\nu\mu}$), the last term becomes:
+\begin{equation}
+    \nabla_\mu K_\nu + \nabla_\nu K_\mu = \partial_\sigma g_{\mu\nu}
+\end{equation}
+
+We have derived that for the coordinate basis vector $K = \partial_\sigma$:
+\begin{equation}
+    \nabla_{(\mu} K_{\nu)} = \frac{1}{2} \partial_\sigma g_{\mu\nu}
+\end{equation}
+Therefore, Killing's equation $\nabla_{(\mu} K_{\nu)} = 0$ is satisfied \textbf{if and only if}:
+\begin{equation}
+    \partial_\sigma g_{\mu\nu} = 0
+\end{equation}
+This confirms the statement in the text: if the metric is independent of the coordinate $x^\sigma$, then $\partial_\sigma$ is a Killing vector.
+\newline
 1.  \textbf{Second Derivative:} The second derivative of a Killing vector is determined by the Riemann tensor:
+    we start with the defining property of a Killing vector field $K_{\mu}$, which satisfies Killing's equation:
+
+$$\nabla_{\mu} K_{\nu} + \nabla_{\nu} K_{\mu} = 0 \implies \nabla_{\mu} K_{\nu} = -\nabla_{\nu} K_{\mu}$$
+We will also need the definition of the Riemann curvature tensor in terms of the commutator of covariant derivatives acting on a dual vector field (this is known as the Ricci identity). Using the convention from Carroll's text, this is:
+$$[\nabla_{\mu}, \nabla_{\nu}] K_{\rho} = \nabla_{\mu} \nabla_{\nu} K_{\rho} - \nabla_{\nu} \nabla_{\mu} K_{\rho} = -R^{\sigma}_{\; \rho\mu\nu} K_{\sigma}$$
+We begin by examining the second covariant derivative of the Killing vector, $\nabla_{\mu} \nabla_{\nu} K_{\rho}$, and we will systematically perform cyclic permutations of the indices using Killing's equation and the Ricci identity.
+First, apply Killing's equation to the inner derivative to swap $\nu$ and $\rho$:
+$$\nabla_{\mu} \nabla_{\nu} K_{\rho} = -\nabla_{\mu} \nabla_{\rho} K_{\nu}$$
+Next, apply the Ricci identity to the right-hand side to commute the covariant derivatives $\nabla_{\mu}$ and $\nabla_{\rho}$:
+$$\nabla_{\mu} \nabla_{\rho} K_{\nu} = \nabla_{\rho} \nabla_{\mu} K_{\nu} - R^{\sigma}_{\; \nu\mu\rho} K_{\sigma}$$
+Substituting this back into our expression gives:
+$$\nabla_{\mu} \nabla_{\nu} K_{\rho} = -\left( \nabla_{\rho} \nabla_{\mu} K_{\nu} - R^{\sigma}_{\; \nu\mu\rho} K_{\sigma} \right) = -\nabla_{\rho} \nabla_{\mu} K_{\nu} + R^{\sigma}_{\; \nu\mu\rho} K_{\sigma}$$
+Now, apply Killing's equation again to the inner derivative on the right-hand side ($\nabla_{\mu} K_{\nu} = -\nabla_{\nu} K_{\mu}$):
+$$\nabla_{\mu} \nabla_{\nu} K_{\rho} = -\nabla_{\rho} (-\nabla_{\nu} K_{\mu}) + R^{\sigma}_{\; \nu\mu\rho} K_{\sigma} = \nabla_{\rho} \nabla_{\nu} K_{\mu} + R^{\sigma}_{\; \nu\mu\rho} K_{\sigma}$$
+Apply the Ricci identity one more time to commute $\nabla_{\rho}$ and $\nabla_{\nu}$:
+$$\nabla_{\rho} \nabla_{\nu} K_{\mu} = \nabla_{\nu} \nabla_{\rho} K_{\mu} - R^{\sigma}_{\; \mu\rho\nu} K_{\sigma}$$
+Substitute this into the main equation:
+$$\nabla_{\mu} \nabla_{\nu} K_{\rho} = \nabla_{\nu} \nabla_{\rho} K_{\mu} - R^{\sigma}_{\; \mu\rho\nu} K_{\sigma} + R^{\sigma}_{\; \nu\mu\rho} K_{\sigma}$$
+Apply Killing's equation to the first term on the right-hand side ($\nabla_{\rho} K_{\mu} = -\nabla_{\mu} K_{\rho}$):
+$$\nabla_{\mu} \nabla_{\nu} K_{\rho} = -\nabla_{\nu} \nabla_{\mu} K_{\rho} - R^{\sigma}_{\; \mu\rho\nu} K_{\sigma} + R^{\sigma}_{\; \nu\mu\rho} K_{\sigma}$$
+Rearrange this equation to bring the covariant derivative terms to the left side:
+$$\nabla_{\mu} \nabla_{\nu} K_{\rho} + \nabla_{\nu} \nabla_{\mu} K_{\rho} = - R^{\sigma}_{\; \mu\rho\nu} K_{\sigma} + R^{\sigma}_{\; \nu\mu\rho} K_{\sigma}$$
+Now, recall the initial Ricci identity we stated at the beginning:
+$$\nabla_{\mu} \nabla_{\nu} K_{\rho} - \nabla_{\nu} \nabla_{\mu} K_{\rho} = -R^{\sigma}_{\; \rho\mu\nu} K_{\sigma}$$
+Add these last two equations together. The $\nabla_{\nu} \nabla_{\mu} K_{\rho}$ terms cancel out perfectly:
+$$2 \nabla_{\mu} \nabla_{\nu} K_{\rho} = - R^{\sigma}_{\; \mu\rho\nu} K_{\sigma} + R^{\sigma}_{\; \nu\mu\rho} K_{\sigma} - R^{\sigma}_{\; \rho\mu\nu} K_{\sigma}$$
+To simplify the right-hand side, it is helpful to lower the upper index on the Riemann tensors using the metric ($R^{\sigma}_{\; \alpha\beta\gamma} K_{\sigma} = R_{\lambda\alpha\beta\gamma} g^{\lambda\sigma} K_{\sigma} = R_{\lambda\alpha\beta\gamma} K^{\lambda}$). Let's write the right side entirely with lowered Riemann indices contracted with $K^{\lambda}$:
+$$2 \nabla_{\mu} \nabla_{\nu} K_{\rho} = \left( -R_{\lambda\mu\rho\nu} + R_{\lambda\nu\mu\rho} - R_{\lambda\rho\mu\nu} \right) K^{\lambda}$$
+We can now use the algebraic Bianchi identity, which states that the cyclic sum of the last three indices of the Riemann tensor vanishes:
+$$R_{\lambda\mu\rho\nu} + R_{\lambda\rho\nu\mu} + R_{\lambda\nu\mu\rho} = 0 \implies R_{\lambda\nu\mu\rho} = - R_{\lambda\mu\rho\nu} - R_{\lambda\rho\nu\mu}$$
+Substitute this expression for $R_{\lambda\nu\mu\rho}$ into our equation:
+$$2 \nabla_{\mu} \nabla_{\nu} K_{\rho} = \left( -R_{\lambda\mu\rho\nu} + (- R_{\lambda\mu\rho\nu} - R_{\lambda\rho\nu\mu}) - R_{\lambda\rho\mu\nu} \right) K^{\lambda}$$
+$$2 \nabla_{\mu} \nabla_{\nu} K_{\rho} = \left( -2 R_{\lambda\mu\rho\nu} - R_{\lambda\rho\nu\mu} - R_{\lambda\rho\mu\nu} \right) K^{\lambda}$$
+Next, apply the antisymmetry of the Riemann tensor on its last two indices ($R_{\lambda\rho\nu\mu} = -R_{\lambda\rho\mu\nu}$). This means the last two terms inside the parenthesis cancel out:
+$$- R_{\lambda\rho\nu\mu} - R_{\lambda\rho\mu\nu} = R_{\lambda\rho\mu\nu} - R_{\lambda\rho\mu\nu} = 0$$
+This leaves us with a much simpler expression:
+$$2 \nabla_{\mu} \nabla_{\nu} K_{\rho} = -2 R_{\lambda\mu\rho\nu} K^{\lambda} \implies \nabla_{\mu} \nabla_{\nu} K_{\rho} = - R_{\lambda\mu\rho\nu} K^{\lambda}$$
+To arrive at the exact form of equation (3.176), we need to raise the index $\rho$. Multiply both sides by the inverse metric $g^{\rho\alpha}$:
+$$g^{\rho\alpha} \nabla_{\mu} \nabla_{\nu} K_{\rho} = - g^{\rho\alpha} R_{\lambda\mu\rho\nu} K^{\lambda}$$
+$$\nabla_{\mu} \nabla_{\nu} K^{\alpha} = - R_{\lambda\mu}{}^{\alpha}{}_{\nu} K^{\lambda}$$
+Finally, we use the symmetries of the Riemann tensor to match the textbook's index arrangement. First, swap the first pair of indices with the second pair, which leaves the tensor unchanged:
+$$- R_{\lambda\mu}{}^{\alpha}{}_{\nu} = - g^{\rho\alpha} R_{\lambda\mu\rho\nu} = - g^{\rho\alpha} R_{\rho\nu\lambda\mu} = - R^{\alpha}{}_{\nu\lambda\mu}$$
+Next, swap the last two indices, which introduces a minus sign:
+$$- R^{\alpha}{}_{\nu\lambda\mu} = R^{\alpha}{}_{\nu\mu\lambda}$$
+So we have:
+$$\nabla_{\mu} \nabla_{\nu} K^{\alpha} = R^{\alpha}{}_{\nu\mu\lambda} K^{\lambda}$$
+To make it match the equation  exactly, we perform a simple change of dummy variables and free index labels. Let $\alpha \to \rho$, $\nu \to \sigma$, and the dummy summation index $\lambda \to \nu$:
+$$\nabla_{\mu} \nabla_{\sigma} K^{\rho} = R^{\rho}{}_{\sigma\mu\nu} K^{\nu}$$
+2.  \textbf{Ricci Tensor:} Contracting the above equation gives:
+    We begin with the relation for the second derivative of a Killing vector $K^\rho$, which is given in the text as equation (1.233):
     \begin{equation}
-    \nabla_\mu \nabla_\sigma K^\rho = {R^\rho}_{\sigma\mu\nu} K^\nu.
+        \nabla_\mu \nabla_\sigma K^\rho = R^\rho{}_{\sigma\mu\nu} K^\nu
     \end{equation}
-2.  \textbf{Ricci Scalar:} The geometry does not change along the symmetry direction, so the directional derivative of the curvature scalar vanishes:
+3.  \textbf{Ricci Scalar:} The geometry does not change along the symmetry direction, so the directional derivative of the curvature scalar vanishes:
     \begin{equation}
     K^\lambda \nabla_\lambda R = 0.
     \end{equation}
+To derive equation \eqref{eq:3.178}, we begin with the contracted Bianchi identity, which relates the divergence of the Ricci tensor to the gradient of the Ricci scalar $R$:
+\begin{equation} \nabla^\mu R_{\mu\nu} = \frac{1}{2} \nabla_\nu R \label{eq:bianchi} \end{equation}
+Contracting both sides of equation \eqref{eq:bianchi} with the Killing vector field $K^\nu$ gives:
+\begin{equation} K^\nu \nabla^\mu R_{\mu\nu} = \frac{1}{2} K^\nu \nabla_\nu R \label{eq:contracted_bianchi} \end{equation}
+Next, we apply the product rule to the divergence of $R_{\mu\nu} K^\nu$:
+\begin{equation} \nabla^\mu (R_{\mu\nu} K^\nu) = (\nabla^\mu R_{\mu\nu}) K^\nu + R_{\mu\nu} \nabla^\mu K^\nu \label{eq:product_rule} \end{equation}
+Since $K^\nu$ is a Killing vector, it satisfies Killing's equation $\nabla^\mu K^\nu = -\nabla^\nu K^\mu$, making it antisymmetric. The Ricci tensor $R_{\mu\nu}$ is symmetric. The contraction of a symmetric and an antisymmetric tensor vanishes, so $R_{\mu\nu} \nabla^\mu K^\nu = 0$. Equation \eqref{eq:product_rule} simplifies to:
+\begin{equation} \nabla^\mu (R_{\mu\nu} K^\nu) = (\nabla^\mu R_{\mu\nu}) K^\nu \label{eq:simplified_product} \end{equation}
+Substituting equation \eqref{eq:simplified_product} into the left side of equation \eqref{eq:contracted_bianchi} yields:
+\begin{equation} \frac{1}{2} K^\nu \nabla_\nu R = \nabla^\mu (R_{\mu\nu} K^\nu) \label{eq:intermediate} \end{equation}
+From equation (3.177) in the text, we have $\nabla_\mu \nabla_\sigma K^\mu = R_{\sigma\nu} K^\nu$. Relabeling indices gives $R_{\mu\nu} K^\nu = \nabla^\alpha \nabla_\mu K_\alpha$. Substituting this into equation \eqref{eq:intermediate}:
+\begin{equation} \frac{1}{2} K^\nu \nabla_\nu R = \nabla^\mu (\nabla^\alpha \nabla_\mu K_\alpha) \label{eq:subbed_3177} \end{equation}
+Let $A_{\mu\alpha} = \nabla_\mu K_\alpha$. By Killing's equation, $A_{\mu\alpha}$ is an antisymmetric tensor ($A_{\mu\alpha} = -A_{\alpha\mu}$). We can split the right side of equation \eqref{eq:subbed_3177} into two equal halves and swap the dummy indices $\mu$ and $\alpha$ on the second half. Because of the antisymmetry, swapping the indices introduces a minus sign:
+\begin{equation} \nabla^\mu \nabla^\alpha A_{\mu\alpha} = \frac{1}{2} \nabla^\mu \nabla^\alpha A_{\mu\alpha} - \frac{1}{2} \nabla^\alpha \nabla^\mu A_{\mu\alpha} = \frac{1}{2} [\nabla^\mu, \nabla^\alpha] A_{\mu\alpha} \label{eq:commutator} \end{equation}
 
+To evaluate this commutator rigorously, we use the Ricci identity for a rank-2 covariant tensor $A_{\mu\alpha}$, which introduces the Riemann curvature tensor:
+\begin{equation} [\nabla_\rho, \nabla_\sigma] A_{\mu\alpha} = -R^\lambda{}_{\mu\rho\sigma} A_{\lambda\alpha} - R^\lambda{}_{\alpha\rho\sigma} A_{\mu\lambda} \end{equation}
+To match our expression, we raise the derivative indices to $\mu$ and $\alpha$ by contracting with inverse metric tensors $g^{\mu\rho} g^{\alpha\sigma}$:
+\begin{equation} [\nabla^\mu, \nabla^\alpha] A_{\mu\alpha} = -g^{\alpha\sigma} (g^{\mu\rho} R^\lambda{}_{\mu\rho\sigma}) A_{\lambda\alpha} - g^{\mu\rho} (g^{\alpha\sigma} R^\lambda{}_{\alpha\rho\sigma}) A_{\mu\lambda} \end{equation}
+We simplify the Riemann tensor contractions using the standard definition of the Ricci tensor, $R_{\beta\sigma} = R^\lambda{}_{\beta\lambda\sigma}$. For the first term, we use the antisymmetry of the Riemann tensor in its last two indices ($R^\lambda{}_{\mu\rho\sigma} = -R^\lambda{}_{\mu\sigma\rho}$) to obtain $g^{\mu\rho} R^\lambda{}_{\mu\rho\sigma} = -R^\lambda{}_\sigma$. For the second term, the contraction directly matches the Ricci trace definition: $g^{\alpha\sigma} R^\lambda{}_{\alpha\rho\sigma} = R^\lambda{}_\rho$. Substituting these contracted forms yields:
+\begin{equation} [\nabla^\mu, \nabla^\alpha] A_{\mu\alpha} = -g^{\alpha\sigma} (-R^\lambda{}_\sigma) A_{\lambda\alpha} - g^{\mu\rho} (R^\lambda{}_\rho) A_{\mu\lambda} = R^{\lambda\alpha} A_{\lambda\alpha} - R^{\lambda\mu} A_{\mu\lambda} \end{equation}
+Now we apply the antisymmetry of $A$ ($A_{\mu\lambda} = -A_{\lambda\mu}$) to the second term, which flips its sign. Additionally, because the Ricci tensor is symmetric ($R^{\lambda\mu} = R^{\mu\lambda}$), and $\alpha$ and $\mu$ in the first term are simply dummy indices being summed over, we can relabel them to show that both terms are identical:
+\begin{equation} [\nabla^\mu, \nabla^\alpha] A_{\mu\alpha} = R^{\mu\lambda} A_{\mu\lambda} + R^{\mu\lambda} A_{\mu\lambda} = 2 R^{\mu\lambda} A_{\mu\lambda} \end{equation}
+Dividing both sides by 2 produces the relation for the commutator acting on our tensor:
+\begin{equation} \frac{1}{2} [\nabla^\mu, \nabla^\alpha] A_{\mu\alpha} = R^{\mu\lambda} A_{\mu\lambda} \end{equation}
+Here, we are contracting the Ricci tensor $R^{\mu\lambda}$, which is perfectly symmetric ($R^{\mu\lambda} = R^{\lambda\mu}$), with $A_{\mu\lambda}$, which is perfectly antisymmetric ($A_{\mu\lambda} = -A_{\lambda\mu}$). The contraction of any symmetric tensor with an antisymmetric tensor is identically zero. Therefore, the right side of equation \eqref{eq:subbed_3177} evaluates exactly to zero:
+\begin{equation} \frac{1}{2} K^\nu \nabla_\nu R = 0 \implies K^\lambda \nabla_\lambda R = 0 \label{eq:3.178} \end{equation}
+This perfectly recovers equation \eqref{eq:3.178}. 
+
+Now, for equation \eqref{eq:3.179}, we must show that the current $J^\mu_T = K_\nu T^{\mu\nu}$ is conserved, which means its covariant divergence vanishes:
+\begin{equation} \nabla_\mu J^\mu_T = \nabla_\mu (K_\nu T^{\mu\nu}) \label{eq:current_div} \end{equation}
+Applying the product rule to equation \eqref{eq:current_div} gives:
+\begin{equation} \nabla_\mu J^\mu_T = (\nabla_\mu K_\nu) T^{\mu\nu} + K_\nu (\nabla_\mu T^{\mu\nu}) \label{eq:expanded_current} \end{equation}
+The energy-momentum tensor is locally conserved by definition, meaning $\nabla_\mu T^{\mu\nu} = 0$, so the second term vanishes. For the first term, $\nabla_\mu K_\nu$ is antisymmetric (by Killing's equation) and $T^{\mu\nu}$ is symmetric. Their contraction is therefore zero:
+\begin{equation} (\nabla_\mu K_\nu) T^{\mu\nu} = 0 \label{eq:sym_antisym} \end{equation}
+Substituting these facts back into equation \eqref{eq:expanded_current} yields the final result:
+\begin{equation} \nabla_\mu J^\mu_T = 0 \label{eq:3.179} \end{equation}
+This proves that the current defined in equation \eqref{eq:3.179} is indeed perfectly conserved.
 \subsection*{Conserved Currents}
 Killing vectors allow us to define conserved quantities for fields, not just particles. Given a Killing vector \(K^\mu\) and an energy-momentum tensor \(T^{\mu\nu}\) that satisfies local conservation (\(\nabla_\mu T^{\mu\nu} = 0\)), we can construct a current:
 \begin{equation}
@@ -1320,17 +1656,29 @@ R_z = \frac{\partial x}{\partial \theta}\partial_x + \frac{\partial y}{\partial 
 \end{equation}
 So the components are \(R_z^\mu = (-y, x, 0)\).
 Let us verify Killing's equation explicitly for \(R_z\). In Cartesian coordinates, \(\Gamma = 0\), so \(\nabla_\mu = \partial_\mu\). The covariant components are \(K_\mu = \delta_{\mu\nu} R_z^\nu = (-y, x, 0)\).
-\begin{align}
-\nabla_x K_x &= \partial_x (-y) = 0. \\
-\nabla_y K_y &= \partial_y (x) = 0. \\
-\nabla_x K_y + \nabla_y K_x &= \partial_x (x) + \partial_y (-y) = 1 + (-1) = 0.
-\end{align}
-The equation holds. The full set of rotational Killing vectors is:
-\begin{align}
-R_z^\mu &= (-y, x, 0) \quad (\text{Rotation about } z), \\
-R_y^\mu &= (z, 0, -x) \quad (\text{Rotation about } y), \\
-R_x^\mu &= (0, -z, y) \quad (\text{Rotation about } x).
-\end{align}
+To find the Killing vector for rotation about the $z$-axis, we use the standard rotation matrix $M_z(\phi)$ for a counterclockwise rotation by an angle $\phi$:
+\begin{equation} M_z(\phi) = \begin{pmatrix} \cos\phi & -\sin\phi & 0 \\ \sin\phi & \cos\phi & 0 \\ 0 & 0 & 1 \end{pmatrix} \label{eq:mz} \end{equation}
+Applying equation \eqref{eq:mz} to a position vector $\mathbf{x} = (x, y, z)^T$ gives the new coordinates $\mathbf{x}'(\phi)$:
+\begin{equation} \mathbf{x}'(\phi) = M_z(\phi) \mathbf{x} = \begin{pmatrix} x\cos\phi - y\sin\phi \\ x\sin\phi + y\cos\phi \\ z \end{pmatrix} \label{eq:x_prime_z} \end{equation}
+The Killing vector $R^\mu$ is the derivative of the transformation in equation \eqref{eq:x_prime_z} with respect to the parameter $\phi$, evaluated at $\phi = 0$:
+\begin{equation} R^\mu = \left. \frac{d\mathbf{x}'}{d\phi} \right|_{\phi=0} = \left. \begin{pmatrix} -x\sin\phi - y\cos\phi \\ x\cos\phi - y\sin\phi \\ 0 \end{pmatrix} \right|_{\phi=0} \label{eq:deriv_z} \end{equation}
+Evaluating equation \eqref{eq:deriv_z} at $\phi = 0$ yields the components:
+\begin{equation} R^\mu = \begin{pmatrix} -y \\ x \\ 0 \end{pmatrix} \label{eq:R_z_final} \end{equation}
+This matches the components $R^\mu = (-y, x, 0)$ from the textbook.
+Similarly, the rotation matrix $M_x(\alpha)$ for an angle $\alpha$ about the $x$-axis is:
+\begin{equation} M_x(\alpha) = \begin{pmatrix} 1 & 0 & 0 \\ 0 & \cos\alpha & -\sin\alpha \\ 0 & \sin\alpha & \cos\alpha \end{pmatrix} \label{eq:mx} \end{equation}
+Applying equation \eqref{eq:mx} to the position vector yields:
+\begin{equation} \mathbf{x}'(\alpha) = M_x(\alpha) \mathbf{x} = \begin{pmatrix} x \\ y\cos\alpha - z\sin\alpha \\ y\sin\alpha + z\cos\alpha \end{pmatrix} \label{eq:x_prime_x} \end{equation}
+Taking the derivative of equation \eqref{eq:x_prime_x} with respect to $\alpha$ and evaluating at $\alpha = 0$ gives the Killing vector $T^\mu$:
+\begin{equation} T^\mu = \left. \frac{d\mathbf{x}'}{d\alpha} \right|_{\alpha=0} = \left. \begin{pmatrix} 0 \\ -y\sin\alpha - z\cos\alpha \\ y\cos\alpha - z\sin\alpha \end{pmatrix} \right|_{\alpha=0} = \begin{pmatrix} 0 \\ -z \\ y \end{pmatrix} \label{eq:T_x_final} \end{equation}
+Equation \eqref{eq:T_x_final} provides the components $T^\mu = (0, -z, y)$ shown in equation (3.186).
+Finally, the rotation matrix $M_y(\beta)$ for an angle $\beta$ about the $y$-axis is:
+\begin{equation} M_y(\beta) = \begin{pmatrix} \cos\beta & 0 & \sin\beta \\ 0 & 1 & 0 \\ -\sin\beta & 0 & \cos\beta \end{pmatrix} \label{eq:my} \end{equation}
+Applying equation \eqref{eq:my} to the position vector results in:
+\begin{equation} \mathbf{x}'(\beta) = M_y(\beta) \mathbf{x} = \begin{pmatrix} x\cos\beta + z\sin\beta \\ y \\ -x\sin\beta + z\cos\beta \end{pmatrix} \label{eq:x_prime_y} \end{equation}
+Taking the derivative of equation \eqref{eq:x_prime_y} with respect to $\beta$ and evaluating at $\beta = 0$ yields the Killing vector $S^\mu$:
+\begin{equation} S^\mu = \left. \frac{d\mathbf{x}'}{d\beta} \right|_{\beta=0} = \left. \begin{pmatrix} -x\sin\beta + z\cos\beta \\ 0 \\ -x\cos\beta - z\sin\beta \end{pmatrix} \right|_{\beta=0} = \begin{pmatrix} z \\ 0 \\ -x \end{pmatrix} \label{eq:S_y_final} \end{equation}
+Equation \eqref{eq:S_y_final} exactly matches the components $S^\mu = (z, 0, -x)$ 
 
 \subsection*{Example: Symmetries of \(S^2\)}
 Consider the 2-sphere with metric:
@@ -1346,10 +1694,180 @@ The sphere behaves like the surface of a ball in \(\mathbb{R}^3\), so it must ha
 S &= \cos\phi \,\partial_\theta - \cot\theta \sin\phi \,\partial_\phi, \\
 T &= -\sin\phi \,\partial_\theta - \cot\theta \cos\phi \,\partial_\phi.
 \end{align}
-You can verify that these messy vectors satisfy \(\nabla_{(\mu} K_{\nu)} = 0\) using the connection coefficients for the sphere calculated in previous sections.
+The non-zero metric components are:
+\begin{equation}
+g_{\theta\theta} = 1, \quad g_{\phi\phi} = \sin^2\theta
+\end{equation}
+The non-zero Christoffel symbols for this metric are (standard results for a sphere):
+\begin{align}
+\Gamma^\theta_{\phi\phi} &= -\sin\theta\cos\theta \\
+\Gamma^\phi_{\theta\phi} &= \Gamma^\phi_{\phi\theta} = \cot\theta
+\end{align}
+All others (like $\Gamma^\theta_{\theta\theta}$) are zero.
 
-% FIGURE: Diagram of a sphere showing the flow lines of the Killing vector \partial_\phi (latitudinal circles) vs the complex flow of the other Killing vectors.
-\section{Maximally Symmetric Spaces}
+We are given the vector $S$ in the basis $(\partial_\theta, \partial_\phi)$:
+\begin{equation}
+S = S^\theta \partial_\theta + S^\phi \partial_\phi = \cos\phi \,\partial_\theta - \cot\theta \sin\phi \,\partial_\phi
+\end{equation}
+So the contravariant components are:
+\begin{equation}
+S^\theta = \cos\phi, \quad S^\phi = -\cot\theta \sin\phi
+\end{equation}
+
+Killing's equation uses the covariant components $S_\mu = g_{\mu\nu}S^\nu$.
+\begin{align}
+S_\theta &= g_{\theta\theta} S^\theta = (1)(\cos\phi) = \cos\phi \\
+S_\phi &= g_{\phi\phi} S^\phi = (\sin^2\theta)(-\cot\theta \sin\phi) \nonumber \\
+       &= \sin^2\theta \left(-\frac{\cos\theta}{\sin\theta}\right)\sin\phi = -\sin\theta\cos\theta\sin\phi
+\end{align}
+
+We must check $\nabla_\mu S_\nu + \nabla_\nu S_\mu = 0$ for all independent pairs of indices: $(\theta, \theta)$, $(\phi, \phi)$, and $(\theta, \phi)$.
+
+We check $2\nabla_\theta S_\theta = 2(\partial_\theta S_\theta - \Gamma^\lambda_{\theta\theta} S_\lambda)$.
+\begin{itemize}
+    \item $\partial_\theta S_\theta = \partial_\theta(\cos\phi) = 0$
+    \item $\Gamma^\lambda_{\theta\theta} = 0$ (all symbols with $\theta\theta$ lower are zero)
+\end{itemize}
+\begin{equation}
+\nabla_\theta S_\theta = 0 - 0 = 0 \quad \checkmark
+\end{equation}
+
+We check $2\nabla_\phi S_\phi = 2(\partial_\phi S_\phi - \Gamma^\lambda_{\phi\phi} S_\lambda)$.
+\begin{itemize}
+    \item \textbf{Derivative term:}
+    \begin{align*}
+    \partial_\phi S_\phi &= \partial_\phi(-\sin\theta\cos\theta\sin\phi) \\
+    &= -\sin\theta\cos\theta \cos\phi
+    \end{align*}
+    \item \textbf{Connection term:}
+    Sum over $\lambda = \theta, \phi$. Only $\Gamma^\theta_{\phi\phi}$ is non-zero.
+    \begin{align*}
+    \Gamma^\lambda_{\phi\phi} S_\lambda &= \Gamma^\theta_{\phi\phi} S_\theta + \Gamma^\phi_{\phi\phi} S_\phi \\
+    &= (-\sin\theta\cos\theta)(S_\theta) + (0) \\
+    &= (-\sin\theta\cos\theta)(\cos\phi)
+    \end{align*}
+\end{itemize}
+Subtracting the connection term from the derivative term:
+\begin{equation}
+\nabla_\phi S_\phi = (-\sin\theta\cos\theta\cos\phi) - (-\sin\theta\cos\theta\cos\phi) = 0 \quad \checkmark
+\end{equation}
+
+We check $\nabla_\theta S_\phi + \nabla_\phi S_\theta = 0$.
+Formula: $(\partial_\theta S_\phi - \Gamma^\lambda_{\theta\phi} S_\lambda) + (\partial_\phi S_\theta - \Gamma^\lambda_{\phi\theta} S_\lambda)$.
+Note that $\Gamma^\lambda_{\theta\phi} = \Gamma^\lambda_{\phi\theta}$.
+
+\begin{itemize}
+    \item \textbf{Derivatives:}
+    \begin{align*}
+    \partial_\theta S_\phi &= \partial_\theta(-\sin\theta\cos\theta\sin\phi) \\
+    &= -\sin\phi [\cos^2\theta - \sin^2\theta] \quad (\text{Product Rule}) \\
+    \partial_\phi S_\theta &= \partial_\phi(\cos\phi) = -\sin\phi
+    \end{align*}
+    Sum of derivatives:
+    \begin{equation*}
+    -\sin\phi(\cos^2\theta - \sin^2\theta) - \sin\phi = -\sin\phi(\cos^2\theta - \sin^2\theta + 1)
+    \end{equation*}
+    Using $1 - \sin^2\theta = \cos^2\theta$, the term in brackets becomes $2\cos^2\theta$.
+    \begin{equation}
+    \text{Sum} = -2\cos^2\theta\sin\phi
+    \end{equation}
+
+    \item \textbf{Connection Terms:}
+    We need to subtract $2\Gamma^\lambda_{\theta\phi} S_\lambda$. The only non-zero symbol here is $\Gamma^\phi_{\theta\phi} = \cot\theta$.
+    \begin{align*}
+    2\Gamma^\lambda_{\theta\phi} S_\lambda &= 2 \Gamma^\phi_{\theta\phi} S_\phi \\
+    &= 2 (\cot\theta) (-\sin\theta\cos\theta\sin\phi) \\
+    &= 2 \left(\frac{\cos\theta}{\sin\theta}\right) (-\sin\theta\cos\theta\sin\phi) \\
+    &= -2 \cos^2\theta \sin\phi
+    \end{align*}
+\end{itemize}
+
+Finally, calculate the full covariant derivative sum:
+\begin{equation}
+\nabla_\theta S_\phi + \nabla_\phi S_\theta = (-2\cos^2\theta\sin\phi) - (-2\cos^2\theta\sin\phi) = 0 \quad \checkmark
+\end{equation}
+
+\section*{Conclusion for S}
+Since $\nabla_{(\mu} S_{\nu)} = 0$ for all components, the vector field $S$ is indeed a Killing vector.
+
+\subsection*{Extension: Checking Vector \(T\)}
+We now apply the same procedure to explicitly verify the third rotational Killing vector:
+\begin{equation}
+T = -\sin\phi \,\partial_\theta - \cot\theta \cos\phi \,\partial_\phi
+\end{equation}
+The contravariant components are:
+\begin{equation}
+T^\theta = -\sin\phi, \quad T^\phi = -\cot\theta \cos\phi
+\end{equation}
+
+Lowering the indices with the metric components gives the covariant components:
+\begin{align}
+T_\theta &= g_{\theta\theta} T^\theta = (1)(-\sin\phi) = -\sin\phi \\
+T_\phi &= g_{\phi\phi} T^\phi = (\sin^2\theta)(-\cot\theta \cos\phi) \nonumber \\
+       &= \sin^2\theta \left(-\frac{\cos\theta}{\sin\theta}\right)\cos\phi = -\sin\theta\cos\theta\cos\phi
+\end{align}
+
+We again check Killing's equation $\nabla_\mu T_\nu + \nabla_\nu T_\mu = 0$ for all independent pairs.
+
+\textbf{Check \(2\nabla_\theta T_\theta\):}
+\begin{itemize}
+    \item $\partial_\theta T_\theta = \partial_\theta(-\sin\phi) = 0$
+    \item $\Gamma^\lambda_{\theta\theta} = 0$
+\end{itemize}
+\begin{equation}
+\nabla_\theta T_\theta = 0 - 0 = 0 \quad \checkmark
+\end{equation}
+
+\textbf{Check \(2\nabla_\phi T_\phi\):}
+\begin{itemize}
+    \item \textbf{Derivative term:}
+    \begin{align*}
+    \partial_\phi T_\phi &= \partial_\phi(-\sin\theta\cos\theta\cos\phi) \\
+    &= \sin\theta\cos\theta \sin\phi
+    \end{align*}
+    \item \textbf{Connection term:}
+    \begin{align*}
+    \Gamma^\lambda_{\phi\phi} T_\lambda &= \Gamma^\theta_{\phi\phi} T_\theta = (-\sin\theta\cos\theta)(-\sin\phi) \\
+    &= \sin\theta\cos\theta\sin\phi
+    \end{align*}
+\end{itemize}
+Subtracting the connection term from the derivative term:
+\begin{equation}
+\nabla_\phi T_\phi = (\sin\theta\cos\theta\sin\phi) - (\sin\theta\cos\theta\sin\phi) = 0 \quad \checkmark
+\end{equation}
+
+\textbf{Check \(\nabla_\theta T_\phi + \nabla_\phi T_\theta\):}
+\begin{itemize}
+    \item \textbf{Derivatives:}
+    \begin{align*}
+    \partial_\theta T_\phi &= \partial_\theta(-\sin\theta\cos\theta\cos\phi) = -\cos\phi [\cos^2\theta - \sin^2\theta] \\
+    \partial_\phi T_\theta &= \partial_\phi(-\sin\phi) = -\cos\phi
+    \end{align*}
+    Sum of derivatives:
+    \begin{equation*}
+    -\cos\phi(\cos^2\theta - \sin^2\theta) - \cos\phi = -\cos\phi(\cos^2\theta - \sin^2\theta + 1)
+    \end{equation*}
+    Using $1 - \sin^2\theta = \cos^2\theta$, this simplifies to:
+    \begin{equation}
+    \text{Sum} = -2\cos^2\theta\cos\phi
+    \end{equation}
+
+    \item \textbf{Connection Terms:}
+    \begin{align*}
+    2\Gamma^\lambda_{\theta\phi} T_\lambda &= 2 \Gamma^\phi_{\theta\phi} T_\phi \\
+    &= 2 (\cot\theta) (-\sin\theta\cos\theta\cos\phi) \\
+    &= 2 \left(\frac{\cos\theta}{\sin\theta}\right) (-\sin\theta\cos\theta\cos\phi) \\
+    &= -2 \cos^2\theta \cos\phi
+    \end{align*}
+\end{itemize}
+
+Subtracting the connection terms from the derivative terms:
+\begin{equation}
+\nabla_\theta T_\phi + \nabla_\phi T_\theta = (-2\cos^2\theta\cos\phi) - (-2\cos^2\theta\cos\phi) = 0 \quad \checkmark
+\end{equation}
+
+\section*{Conclusion for T}
+Since all symmetric covariant derivatives vanish, the vector field $T$ perfectly satisfies Killing's equation and is a valid Killing vector for the 2-sphere.\section{Maximally Symmetric Spaces}
 
 \subsection*{Counting Isometries}
 We ask: what is the most symmetric a space can possibly be? To quantify this, we count the number of independent isometries (Killing vectors).
@@ -1359,9 +1877,57 @@ In a flat Euclidean space $\mathbb{R}^n$, we have:
     \item \textbf{Rotations:} Rotations about a point. A rotation is defined by a plane spanned by two axes. The number of independent planes in $n$ dimensions is the number of pairs of axes: $\binom{n}{2} = \frac{1}{2}n(n-1)$.
 \end{itemize}
 The total number of independent symmetries is the sum:
+\noindent \textbf{Derivation of the Number of Independent Killing Vectors}
+
+\vspace{1em}
+
+In a maximally symmetric space of dimension $n$, the total number of independent symmetries (Killing vectors) is the sum of the translational symmetries and the rotational symmetries.
+
+\vspace{1em}
+
+\noindent \textbf{1. Translational Symmetries} \\
+For any point $p$ in an $n$-dimensional manifold, we can choose the origin of our coordinate system. Since there are $n$ independent directions in the space (corresponding to the $n$ axes), there are $n$ independent translations.
 \begin{equation}
-\text{Number of Killing Vectors} = n + \frac{1}{2}n(n-1) = \frac{1}{2}n(n+1).
+    N_{\text{trans}} = n
 \end{equation}
+
+\vspace{1em}
+
+\noindent \textbf{2. Rotational Symmetries} \\
+A rotation is defined by a plane spanned by two distinct axes. The number of independent rotations is the number of unique pairs of axes we can choose from the $n$ available axes. Mathematically, this is "n choose 2":
+\begin{equation}
+    N_{\text{rot}} = \binom{n}{2} = \frac{n(n-1)}{2}
+\end{equation}
+
+\vspace{1em}
+
+\noindent \textbf{3. Total Symmetries} \\
+The total number of independent Killing vectors $N$ is the sum of translations and rotations:
+\begin{equation}
+    N = N_{\text{trans}} + N_{\text{rot}}
+\end{equation}
+
+Substituting the values from above:
+\begin{equation}
+    N = n + \frac{1}{2}n(n-1)
+\end{equation}
+
+\vspace{1em}
+
+\noindent \textbf{4. Algebraic Simplification} \\
+To verify equation (3.189), we simplify the expression by finding a common denominator:
+\begin{align*}
+    N &= \frac{2n}{2} + \frac{n(n-1)}{2} \\[10pt]
+    &= \frac{2n + n^2 - n}{2} \\[10pt]
+    &= \frac{n^2 + n}{2}
+\end{align*}
+
+Finally, factor out $n$ from the numerator:
+\begin{equation}
+    N = \frac{1}{2}n(n+1)
+\end{equation}
+This confirms that a maximally symmetric space in $n$ dimensions has $\frac{1}{2}n(n+1)$ independent Killing vectors.
+
 A manifold that possesses this maximum number of Killing vectors ($\frac{1}{2}n(n+1)$) is called a \textbf{Maximally Symmetric Space}.
 Because there are isometries mapping any point to any other point (homogeneity) and any direction to any other direction (isotropy), the curvature scalar $R$ must be constant everywhere, and the curvature tensor must look the same in all directions.
 
@@ -1371,21 +1937,84 @@ The only rank-4 tensor we can construct from the metric that shares the symmetri
 \begin{equation}
 R_{\rho\sigma\mu\nu} \propto (g_{\rho\mu} g_{\sigma\nu} - g_{\rho\nu} g_{\sigma\mu}).
 \end{equation}
-We determine the proportionality constant by contracting indices to find the Ricci scalar $R$.
-First, find the Ricci tensor by contracting $\rho$ and $\mu$:
+A maximally symmetric space is both homogeneous (looks the same at every point) and isotropic (looks the same in every direction). This high degree of symmetry implies that the Riemann curvature tensor $R_{\rho\sigma\mu\nu}$ must be constructed solely from the metric tensor $g_{\mu\nu}$, as there are no other preferred vector or tensor fields to use.
+The only tensor of rank 4 that can be built from the metric and shares the symmetry properties of the Riemann tensor (antisymmetric in the first and second pair of indices, symmetric under exchange of pairs) is a linear combination of products of the metric.
+We write this as:
 \begin{equation}
-R_{\sigma\nu} = g^{\rho\mu} R_{\rho\sigma\mu\nu} \propto g^{\rho\mu} (g_{\rho\mu} g_{\sigma\nu} - g_{\rho\nu} g_{\sigma\mu}) = (\delta^\mu_\mu g_{\sigma\nu} - \delta^\mu_\nu g_{\sigma\mu}) = (n g_{\sigma\nu} - g_{\sigma\nu}) = (n-1) g_{\sigma\nu}.
+    R_{\rho\sigma\mu\nu} = K (g_{\rho\mu} g_{\sigma\nu} - g_{\rho\nu} g_{\sigma\mu}) \label{eq:ansatz}
 \end{equation}
-Next, find the Ricci scalar by contracting $\sigma$ and $\nu$:
+where $K$ is an unknown constant that determines the curvature scale.
+The Ricci tensor $R_{\sigma\nu}$ is defined as the contraction of the first and third indices of the Riemann tensor:
 \begin{equation}
-R = g^{\sigma\nu} R_{\sigma\nu} \propto (n-1) g^{\sigma\nu} g_{\sigma\nu} = n(n-1).
+    R_{\sigma\nu} = g^{\rho\mu} R_{\rho\sigma\mu\nu}
 \end{equation}
-So the constant of proportionality is $\frac{R}{n(n-1)}$. The full Riemann tensor is:
-\begin{equation}
-R_{\rho\sigma\mu\nu} = \frac{R}{n(n-1)} (g_{\rho\mu} g_{\sigma\nu} - g_{\rho\nu} g_{\sigma\mu}).
-\end{equation}
-This formula holds for any maximally symmetric space. It is fully characterized by the single constant $R$.
 
+Substitute the Ansatz from equation (\ref{eq:ansatz}) into this definition:
+\begin{equation}
+    R_{\sigma\nu} = g^{\rho\mu} [ K (g_{\rho\mu} g_{\sigma\nu} - g_{\rho\nu} g_{\sigma\mu}) ]
+\end{equation}
+
+We distribute the inverse metric $g^{\rho\mu}$ across the terms:
+\begin{equation}
+    R_{\sigma\nu} = K [ (g^{\rho\mu} g_{\rho\mu}) g_{\sigma\nu} - (g^{\rho\mu} g_{\rho\nu}) g_{\sigma\mu} ]
+\end{equation}
+
+Now we apply two fundamental identities of $n$-dimensional geometry:
+\begin{itemize}
+    \item The contraction of the metric with its inverse is the dimension of the manifold $n$:
+    \begin{equation*}
+        g^{\rho\mu} g_{\rho\mu} = \delta^\mu_\mu = n
+    \end{equation*}
+    \item The contraction of the metric with its inverse on mixed indices is the Kronecker delta:
+    \begin{equation*}
+        g^{\rho\mu} g_{\rho\nu} = \delta^\mu_\nu
+    \end{equation*}
+\end{itemize}
+
+Substituting these back into the expression for $R_{\sigma\nu}$:
+\begin{align*}
+    R_{\sigma\nu} &= K [ n g_{\sigma\nu} - \delta^\mu_\nu g_{\sigma\mu} ] \\
+    &= K [ n g_{\sigma\nu} - g_{\sigma\nu} ] \\
+    &= K (n - 1) g_{\sigma\nu}
+\end{align*}
+
+The Ricci scalar $R$ is the trace of the Ricci tensor:
+\begin{equation}
+    R = g^{\sigma\nu} R_{\sigma\nu}
+\end{equation}
+
+Substitute the result for $R_{\sigma\nu}$ we just derived:
+\begin{equation}
+    R = g^{\sigma\nu} [ K (n - 1) g_{\sigma\nu} ]
+\end{equation}
+
+Factor out the constants:
+\begin{equation}
+    R = K (n - 1) (g^{\sigma\nu} g_{\sigma\nu})
+\end{equation}
+
+Once again, use the identity $g^{\sigma\nu} g_{\sigma\nu} = n$:
+\begin{equation}
+    R = K (n - 1) n
+\end{equation}
+
+We now have a simple algebraic equation relating the scalar curvature $R$ to our constant $K$:
+\begin{equation}
+    R = n(n-1)K
+\end{equation}
+
+Solving for $K$:
+\begin{equation}
+    K = \frac{R}{n(n-1)}
+\end{equation}
+
+Finally, we substitute this value of $K$ back into our original Ansatz (Equation \ref{eq:ansatz}):
+
+\begin{equation}
+    R_{\rho\sigma\mu\nu} = \frac{R}{n(n-1)} (g_{\rho\mu} g_{\sigma\nu} - g_{\rho\nu} g_{\sigma\mu})
+\end{equation}
+
+This confirms that for a maximally symmetric space, the Riemann tensor is entirely determined by the scalar curvature $R$ and the dimension $n$.
 \subsection*{Classification by Curvature}
 Since $R$ is constant, we categorize these spaces by the sign of $R$:
 \begin{itemize}
@@ -1468,10 +2097,10 @@ Summing them up:
 \begin{equation}
 {R^x}_{yxy} = 0 - (y^{-2}) + y^{-2} - 0 = 0?
 \end{equation}
-\textit{Correction:} Let me re-evaluate term 4 carefully.
-$\Gamma^x_{y\lambda} \Gamma^\lambda_{xy}$.
-$\lambda=x \to \Gamma^x_{yx} \Gamma^x_{xx}$. We know $\Gamma^x_{xx}$ was not calculated above. Let's check $\Gamma^x_{xx} = \frac{1}{2}g^{xx}(\partial_x g_{xx} + \dots) = 0$. Correct.
-$\lambda=y \to \Gamma^x_{yy} \Gamma^y_{xy}$. We check $\Gamma^y_{xy} = \frac{1}{2}g^{yy}(\partial_x g_{yy} + \partial_y g_{xy} - \partial_x g_{yy}) = 0$. Correct.
+\textit{Correction:} Let me re-evaluate term 4 carefully. $\Gamma^x_{y\lambda} \Gamma^\lambda_{xy}$.
+
+$$\lambda=x \to \Gamma^x_{yx} \Gamma^x_{xx}$$. We know $\Gamma^x_{xx}$ was not calculated above. Let's check $\Gamma^x_{xx} = \frac{1}{2}g^{xx}(\partial_x g_{xx} + \dots) = 0$. Correct.
+$\lambda=y \to \Gamma^x_{yy} \Gamma^y_{xy}$. We check $$\Gamma^y_{xy} = \frac{1}{2}g^{yy}(\partial_x g_{yy} + \partial_y g_{xy} - \partial_x g_{yy}) = 0$$. Correct.
 Wait, let's re-evaluate Term 3: $\Gamma^x_{x\lambda} \Gamma^\lambda_{yy}$.
 Indices: Sum over $\lambda$.
 $\lambda=x$: $\Gamma^x_{xx} \Gamma^x_{yy} = 0$.
@@ -1514,25 +2143,135 @@ Ricci Scalar $R$:
 R = g^{xx} R_{xx} + g^{yy} R_{yy} = (a^{-2} y^2)(-y^{-2}) + (a^{-2} y^2)(-y^{-2}) = -a^{-2} - a^{-2} = -\frac{2}{a^2}.
 \end{equation}
 The curvature scalar is constant and negative. This confirms $H^2$ is a maximally symmetric space of negative curvature.
-
 \subsection*{Global Topology vs Local Geometry}
-The curvature $R$ is a \textbf{local} property. It tells us about the geometry in a neighborhood of a point. It does not fix the \textbf{global} topology.
-Example: The Torus $T^2$.
-We can define a flat metric on a square $ds^2 = dx^2 + dy^2$ and identify opposite edges ($x \sim x+L, y \sim y+L$).
-Locally, the metric is Euclidean everywhere, so $R=0$.
-Globally, it is a torus, not an infinite plane.
-This distinction is captured by the \textbf{Gauss-Bonnet Theorem} for compact 2D surfaces:
+The curvature scalar $R$ is a \textbf{local} property. It tells us about the intrinsic geometry in a small neighborhood of a point, such as whether parallel lines converge, diverge, or remain parallel. However, this local curvature does not uniquely determine the \textbf{global} topology—the overall "shape" or connectivity of the manifold.
+Consider the example of the Torus $T^2$. We can define a flat Euclidean metric on a square, $ds^2 = dx^2 + dy^2$, and identify the opposite edges such that $x \sim x+L$ and $y \sim y+L$. Locally, the metric is flat everywhere, so the Riemann tensor vanishes and $R=0$. Globally, however, identifying the edges folds the square into a torus, which is topologically distinct from an infinite flat plane. 
+This deep connection between local geometry and global topology is formalized by the \textbf{Gauss-Bonnet Theorem} for compact, two-dimensional Riemannian manifolds:
 \begin{equation}
-\chi(M) = \frac{1}{4\pi} \int_M R \sqrt{|g|} d^2x = 2(1-g).
+\chi(M) = \frac{1}{4\pi} \int_M R \sqrt{|g|} \, d^2x = 2(1-g). \label{eq:gauss_bonnet}
 \end{equation}
-Here $g$ is the genus (number of holes).
-\begin{itemize}
-    \item Sphere ($g=0$): $\int R > 0$. Requires positive curvature.
-    \item Torus ($g=1$): $\int R = 0$. Can be flat.
-    \item Higher genus ($g \geq 2$): $\int R < 0$. Requires negative curvature.
-\end{itemize}
-In String Theory, we sum over these topologies (worldsheets). We often use a "fiducial metric" that is maximally symmetric for each topology: the round metric for the sphere, flat for the torus, and hyperbolic for higher genus surfaces.
+\textbf{Deriving the Euler Characteristic Formula: } \(\chi = 2(1-g)\) \\
+The topological invariant known as the Euler characteristic, denoted by $\chi$, is defined for a triangulated surface as:
+\begin{equation} \chi = V - E + F \label{eq:euler_def} \end{equation}
+where $V$ is the number of vertices, $E$ is the number of edges, and $F$ is the number of faces. To understand how genus ($g$) factors into this, we start with the simplest closed surface: a sphere ($g=0$). If we map a basic polyhedron like a tetrahedron onto a sphere, we have 4 vertices, 6 edges, and 4 triangular faces. Calculating this gives $\chi_{\text{sphere}} = 4 - 6 + 4 = 2$.
+Now, consider how we topologically add a "hole" or a "handle" to create a surface of genus $g=1$ (a torus). To attach a handle to our sphere, we must first cut out two separate triangular faces to create openings. Removing these two faces reduces our total face count $F$ by 2, which reduces the Euler characteristic by 2.
+Next, we connect these two open boundaries with a cylindrical tube (the handle). A topological cylinder constructed from triangles can be shown to have an internal Euler characteristic of exactly 0 (the new vertices, edges, and faces required to build the tube perfectly cancel out: $\Delta V - \Delta E + \Delta F = 0$).
+Therefore, the net change in the Euler characteristic for attaching one handle is exactly $-2$. If we start with a sphere ($\chi = 2$) and add $g$ handles to reach a genus $g$, we subtract $2$ for every handle added. This logically yields the formula:
+\begin{equation} \chi = 2 - 2g = 2(1-g) \label{eq:genus_formula} \end{equation}
 
+\textbf{Sketch of the Proof for the Global Gauss-Bonnet Theorem} \\
+To prove the global theorem, we rely on a process called triangulation, breaking the continuous curved manifold $M$ down into a mesh of flat-looking triangles.
+First, we state the \textbf{Local Gauss-Bonnet Theorem} for a single triangle $\Delta$ with interior angles $\alpha_i$ on a curved surface:
+\begin{equation} \int_{\Delta} K dA + \int_{\partial \Delta} k_g ds = \sum_{i=1}^3 \alpha_i - \pi \label{eq:local_gb} \end{equation}
+Here, $K$ is the Gaussian Curvature, $k_g$ is the geodesic curvature of the edges, $dA$ is the area element, and $ds$ is the line element along the boundary $\partial \Delta$.
+To find the global curvature, we sum equation \eqref{eq:local_gb} over all the faces $F$ in our triangulation of the manifold $M$:
+\begin{equation} \sum_{\text{Faces}} \left( \int_{\Delta} K dA + \int_{\partial \Delta} k_g ds \right) = \sum_{\text{Faces}} \left( \sum \alpha_i - \pi \right) \label{eq:summed_gb} \end{equation}
+Two massive cancellations occur in equation \eqref{eq:summed_gb}. First, every internal edge is shared by exactly two adjacent triangles. When we integrate the geodesic curvature $k_g$ along the edges, we traverse the edge in one direction for the first triangle, and the opposite direction for the second. Thus, $\int k_g ds$ perfectly cancels out to zero for every shared edge. Second, the sum of all interior angles $\alpha_i$ around any single vertex $V$ must complete a full circle, adding up to $2\pi$. So, $\sum \alpha_i = 2\pi V$. Substituting these geometric facts:
+\begin{equation} \int_M K dA = 2\pi V - \pi F \label{eq:intermediate_gb} \end{equation}
+We must now relate equation \eqref{eq:intermediate_gb} to our edges $E$. In a strict triangulation, every face has 3 edges, and every edge is shared by exactly 2 faces. This gives the relation $3F = 2E$, or $2E - 3F = 0$.
+Let us algebraically manipulate the expression $2\pi(V - E + F)$:
+\begin{equation} 2\pi(V - E + F) = 2\pi V - 2\pi E + 2\pi F \end{equation}
+Substitute $2E = 3F$ into the middle term:
+\begin{equation} 2\pi V - \pi(3F) + 2\pi F = 2\pi V - \pi F \label{eq:algebra_trick} \end{equation}
+Notice that equation \eqref{eq:algebra_trick} perfectly matches the right-hand side of equation \eqref{eq:intermediate_gb}. Using the definition of the Euler characteristic from equation \eqref{eq:euler_def}, we conclude:
+\begin{equation} \int_M K dA = 2\pi(V - E + F) = 2\pi \chi \label{eq:almost_there} \end{equation}
+Finally, we map equation \eqref{eq:almost_there} to the specific notation used in your textbook. In exactly two dimensions, the Ricci scalar $R$ is strictly twice the Gaussian curvature ($R = 2K$). The invariant area element $dA$ is written in covariant tensor notation as $\sqrt{|g|} d^2x$. Substituting $K = R/2$ and $dA = \sqrt{|g|} d^2x$:
+\begin{equation} \int_M \left(\frac{R}{2}\right) \sqrt{|g|} d^2x = 2\pi \chi \label{eq:substitution} \end{equation}
+Dividing both sides of equation \eqref{eq:substitution} by $2\pi$ and substituting equation \eqref{eq:genus_formula} yields the exact formula (1.320) from the text:
+\begin{equation} \frac{1}{4\pi} \int_M R \sqrt{|g|} d^2x = \chi = 2(1-g) \label{eq:final_proof} \end{equation}
+This completes the conceptual proof bridging local differential geometry with global topology.
+Here, $\sqrt{|g|} \, d^2x$ is the invariant volume (or area) element, $\chi(M)$ is the Euler characteristic, and $g$ is the genus (intuitively, the number of "holes" in the surface).
+\begin{itemize}
+    \item \textbf{Sphere ($g=0$):} $\chi = 2$. The integral of the curvature must be strictly positive ($\int R > 0$). While the curvature can vary, a sphere cannot admit a globally flat metric; it requires positive curvature on average.
+    \item \textbf{Torus ($g=1$):} $\chi = 0$. The integral of the curvature vanishes ($\int R = 0$). This admits our example of the flat torus ($R=0$ everywhere), but it also allows regions of positive and negative curvature that perfectly cancel out.
+    \item \textbf{Higher genus ($g \geq 2$):} $\chi < 0$. The integral is strictly negative ($\int R < 0$). These surfaces necessarily have a net negative curvature.
+\end{itemize}
+In advanced theoretical frameworks like String Theory, physical processes involve summing over all possible worldsheet topologies. Physicists simplify calculations by choosing a "fiducial metric"—a maximally symmetric representative metric for each topological class: a round, positively curved metric for the sphere; a flat metric for the torus; and a uniformly negatively curved metric (hyperbolic) for higher-genus surfaces.
+
+
+
+\subsection*{The Hyperbolic Plane: Proving the Equations}
+To understand spaces of constant negative curvature, we examine the Poincaré half-plane, which models a two-dimensional hyperbolic geometry. Based on the context provided, we define the metric on the upper half-plane ($y > 0$) as:
+\begin{equation}
+ds^2 = g_{\mu\nu} dx^\mu dx^\nu = a^2 \frac{dx^2 + dy^2}{y^2}. \label{eq:hyperbolic_metric}
+\end{equation}
+Here, $g_{xx} = g_{yy} = a^2/y^2$, and the off-diagonal components are zero.
+
+\textbf{1. Proving Equation \eqref{eq:3.193_proof}: Path Length}
+Let us calculate the distance $\Delta s$ along a vertical path from $y_1$ to $y_2$ at a constant $x$. Since $x$ is constant, $dx = 0$. The line element reduces to $ds = \sqrt{g_{yy}} dy$. 
+\begin{align}
+\Delta s &= \int_{y_1}^{y_2} \sqrt{g_{\mu\nu} \frac{dx^\mu}{dy} \frac{dx^\nu}{dy}} \, dy \nonumber \\
+         &= \int_{y_1}^{y_2} \sqrt{\frac{a^2}{y^2}} \, dy \nonumber \\
+         &= a \int_{y_1}^{y_2} \frac{dy}{y} = a \ln\left(\frac{y_2}{y_1}\right). \label{eq:3.193_proof}
+\end{align}
+This result shows that the distance does not simply scale as $y_2 - y_1$ like it would in Euclidean space. Crucially, if we take the limit as $y_1 \to 0$, the path length diverges to infinity ($\Delta s \to \infty$). The line $y=0$ acts as a boundary that is infinitely far away for any observer living on the hyperboloid.
+
+\textbf{2. Proving Equation \eqref{eq:3.194_proof}: Christoffel Symbols}
+We calculate the Christoffel symbols using the metric components $g_{xx} = g_{yy} = a^2 y^{-2}$ and their inverses $g^{xx} = g^{yy} = a^{-2} y^2$. Note that the scale factor $a$ will perfectly cancel out.
+\begin{align*}
+\Gamma^x_{xy} &= \frac{1}{2} g^{xx} (\partial_x g_{xy} + \partial_y g_{xx} - \partial_x g_{xy}) = \frac{1}{2} \left(\frac{y^2}{a^2}\right) \partial_y \left(\frac{a^2}{y^2}\right) = \frac{1}{2} \left(\frac{y^2}{a^2}\right) \left(-2\frac{a^2}{y^3}\right) = -y^{-1}. \\
+\Gamma^y_{xx} &= \frac{1}{2} g^{yy} (\partial_x g_{xy} + \partial_x g_{yx} - \partial_y g_{xx}) = \frac{1}{2} \left(\frac{y^2}{a^2}\right) \left(-\partial_y \frac{a^2}{y^2}\right) = \frac{1}{2} \left(\frac{y^2}{a^2}\right) \left(2\frac{a^2}{y^3}\right) = y^{-1}. \\
+\Gamma^y_{yy} &= \frac{1}{2} g^{yy} (\partial_y g_{yy} + \partial_y g_{yy} - \partial_y g_{yy}) = \frac{1}{2} \left(\frac{y^2}{a^2}\right) \partial_y \left(\frac{a^2}{y^2}\right) = \frac{1}{2} \left(\frac{y^2}{a^2}\right) \left(-2\frac{a^2}{y^3}\right) = -y^{-1}.
+\end{align*}
+Because the metric is symmetric and diagonal, all other symbols vanish, yielding the exact set from the text:
+\begin{equation}
+\Gamma^x_{xy} = \Gamma^x_{yx} = -y^{-1}, \quad \Gamma^y_{xx} = y^{-1}, \quad \Gamma^y_{yy} = -y^{-1}. \label{eq:3.194_proof}
+\end{equation}
+
+\textbf{3. Proving Equation \eqref{eq:3.195_proof}: Geodesics}
+We want to show that geodesics satisfy $(x - x_0)^2 + y^2 = l^2$. We start with the geodesic equation $\frac{d^2 x^\mu}{d\lambda^2} + \Gamma^\mu_{\rho\sigma} \frac{dx^\rho}{d\lambda} \frac{dx^\sigma}{d\lambda} = 0$. 
+For the $x$-component (using prime for $d/d\lambda$):
+\begin{equation}
+x'' + 2\Gamma^x_{xy} x' y' = 0 \implies x'' - \frac{2}{y} x' y' = 0 \label{eq:geo_x}
+\end{equation}
+Dividing by $x'$ gives $\frac{x''}{x'} = 2 \frac{y'}{y}$. Integrating both sides with respect to $\lambda$ yields $\ln(x') = 2 \ln(y) + C$, which simplifies to $x' = k y^2$ for some constant $k$.
+Instead of solving the $y$-geodesic equation directly, we use the fact that the length of the tangent vector is constant along an affinely parameterized geodesic. Let's parameterize by arc length ($s$), so $g_{\mu\nu} x'^\mu x'^\nu = 1$:
+\begin{equation}
+\frac{a^2}{y^2} \left( (x')^2 + (y')^2 \right) = 1 \implies (x')^2 + (y')^2 = \frac{y^2}{a^2}
+\end{equation}
+Substitute $x' = k y^2$ into this magnitude equation:
+\begin{equation}
+k^2 y^4 + (y')^2 = \frac{y^2}{a^2} \implies (y')^2 = y^2 \left( \frac{1}{a^2} - k^2 y^2 \right)
+\end{equation}
+To find the shape of the path, we find $dx/dy$:
+\begin{equation}
+\frac{dx}{dy} = \frac{x'}{y'} = \frac{k y^2}{\pm y \sqrt{\frac{1}{a^2} - k^2 y^2}} = \frac{k y}{\pm \sqrt{\frac{1}{a^2} - k^2 y^2}}
+\end{equation}
+Let us define a new constant $l = \frac{1}{a k}$. Substituting $k = \frac{1}{al}$ gives:
+\begin{equation}
+\frac{dx}{dy} = \frac{y / (al)}{\pm \sqrt{\frac{1}{a^2} - \frac{y^2}{a^2 l^2}}} = \frac{y/l}{\pm \sqrt{1 - (y/l)^2}} = \frac{y}{\pm \sqrt{l^2 - y^2}}
+\end{equation}
+Integrate with respect to $y$:
+\begin{equation}
+x = \int \frac{y}{\pm \sqrt{l^2 - y^2}} \, dy = \mp \sqrt{l^2 - y^2} + x_0
+\end{equation}
+Rearranging terms:
+\begin{equation}
+(x - x_0) = \mp \sqrt{l^2 - y^2} \implies (x - x_0)^2 = l^2 - y^2 \implies (x - x_0)^2 + y^2 = l^2. \label{eq:3.195_proof}
+\end{equation}
+These curves describe semicircles with centers located on the $x$-axis, confirming the textbook's statement. In the limit as $x_0 \to \infty$ and $l \to \infty$ with $l-x_0$ fixed, we get a straight vertical line.
+
+\textbf{4. Proving Equation \eqref{eq:3.196_proof}: Riemann Tensor Component}
+Following the discussion of $S^2$, we calculate a representative component of the Riemann tensor. We compute $R^x_{\ yxy}$ directly from the definition of the Riemann tensor in terms of Christoffel symbols:
+\begin{equation}
+R^\rho_{\ \sigma\mu\nu} = \partial_\mu \Gamma^\rho_{\nu\sigma} - \partial_\nu \Gamma^\rho_{\mu\sigma} + \Gamma^\rho_{\mu\lambda}\Gamma^\lambda_{\nu\sigma} - \Gamma^\rho_{\nu\lambda}\Gamma^\lambda_{\mu\sigma} \label{eq:riemann_def}
+\end{equation}
+Assigning indices $(\rho, \sigma, \mu, \nu) = (x, y, x, y)$ to equation \eqref{eq:riemann_def}:
+\begin{equation}
+R^x_{\ yxy} = \partial_x \Gamma^x_{yy} - \partial_y \Gamma^x_{xy} + \Gamma^x_{x\lambda}\Gamma^\lambda_{yy} - \Gamma^x_{y\lambda}\Gamma^\lambda_{xy} \label{eq:riemann_expanded}
+\end{equation}
+We evaluate term by term using equation \eqref{eq:3.194_proof}:
+\begin{itemize}
+    \item $\partial_x \Gamma^x_{yy} = \partial_x (0) = 0$
+    \item $-\partial_y \Gamma^x_{xy} = -\partial_y (-y^{-1}) = -y^{-2}$
+    \item $\Gamma^x_{x\lambda}\Gamma^\lambda_{yy} = \Gamma^x_{xx}\Gamma^x_{yy} + \Gamma^x_{xy}\Gamma^y_{yy} = (0)(0) + (-y^{-1})(-y^{-1}) = y^{-2}$
+    \item $-\Gamma^x_{y\lambda}\Gamma^\lambda_{xy} = -(\Gamma^x_{yx}\Gamma^x_{xy} + \Gamma^x_{yy}\Gamma^y_{xy}) = -((-y^{-1})(-y^{-1}) + (0)(0)) = -y^{-2}$
+\end{itemize}
+Summing these contributions gives:
+\begin{equation}
+R^x_{\ yxy} = 0 - y^{-2} + y^{-2} - y^{-2} = -y^{-2}. \label{eq:3.196_proof}
+\end{equation}
+This perfectly matches equation \eqref{eq:3.196_proof} as defined in the text.
 \subsection*{Lorentzian Signatures}
 The classification extends to spacetime (Lorentzian metric):
 \begin{itemize}
@@ -1575,8 +2314,25 @@ In covariant language, the Lie derivative vanishes \([S, T] = 0\). This implies 
 \label{eq:commutator_ST}
 T^\nu \nabla_\nu S^\mu = S^\nu \nabla_\nu T^\mu \quad (\text{or } \nabla_T S = \nabla_S T).
 \end{equation}
-(Proof: \([S, T]^\mu = S^\nu \nabla_\nu T^\mu - T^\nu \nabla_\nu S^\mu = 0\)).
-
+To prove the commutator property $[S,T]^\mu = 0$ in covariant form, we start with the definition of the Lie bracket of two vector fields evaluated using covariant derivatives:
+\begin{equation} [S,T]^\mu = S^\nu \nabla_\nu T^\mu - T^\nu \nabla_\nu S^\mu \label{eq:lie_cov_def} \end{equation}
+We expand the covariant derivatives in equation \eqref{eq:lie_cov_def} using the standard formula $\nabla_\nu V^\mu = \partial_\nu V^\mu + \Gamma^\mu_{\nu\lambda} V^\lambda$:
+\begin{equation} [S,T]^\mu = S^\nu (\partial_\nu T^\mu + \Gamma^\mu_{\nu\lambda} T^\lambda) - T^\nu (\partial_\nu S^\mu + \Gamma^\mu_{\nu\lambda} S^\lambda) \label{eq:expanded_cov} \end{equation}
+Distributing the vectors yields:
+\begin{equation} [S,T]^\mu = S^\nu \partial_\nu T^\mu + S^\nu \Gamma^\mu_{\nu\lambda} T^\lambda - T^\nu \partial_\nu S^\mu - T^\nu \Gamma^\mu_{\nu\lambda} S^\lambda \label{eq:distributed_cov} \end{equation}
+In the last term of equation \eqref{eq:distributed_cov}, $\nu$ and $\lambda$ are dummy summation indices, so we can swap their labels ($T^\lambda \Gamma^\mu_{\lambda\nu} S^\nu$). We can then group the connection terms together:
+\begin{equation} S^\nu \Gamma^\mu_{\nu\lambda} T^\lambda - T^\lambda \Gamma^\mu_{\lambda\nu} S^\nu = S^\nu T^\lambda (\Gamma^\mu_{\nu\lambda} - \Gamma^\mu_{\lambda\nu}) \label{eq:gamma_grouping} \end{equation}
+In General Relativity, we use the Levi-Civita connection, which is torsion-free. This means the Christoffel symbols are symmetric in their lower indices ($\Gamma^\mu_{\nu\lambda} = \Gamma^\mu_{\lambda\nu}$). Consequently, the term in equation \eqref{eq:gamma_grouping} perfectly cancels out to zero. Equation \eqref{eq:distributed_cov} then simplifies to the standard partial derivative definition of the Lie bracket:
+\begin{equation} [S,T]^\mu = S^\nu \partial_\nu T^\mu - T^\nu \partial_\nu S^\mu \label{eq:lie_partial} \end{equation}
+Next, we apply the definitions of the tangent and deviation vectors provided in your text: $T^\mu = \frac{\partial x^\mu}{\partial t}$ and $S^\nu = \frac{\partial x^\nu}{\partial s}$. The operator $S^\nu \partial_\nu$ represents the directional derivative along the $s$-parameterized curves, which is simply the partial derivative $\frac{\partial}{\partial s}$. Similarly, $T^\nu \partial_\nu = \frac{\partial}{\partial t}$. Applying these to equation \eqref{eq:lie_partial}:
+\begin{equation} S^\nu \partial_\nu T^\mu = \frac{\partial}{\partial s} \left( \frac{\partial x^\mu}{\partial t} \right) = \frac{\partial^2 x^\mu}{\partial s \partial t} \label{eq:ds_dt} \end{equation}
+\begin{equation} T^\nu \partial_\nu S^\mu = \frac{\partial}{\partial t} \left( \frac{\partial x^\mu}{\partial s} \right) = \frac{\partial^2 x^\mu}{\partial t \partial s} \label{eq:dt_ds} \end{equation}
+Substituting equations \eqref{eq:ds_dt} and \eqref{eq:dt_ds} back into equation \eqref{eq:lie_partial} gives:
+\begin{equation} [S,T]^\mu = \frac{\partial^2 x^\mu}{\partial s \partial t} - \frac{\partial^2 x^\mu}{\partial t \partial s} \label{eq:mixed_partials} \end{equation}
+By Schwarz's theorem, the mixed partial derivatives of the smooth coordinate functions $x^\mu(s, t)$ commute, meaning $\frac{\partial^2 x^\mu}{\partial s \partial t} = \frac{\partial^2 x^\mu}{\partial t \partial s}$. Therefore, equation \eqref{eq:mixed_partials} evaluates exactly to zero:
+\begin{equation} [S,T]^\mu = 0 \label{eq:lie_zero} \end{equation}
+Since we established in equation \eqref{eq:lie_cov_def} that $[S,T]^\mu = S^\nu \nabla_\nu T^\mu - T^\nu \nabla_\nu S^\mu$, setting it equal to zero directly yields the desired identity:
+\begin{equation} S^\nu \nabla_\nu T^\mu - T^\nu \nabla_\nu S^\mu = 0 \implies T^\nu \nabla_\nu S^\mu = S^\nu \nabla_\nu T^\mu \label{eq:final_commutator_proof} \end{equation}
 \subsection*{Relative Velocity and Acceleration}
 We want to see how the separation \(S^\mu\) changes as we move along the geodesic (increment \(t\)).
 The \textbf{relative velocity} of the geodesics is the rate of change of \(S^\mu\):

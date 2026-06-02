@@ -1,0 +1,57 @@
+\contentsline {chapter}{\numberline {1}The Schwarzschild Solution}{2}{chapter.1}%
+\contentsline {section}{\numberline {1.1}The Schwarzschild Solution}{2}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Metric Ansatz and Symmetry Justification}{2}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Inverse Metric and Determinant}{3}{subsection.1.1.2}%
+\contentsline {subsubsection}{Covariant Metric Tensor Components}{3}{subsection.1.1.2}%
+\contentsline {subsubsection}{Computation of the Inverse Metric Tensor}{4}{equation.1.26}%
+\contentsline {subsubsection}{Verification of the Inverse Metric via Matrix Multiplication}{5}{equation.1.44}%
+\contentsline {subsubsection}{Computation of the Metric Determinant}{6}{equation.1.54}%
+\contentsline {subsubsection}{Computation of the Invariant Volume Element Factor}{6}{equation.1.59}%
+\contentsline {subsection}{\numberline {1.1.3}Derivation of the Ricci Tensor}{10}{subsection.1.1.3}%
+\contentsline {subsubsection}{The Contracted Christoffel Symbol Identity}{10}{subsection.1.1.3}%
+\contentsline {subsubsection}{Temporal Component: $R_{tt}$}{11}{equation.1.124}%
+\contentsline {subsubsection}{Radial Component: $R_{rr}$}{12}{equation.1.137}%
+\contentsline {subsubsection}{Polar Component: $R_{\theta \theta }$}{12}{equation.1.147}%
+\contentsline {subsubsection}{Azimuthal Component: $R_{\phi \phi }$}{13}{equation.1.159}%
+\contentsline {subsection}{\numberline {1.1.4}Einstein Equations and Solution}{14}{subsection.1.1.4}%
+\contentsline {subsubsection}{The Vacuum Condition}{14}{subsection.1.1.4}%
+\contentsline {subsubsection}{Derivation of the Constraint $\alpha = -\beta $}{15}{equation.1.178}%
+\contentsline {subsubsection}{Explicit Solution of the Differential Equations}{15}{equation.1.185}%
+\contentsline {subsection}{\numberline {1.1.5}Final Schwarzschild Metric and Interpretation}{16}{subsection.1.1.5}%
+\contentsline {subsubsection}{Substitution of the Metric Functions}{16}{subsection.1.1.5}%
+\contentsline {subsubsection}{The Weak-Field Limit and the Schwarzschild Radius}{17}{equation.1.202}%
+\contentsline {subsubsection}{The Final Schwarzschild Metric}{17}{equation.1.210}%
+\contentsline {section}{\numberline {1.2}Brikhoff's Theorem}{18}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}General Spherically Symmetric Metric}{18}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Inverse Metric and Determinant}{20}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}Christoffel Symbols (Time-Dependent Case)}{22}{subsection.1.2.3}%
+\contentsline {subsection}{\numberline {1.2.4}Riemann Curvature Tensor}{26}{subsection.1.2.4}%
+\contentsline {subsection}{\numberline {1.2.5}Ricci Tensor}{28}{subsection.1.2.5}%
+\contentsline {subsection}{\numberline {1.2.6}Einstein Equations in Vacuum}{32}{subsection.1.2.6}%
+\contentsline {section}{\numberline {1.3}Coordinate vs. Curvature Singularities}{36}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Explicit Calculation of the Kretschmann Scalar}{37}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Physical Implications of the Singularities}{38}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}The Central Singularity ($r=0$)}{38}{subsection.1.3.3}%
+\contentsline {subsection}{\numberline {1.3.4}The Schwarzschild Radius ($r=2GM$)}{38}{subsection.1.3.4}%
+\contentsline {subsection}{\numberline {1.3.5}Astrophysical Relevance}{38}{subsection.1.3.5}%
+\contentsline {section}{\numberline {1.4}Geodesics of the Schwarzschild Geometry}{38}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Symmetries and Constants of Motion}{39}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}The Orbital Plane}{39}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}The Radial Equation and Effective Potential}{40}{subsection.1.4.3}%
+\contentsline {paragraph}{Physical Interpretation of the Effective Potential:}{41}{equation.1.426}%
+\contentsline {subsection}{\numberline {1.4.4}Null Geodesics: The Photon Sphere}{41}{subsection.1.4.4}%
+\contentsline {subsection}{\numberline {1.4.5}Timelike Geodesics and the Innermost Stable Circular Orbit}{41}{subsection.1.4.5}%
+\contentsline {paragraph}{Case 1: Large Angular Momentum ($L^{2} > 12G^{2}M^{2}$)}{42}{equation.1.435}%
+\contentsline {paragraph}{Case 2: The Critical Limit ($L^{2} = 12G^{2}M^{2}$)}{42}{equation.1.435}%
+\contentsline {paragraph}{Case 3: Small Angular Momentum ($L^{2} < 12G^{2}M^{2}$)}{42}{equation.1.437}%
+\contentsline {section}{\numberline {1.5}Experimental Tests of General Relativity}{42}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}The Precession of Perihelia}{42}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}Gravitational Redshift}{45}{subsection.1.5.2}%
+\contentsline {section}{\numberline {1.6}Schwarzschild Black Holes and Causal Structure}{46}{section.1.6}%
+\contentsline {subsection}{\numberline {1.6.1}Causal Structure in Schwarzschild Coordinates}{46}{subsection.1.6.1}%
+\contentsline {paragraph}{Asymptotic Behavior:}{47}{equation.1.472}%
+\contentsline {subsection}{\numberline {1.6.2}The Tortoise Coordinate}{47}{subsection.1.6.2}%
+\contentsline {subsection}{\numberline {1.6.3}Eddington-Finkelstein Coordinates}{48}{subsection.1.6.3}%
+\contentsline {subsection}{\numberline {1.6.4}The Event Horizon and the Tipping of Light Cones}{49}{subsection.1.6.4}%
+\contentsline {paragraph}{Physical Interpretation: The Event Horizon.}{49}{equation.1.489}%
+\contentsline {subsection}{\numberline {1.6.5}The Misleading Newtonian Analogy}{49}{subsection.1.6.5}%

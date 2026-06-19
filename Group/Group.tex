@@ -1,0 +1,1235 @@
+\documentclass[11pt, a4paper]{report}
+\usepackage[margin=0.8in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+% Formatting section headers
+\titleformat{\section}{\large\bfseries\uppercase}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+
+\newtheorem{theorem}{Theorem}
+
+\title{\textbf{Joshi: Group Theory}\\ \Large Compact Summary of Key Concepts}
+\author{NoteBookLM}
+
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue, citecolor=blue, bookmarks=true, bookmarksopen=true]{hyperref}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+\chapter{Group Theory}
+\section{What is a Group?}
+
+\textbf{Abstract Group:}\\
+A set $G = \{E, A, B, C, \dots\}$ is a group under a binary operation $\circ$ if it satisfies the following four properties:
+\begin{enumerate}
+    \item \textbf{Closure:} For any two elements $A, B \in G$, their composition $A \circ B$ is also in $G$.
+    \[ A \circ B \in G \quad \forall A, B \in G \]
+    \item \textbf{Identity:} There exists an identity element $E \in G$ such that for any $A \in G$, composition with $E$ leaves $A$ unchanged.
+    \[ \exists E \in G \text{ such that } E \circ A = A \circ E = A \quad \forall A \in G \]
+    \item \textbf{Inverse:} For every element $A \in G$, there exists a unique inverse element $B \in G$ (often denoted $A^{-1}$) such that their composition yields the identity $E$.
+    \[ \forall A \in G, \exists B \in G \text{ such that } A \circ B = B \circ A = E \]
+    \item \textbf{Associativity:} The law of composition is associative for all elements in the group.
+    \[ A \circ (B \circ C) = (A \circ B) \circ C \quad \forall A, B, C \in G \]
+\end{enumerate}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\subsection*{Geometric Intuition: Symmetry of a Square}
+Below is the geometrical representation of the symmetry axes for a square, preparing us for the $C_{4v}$ point group analysis.
+
+\begin{center}
+\begin{tikzpicture}[scale=2.5]
+    % Draw the square boundary
+    \draw[thick] (-1,-1) rectangle (1,1);
+    
+    % Label corners (a, b, c, d)
+    \node[above left] at (-1,1) {$a$};
+    \node[above right] at (1,1) {$b$};
+    \node[below right] at (1,-1) {$c$};
+    \node[below left] at (-1,-1) {$d$};
+    
+    % Center edges (e, f, g, h)
+    \node[above] at (0,1) {$e$};
+    \node[right] at (1,0) {$f$};
+    \node[below] at (0,-1) {$g$};
+    \node[left] at (-1,0) {$h$};
+    
+    % Draw and label axes of symmetry
+    % Diagonals (1-3 and 2-4)
+    \draw[dashed, blue] (-1.3,1.3) -- (1.3,-1.3);
+    \node[above left] at (-1.3,1.3) {1};
+    \node[below right] at (1.3,-1.3) {3};
+    
+    \draw[dashed, blue] (-1.3,-1.3) -- (1.3,1.3);
+    \node[below left] at (-1.3,-1.3) {4};
+    \node[above right] at (1.3,1.3) {2};
+    
+    % Vertical / Horizontal (5-7 and 8-6)
+    \draw[dashed, red] (0,-1.3) -- (0,1.3);
+    \node[above] at (0,1.3) {5};
+    \node[below] at (0,-1.3) {7};
+    
+    \draw[dashed, red] (-1.3,0) -- (1.3,0);
+    \node[left] at (-1.3,0) {8};
+    \node[right] at (1.3,0) {6};
+    
+    % Center origin
+    \node[circle, fill=black, inner sep=1.5pt, label=above right:$o$] at (0,0) {};
+    
+\end{tikzpicture}
+\end{center}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\subsection*{The Symmetry Group of a Square ($C_{4v}$)}
+
+A symmetry transformation is an operation that leaves the boundaries of a physical system invariant. The square has 8 such transformations, forming a non-abelian group of order 8, denoted $C_{4v}$.
+
+\textbf{Rotations (about the central normal axis):}
+\begin{itemize}
+    \item $E$: Identity operation (no change).
+    \item $C_4$: Clockwise rotation by $90^\circ$ ($\pi/2$).
+    \item $C_4^2$: Rotation by $180^\circ$ ($\pi$).
+    \item $C_4^3$: Clockwise rotation by $270^\circ$ ($3\pi/2$).
+\end{itemize}
+
+\textbf{Reflections (across symmetry planes):}
+\begin{itemize}
+    \item $m_x$: Reflection across the vertical bisector.
+    \item $m_y$: Reflection across the horizontal bisector.
+    \item $\sigma_u$: Reflection across the main diagonal.
+    \item $\sigma_v$: Reflection across the off-diagonal.
+\end{itemize}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\subsection*{Verification of Group Axioms for $C_{4v}$}
+This set of 8 operations perfectly satisfies the formal group axioms under the binary operation of successive transformations:
+\begin{enumerate}
+    \item \textbf{Closure:} Any successive combination of these 8 operations results in an orientation that is identical to applying just one of the 8 base operations.
+    \item \textbf{Identity:} $E$ is the identity element, leaving the system unchanged.
+    \item \textbf{Inverse:} Every operation has a unique inverse within the set that returns the square to its original state. For reflections, $(m_x)^{-1} = m_x$. For rotations, $(C_4)^{-1} = C_4^3$.
+    \item \textbf{Associativity:} Successive spatial transformations are inherently associative.
+\end{enumerate}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Standard Mathematical Examples:}\\
+\begin{itemize}
+    \item \textbf{Integers Modulo $k$ (Addition):} Forms a group where the identity is $0$ and the inverse of $r$ is $k-r$.
+    \item \textbf{Integers Modulo $p$ (Multiplication):} If $p$ is prime, the set $\{1, 2, \dots, p-1\}$ forms a group under multiplication modulo $p$. The identity is $1$.
+    \item \textbf{Unitary Matrices $U(n)$:} The set of all unitary matrices of order $n$ forms a group under standard matrix multiplication. The identity is the unit matrix $I$.
+\end{itemize}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Active vs. Passive Viewpoint:} \\
+When analyzing spatial symmetries, we must define the frame of reference:
+\begin{itemize}
+    \item \textbf{Active Viewpoint:} The coordinate axes are held fixed, and the physical system (the square) is rotated or reflected.
+    \item \textbf{Passive Viewpoint:} The physical system is held fixed, and the coordinate axes are rotated or reflected.
+\end{itemize}
+\textbf{Crucial Rule:} A transformation in the active viewpoint is exactly equivalent to the \textit{inverse} transformation in the passive viewpoint. For example, an active clockwise rotation of the system is equivalent to a passive counter-clockwise rotation of the axes.
+
+\section{The Multiplication Table}
+
+\textbf{Joshi's Table Convention:} \\
+For a successive operation $A \circ B$ acting on a system, the operation $B$ is applied first, followed by $A$. 
+In the group multiplication table:
+\begin{itemize}
+    \item The \textbf{Columns} represent the First Operation ($B$).
+    \item The \textbf{Rows} represent the Second Operation ($A$).
+\end{itemize}
+If the row headers are ordered as the inverses of the column headers, the principal diagonal will exclusively contain the identity element $E$.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\subsection*{The Rearrangement Theorem}
+
+\textbf{Rearrangement Theorem:} \\
+In the multiplication table of a group $G$, every element appears once and only once in each row and column. Consequently, the arrangement of elements in every row and column is entirely unique.
+
+\vspace{0.5em}
+\textbf{Proof:} \\
+Suppose an element $C$ appears twice in the row corresponding to left-multiplication by $A$. This implies there exist two distinct elements $X_1, X_2 \in G$ such that:
+\[ A X_1 = C \quad \text{and} \quad A X_2 = C \]
+Therefore, $A X_1 = A X_2$. By the group axioms, $A$ has a unique inverse $A^{-1} \in G$. Left-multiplying both sides by $A^{-1}$:
+\[ A^{-1} (A X_1) = A^{-1} (A X_2) \]
+By associativity, $(A^{-1} A) X_1 = (A^{-1} A) X_2 \implies E X_1 = E X_2 \implies X_1 = X_2$.
+This contradicts the assumption that $X_1$ and $X_2$ are distinct. Thus, no element can appear more than once. Since the elements cannot repeat, and the number of positions is exactly equal to the group's order, every element must appear exactly once.
+
+\vspace{0.5em}
+\textbf{Key Mathematical Consequence:} For any function $f$ applied to the elements of a finite group $G$, the sum over all elements $A$ remains unchanged even if multiplied by a constant group element $B$:
+\[ \sum_{A \in G} f(A) = \sum_{A \in G} f(AB) \]
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\subsection*{Abstract Structure of Joshi's Diagonalized Table}
+Let elements be $X_1, X_2, \dots, X_n$. If we set the row headers to $X_1^{-1}, X_2^{-1}, \dots, X_n^{-1}$, the table enforces $E$ on the diagonal:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{c|cccc}
+\textbf{2nd $\backslash$ 1st} & $\mathbf{X_1}$ & $\mathbf{X_2}$ & $\dots$ & $\mathbf{X_n}$ \\
+\hline
+$\mathbf{X_1^{-1}}$ & $E$ & $X_1^{-1}X_2$ & $\dots$ & $X_1^{-1}X_n$ \\
+$\mathbf{X_2^{-1}}$ & $X_2^{-1}X_1$ & $E$ & $\dots$ & $X_2^{-1}X_n$ \\
+$\vdots$ & $\vdots$ & $\vdots$ & $\ddots$ & $\vdots$ \\
+$\mathbf{X_n^{-1}}$ & $X_n^{-1}X_1$ & $X_n^{-1}X_2$ & $\dots$ & $E$ \\
+\end{tabular}
+\end{center}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\subsection*{Generators and Relations}
+
+A group $G$ can be entirely defined by a set of generators and their governing relations. 
+
+\textbf{Given Generators:} $A, B$ \\
+\textbf{Given Relations:} $A^2 = E, \quad B^3 = E, \quad (AB)^2 = E$
+
+From $(AB)^2 = E \implies ABAB = E \implies AB = B^{-1}A^{-1}$. \\
+Since $A^2 = E \implies A^{-1} = A$, and $B^3 = E \implies B^{-1} = B^2$, we obtain the commutation reduction rule:
+\[ AB = B^2A \]
+Using this relation to reduce any arbitrary string of $A$'s and $B$'s, the group is closed at exactly 6 elements:
+\[ G = \{E, A, B, B^2, AB, BA\} \]
+
+\section{Conjugate Elements and Classes}
+
+\textbf{Conjugate Elements:} \\
+Two elements $B, C \in G$ are said to be \textbf{conjugate} to each other if there exists an element $X \in G$ such that:
+\[ X^{-1} B X = C \]
+The operation of multiplying $B$ from the left by $X^{-1}$ and from the right by $X$ is called a \textbf{similarity transformation} of $B$ by $X$.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\subsection*{Equivalence Relation and Classes}
+Conjugacy forms an equivalence relation. An equivalence relation allows us to partition the group $G$ into disjoint subsets called \textbf{conjugacy classes}. All elements within a specific class are mutually conjugate. 
+\begin{itemize}
+    \item The identity element $E$ always forms a class by itself, because $X^{-1} E X = E$ for all $X \in G$.
+    \item In an Abelian (commutative) group, every element forms a class by itself, because $X^{-1} B X = X^{-1} X B = E B = B$.
+\end{itemize}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\subsection*{Geometric Criteria for Classes (Joshi's Rules)}
+Joshi provides three powerful physical rules to group symmetry operations into classes simply by inspection:
+
+\textbf{Rules for Geometric Conjugacy:}
+\begin{enumerate}
+    \item \textbf{Same Magnitude of Rotation:}
+    Elements in the same class must represent the same physical type of transformation. Therefore, rotations through angles of different magnitudes must belong to different classes. 
+    \begin{itemize}
+        \item \textit{Note:} A rotation of $90^\circ$ ($C_4$) and a rotation of $180^\circ$ ($C_4^2 \equiv C_2$) within a group like $C_{4v}$ belong to different classes because their magnitudes differ. (Conversely, $C_3$ and $C_3^2$ in $C_{3v}$ have the same magnitude of $120^\circ$, just opposite directions, so they \textit{do} belong to the same class).
+    \end{itemize}
+    \item \textbf{Same Order:}
+    The order of an element $A$ is the smallest integer $n$ such that $A^n = E$. Elements belonging to the same class must have the exact same order. 
+    \item Rotations through angles $\theta$ and $-\theta$ (e.g., $C_4$ and $C_4^3$) about the same axis belong to the same class \textit{if and only if} there is a reflection in the group that reverses the sense of the coordinate system.
+    \item Rotations through the same angle about two different axes, or reflections across two distinct planes, belong to the same class \textit{if and only if} the two axes (or planes) can be physically mapped into each other by some element $X$ of the group.
+\end{enumerate}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\subsection*{Multiplication of Classes}
+
+The product of two conjugacy classes, $C_i$ and $C_j$, is defined and behaves as follows:
+\begin{itemize}
+    \item \textbf{Definition of the Product:} The product $C_i C_j$ is formed by taking every element in class $C_i$ and multiplying it by every element in class $C_j$.
+    \item \textbf{Mathematical Expression:} Because the product consists of complete classes, it can be mathematically expressed as a sum of the group's classes:
+    \[ C_i C_j = \sum_k a_{ijk} C_k \]
+    where the coefficients $a_{ijk}$ are nonnegative integers representing the exact number of times that a given class $C_k$ is contained within the product $C_i C_j$.
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Theorem:} \\
+The product of two conjugacy classes $C_i C_j$ consists entirely of complete classes.
+
+\vspace{0.5em}
+\textbf{Proof:} \\
+It is sufficient to show that if an element $A_r B_s \in C_i C_j$, then any element conjugate to it also belongs to $C_i C_j$. 
+Let $A_r \in C_i$ and $B_s \in C_j$. Apply a similarity transformation using any element $X \in G$:
+\[ X^{-1}(A_r B_s)X \]
+Insert the identity element $E = X X^{-1}$ between $A_r$ and $B_s$:
+\[ X^{-1}(A_r X X^{-1} B_s)X = (X^{-1}A_r X)(X^{-1}B_s X) \]
+Since $C_i$ and $C_j$ are complete classes, $(X^{-1}A_r X) = A_k \in C_i$ and $(X^{-1}B_s X) = B_l \in C_j$. Therefore, the conjugate product $A_k B_l$ also strictly belongs to the set $C_i C_j$.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Example: Classes of $C_{4v}$} \\
+Using the geometric criteria, the 8 elements of the symmetry group of a square ($C_{4v}$) partition into exactly 5 classes:
+\[ \text{Classes:} \quad \{E\}, \quad \{C_4, C_4^3\}, \quad \{C_4^2\}, \quad \{m_x, m_y\}, \quad \{\sigma_u, \sigma_v\} \]
+
+\section{Subgroups}
+
+\textbf{Subgroup:} \\
+A set $H$ is said to be a \textbf{subgroup} of a group $G$ if $H$ is itself a group under the same law of composition as that of $G$ and if all the elements of $H$ are also in $G$.
+\begin{itemize}
+    \item \textbf{Trivial Subgroups:} Every group $G$ has two trivial subgroups—the identity element and the group $G$ itself.
+    \item \textbf{Proper Subgroup:} A subgroup $H$ of $G$ is called a proper subgroup if $H \neq G$.
+    \item \textbf{Cyclic Subgroups:} A subgroup generated by all integral powers of a single element is a cyclic group (which is always abelian).
+\end{itemize}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Left and Right Cosets:} \\
+Consider a subgroup $H = \{H_1 \equiv E, H_2, \dots, H_h\}$ of order $h$ within a group $G$, and let $X$ be any element of $G$.
+\begin{itemize}
+    \item \textbf{Left Coset:} The set of elements $XH = \{XE, XH_2, XH_3, \dots, XH_h\}$.
+    \item \textbf{Right Coset:} The set of elements $HX = \{EX, H_2X, H_3X, \dots, H_hX\}$.
+\end{itemize}
+\textit{Key Properties:} If $X \in H$, $XH = H$. If $X \notin H$, no element of $XH$ belongs to $H$ ($H \cap (XH) = \emptyset$).
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Lagrange's Theorem:} \\
+If a group $H$ of order $h$ is a subgroup of a finite group $G$ of order $g$, then $h$ is a perfect divisor of $g$. The integer ratio $g/h$ is defined as the \textbf{index} of the subgroup $H$ in $G$.
+
+\vspace{0.5em}
+\textbf{Proof:} \\
+We utilize left cosets $X H$. The proof requires three logical steps:
+\begin{enumerate}
+    \item \textbf{Cosets are of equal size:} We must prove the coset $XH$ contains exactly $h$ distinct elements. Suppose two elements in the coset turn out to be equal: $X h_a = X h_b$. Left-multiplying by $X^{-1}$ yields $h_a = h_b$. Thus, every element in $H$ generates a strictly unique element in $XH$. Therefore, every coset has exactly $h$ elements.
+    \item \textbf{Cosets are identical or disjoint:} Suppose $X_1 H$ and $X_2 H$ share a common element. Then $X_1 h_a = X_2 h_b$ for some $h_a, h_b \in H$. Right multiplying by $h_a^{-1}$ gives $X_1 = X_2 (h_b h_a^{-1})$. Since $H$ is a subgroup, $(h_b h_a^{-1}) \in H$, meaning $X_1$ is an element generated by $X_2 H$. Thus, the entire cosets must be identical ($X_1 H = X_2 H$).
+    \item \textbf{Partitioning the Group:} Since every element $X \in G$ belongs to at least one coset (specifically $X H$, because the identity $E \in H$), the cosets cleanly partition $G$ into $k$ mutually disjoint subsets, each containing exactly $h$ elements.
+\end{enumerate}
+
+Therefore, the total number of elements in $G$ is the number of distinct cosets ($k$) times the size of each coset ($h$):
+\[ g = k \times h \implies k = \frac{g}{h} \]
+Since $k$ (the index) must be an integer, $h$ must be a perfect divisor of $g$.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\subsection*{Normal Subgroups and Factor Groups}
+
+\textbf{Normal/Invariant Subgroup:} \\
+A subgroup $H$ is a \textbf{normal subgroup} if its left and right cosets with respect to any element $X \in G$ are identical:
+\[ XH = HX \quad \forall X \in G \]
+Equivalently, $H$ is invariant under similarity transformations:
+\[ X^{-1}HX = H \quad \forall X \in G \]
+\textit{Joshi's Rule:} A subgroup is normal if and only if it consists entirely of complete conjugacy classes of $G$.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Factor Group / Quotient Group:} \\
+If $H$ is a normal subgroup of $G$, the set of its distinct cosets $\{H, K_2, K_3, \dots, K_m\}$ forms a group under the operation of coset multiplication:
+\[ (X_i H) \circ (X_j H) = (X_i X_j) H \]
+This group is called the \textbf{Factor Group} (or Quotient Group), denoted $G/H$. The identity element is the subgroup $H$ itself.
+
+\section{Direct Product of Groups}
+
+\textbf{Direct Product:} \\
+Let $H = \{H_1 = E, H_2, \dots, H_h\}$ and $K = \{K_1 = E, K_2, \dots, K_k\}$ be two groups. The \textbf{direct product} of $H$ and $K$, denoted $G = H \otimes K$, is defined as a group of order $g = hk$ consisting of all possible pairwise products of elements from $H$ and $K$:
+\[ G = H \otimes K = \{E, H_1 K_2, \dots, H_h K_k\} \]
+\textbf{Necessary Conditions:}
+\begin{enumerate}
+    \item $H$ and $K$ share no elements except the identity $E$: $H \cap K = \{E\}$.
+    \item Every element of $H$ commutes with every element of $K$: $H_i K_j = K_j H_i$ for all $H_i \in H, \, K_j \in K$.
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Consequences:} By virtue of these conditions, it is guaranteed that both $H$ and $K$ are normal subgroups of $G$.
+
+\section{Isomorphism and Homomorphism}
+
+\textbf{Homomorphism:} \\
+Let $G_1$ and $G_2$ be two groups. A mapping $\phi : G_1 \to G_2$ is a \textbf{homomorphism} if it preserves the law of composition for all elements:
+\[ \phi(AB) = \phi(A)\phi(B) \quad \forall A, B \in G_1 \]
+In a homomorphism, the mapping may be $n$-to-$1$. Multiple distinct elements in $G_1$ can map to a single element in $G_2$.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Theorem:} \\
+Under a homomorphism $\phi: G \to G'$, the set of elements $K \subset G$ that map to the identity $E' \in G'$ forms a normal subgroup of $G$ (called the kernel).
+
+\vspace{0.5em}
+\textbf{Proof:} \\
+First, prove $K$ is a subgroup (Closure). Let $A, B \in K$. By definition, $\phi(A) = E'$ and $\phi(B) = E'$.
+\[ \phi(AB) = \phi(A)\phi(B) = E' E' = E' \]
+Thus, $AB \in K$, satisfying closure. (Identity and inverses map similarly).
+
+Second, prove $K$ is normal. For any $A \in K$ and any $X \in G$, map the conjugate:
+\[ \phi(X^{-1} A X) = \phi(X)^{-1} \phi(A) \phi(X) = \phi(X)^{-1} E' \phi(X) = E' \]
+Because the conjugate maps to $E'$, it belongs to $K$. Therefore, $K$ is invariant under all similarity transformations and is a normal subgroup.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Isomorphism:} \\
+If the mapping $\phi$ is strictly one-to-one (bijective), the homomorphism is an \textbf{isomorphism}. Two isomorphic groups have identical mathematical structures and identical group multiplication tables, differing only in the nomenclature of their elements.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Example: Isomorphism} \\
+Consider the group of complex numbers under multiplication $G_1 = \{1, i, -1, -i\}$ and the rotational subgroup of a square $G_2 = \{E, C_4, C_4^2, C_4^3\}$. These form an isomorphism under the mapping:
+\[ 1 \leftrightarrow E, \quad i \leftrightarrow C_4, \quad -1 \leftrightarrow C_4^2, \quad -i \leftrightarrow C_4^3 \]
+The operational structure is preserved. For instance, $(-1) \cdot (-i) = i$ in $G_1$ maps to $C_4^2 \cdot C_4^3 = C_4^5 = C_4$ in $G_2$.
+
+\section{Permutation Groups}
+
+\textbf{Symmetric Group $S_n$:} \\
+The set of all permutations of $n$ identical objects forms the \textbf{Symmetric Group} $S_n$. Its order is $n!$, and $S_n$ is non-abelian for $n\ge3$.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Transpositions and Parity:} \\
+A \textbf{transposition} $(mk)$ swaps exactly two objects and leaves the rest fixed. Every permutation in $S_n$ can be expressed as a product of transpositions.
+\begin{itemize}
+    \item \textbf{Parity:} A permutation is \textit{even} if it can be written as an even number of transpositions, and \textit{odd} if it requires an odd number.
+    \item The even permutations form the subgroup $A_n$.
+\end{itemize}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Alternating Group $A_n$:} \\
+The set of all even permutations in $S_n$ forms the \textbf{Alternating Group} $A_n$, a normal subgroup of $S_n$ with order $n!/2$.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Example: $S_3$ in Two-Row Notation:} \\
+For $3$ objects, $S_3$ has six elements:
+\[ E = \begin{pmatrix} 1 & 2 & 3 \\ 1 & 2 & 3 \end{pmatrix}, \quad A = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 3 & 1 \end{pmatrix}, \quad B = \begin{pmatrix} 1 & 2 & 3 \\ 3 & 1 & 2 \end{pmatrix}, \]
+\[ C = \begin{pmatrix} 1 & 2 & 3 \\ 1 & 3 & 2 \end{pmatrix}, \quad D = \begin{pmatrix} 1 & 2 & 3 \\ 3 & 2 & 1 \end{pmatrix}, \quad F = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 1 & 3 \end{pmatrix}. \]
+Applying $A$ to the state $\psi_1 = (1, 2, 3)$ yields $\psi_2 = (2, 3, 1)$ under right-to-left composition.
+
+\section{Distinct Groups of a Given Order}
+
+\textbf{Isomorphic Structures:} \\
+Two groups are \textbf{isomorphic} when there is a bijective mapping between them that preserves the group law. Isomorphic groups have identical structure even if their elements are labeled differently.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Group Order Rules:} \\
+\begin{enumerate}
+    \item For any finite integer $n$, there is always at least one group structure: the cyclic group $C_n = \{A, A^2, \dots, A^n = E\}$.
+    \item If $n$ is prime, there is \textit{exactly one} group structure: the cyclic group $C_n$.
+\end{enumerate}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Structures of Specific Small Orders:} \\
+\begin{itemize}
+    \item \textbf{Order 4:} Exactly two structures exist: $C_4$ and the Klein four-group $V_4$, where every non-identity element has order 2.
+    \item \textbf{Order 6:} Exactly two structures exist: $C_6$ and the non-abelian group $S_3$.
+\end{itemize}
+
+\newpage
+\chapter{Vector Spaces and Operators}
+\section{Vector Spaces and Hilbert Spaces}
+
+\textbf{Linear Vector Space:} \\
+A set $L$ of vectors forms a linear vector space over a scalar field $F$ when it satisfies:
+\begin{enumerate}
+    \item \textbf{Vector Addition:} The vectors form an Abelian group under addition, with closure, commutativity, associativity, identity $\mathbf{0}$, and inverses $-\mathbf{u}$.
+    \item \textbf{Scalar Multiplication:} For scalars $c, c_1, c_2 \in F$:
+    \begin{itemize}
+        \item $c(\mathbf{u} + \mathbf{v}) = c\mathbf{u} + c\mathbf{v}$
+        \item $(c_1 + c_2)\mathbf{u} = c_1\mathbf{u} + c_2\mathbf{u}$
+        \item $(c_1 c_2)\mathbf{u} = c_1(c_2\mathbf{u})$
+        \item $1\mathbf{u} = \mathbf{u}$
+    \end{itemize}
+\end{enumerate}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Inner Product Space:} \\
+A vector space $L$ becomes an inner product space when each pair of vectors has an associated scalar $(\mathbf{u}, \mathbf{v}) \in F$ that satisfies:
+\begin{enumerate}
+    \item \textbf{Conjugate Symmetry:} $(\mathbf{u}, \mathbf{v}) = (\mathbf{v}, \mathbf{u})^*$
+    \item \textbf{Linearity:} $(\mathbf{u}, c_1\mathbf{v}_1 + c_2\mathbf{v}_2) = c_1(\mathbf{u}, \mathbf{v}_1) + c_2(\mathbf{u}, \mathbf{v}_2)$
+    \item \textbf{Positive Definiteness:} $(\mathbf{u}, \mathbf{u}) \ge 0$ and $(\mathbf{u}, \mathbf{u}) = 0 \iff \mathbf{u} = \mathbf{0}$
+\end{enumerate}
+The norm of a vector is given by $||\mathbf{u}|| = \sqrt{(\mathbf{u}, \mathbf{u})}$.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Hilbert Space and Completeness:} \\
+A \textbf{Cauchy sequence} $\{\mathbf{u}_m\}$ satisfies:
+\[ \lim_{m,n \to \infty} ||\mathbf{u}_m - \mathbf{u}_n|| = 0. \]
+An inner product space is \textbf{complete} if every Cauchy sequence converges to a limit within the space. A complete inner product space is called a \textbf{Hilbert space}.
+
+\section{Coordinate Geometry and Vector Algebra}
+
+\textbf{Linear Independence and Basis:} \\
+A set of $n$ vectors $\{\boldsymbol{\phi}_1, \boldsymbol{\phi}_2, \dots, \boldsymbol{\phi}_n\}$ is \textbf{linearly independent} if:
+\[ \sum_{i=1}^n c_i \boldsymbol{\phi}_i = \mathbf{0} \implies c_i = 0 \quad \forall i. \]
+A vector space $L$ is $n$-dimensional if it contains exactly $n$ linearly independent vectors. Such a set is a \textbf{basis}, and any vector $\mathbf{v} \in L$ has a unique expansion:
+\[ \mathbf{v} = \sum_{i=1}^n v_i \boldsymbol{\phi}_i. \]
+
+
+\vspace{0.3cm}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Orthonormal Basis and Inner Products:} \\
+A basis $\{\boldsymbol{\phi}_i\}$ is \textbf{orthonormal} when:
+\[ (\boldsymbol{\phi}_i, \boldsymbol{\phi}_j) = \delta_{ij} = \begin{cases} 1 & i = j \\ 0 & i \neq j \end{cases}. \]
+In this basis, the component $v_i$ of a vector $\mathbf{v}$ is given by projection:
+\[ v_i = (\boldsymbol{\phi}_i, \mathbf{v}). \]
+For two vectors $\mathbf{u} = \sum_{i=1}^n u_i \boldsymbol{\phi}_i$ and $\mathbf{v} = \sum_{i=1}^n v_i \boldsymbol{\phi}_i$, the inner product becomes:
+\[ (\mathbf{u}, \mathbf{v}) = \sum_{i=1}^n u_i^* v_i. \]
+
+
+\section{Function Spaces}
+
+Consider the set of all continuous, square-integrable functions $f, g, h, \dots$ of one independent variable $x$ on an interval $[a, b)$. This set forms a Linear Vector Space over a field of complex numbers under pointwise operations:
+\begin{itemize}
+    \item \textbf{Equality:} $f = g$ if and only if $f(x) = g(x)$ for all $x \in [a, b)$.
+    \item \textbf{Addition:} $(f+g)(x) = f(x) + g(x)$
+    \item \textbf{Scalar Multiplication:} $(cf)(x) = c f(x)$
+\end{itemize}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Inner Product for Functions:}
+The inner product of two functions is defined by integration over the interval rather than a discrete sum:
+\[ (f, g) = \int_a^b f^*(x) g(x) \, dx \]
+where $f^*(x)$ is the complex conjugate of $f(x)$.
+
+Consequently, the norm (length) of a function $f$ is given by:
+\[ \|f\| = \sqrt{(f, f)} = \sqrt{\int_a^b |f(x)|^2 \, dx} \]
+Two functions are mutually \textbf{orthogonal} if $(f, g) = 0$.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Orthonormal Basis and Function Expansion:}
+Let $\{\phi_1(x), \phi_2(x), \dots \}$ be an orthonormal basis of functions for this space, satisfying:
+\[ (\phi_i, \phi_j) = \int_a^b \phi_i^*(x) \phi_j(x) \, dx = \delta_{ij} \]
+Any arbitrary square-integrable function $f(x)$ in this space can be expanded as a unique linear combination of these basis functions:
+\[ f(x) = \sum_{i} c_i \phi_i(x) \]
+where the scalar components $c_i$ are found by taking the inner product of the basis function with $f$:
+\[ c_i = (\phi_i, f) = \int_a^b \phi_i^*(x) f(x) \, dx \]
+
+
+\section{Operators}
+
+An operator $T$ defined on a Hilbert space $L$ maps any function $f \in L$ to another function $g \in L$:
+\[ T f(x) = g(x) \]
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Matrix Representation of an Operator:}\\
+The action of $T$ is completely determined by its effect on an orthonormal basis $\{\phi_n(x)\}$. Operating on a basis function yields a linear combination of the basis set:
+\[ T \phi_n(x) = \sum_m \phi_m(x) T_{mn} \]
+By taking the inner product with $\phi_m(x)$, we isolate the matrix elements $T_{mn}$:
+\[ T_{mn} = (\phi_m, T \phi_n) = \int_a^b \phi_m^*(x) T \phi_n(x) \, dx \]
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Classes of Operators:}\\
+Using the inner product definition, we classify fundamental physical operators:
+\begin{itemize}
+    \item \textbf{Adjoint Operator ($T^\dagger$):} Defined by $(T^\dagger f, g) = (f, T g)$. In matrix form, it is the complex conjugate transpose: $(T^\dagger)_{mn} = T_{nm}^*$.
+    \item \textbf{Hermitian Operator:} A self-adjoint operator where $T = T^\dagger$. In quantum mechanics, observables correspond to Hermitian operators because their eigenvalues are strictly real.
+    \item \textbf{Unitary Operator:} An operator where $T^\dagger = T^{-1}$, satisfying $T T^\dagger = T^\dagger T = E$. These preserve the norm (length) of vectors, representing probability-conserving transformations like time evolution.
+\end{itemize}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{The Eigenvalue Problem:}\\
+If the action of an operator $T$ on a function $\phi_n$ merely scales the function by a scalar $\lambda_n$, the equation takes the form:
+\[ T \phi_n = \lambda_n \phi_n \]
+Here, $\phi_n$ is called an \textit{eigenfunction} (or eigenvector) of $T$, and $\lambda_n$ is its corresponding \textit{eigenvalue}.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Proof 1: Eigenvalues of a Hermitian Operator are Real}\\
+Let $T$ be a Hermitian operator ($T^\dagger = T$) with an eigenvector $\phi$ and eigenvalue $\lambda$, such that $T\phi = \lambda\phi$.
+\begin{enumerate}
+    \item Take the inner product with $\phi$: $(\phi, T\phi) = (\phi, \lambda\phi) = \lambda(\phi, \phi)$
+    \item By the definition of a Hermitian operator: $(\phi, T\phi) = (T\phi, \phi)$
+    \item Substitute $T\phi$ on the right side: $(T\phi, \phi) = (\lambda\phi, \phi) = \lambda^*(\phi, \phi)$
+    \item Equating the two results gives: $\lambda(\phi, \phi) = \lambda^*(\phi, \phi)$
+    \item Since the norm of an eigenvector is non-zero ($(\phi, \phi) \neq 0$), it must be that $\lambda = \lambda^*$. Thus, $\lambda$ is strictly real.
+\end{enumerate}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Proof 2: Orthogonality of Hermitian Eigenvectors}\\
+Let $T$ be a Hermitian operator ($T^\dagger = T$) with distinct eigenvalues $\lambda_1 \neq \lambda_2$ and corresponding eigenvectors $\phi_1, \phi_2$.
+\begin{enumerate}
+    \item We are given $T\phi_1 = \lambda_1\phi_1$ and $T\phi_2 = \lambda_2\phi_2$.
+    \item Take the inner product: $(\phi_2, T\phi_1) = \lambda_1(\phi_2, \phi_1)$.
+    \item Using the Hermitian property: $(\phi_2, T\phi_1) = (T\phi_2, \phi_1) = (\lambda_2\phi_2, \phi_1) = \lambda_2^*(\phi_2, \phi_1)$.
+    \item Since $\lambda_2$ is real (from Proof 1), $\lambda_2^* = \lambda_2$. Therefore: $\lambda_1(\phi_2, \phi_1) = \lambda_2(\phi_2, \phi_1)$.
+    \item Rearranging the equation yields: $(\lambda_1 - \lambda_2)(\phi_2, \phi_1) = 0$. 
+    \item Because the eigenvalues are distinct ($\lambda_1 \neq \lambda_2$), it must be true that $(\phi_2, \phi_1) = 0$. The eigenvectors are orthogonal.
+\end{enumerate}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Proof 3: Eigenvalues of a Unitary Operator}\\
+Let $U$ be a Unitary operator ($U^\dagger U = E$, where $E$ is the identity) with eigenvector $\phi$ and eigenvalue $\lambda$.
+\begin{enumerate}
+    \item The eigenvalue equation is $U\phi = \lambda\phi$.
+    \item Take the inner product of the transformed vector with itself: $(U\phi, U\phi) = (\phi, U^\dagger U \phi) = (\phi, E\phi) = (\phi, \phi)$.
+    \item Now evaluate the same inner product using the eigenvalues: $(U\phi, U\phi) = (\lambda\phi, \lambda\phi) = \lambda^*\lambda(\phi, \phi) = |\lambda|^2(\phi, \phi)$.
+    \item Equating both sides gives: $|\lambda|^2(\phi, \phi) = (\phi, \phi)$.
+    \item This implies $|\lambda|^2 = 1$. The absolute magnitude of a unitary eigenvalue is always exactly 1.
+\end{enumerate}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Projection Operators \& Spectral Resolution:}\\
+An operator $P$ is a \textbf{projection operator} if it satisfies two conditions:
+\begin{enumerate}
+    \item It is Hermitian: $P^\dagger = P$
+    \item It is Idempotent: $P^2 = P$ (Applying it twice is the same as applying it once).
+\end{enumerate}
+Two projection operators $P_i$ and $P_j$ are said to be \textbf{orthogonal} if their product is zero: $P_i P_j = 0$ for $i \neq j$. \\
+
+\textbf{Spectral Resolution:} Every Hermitian or Unitary operator acting on a finite-dimensional Hilbert space can be expanded as a linear combination of orthogonal projection operators:
+\[ T = \lambda_1 P_1 + \lambda_2 P_2 + \dots + \lambda_m P_m \]
+where $\lambda_i$ are the distinct eigenvalues of $T$.
+
+\section{Direct Sum and Direct Product of Matrices}
+
+\textbf{1. Direct Sum of Matrices ($A \oplus B$):}\\
+The direct sum of an $m \times m$ matrix $A$ and an $n \times n$ matrix $B$ is a block diagonal matrix $C$ of order $(m+n)$:
+\[ C = A \oplus B = \begin{pmatrix} A & \mathbf{0}_{mn} \\ \mathbf{0}_{nm} & B \end{pmatrix} \]
+where $\mathbf{0}_{mn}$ and $\mathbf{0}_{nm}$ are null matrices of dimensions $m \times n$ and $n \times m$, respectively.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{2. Direct Product (Kronecker Product) ($A \otimes B$):}\\
+The direct product of $A$ and $B$ is a larger matrix $C$ of order $(mn)$, constructed by substituting each element $a_{ij}$ of $A$ with the scaled block matrix $a_{ij}B$:
+\[ C = A \otimes B = \begin{pmatrix} a_{11}B & a_{12}B & \dots & a_{1m}B \\ a_{21}B & a_{22}B & \dots & a_{2m}B \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1}B & a_{m2}B & \dots & a_{mm}B \end{pmatrix} \]
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Eigenvalues of the Direct Product:}\\
+If $A$ and $B$ are square matrices with respective eigenvalues $\lambda_i, \mu_j$ and eigenvectors $\mathbf{x}_i, \mathbf{y}_j$, then the combined eigenvalue problem satisfies:
+\[ (A \otimes B)(\mathbf{x}_i \otimes \mathbf{y}_j) = \lambda_i \mu_j (\mathbf{x}_i \otimes \mathbf{y}_j) \]
+Thus, the eigenvalues of the direct product matrix are strictly the mathematical products of the individual eigenvalues ($\lambda_i \mu_j$).
+
+\newpage
+
+\chapter{Representation of Groups}
+\section{Representation of a Group}
+
+\textbf{Definition of a Representation:}\\
+Let $G = \{E, A, B, C, \dots\}$ be a group. A \textbf{representation} of $G$ is a set of square matrices $T = \{T(E), T(A), T(B), \dots\}$ such that a homomorphism exists between the group elements and the matrices. Specifically, they must preserve the group multiplication law:
+\[ T(A)T(B) = T(AB) \quad \forall A, B \in G \]
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Generation via a Basis:}\\
+Let the elements of $G$ operate linearly on an $n$-dimensional vector space $L_n$ with a basis $\{\phi_1, \phi_2, \dots, \phi_n\}$. The action of $A \in G$ on the basis generates the matrix $T(A)$:
+\[ A \phi_i = \sum_{j=1}^n \phi_j T_{ji}(A) \]
+The dimension $n$ of the vector space determines the \textit{dimension} of the representation.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Classifications of Representations:}
+\begin{itemize}
+    \item \textbf{Faithful Representation:} If the homomorphism is strictly an isomorphism (one-to-one mapping), all matrices in $T$ are distinct.
+    \item \textbf{Unfaithful Representation:} If multiple group elements map to the same matrix.
+    \item \textbf{Trivial Representation:} A specific unfaithful, 1-dimensional representation where every element $A \in G$ is mapped to the matrix $[1]$. This is valid for all groups since $1 \times 1 = 1$.
+\end{itemize}
+\section{Equivalent Representations and Invariant Subspaces}
+
+\textbf{Equivalent Representations:}\\
+Two representations $T_1$ and $T_2$ of a group $G$ are \textbf{equivalent} if there exists a single nonsingular matrix $S$ such that:
+\[ T_1(A) = S^{-1} T_2(A) S \quad \forall A \in G \]
+This similarity transformation implies both representations describe the exact same linear operators, just expressed in two different coordinate bases.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Invariant Subspaces:}\\
+A subspace $L_m$ of a vector space $L_n$ ($m < n$) is an \textbf{invariant subspace} under a group $G$ if, for every element $A \in G$ and every vector $\mathbf{v} \in L_m$, the transformed vector $A\mathbf{v}$ also belongs entirely to $L_m$.
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Unitary Representations:}\\
+A pivotal theorem for quantum physics states that every representation of a finite group is equivalent to a \textbf{unitary representation} (where $T^\dagger = T^{-1}$). This justifies the assumption that the matrices representing symmetry operations preserve the inner products (and thus, probabilities) within the Hilbert space. Because of this, we generally assume all IRREPs are formed by unitary matrices.
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Reducibility of Representations:}\\
+\begin{itemize}
+    \item \textbf{Reducible:} If an invariant subspace $L_m$ exists, a basis change can bring every matrix in the representation into a \textit{block-triangular} form:
+    \[ T(A) = \begin{pmatrix} T^{(1)}(A) & T^{(12)}(A) \\ \mathbf{0} & T^{(2)}(A) \end{pmatrix} \]
+    \item \textbf{Completely Reducible:} If the orthogonal complement of the subspace is also invariant, the matrices take a \textit{block-diagonal} form. The representation is mathematically reduced to the direct sum of smaller representations:
+    \[ T(A) = \begin{pmatrix} T^{(1)}(A) & \mathbf{0} \\ \mathbf{0} & T^{(2)}(A) \end{pmatrix} = T^{(1)}(A) \oplus T^{(2)}(A) \]
+    \item \textbf{Irreducible Representation (IRREP):} If a vector space contains \textit{no} proper invariant subspaces under the group $G$, the representation cannot be block-diagonalized further. It is the fundamental, indivisible unit of the group's matrix structure.
+\end{itemize}
+\section{Schur's Lemmas and the Great Orthogonality Theorem}
+
+\textbf{Schur's Lemma 1:}\\
+If a matrix $P$ commutes with every matrix $\Gamma(A)$ of an \textit{irreducible} representation of a group $G$:
+\[ P \Gamma(A) = \Gamma(A) P \quad \forall A \in G \]
+Then the matrix $P$ must be a scalar multiple of the identity matrix: $P = cE$, where $c$ is a constant.
+
+\textbf{Proof of Lemma 1:} Let $\mathbf{x}$ be an eigenvector of $P$ with eigenvalue $c$, such that $P\mathbf{x} = c\mathbf{x}$. Left-multiplying by $\Gamma(A)$ gives $\Gamma(A)P\mathbf{x} = c\Gamma(A)\mathbf{x}$. Because the matrices commute, this becomes:
+\[ P (\Gamma(A)\mathbf{x}) = c (\Gamma(A)\mathbf{x}) \]
+This shows that the transformed vector $\Gamma(A)\mathbf{x}$ is also an eigenvector of $P$ with the exact same eigenvalue $c$. Because $\Gamma(A)$ is an irreducible representation, it contains no invariant subspaces. Therefore, the set of all vectors $\Gamma(A)\mathbf{x}$ must span the entire vector space. Since every vector in the space is an eigenvector of $P$ with eigenvalue $c$, $P$ must strictly be the constant diagonal matrix $cE$.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Schur's Lemma 2:}\\
+If $\Gamma^{(1)}(A)$ and $\Gamma^{(2)}(A)$ are two \textit{irreducible} representations of group $G$ of dimensions $l_1$ and $l_2$, respectively, and there exists a matrix $M$ such that:
+\[ M \Gamma^{(1)}(A) = \Gamma^{(2)}(A) M \quad \forall A \in G \]
+Then either:
+\begin{enumerate}
+    \item $M = \mathbf{0}$ (the null matrix).
+    \item The representations are equivalent ($\Gamma^{(1)} \cong \Gamma^{(2)}$), meaning $l_1 = l_2$ and $M$ is a non-singular square matrix.
+\end{enumerate}
+
+\textbf{Proof Concept for Lemma 2:} If $M \neq 0$, it maps the space of $\Gamma^{(1)}$ into a subspace invariant under $\Gamma^{(2)}$. By the definition of irreducibility, this mapped subspace cannot be a fraction of the space; it must be the whole space. Therefore, $M$ is bijective, $l_1$ must equal $l_2$, and the matrix $M$ acts as the similarity transformation proving equivalence.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{The Great Orthogonality Theorem (GOT):}\\
+Derived directly from Schur's Lemmas, this theorem states that the matrix elements of unitary irreducible representations behave like perfectly orthogonal vectors in a $g$-dimensional group space.
+For two irreducible representations $\Gamma^{(i)}$ (dimension $l_i$) and $\Gamma^{(j)}$ (dimension $l_j$) of a finite group $G$ of order $g$:
+\[ \sum_{A \in G} \Gamma_{km}^{(i)}(A) \Gamma_{sn}^{(j)*}(A) = \frac{g}{l_i} \delta_{ij} \delta_{ks} \delta_{mn} \]
+Where:
+\begin{itemize}
+    \item $\delta_{ij} = 0$ if the representations $i$ and $j$ are not equivalent.
+    \item $\delta_{ks}\delta_{mn} = 0$ if the specific matrix element indices ($k$ vs $s$, and $m$ vs $n$) do not perfectly match.
+\end{itemize}
+
+\section{Interpretation of the Orthogonality Theorem}
+
+\textbf{Group Space and Vectors:}\\
+The Great Orthogonality Theorem can be elegantly interpreted in the language of linear vector spaces. Let us consider the matrix element $\Gamma_{km}^{(i)}(A)$ as a function of the discrete variable $A$, where $A$ runs over all $g$ elements of the group $G$. We can treat this function as a vector with $g$ components in a $g$-dimensional \textit{group space}.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Dimensionality Restriction:}\\
+The GOT mathematically guarantees that all such vectors are mutually orthogonal. For a single irreducible representation $\Gamma^{(i)}$ of dimension $l_i$, there are exactly $l_i^2$ independent matrix elements, yielding $l_i^2$ mutually orthogonal vectors.
+
+Summing over all $c$ distinct, inequivalent irreducible representations, the total number of orthogonal vectors we can construct is:
+\[ \sum_{i=1}^c l_i^2 \]
+
+Because a $g$-dimensional vector space can accommodate a maximum of exactly $g$ mutually orthogonal vectors, we obtain the fundamental dimensionality restriction:
+\[ \sum_{i=1}^c l_i^2 \le g \]
+(Note: It is a fundamental property of finite groups that this is actually a strict equality: $\sum l_i^2 = g$).
+
+\section{Characters of a Representation}
+
+\textbf{Definition of a Character:}\\
+The \textbf{character} $\chi(A)$ of a group element $A$ in a representation $\Gamma$ is defined as the trace (the sum of the principal diagonal elements) of its representative matrix $\Gamma(A)$:
+\[ \chi(A) = \text{Tr}(\Gamma(A)) = \sum_{m} \Gamma_{mm}(A) \]
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Fundamental Properties of Characters:}\\
+Characters possess two vital algebraic properties that drastically simplify group theory calculations:
+\begin{enumerate}
+    \item \textbf{Equivalence Invariance:} Equivalent representations have identical characters. If $\Gamma^{(1)}(A) = S^{-1}\Gamma^{(2)}(A)S$, the cyclic property of the trace ensures $\text{Tr}(\Gamma^{(1)}(A)) = \text{Tr}(\Gamma^{(2)}(A))$.
+    \item \textbf{Class Invariance:} All elements belonging to the same conjugacy class share the exact same character. Thus, the character is a property of the \textit{class}, not just the individual element.
+\end{enumerate}
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Decomposition of a Reducible Representation:}\\
+If a representation is reducible, its character $\chi(A)$ is simply the sum of the characters of the irreducible representations $\chi^{(i)}(A)$ that compose it. The number of times, $a_i$, that the $i$-th irreducible representation appears in a reducible representation is given by the "Magic Formula":
+\[ a_i = \frac{1}{g} \sum_{k=1}^c N_k \chi(C_k) \chi^{(i)*}(C_k) \]
+
+\textbf{Criterion for Irreducibility:}\\
+A highly useful consequence of the character orthogonality theorem is a simple mathematical test to determine if a representation is irreducible without trying to block-diagonalize it. A representation is uniquely irreducible if and only if the sum of the absolute squares of its characters equals the order of the group:
+\[ \sum_{A \in G} |\chi(A)|^2 = \sum_{k=1}^c N_k |\chi(C_k)|^2 = g \]
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Orthogonality of Characters:}\\
+By setting $k=m$ and $s=n$ in the Great Orthogonality Theorem and summing over the diagonal elements, the GOT reduces to a powerful orthogonality relation for characters:
+\[ \sum_{A \in G} \chi^{(i)}(A) \chi^{(j)*}(A) = g \delta_{ij} \]
+Because elements in the same class $C_k$ share identical characters, we can compress this summation over the $c$ distinct classes (where $N_k$ is the number of elements in class $C_k$):
+\[ \sum_{k=1}^c N_k \chi^{(i)}(C_k) \chi^{(j)*}(C_k) = g \delta_{ij} \]
+\section{Construction of Character Tables}
+
+The construction of a character table relies entirely on a few fundamental algebraic theorems. We do not need to derive the explicit matrix representations; we can deduce the characters strictly by applying these constraints.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{The Five Rules for Construction:}\\
+Let $G$ be a group of order $g$, with $c$ distinct conjugacy classes $C_k$, each containing $N_k$ elements.
+\begin{enumerate}
+    \item \textbf{Number of IRREPs:} The number of irreducible representations exactly equals the number of conjugacy classes ($c$). The character table will always be a square $c \times c$ grid.
+    \item \textbf{Dimensionality:} The dimensions $l_i$ of the IRREPs satisfy:
+    \[ \sum_{i=1}^c l_i^2 = l_1^2 + l_2^2 + \dots + l_c^2 = g \]
+    Note that the dimension of an IRREP is simply its character under the identity operation: $l_i = \chi^{(i)}(E)$.
+    \item \textbf{Trivial Representation:} There is always a 1-dimensional "totally symmetric" representation where $\chi^{(1)}(C_k) = 1$ for all classes. This forms the first row.
+    \item \textbf{Orthogonality of Rows:} Any two distinct rows must be orthogonal when weighted by the class size $N_k$:
+    \[ \sum_{k=1}^c N_k \chi^{(i)}(C_k) \chi^{(j)*}(C_k) = g \delta_{ij} \]
+    \item \textbf{Orthogonality of Columns:} Any two distinct columns are mutually orthogonal:
+    \[ \sum_{i=1}^c \chi^{(i)}(C_k) \chi^{(i)*}(C_m) = \frac{g}{N_k} \delta_{km} \]
+\end{enumerate}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+\textbf{Example: The Character Table of $C_{4v}$}\\
+For the symmetry group of a square ($C_{4v}$), $g=8$. There are 5 classes: $E$ ($N=1$), $C_4^2$ ($N=1$), $2C_4$ ($N=2$), $2m$ ($N=2$), and $2\sigma$ ($N=2$).
+Because $c=5$, there are exactly 5 IRREPs. The dimensions must satisfy $\sum l_i^2 = 8$. The only integer solution is $1^2 + 1^2 + 1^2 + 1^2 + 2^2 = 8$. Thus, there are four 1D IRREPs and one 2D IRREP.
+
+By applying the orthogonality rules, the complete table is deduced:
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{c|ccccc}
+$C_{4v}$ & $E$ & $2C_4$ & $C_4^2$ & $2m$ & $2\sigma$ \\
+\hline
+$\Gamma^{(1)}$ & $1$ & $1$ & $1$ & $1$ & $1$ \\
+$\Gamma^{(2)}$ & $1$ & $1$ & $1$ & $-1$ & $-1$ \\
+$\Gamma^{(3)}$ & $1$ & $-1$ & $1$ & $1$ & $-1$ \\
+$\Gamma^{(4)}$ & $1$ & $-1$ & $1$ & $-1$ & $1$ \\
+$\Gamma^{(5)}$ & $2$ & $0$ & $-2$ & $0$ & $0$ \\
+\end{tabular}
+\end{center}
+
+
+\newpage
+\newpage
+\newpage
+\newpage
+\newpage
+\newpage
+\newpage
+
+\chapter*{Exam Answer: Schur's Lemma 1}
+\textbf{Statement of the Lemma:}
+If a square matrix $P$ commutes with every matrix $\Gamma(A)$ of an irreducible representation of a group $G$, meaning:
+\[
+P \Gamma(A) = \Gamma(A) P \quad \text{for all } A \in G
+\]
+Then the matrix $P$ must be a scalar multiple of the identity matrix, such that $P = cE$, where $c$ is a constant.
+\textbf{Proof:}
+
+Step 1:
+ Let $\mathbf{x}$ be an eigenvector of the matrix $P$ corresponding to the eigenvalue $c$. By definition:
+\[
+P \mathbf{x} = c \mathbf{x}
+\]
+
+Step 2:
+ Left-multiply both sides of this equation by the representation matrix $\Gamma(A)$:
+\[
+\Gamma(A) P \mathbf{x} = \Gamma(A) c \mathbf{x}
+\]
+
+\[
+\Gamma(A) P \mathbf{x} = c (\Gamma(A) \mathbf{x})
+\]
+
+Step 3:
+ Apply the given commutation rule ($P \Gamma(A) = \Gamma(A) P$) to the left side of the equation:
+\[
+P (\Gamma(A) \mathbf{x}) = c (\Gamma(A) \mathbf{x})
+\]
+
+Step 4 (The Physical Conclusion):
+ The equation above demonstrates that the newly transformed vector, $\Gamma(A)\mathbf{x}$, is also an eigenvector of $P$, and it possesses the exact same eigenvalue $c$.
+
+
+ Step 5 (Applying Irreducibility):
+Because this is true for every element $A$ in the group, the set of all vectors generated by $\Gamma(A)\mathbf{x}$ forms a subspace that is invariant under the group $G$.However, $\Gamma$ is defined as an irreducible representation, which strictly forbids the existence of any proper invariant subspaces.
+
+
+Step 6:
+Therefore, this invariant subspace generated by $\Gamma(A)\mathbf{x}$ must span the entire vector space. Because every vector in the entire space is an eigenvector of $P$ with the exact same eigenvalue $c$, $P$ must strictly be a constant diagonal matrix:
+\[
+P = cE
+\]
+\newpage
+
+\chapter*{Exam Answer: Schur's Lemma 1 (Second Proof)}
+\textbf{Statement of the Lemma:}
+If a square matrix $P$ commutes with every matrix $\Gamma(A)$ of an irreducible representation of a group $G$, meaning:
+\[
+P \Gamma(A) = \Gamma(A) P \quad \text{for all } A \in G
+\]
+Then the matrix $P$ must be a scalar multiple of the identity matrix, such that $P = cE$, where $c$ is a constant.
+\textbf{Proof:}
+
+Step 1:
+ Let $c$ be an eigenvalue of the matrix $P$. By the definition of eigenvalues, the matrix $(P - cE)$ must be a singular matrix, meaning its determinant is exactly zero:
+\[
+|P - cE| = 0
+\]
+
+Step 2:
+ Let us define a new matrix $M = P - cE$.Because $M$ is a singular matrix (determinant of zero), it cannot map an $n$-dimensional vector space $L_n$ onto itself. Instead, it must map the vectors of $L_n$ into a smaller subspace $L_m$, where the dimension $m < n$.
+Step 3:
+ Let us verify that this new matrix $M$ also commutes with $\Gamma(A)$.
+\[
+M \Gamma(A) = (P - cE) \Gamma(A)
+\]
+
+\[
+M \Gamma(A) = P \Gamma(A) - cE \Gamma(A)
+\]
+Substituting the given rule $P \Gamma(A) = \Gamma(A) P$:
+\[
+M \Gamma(A) = \Gamma(A) P - \Gamma(A) cE
+\]
+
+\[
+M \Gamma(A) = \Gamma(A) (P - cE) = \Gamma(A) M
+\]
+Thus, $M$ successfully commutes with $\Gamma(A)$.
+Step 4:
+ Let $\mathbf{y}$ be any vector inside our smaller mapped subspace $L_m$. By definition, there must exist some vector $\mathbf{x}$ in the main space $L_n$ such that:
+\[
+\mathbf{y} = M \mathbf{x}
+\]
+
+Step 5:
+ Left-multiply this by the group operator $\Gamma(A)$:
+\[
+\Gamma(A) \mathbf{y} = \Gamma(A) M \mathbf{x}
+\]
+Because the matrices commute ($M\Gamma(A) = \Gamma(A)M$), we can swap them:
+\[
+\Gamma(A) \mathbf{y} = M (\Gamma(A) \mathbf{x})
+\]
+
+Step 6 (The Contradiction):
+ The vector $(\Gamma(A)\mathbf{x})$ is just another vector in our space. When $M$ operates on it, the result must land inside the smaller subspace $L_m$. Therefore, the transformed vector $\Gamma(A)\mathbf{y}$ also belongs entirely to $L_m$.This proves that $L_m$ is an invariant subspace.
+Step 7 (Applying Irreducibility):
+However, we were given that $\Gamma$ is an irreducible representation, which strictly forbids the existence of any proper invariant subspaces (so $m$ cannot be between $0$ and $n$).Because $M$ is singular, $m \neq n$. Therefore, the dimension of the subspace $m$ must be exactly $0$.
+Step 8:
+ The only way the dimension of the mapped subspace is $0$ is if $M$ maps every single vector to the zero vector. Therefore, $M$ must be the null matrix:
+\[
+M = \mathbf{0}
+\]
+
+\[
+P - cE = \mathbf{0} \implies P = cE
+\]
+\newpage
+
+\chapter*{Exam Answer: Schur's Lemma 2}
+\textbf{Statement of the Lemma:}
+Let $\Gamma^{(1)}(A)$ and $\Gamma^{(2)}(A)$ be two irreducible representations of a group $G$, with dimensions $l_1$ and $l_2$ respectively.If there exists a constant matrix $M$ such that for every element $A \in G$:
+\[
+M \Gamma^{(1)}(A) = \Gamma^{(2)}(A) M
+\]
+Then there are only two possibilities:$M = \mathbf{0}$ (the null matrix).The representations are equivalent ($\Gamma^{(1)} \cong \Gamma^{(2)}$), which implies that $l_1 = l_2$ and $M$ is a non-singular square matrix.
+\textbf{Proof:}
+
+Step 1:
+ Let the vector space of $\Gamma^{(1)}$ be $L_1$ and the vector space of $\Gamma^{(2)}$ be $L_2$. The matrix $M$ maps vectors from $L_1$ into $L_2$.Let $\mathbf{x}$ be any vector in $L_1$. The mapped vector in $L_2$ is $\mathbf{y} = M\mathbf{x}$.
+Step 2:
+ Operate on this new vector $\mathbf{y}$ with the group operator $\Gamma^{(2)}(A)$:
+\[
+\Gamma^{(2)}(A)\mathbf{y} = \Gamma^{(2)}(A)M\mathbf{x}
+\]
+
+Step 3:
+ Substitute the given intertwining rule ($M\Gamma^{(1)}(A) = \Gamma^{(2)}(A)M$):
+\[
+\Gamma^{(2)}(A)\mathbf{y} = M (\Gamma^{(1)}(A)\mathbf{x})
+\]
+
+Step 4 (The First Invariant Subspace):
+ Because $\Gamma^{(1)}(A)\mathbf{x}$ is simply another vector inside $L_1$, the equation above shows that operating on $\mathbf{y}$ keeps the resulting vector strictly inside the mapped image space of $M$.Therefore, the mapped image of $M$ forms an invariant subspace inside $L_2$.
+Step 5 (Applying Irreducibility to $L_2$):
+However, $\Gamma^{(2)}$ is defined as an irreducible representation, which strictly forbids proper invariant subspaces. Therefore, the image space of $M$ must be either the null space ($\{0\}$) or the entire space $L_2$.
+\textbf{Case A:} If the image space is $\{0\}$, then $M$ maps all vectors to $0$. Therefore, $M = \mathbf{0}$. (This proves the first half of the lemma).
+\textbf{Case B:} If $M \neq \mathbf{0}$, the image space must be the entirety of $L_2$. This requires the rank of $M$ to be $l_2$, which mathematically requires that $l_1 \ge l_2$.
+Step 6 (The Adjoint Transformation):
+To prove the reverse, take the Hermitian adjoint ($\dagger$) of the original given equation.
+\[
+(M \Gamma^{(1)}(A))^\dagger = (\Gamma^{(2)}(A) M)^\dagger
+\]
+
+\[
+\Gamma^{(1)\dagger}(A) M^\dagger = M^\dagger \Gamma^{(2)\dagger}(A)
+\]
+
+Step 7 (Applying Unitarity):
+Because we assume the representations are unitary ($\Gamma^\dagger(A) = \Gamma^{-1}(A) = \Gamma(A^{-1})$), the equation becomes:
+\[
+\Gamma^{(1)}(A^{-1}) M^\dagger = M^\dagger \Gamma^{(2)}(A^{-1})
+\]
+Since $A^{-1}$ is just another element in the group $G$, this shows that $M^\dagger$ perfectly intertwines the matrices in the reverse direction (mapping $L_2$ to $L_1$).
+Step 8 (Applying Irreducibility to $L_1$):
+By applying the exact same logic from Steps 2-5, the image of $M^\dagger$ forms an invariant subspace in $L_1$. Because $\Gamma^{(1)}$ is irreducible, the image space must be all of $L_1$.This requires the rank of $M^\dagger$ to be $l_1$, which mathematically requires that $l_2 \ge l_1$.
+Step 9 (The Conclusion):
+For $l_1 \ge l_2$ and $l_2 \ge l_1$ to both be true simultaneously, the dimensions must be exactly equal:
+\[
+l_1 = l_2
+\]
+Because $M$ is a square matrix ($l_1 \times l_1$) with full rank, its determinant is non-zero, making it a non-singular matrix that possesses an inverse ($M^{-1}$).
+Step 10:
+ Left-multiplying the original equation by $M^{-1}$ yields:
+\[
+M^{-1} M \Gamma^{(1)}(A) = M^{-1} \Gamma^{(2)}(A) M
+\]
+
+\[
+\Gamma^{(1)}(A) = M^{-1} \Gamma^{(2)}(A) M
+\]
+This is the exact definition of a similarity transformation, proving the two representations are equivalent.
+\textbf{(Q.E.D.)}
+
+\newpage
+\newpage
+\newpage
+\newpage
+\newpage
+\newpage
+\newpage
+\chapter*{Exam Answer: The Great Orthogonality Theorem}
+\textbf{Statement of the Theorem:}
+Let $\Gamma^{(i)}$ and $\Gamma^{(j)}$ be two unitary, irreducible representations of a finite group $G$ (of order $g$), with dimensions $l_i$ and $l_j$ respectively. The matrix elements of these representations satisfy the following orthogonality relation:
+\[
+\sum_{A \in G} \Gamma^{(i)}_{km}(A) \Gamma^{(j)*}_{sn}(A) = \frac{g}{l_i} \delta_{ij} \delta_{ks} \delta_{mn}
+\]
+
+\textbf{Proof:}
+
+Step 1 (Construct the Mixer Matrix):
+ Let $X$ be an arbitrary matrix of dimension $l_i \times l_j$. We define a new matrix $M$ by summing over all elements $A$ in the group $G$:
+\[
+M = \sum_{A \in G} \Gamma^{(i)}(A) X \Gamma^{(j)}(A^{-1})
+\]
+
+Step 2 (Prove $M$ intertwines the representations):
+Left-multiply $M$ by $\Gamma^{(i)}(B)$ where $B$ is any element in $G$:
+\[
+\Gamma^{(i)}(B) M = \sum_{A \in G} \Gamma^{(i)}(BA) X \Gamma^{(j)}(A^{-1})
+\]
+Insert the identity $E = \Gamma^{(j)}(B^{-1}B)$ into the expression:
+\[
+\Gamma^{(i)}(B) M = \sum_{A \in G} \Gamma^{(i)}(BA) X \Gamma^{(j)}(A^{-1}B^{-1}) \Gamma^{(j)}(B)
+\]
+Using the property of inverses, $A^{-1}B^{-1} = (BA)^{-1}$:
+\[
+\Gamma^{(i)}(B) M = \left[ \sum_{A \in G} \Gamma^{(i)}(BA) X \Gamma^{(j)}((BA)^{-1}) \right] \Gamma^{(j)}(B)
+\]
+By the Rearrangement Theorem, summing over all $(BA)$ is identical to summing over all $A$. Thus, the bracketed term is simply $M$:
+\[
+\Gamma^{(i)}(B) M = M \Gamma^{(j)}(B)
+\]
+
+Step 3 (Apply Schur’s Lemma 2: $i \neq j$):
+Because $\Gamma^{(i)}(B) M = M \Gamma^{(j)}(B)$, if the representations are inequivalent ($i \neq j$), Schur’s Lemma 2 dictates that $M = \mathbf{0}$. Looking at the matrix elements:
+\[
+\sum_{A \in G} \sum_{p,q} \Gamma^{(i)}_{kp}(A) X_{pq} \Gamma^{(j)}_{qs}(A^{-1}) = 0
+\]
+Since $X$ is completely arbitrary, choose $X$ such that the element $X_{pq} = 1$ and all other elements are $0$. This collapses the sum over $p$ and $q$:
+\[
+\sum_{A \in G} \Gamma^{(i)}_{kp}(A) \Gamma^{(j)}_{qs}(A^{-1}) = 0
+\]
+
+Step 4 (Apply Schur’s Lemma 1: $i = j$):
+If the representations are identical ($i = j$), then $\Gamma^{(i)}(B) M = M \Gamma^{(i)}(B)$. Schur’s Lemma 1 dictates that $M = cE$.
+\[
+\sum_{A \in G} \sum_{p,q} \Gamma^{(i)}_{kp}(A) X_{pq} \Gamma^{(i)}_{qs}(A^{-1}) = c \delta_{ks}
+\]
+To find the constant $c$, we take the trace of both sides of $M = cE$:
+\[
+\text{Tr}(M) = c \cdot l_i
+\]
+By applying the cyclic property of traces to our original definition of $M$:
+\[
+\text{Tr}(M) = \sum_{A \in G} \text{Tr}\left(\Gamma^{(i)}(A) X \Gamma^{(i)}(A^{-1})\right) = \sum_{A \in G} \text{Tr}(X) = g \cdot \text{Tr}(X)
+\]
+Equating the two yields $c = \frac{g}{l_i} \text{Tr}(X)$.Again, choosing $X$ so that only $X_{pq} = 1$, we get $\text{Tr}(X) = \delta_{pq}$. Substituting $c$ back into our equation:
+\[
+\sum_{A \in G} \Gamma^{(i)}_{kp}(A) \Gamma^{(i)}_{qs}(A^{-1}) = \frac{g}{l_i} \delta_{pq} \delta_{ks}
+\]
+
+Step 5 (Combine and apply Unitarity):
+We can combine the results of Step 3 and Step 4 using the Kronecker delta $\delta_{ij}$:
+\[
+\sum_{A \in G} \Gamma^{(i)}_{kp}(A) \Gamma^{(j)}_{qs}(A^{-1}) = \frac{g}{l_i} \delta_{ij} \delta_{pq} \delta_{ks}
+\]
+Finally, we assume the representations are unitary, meaning $\Gamma(A^{-1}) = \Gamma^\dagger(A)$. Therefore, $\Gamma_{qs}(A^{-1}) = \Gamma^*_{sq}(A)$.Substituting this and relabeling the dummy indices $p \to m$ and $q \to n$ yields the final theorem:
+\[
+\sum_{A \in G} \Gamma^{(i)}_{km}(A) \Gamma^{(j)*}_{sn}(A) = \frac{g}{l_i} \delta_{ij} \delta_{ks} \delta_{mn}
+\]
+
+\textbf{(Q.E.D.)}
+
+
+
+\chapter{Proof Verification}
+
+\section{The Unitary Representation Theorem}
+
+\begin{theorem}
+Every representation $T(A)$ of a finite group $G$ is equivalent to a unitary representation $\Gamma(A)$ via a similarity transformation.
+\end{theorem}
+
+\begin{proof}
+\textbf{Step 1: Construct a Hermitian Matrix} \\
+We construct a matrix $H$ by summing the product of every representation matrix and its adjoint:
+\[ H = \sum_{B \in G} T(B) T^\dagger(B) \]
+By definition of matrix multiplication, $H$ is strictly Hermitian ($H = H^\dagger$).
+
+\textbf{Step 2: Diagonalize \& Redefine} \\
+Because $H$ is Hermitian, it can be diagonalized by a unitary matrix $U$:
+\[ H_d = U^{-1} H U = \sum_{B \in G} \left( U^{-1} T(B) U \right) \left( U^{-1} T^\dagger(B) U \right) \]
+If we define an equivalent representation $T'(B) = U^{-1} T(B) U$, this simplifies to:
+\[ H_d = \sum_{B \in G} T'(B) T'^\dagger(B) \]
+
+\textbf{Step 3: The Square Root Transformation} \\
+Because $H_d$ is a diagonal matrix with strictly positive real elements, its inverse square root $H_d^{-1/2}$ easily exists.
+We define our final similarity transformation matrix as $V = U H_d^{1/2}$.
+Applying $V$ to our original representation generates the new representation $\Gamma(A)$:
+\[ \Gamma(A) = V^{-1} T(A) V = H_d^{-1/2} T'(A) H_d^{1/2} \]
+
+\textbf{Step 4: Test for Unitarity} \\
+We must prove $\Gamma(A) \Gamma^\dagger(A) = E$. We substitute our definition from Step 3:
+\[ \Gamma(A) \Gamma^\dagger(A) = \left[ H_d^{-1/2} T'(A) H_d^{1/2} \right] \left[ H_d^{1/2} T'^\dagger(A) H_d^{-1/2} \right] \]
+Because $H_d^{1/2} H_d^{1/2} = H_d$, this collapses to:
+\[ \Gamma(A) \Gamma^\dagger(A) = H_d^{-1/2} \left[ T'(A) H_d T'^\dagger(A) \right] H_d^{-1/2} \]
+
+\textbf{Step 5: The Rearrangement Theorem} \\
+We expand the inner bracket using the definition of $H_d$ from Step 2:
+\[ T'(A) H_d T'^\dagger(A) = \sum_{B \in G} T'(A)T'(B)T'^\dagger(B)T'^\dagger(A) = \sum_{B \in G} T'(AB) T'^\dagger(AB) \]
+By the Rearrangement Theorem, summing over $AB$ over the whole group is identical to summing over $B$. Therefore, that entire sum simply equals $H_d$.
+
+Substituting $H_d$ back into our Step 4 equation yields:
+\[ \Gamma(A) \Gamma^\dagger(A) = H_d^{-1/2} [H_d] H_d^{-1/2} = E \]
+Because $\Gamma(A) \Gamma^\dagger(A) = E$, the new representation is unitary.
+\end{proof}
+
+\newpage
+
+\section{Direct Product of Two IRREPs}
+
+Here is the ultra-condensed, bare-bones version for your cheat sheet.
+
+\begin{theorem}
+The direct product $\Gamma = \Gamma^{(1)} \otimes \Gamma^{(2)}$ is irreducible in the group $G = H \times K$ if $\Gamma^{(1)}$ is an irreducible representation of $H$ and $\Gamma^{(2)}$ is an irreducible representation of $K$.
+\end{theorem}
+
+\textbf{Setup:}
+\begin{itemize}
+    \item Let group $H$ have order $h$ (where $\Gamma^{(1)}$ is irreducible).
+    \item Let group $K$ have order $k$ (where $\Gamma^{(2)}$ is irreducible).
+    \item Total order of $G$ is $g = hk$.
+\end{itemize}
+
+\begin{proof}
+\textbf{1. Character Definition:} \\
+The character of a direct product is the product of the characters:
+\[ \chi(A, B) = \chi^{(1)}(A) \chi^{(2)}(B) \]
+
+\textbf{2. The Irreducibility Test:} \\
+A representation is irreducible if the sum of its squared characters equals the group order ($g$):
+\[ \sum_{(A,B) \in G} |\chi(A, B)|^2 = g \]
+
+\textbf{3. Substitute \& Split the Sum:} \\
+Substitute the definition from Step 1 and factor it into two independent sums:
+\[ \sum_{A \in H} \sum_{B \in K} \left| \chi^{(1)}(A) \chi^{(2)}(B) \right|^2 = \left( \sum_{A \in H} |\chi^{(1)}(A)|^2 \right) \left( \sum_{B \in K} |\chi^{(2)}(B)|^2 \right) \]
+
+\textbf{4. Apply IRREP Given:} \\
+Because $\Gamma^{(1)}$ and $\Gamma^{(2)}$ are given as irreducible, their individual sums equal their respective group orders ($h$ and $k$):
+\[ = (h) \times (k) = hk \]
+
+\textbf{5. Conclusion:} \\
+Because $hk = g$ (the order of the total group $G$), the criterion is perfectly satisfied. Therefore, $\Gamma$ is irreducible.
+\end{proof}
+
+
+\end{document}

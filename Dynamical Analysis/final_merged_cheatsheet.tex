@@ -1,0 +1,584 @@
+\documentclass[11pt, a4paper]{report}
+\usepackage[margin=0.8in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+% Formatting section headers
+\titleformat{\section}{\large\bfseries\uppercase}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\title{\textbf{Dynamic Systems \& Non-Linear Control}\\ \Large Master Exam Cheat Sheet}
+\author{Algorithm Guide}
+\date{}
+
+\begin{document}
+
+\maketitle
+\subsection*{Algorithm 1: Find All Equilibrium Points (Linear \& Non-Linear)}
+\textbf{When to use it:} The question asks for "equilibria," "zeros," "fixed points," or "resting states" for any system $\dot{x}=f(x,y), \dot{y}=g(x,y)$.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Set to Zero:} Set both state equations identically to zero to form the static system: $f(x,y)=0$ and $g(x,y)=0$.
+    \item \textbf{Isolate and Substitute:} Solve the simpler (usually linear) equation to express $y$ entirely in terms of $x$, and substitute this algebraic expression into the remaining non-linear equation.
+    \item \textbf{Solve for Coordinates:} Factor the resulting single-variable equation to find all root values for $x$, then plug these roots back into your Step 2 expression to find the exact corresponding $y$ values.
+    \item \textbf{Conclude:} "The equilibrium points of the system are the trivial origin $(0,0)$ and the shifted non-trivial points at $(x^*, y^*)$."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 2: Construct the Potential Energy Function $V(x,y)$}
+\textbf{When to use it:} The question asks to construct the "potential energy," "energy landscape," or gradient function $V(x,y)$ from a given vector field.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Integrate $x$:} Apply a negative sign to the $\dot{x}$ equation and integrate it with respect to $x$ to find the baseline potential: $V(x,y) = -\int (\dot{x}) dx + h(y)$.
+    \item \textbf{Differentiate and Match:} Take the partial derivative $-\frac{\partial V}{\partial y}$ of your new equation, set it strictly equal to the original $\dot{y}$ equation, and cancel the $x$ terms to isolate $h'(y)$.
+    \item \textbf{Integrate $y$:} Integrate the surviving $h'(y)$ expression with respect to $y$ to find the unknown function $h(y)$, and substitute this back into your Step 1 baseline equation.
+    \item \textbf{Conclude:} "The complete potential energy function governing the landscape is $V(x,y) = \dots$."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 3: Evaluate Stability via Kinetic Energy Gauge}
+\textbf{When to use it:} The question asks if energy grows unbounded, checks global boundedness, or specifies analyzing the system using the standard $K$ function.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Define the Gauge:} State the standard kinetic energy function $K = \frac{1}{2}(x^2 + y^2)$ and its total time derivative $\dot{K} = x\dot{x} + y\dot{y}$.
+    \item \textbf{Substitute and Expand:} Plug the given system equations for $\dot{x}$ and $\dot{y}$ into the derivative formula, multiply everything out, and group the terms algebraically by their polynomial power.
+    \item \textbf{Conclude:} "At large amplitudes, the highest-power term dominates the energy derivative; because its coefficient is [negative/positive], the system energy is strictly [decreasing/growing], meaning the motion is globally [bounded/unstable]."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 4: Strict Lyapunov Construction (The Golden Rule)}
+\textbf{When to use it:} The question asks to "construct a strict Lyapunov function," find a "safety weight," or "prove global asymptotic stability" for a nonlinear system.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Apply the Golden Rule:} Identify the highest power ($n$) of the nonlinear term in the $\dot{x}$ equation, add $1$, and propose the weighted candidate function: $V(x,y) = \frac{1}{2}(x^2 + y^2) + \beta x^{n+1}$.
+    \item \textbf{Differentiate and Group:} Compute the total time derivative $\dot{V} = x\dot{x} + y\dot{y} + (n+1)\beta x^n \dot{x}$, substitute the system equations, and group all terms sharing the highest power of $x$.
+    \item \textbf{Force Negativity:} Select a specific numerical fraction for $\beta$ that perfectly cancels any positive destabilizing terms or forces the highest-power coefficient to be strictly negative.
+    \item \textbf{Conclude:} "By choosing the weight $\beta = [\dots]$, we ensure $\dot{V} < 0$ at all high energies; therefore, the origin is globally asymptotically stable."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 5: Strict Lyapunov Construction via Young's Inequality}
+\textbf{When to use it:} The standard kinetic energy $K$ fails to prove asymptotic stability due to indefinite cross-terms (e.g., $x^3y$), and you must bound the geometry.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Add a Quartic Correction:} Propose an augmented energy candidate to overpower the indefinite terms: $V(x,y) = \frac{1}{2}(x^2 + y^2) + \beta x^4$.
+    \item \textbf{Differentiate and Expand:} Compute $\dot{V}$, substitute the system equations, and isolate the problematic mixed cross-term.
+    \item \textbf{Apply Young's Inequality:} Bound the cross-term algebraically using the substitution $|xy| \le \frac{1}{2}(x^2 + y^2)$ to systematically eliminate the $y$ variable and consolidate powers of $x$.
+    \item \textbf{Conclude:} "By applying Young's Inequality and selecting $\beta = [\dots]$, the highest-power terms are forced negative, proving $\dot{V} < 0$ and guaranteeing global asymptotic stability."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 6: The Matrix Lyapunov Equation}
+\textbf{When to use it:} The question gives a linear/linearized system and asks to "Solve the Lyapunov Equation," "Find the $P$ matrix," or construct a quadratic Lyapunov function.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Set up the Equation:} Define the continuous-time Lyapunov equation $A^T P + PA = -I$, using a standard symmetric $2 \times 2$ matrix for $P$ (with variables $p_1, p_2, p_3$) and the identity matrix for $I$.
+    \item \textbf{Multiply and Add:} Compute the matrix multiplications for $A^T P$ and $P A$, then sum them together into a single $2 \times 2$ matrix.
+    \item \textbf{Match and Solve:} Set the top-left element equal to $-1$, the cross-terms (top-right/bottom-left) to $0$, and the bottom-right to $-1$, then solve the resulting linear system for $p_1, p_2$, and $p_3$.
+    \item \textbf{Conclude:} "The unique positive-definite solution matrix $P$ yields the strict Lyapunov function $V(x,y) = p_1 x^2 + 2p_2 xy + p_3 y^2$."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 7: Trace-Determinant Classification}
+\textbf{When to use it:} The question asks to classify an equilibrium, determine linear stability, or identify stable/unstable manifolds.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Linearize:} Compute the Jacobian matrix $J(x,y)$ and evaluate it exactly at the specific equilibrium point $(x^*,y^*)$.
+    \item \textbf{Compute Metrics:} Calculate the Trace $\tau = \operatorname{tr}(J)$, Determinant $\Delta = \det(J)$, and Discriminant $D = \tau^2 - 4\Delta$.
+    \item \textbf{Classify via Table:} Match your computed metrics to the standard topological classifications:
+    \begin{center}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Condition} & \textbf{Classification} & \textbf{Stability} \\ \hline
+    $\Delta < 0$ & Saddle & Unstable (Robust) \\ \hline
+    $\Delta > 0, D > 0$ & Node & Stable if $\tau < 0$, Unstable if $\tau > 0$ \\ \hline
+    $\Delta > 0, D < 0$ & Spiral/Focus & Stable if $\tau < 0$, Unstable if $\tau > 0$ \\ \hline
+    $\tau = 0, \Delta > 0$ & Center & Marginal / Neutrally Stable \\ \hline
+    \end{tabular}
+    \end{center}
+    \item \textbf{Conclude:} "Based on the trace and determinant, the equilibrium point is a [robust/marginal] [stable/unstable] [Node/Saddle/Spiral/Center]."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 8: Affine Equilibrium (The Shifted Fixed Point)}
+\textbf{When to use it:} The linear system has a constant forcing vector ($\dot{z} = Az + b$) and the question asks for the shifted equilibrium $z^*$.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Identify Matrices:} Extract the state matrix $A$ and the constant forcing vector $b$ directly from the system equations.
+    \item \textbf{Invert $A$:} Compute the inverse matrix using the standard shortcut: $A^{-1} = \frac{1}{\det(A)} \begin{pmatrix} d & -b \\ -c & a \end{pmatrix}$.
+    \item \textbf{Multiply Vectors:} Compute the zero-velocity point by multiplying $-A^{-1}$ by the vector $b$.
+    \item \textbf{Conclude:} "The exact shifted equilibrium of the affine system is located at $z^* = (x^*, y^*)$."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 9: The Explicit Affine Solution Formula}
+\textbf{When to use it:} The question asks for the "explicit formula," "time domain solution," or "state $x(t)$" of an affine system.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{State the Master Equation:} Write down the exact affine trajectory formula: $z(t) = e^{At}(z(0) - z^*) + z^*$.
+    \item \textbf{Compute Matrix Exponential:} Calculate $e^{At}$ (If $A$ is a diagonal matrix, simply exponentiate the diagonal elements: $e^{a \cdot t}$ and $e^{d \cdot t}$).
+    \item \textbf{Substitute and Evaluate:} Subtract your shifted equilibrium $z^*$ from the initial conditions $z(0)$, multiply by the $e^{At}$ matrix, and add $z^*$ back to the final vector.
+    \item \textbf{Conclude:} "The explicit time-domain state trajectory for the system is $x(t) = \dots$ and $y(t) = \dots$."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 10: Explicit Scalar Lyapunov Construction}
+\textbf{When to use it:} The question asks to "find the explicit Lyapunov function $V(x,y)$," "compute $\dot{V}$ step-by-step," or "solve for $\alpha, \beta, \gamma$."
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Define Candidate and Target:} Propose the general quadratic energy bowl $V(x,y) = \alpha x^2 + 2\beta xy + \gamma y^2$ and state the strictly negative target dissipation: $\dot{V}_{\text{target}} = -x^2 - y^2$.
+    \item \textbf{Differentiate and Group:} Compute $\dot{V} = V_x\dot{x} + V_y\dot{y}$ via the chain rule, substitute the given system equations, and group the algebraic result strictly by $x^2$, $xy$, and $y^2$.
+    \item \textbf{Match Coefficients and Solve:} Set up a system of three linear equations by equating your grouped coefficients to the target coefficients ($-1$ for $x^2$, $0$ for $xy$, and $-1$ for $y^2$), then solve for $\alpha$, $\beta$, and $\gamma$.
+    \item \textbf{Conclude:} "By setting $\alpha=\dots, \beta=\dots, \gamma=\dots$, we guarantee $\dot{V} = -x^2 - y^2 < 0$, structurally proving global asymptotic stability."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 11: The 1D Mechanical Reduction (van der Pol / Liénard)}
+\textbf{When to use it:} The question asks to "express the system as a single ODE," "find the second-order equation," or identify "effective mass, damping, or stiffness."
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Isolate and Differentiate:} Take the simpler equation (usually $\dot{y}$), solve it algebraically for $y$ in terms of $x$ and $\dot{x}$, and take the total time derivative to find $\dot{y}$ using the chain rule.
+    \item \textbf{Substitute and Standardize:} Plug your new expressions for $y$ and $\dot{y}$ back into the remaining equation and rearrange all terms to match the standard mechanical oscillator form: $\ddot{x} + c(x,\dot{x})\dot{x} + k(x)x = 0$.
+    \item \textbf{Extract Mechanical Equivalents:} Identify the velocity-dependent coefficient $c(x,\dot{x})$ as the effective non-linear friction (damping), and the purely position-dependent term $k(x)$ as the restoring spring force (stiffness).
+    \item \textbf{Conclude:} "The equivalent 1D mechanical oscillator is $\ddot{x} + [\dots]\dot{x} + [\dots]x = 0$, exhibiting a non-linear state-dependent damping of $f(x) = \dots$ and a restoring force of $g(x) = \dots$."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 12: The Fast Limit Cycle Check (Hopf Bifurcation)}
+\textbf{When to use it:} The question asks to "find the limit cycle radius," "determine limit cycle stability," or evaluate a system with standard cubic nonlinearities (like $\alpha x^3$ or $\alpha x^2 \dot{x}$).
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Evaluate the Linear Trace:} Calculate the linear trace $T = a+d$ from the system's Jacobian evaluated at the origin.
+    \item \textbf{Verify Existence and Stability:} Compare the sign of the trace $T$ to the sign of the nonlinear coefficient $\alpha$. A limit cycle only exists if $(a+d)\alpha < 0$. If $T > 0$ and $\alpha < 0$, the cycle is Stable. If $T < 0$ and $\alpha > 0$, the cycle is Unstable.
+    \item \textbf{Calculate the Radius:} Plug $T$ and $\alpha$ into the standard amplitude formula: $r_* = \sqrt{-\frac{4(a+d)}{3\alpha}}$.
+    \item \textbf{Conclude:} "Because the linear trace and nonlinear coefficient possess opposite signs, a [stable/unstable] limit cycle exists with an asymptotic steady-state radius of $r_* = \dots$."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 13: Limit Cycle Radius via Radial Averaging}
+\textbf{When to use it:} The system has non-standard nonlinearities (e.g., $x^2y, xy^2, y^3$) and asks to "determine the steady-state radius" or "average over $\theta$."
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Compute Linear Trace:} Calculate the linear trace $T = a + d$ from the base Jacobian matrix.
+    \item \textbf{Determine Effective Alpha:} Bypass the integral by mapping the given nonlinear terms directly to their radial phase-averaged contributions using the standard lookup: 
+    \begin{center}
+    \begin{tabular}{|l|l|}
+    \hline
+    \textbf{Nonlinear Term in System} & \textbf{Effective Contribution ($\alpha_{\text{eff}}$)} \\ \hline
+    $\alpha x^3$ or $\alpha y^3$ & $\alpha$ \\ \hline
+    $\alpha x^2 y$ or $\alpha x y^2$ & $\alpha/3$ \\ \hline
+    \end{tabular}
+    \end{center}
+    \item \textbf{Calculate Radius:} Sum all extracted $\alpha_{\text{eff}}$ contributions and substitute them into the generalized formula: $r_* = \sqrt{-\frac{4T}{3\alpha_{\text{eff}}}}$.
+    \item \textbf{Conclude:} "By applying radial averaging to the nonlinear terms, the effective coefficient is $\alpha_{\text{eff}} = \dots$, yielding a steady-state limit cycle radius of $r_* = \dots$."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 14: Non-Linear Equilibria \& The Local Jacobian}
+\textbf{When to use it:} The question asks to "find all fixed points," "linearize the system," or "evaluate the Jacobian" for highly non-linear vector fields.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Find the Shifted Zeros:} Set $\dot{x} = 0$ and $\dot{y} = 0$, solve the linear equation for $y$, substitute it into the nonlinear equation, and factor to find all coordinate pairs $(x^*, y^*)$, including the non-trivial shifted roots.
+    \item \textbf{Compute the General Jacobian:} Take the partial derivatives of the original system equations to construct the symbolic $2 \times 2$ matrix $J(x,y)$.
+    \item \textbf{Evaluate at Coordinates:} Plug each exact $(x^*, y^*)$ coordinate pair into $J(x,y)$, calculate the numerical Trace and Determinant, and classify the specific point using Algorithm 7.
+    \item \textbf{Conclude:} "Evaluating the local Jacobian exactly at the shifted equilibrium $(x^*, y^*)$ yields $\tau = \dots$ and $\Delta = \dots$, classifying this specific point as a [stable/unstable] [node/saddle/focus]."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 15: Nullcline Geometry Analysis}
+\textbf{When to use it:} The question asks to "describe the phase plane," "find the nullclines," or "explain the geometric flow."
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Define the $x$-Nullcline (Horizontal Zeros):} Set $\dot{x} = 0$ and algebraically solve for $y$ to find the curve where the horizontal velocity is strictly zero. Trajectories crossing this curve must move perfectly vertically.
+    \item \textbf{Define the $y$-Nullcline (Vertical Zeros):} Set $\dot{y} = 0$ and algebraically solve for $y$ to find the curve where the vertical velocity is strictly zero. Trajectories crossing this curve must move perfectly horizontally.
+    \item \textbf{Classify the Geometry:} Identify the shape of each extracted curve based on its highest polynomial degree (e.g., linear terms yield straight lines, squared terms yield parabolas).
+    \item \textbf{Conclude:} "The vector field flow is geometrically bounded by an $x$-nullcline formed by the [line/parabola] $y = \dots$ and a $y$-nullcline formed by the [line/parabola] $y = \dots$."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 16: The Liénard Extraction}
+\textbf{When to use it:} The question asks to "put the system in Liénard form" or identify the "nonlinear damping" and "restoring force" of a second-order ODE.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Standardize:} Arrange the second-order equation into the master Liénard format, ensuring the highest derivative has a coefficient of strictly $1$: $\ddot{x} + f(x)\dot{x} + g(x) = 0$.
+    \item \textbf{Extract Damping:} Isolate all terms multiplied by the velocity $\dot{x}$ to define the state-dependent friction function $f(x)$.
+    \item \textbf{Extract Stiffness:} Isolate all remaining terms that depend purely on the position $x$ to define the nonlinear restoring force $g(x)$.
+    \item \textbf{Conclude:} "The system in standard Liénard form exhibits a state-dependent damping of $f(x) = \dots$ and a nonlinear restoring force of $g(x) = \dots$."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 17: Energy Landscape \& Dissipation Analysis}
+\textbf{When to use it:} The question asks for the "effective potential," "total energy," "dissipation rate," or "conserved quantity" of a 1D mechanical system.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Build Potential:} Integrate the extracted restoring force $g(x)$ with respect to $x$ to obtain the mathematical potential energy landscape: $V(x) = \int g(x) dx$.
+    \item \textbf{Define Total Energy:} Sum the standard kinetic energy and your new potential energy to construct the total generalized energy function: $E(x,\dot{x}) = \frac{1}{2}\dot{x}^2 + V(x)$.
+    \item \textbf{Evaluate Dissipation:} Compute the energy derivative $\dot{E} = -f(x)\dot{x}^2$ using the extracted damping function to mathematically prove if the energy is conserved ($f=0$), injected ($f<0$), or dissipated ($f>0$).
+    \item \textbf{Conclude:} "The total generalized energy is $E(x,\dot{x}) = \dots$, and because $\dot{E} = \dots$, the system is strictly [conservative / dissipative / active]."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 18: Cylindrical Phase Space \& U-Tube Regimes}
+\textbf{When to use it:} The system has an angular state variable (e.g., a pendulum) and asks about "oscillations vs. rotations," "separatrix energy," or "cylindrical phase space."
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Map to Cylinder:} Identify the angular coordinate periodicity $\theta \equiv \theta + 2\pi$ and establish that the phase portrait wraps around a cylindrical manifold to distinguish true rotations from bounded oscillations.
+    \item \textbf{Find Separatrix Energy:} Evaluate the total energy function $E(\theta, \dot{\theta})$ exactly at the unstable maximum of the potential barrier (where velocity is zero) to find the critical boundary value $E_{\text{sep}}$.
+    \item \textbf{Classify Regimes:} Compare the specific system energy $E$ to the critical value: $E < E_{\text{sep}}$ traps the trajectory in a well (librations), $E > E_{\text{sep}}$ clears the barrier (rotations), and $E = E_{\text{sep}}$ defines the homoclinic orbit.
+    \item \textbf{Conclude:} "Because the total energy $E$ is [greater/less/equal] to $E_{\text{sep}}$, the angular trajectory exhibits strictly [bounded oscillations / continuous rotations / separatrix motion]."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 19: Liénard Limit Cycle Verification}
+\textbf{When to use it:} The question asks to "prove a unique limit cycle exists" or explicitly references "Liénard's classical theorem" for a symmetric nonlinear oscillator.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Check Symmetry:} Verify mathematically that the damping function $f(x)$ is strictly an even function ($f(-x) = f(x)$) and the restoring force $g(x)$ is strictly an odd function ($g(-x) = -g(x)$).
+    \item \textbf{Prove Origin Injection:} Evaluate the damping exactly at the origin and verify that $f(0) < 0$, guaranteeing the system acts as a negative damper that pumps energy outward at small amplitudes.
+    \item \textbf{Prove Asymptotic Dissipation:} Evaluate the limit as $x \to \infty$ and verify that $f(x) > 0$, guaranteeing the system acts as a natural amplitude limiter that bleeds off energy at large swings.
+    \item \textbf{Conclude:} "Because $f(x)$ is even, $g(x)$ is odd, $f(0) < 0$, and $f(x) > 0$ for large $x$, Liénard's Theorem formally guarantees the existence of exactly one unique, stable limit cycle."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 20: Quantum to State-Space Conversion}
+\textbf{When to use it:} The question asks to "write the second-order Schrödinger equation as two first-order equations," "find the system matrix $A$," or "write the eigen-solution."
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Define Variables:} Rearrange the time-independent Schrödinger equation into $\frac{d^2X}{dx^2} + k^2X = 0$, mapping the position wavefunction to $y_1 = X$ and its spatial derivative to $y_2 = \frac{dX}{dx}$.
+    \item \textbf{Construct Matrix:} Arrange the system into the first-order state-space form $\frac{d}{dx}\binom{y_1}{y_2} = A\binom{y_1}{y_2}$ to extract the $2 \times 2$ system matrix $A = \begin{pmatrix} 0 & 1 \\ -k^2 & 0 \end{pmatrix}$.
+    \item \textbf{Solve Eigenproblem:} Compute $\det(A - \lambda I) = 0$ to find the purely imaginary eigenvalues $\lambda = \pm ik$, structurally proving neutral spatial stability.
+    \item \textbf{Conclude:} "The equivalent first-order state-space matrix is $A = \dots$, yielding eigenvalues $\lambda = \pm ik$ and the general traveling wave solution $X(x) = C_+ e^{ikx} + C_- e^{-ikx}$."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 21: Quantization via Boundary Conditions}
+\textbf{When to use it:} The question asks to "find the energy eigenvalues $E_n$," "apply boundary conditions," or "find the normalized eigenfunctions" for an infinite well or ring.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Apply the First Boundary:} Substitute the first spatial boundary condition (e.g., $X(0) = 0$) into the general traveling wave solution $X(x) = C_+ e^{ikx} + C_- e^{-ikx}$.
+    \item \textbf{Relate the Constants:} Solve the resulting algebraic equation to find the relationship between the coefficients (e.g., $C_+ = -C_-$).
+    \item \textbf{Convert to Trigonometry:} Rewrite the complex exponential formulation into standard sine or cosine functions using Euler's formula (e.g., $X(x) = 2iC_+\sin(kx)$).
+    \item \textbf{Apply the Second Boundary:} Substitute the second spatial boundary condition (e.g., $X(L) = 0$) into your new trigonometric function to force the output to zero.
+    \item \textbf{Quantize the Wave Vector:} Solve the argument of the trigonometric function to find the discrete allowed integer steps for $k$ (e.g., $\sin(kL) = 0 \implies k_n = \frac{n\pi}{L}$).
+    \item \textbf{Calculate Discrete Energy:} Substitute your quantized $k_n$ expression back into the physical energy definition $E_n = \frac{\hbar^2 k_n^2}{2m}$.
+    \item \textbf{Conclude:} "Applying the spatial boundaries restricts the wave vector to discrete values $k_n = \dots$, yielding the quantized energy spectrum $E_n = \dots$."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 22: Topological Degeneracy Breaking (Aharonov-Bohm)}
+\textbf{When to use it:} The question asks to "show how topology breaks degeneracy," "find the shifted energy spectrum," or involves a "particle on a ring with magnetic flux."
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Define the Topological Flux:} State the dimensionless flux parameter $\alpha = \frac{\Phi}{\Phi_0}$, where $\Phi_0 = \frac{h}{q}$.
+    \item \textbf{Write the Coupled Hamiltonian:} Construct the minimal coupling Hamiltonian, showing that the momentum operator shifts due to the vector potential: $\hat{H} = -\frac{\hbar^2}{2mR^2}\left(\frac{d}{d\theta} + i\alpha\right)^2$.
+    \item \textbf{Apply the Trial Solution:} Substitute the periodic traveling wave trial solution $X(\theta) = e^{in\theta}$ into the modified eigenvalue problem $\hat{H}X = EX$.
+    \item \textbf{Extract the Shifted Wave Vector:} Evaluate the spatial derivative to factor out the effective, topology-shifted wave vector $k = n - \alpha$.
+    \item \textbf{Calculate the Shifted Energy:} Square the shifted wave vector to find the exact topological energy spectrum: $E_n(\alpha) = \frac{\hbar^2}{2mR^2}(n - \alpha)^2$.
+    \item \textbf{Evaluate Symmetry Breaking:} Calculate the energy difference between the clockwise and counter-clockwise states by evaluating $E_n - E_{-n}$.
+    \item \textbf{Conclude:} "Because $(n-\alpha)^2 \neq (-n-\alpha)^2$, the clockwise and counter-clockwise states no longer share the same energy. The topological flux mathematically lifts the degeneracy without applying any local force."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 23: The Center Contradiction Proof}
+\textbf{When to use it:} The question asks to "prove why centers cannot have strict Lyapunov functions" or "show why centers cannot have $\dot{V} < 0$."
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Define the Periodic Orbit:} Mathematically define a center as a closed, periodic trajectory $\gamma(t)$ that perfectly repeats after a period $T$: $\gamma(t+T) = \gamma(t)$.
+    \item \textbf{Set up the Integral:} Write the definite integral of the proposed Lyapunov function's time derivative over exactly one full periodic orbit: $\int_0^T \dot{V}(\gamma(t)) dt$.
+    \item \textbf{Evaluate the Exact Integral:} Apply the Fundamental Theorem of Calculus to evaluate the integral as the difference in energy between the start and end of the orbit: $V(\gamma(T)) - V(\gamma(0))$.
+    \item \textbf{Establish the Contradiction:} Substitute the definition from Step 1 to show that $V(\gamma(T)) = V(\gamma(0))$, forcing the exact integral to equal exactly $0$.
+    \item \textbf{Conclude:} "If $\dot{V}$ were strictly negative, its integral over the period must be strictly negative. Because the integral of a closed loop evaluates to exactly zero, a strictly decreasing Lyapunov function mathematically cannot exist for a center."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 24: Reversible Systems Analysis}
+\textbf{When to use it:} The question asks to "show that the system is reversible" or requires proving that a nonlinear system possesses time-reversal symmetry using specific functional components.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Isolate Vector Field Components:} Separate the 2D vector field explicitly into its horizontal and vertical scalar functions: $\dot{x} = f(x,y)$ and $\dot{y} = g(x,y)$.
+    \item \textbf{Apply the Reversal Mapping:} Propose the specific simultaneous coordinate transformation $t \to -t$ and $y \to -y$.
+    \item \textbf{Evaluate Horizontal Parity:} Substitute $-y$ into $f(x,y)$. Verify that the function displays an odd parity with respect to $y$, meaning the negative sign completely factors out: $f(x, -y) = -f(x,y)$.
+    \item \textbf{Evaluate Vertical Parity:} Substitute $-y$ into $g(x,y)$. Verify that the function displays an even parity with respect to $y$, meaning the negative sign is completely absorbed: $g(x, -y) = g(x,y)$.
+    \item \textbf{Conclude:} "Because $f(x,y)$ is odd in $y$ and $g(x,y)$ is even in $y$, the vector field remains invariant under the transformation $(t,y) \to (-t,-y)$. Therefore, the system is structurally reversible."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 25: Proving a Nonlinear Center via Energy (Hessian Test)}
+\textbf{When to use it:} The system is conservative and the question asks to show a fixed point is a "nonlinear center," "local minimum," or "evaluate the energy function" without relying on linearization alone.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Define the Fixed Point:} Set the vector field to zero to identify the specific equilibrium point $(x^*, y^*)$ being analyzed.
+    \item \textbf{Verify Linear Center (Optional but Recommended):} Evaluate the Jacobian at $(x^*, y^*)$ to confirm the linear metrics yield purely imaginary eigenvalues ($\tau = 0, \Delta > 0$).
+    \item \textbf{Construct the Energy Function:} Integrate the system velocities to derive the exact conserved quantity or potential energy function $E(x,y)$.
+    \item \textbf{Compute the Hessian Matrix:} Calculate the second-order partial derivatives ($E_{xx}$, $E_{yy}$, and $E_{xy}$) of the energy function and evaluate them exactly at $(x^*, y^*)$.
+    \item \textbf{Evaluate the Determinant:} Compute the Hessian determinant $D = E_{xx}E_{yy} - (E_{xy})^2$. Verify that $D > 0$ and $E_{xx} > 0$, structurally proving a strict 3D local minimum.
+    \item \textbf{Conclude:} "Because the Hessian determinant is strictly positive and $E_{xx} > 0$, the fixed point is a strict local minimum of the conserved energy $E(x,y)$, guaranteeing it is a robust nonlinear center."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 26: 2nd-Order System State-Space Conversion}
+\textbf{When to use it:} You are given a single second-order ODE (e.g., $\ddot{x} = F(x, \dot{x})$) and need to plot it in the phase plane or analyze its equilibria.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Define the Velocity State:} Introduce a new state variable representing the first derivative of position (let $y = \dot{x}$ or $v = \dot{x}$).
+    \item \textbf{Construct the System:} Rewrite the single second-order ODE strictly as a coupled system of two first-order equations: $\dot{x} = y$ and $\dot{y} = F(x, y)$.
+    \item \textbf{Enforce Static Equilibria:} Set the velocity state perfectly to zero ($\dot{x} = 0 \implies y = 0$).
+    \item \textbf{Solve for Coordinates:} Set the acceleration state to zero ($\dot{y} = 0$) and substitute $y=0$ into $F(x,y) = 0$ to algebraically solve for all $x$-roots.
+    \item \textbf{Conclude:} "The equivalent first-order state-space system is $\dot{x}=y, \dot{y}=F(x,y)$, possessing static equilibria located at $(x^*, 0)$."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 27: 1D Potential Field Stability Analysis}
+\textbf{When to use it:} The question defines motion in a 1D conservative potential field $V(x)$ where $\ddot{x} = F(x) = -V'(x)$, and asks to classify the fixed points without linearizing.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Derive the Potential:} If you are only given the force function $F(x)$, calculate the potential energy field via integration: $V(x) = -\int F(x) dx$.
+    \item \textbf{Locate Equilibria:} Compute the first derivative $V'(x)$ and set it to exactly zero to find the physical coordinates of the fixed points $x^*$.
+    \item \textbf{Compute Field Curvature:} Compute the second derivative of the potential function, $V''(x)$.
+    \item \textbf{Evaluate Curvature at Roots:} Plug each specific equilibrium coordinate $x^*$ into $V''(x)$ to determine the local concavity of the landscape.
+    \item \textbf{Classify by Sign:} 
+    \begin{itemize}
+        \item If $V''(x^*) > 0$: The point is a local minimum (a potential well). It is structurally stable (a Center).
+        \item If $V''(x^*) < 0$: The point is a local maximum (a potential hill). It is structurally unstable (a Saddle).
+    \end{itemize}
+    \item \textbf{Conclude:} "By evaluating the curvature of the potential field, the equilibrium at $x^*$ is a [local minimum / local maximum], dictating that the point is physically [stable / unstable]."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 28: Parametric Bifurcation Analysis}
+\textbf{When to use it:} A system contains an adjustable parameter $a$ (e.g., $\dot{x}=f(x, a)$) and asks for stability changes, critical thresholds, or bifurcation types.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Set Field to Zero:} Set the parameterized vector field to zero: $f(x, a) = 0$.
+    \item \textbf{Solve Parametrically:} Isolate $x$ algebraically to express the equilibrium roots strictly as a continuous function of the parameter: $x^*(a)$.
+    \item \textbf{Identify the Thresholds:} Find critical values of $a$ where the discriminant of your root equation equals zero, goes negative, or changes sign (this identifies where fixed points are created, destroyed, or merge).
+    \item \textbf{Evaluate the Jacobian:} Compute the derivative $f'(x,a)$ and evaluate it at each branch of $x^*(a)$.
+    \item \textbf{Determine Branch Stability:} Track the sign of $f'(x^*(a), a)$ for intervals between your critical thresholds (Negative = Stable, Positive = Unstable).
+    \item \textbf{Conclude:} "As parameter $a$ crosses the critical threshold $a_c = \dots$, the system undergoes a [Saddle-Node / Pitchfork / Transcritical] bifurcation, altering the equilibrium landscape."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 29: Hamiltonian Formulation \& Energy Conservation Proof}
+\textbf{When to use it:} The question provides a Hamiltonian $H(q,p)$ and asks to "find equations of motion," "show $H(q,p)$ is conserved," or "prove trajectories lie on contour curves."
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Derive Equations of Motion:} State Hamilton's canonical equations and compute the partial derivatives to define the phase-space velocities: $\dot{q} = \frac{\partial H}{\partial p}$ and $\dot{p} = -\frac{\partial H}{\partial q}$.
+    \item \textbf{Expand the Total Derivative:} Apply the multivariable chain rule to define the rate of change of the energy function over time: $\frac{dH}{dt} = \frac{\partial H}{\partial q}\dot{q} + \frac{\partial H}{\partial p}\dot{p} + \frac{\partial H}{\partial t}$.
+    \item \textbf{Substitute Dynamics:} Substitute the canonical equations derived in Step 1 directly into the $\dot{q}$ and $\dot{p}$ terms of your chain rule expansion.
+    \item \textbf{Cancel the Spatial Terms:} Rearrange the multiplied partial derivatives to explicitly demonstrate that the spatial terms are identical but carry opposite signs: $\dot{p}\dot{q} - \dot{q}\dot{p} = 0$.
+    \item \textbf{Check Explicit Time:} Verify that the Hamiltonian lacks explicit time dependence ($\frac{\partial H}{\partial t} = 0$).
+    \item \textbf{Conclude:} "Because the canonical coordinates perfectly cancel and there is no explicit time dependence, $\frac{dH}{dt} \equiv 0$. The Hamiltonian is strictly conserved, forcing all phase trajectories to lie flat on constant energy contours $H(q,p) = C$."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 30: Proving Subspace \& Line Invariance}
+\textbf{When to use it:} The question asks to "show that the lines $y = \pm x$ are invariant" or to prove that "any trajectory that starts on a boundary stays on it forever."
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Define the Algebraic Manifold:} Convert the equation of the target line into a single constraint expression set to zero: $L(x,y) = y \mp x = 0$.
+    \item \textbf{Compute the Normal Velocity:} Differentiate your manifold expression with respect to time to define the velocity normal to the boundary line: $\frac{dL}{dt} = \dot{y} \mp \dot{x}$.
+    \item \textbf{Substitute Vector Fields:} Replace the abstract state velocities $\dot{x}$ and $\dot{y}$ with the explicit right-hand expressions provided by the nonlinear system.
+    \item \textbf{Enforce the Geometric Constraint:} Substitute the definition of the line itself (e.g., physically replace every $y$ variable with $x$, or vice versa) into your expanded derivative expression.
+    \item \textbf{Collapse to Zero:} Factor and simplify the resulting expression until it mathematically cancels out identically to zero.
+    \item \textbf{Conclude:} "Because the normal velocity $\frac{dL}{dt} = 0$ everywhere exactly on the line, no trajectory can develop a velocity component to escape it. Therefore, the subspace is structurally invariant."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 31: Parity Grid Classification (Trigonometric Systems)}
+\textbf{When to use it:} The system contains periodic trigonometric vector fields (e.g., $\dot{x} = \sin y$, $\dot{y} = \sin x$) and asks to "find and classify all the fixed points."
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Isolate the Infinite Roots:} Set the vector field to exactly zero and solve the transcendental system to express the fixed points as an infinite discrete grid using integer indices: $(x^*, y^*) = (z_1\pi, z_2\pi)$ where $z_1, z_2 \in \mathbb{Z}$.
+    \item \textbf{Construct the Variable Jacobian:} Compute the partial derivatives of the trigonometric system to form the state-space linearization matrix (e.g., $J = [\begin{smallmatrix} 0 & \cos y \\ \cos x & 0 \end{smallmatrix}]$).
+    \item \textbf{Evaluate Same Parity (Case A):} Identify the grid points where $z_1$ and $z_2$ share the same parity (both even or both odd). The evaluated cosines will share the same sign, forcing their product to be positive ($+1$), which yields real eigenvalues $\lambda = \pm 1$.
+    \item \textbf{Evaluate Opposite Parity (Case B):} Identify the grid points where $z_1$ and $z_2$ have opposite parities (one even, one odd). The evaluated cosines will have mismatched signs, forcing their product to be negative ($-1$), which yields imaginary eigenvalues $\lambda = \pm i$.
+    \item \textbf{Conclude:} "By evaluating the parity of the grid indices, the roots at $(even, even)$ and $(odd, odd)$ are strictly unstable Saddles, while the roots at mismatched parities are neutrally stable Centers."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 32: The Action-Angle Transformation \& Complex Amplitudes}
+\textbf{When to use it:} The question asks to "find the action-angle variables $(I, \theta)$," "transform the phase space," or "derive the complex vector field $\alpha$" for a periodic conservative system.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Set up the Hamiltonian:} Write down the total energy of the conservative system $H = \text{K.E.} + \text{P.E.}$ in terms of canonical momentum $p$ and position $q$.
+    \item \textbf{Compute the Action ($I$):} Integrate momentum over a full period of motion: $I = \frac{1}{2\pi}\oint p \,dq$. (Shortcut for linear harmonic oscillators: Divide the Hamiltonian by the natural frequency to get $I = H/\omega$).
+    \item \textbf{Define the Angle ($\theta$):} Define $\theta$ as the canonical conjugate phase, mapping the coordinates via $q = \sqrt{\frac{2I}{\omega}}\sin\theta$ and $p = \sqrt{2\omega I}\cos\theta$.
+    \item \textbf{Solve Equations of Motion:} Take the partial derivatives of your new $H(I)$ to find the simplified dynamics. Because $H$ does not depend on $\theta$, the action is invariant ($\dot{I} = -\frac{\partial H}{\partial \theta} = 0$) and the phase increases linearly ($\dot{\theta} = \frac{\partial H}{\partial I} = \omega$).
+    \item \textbf{Derive Complex Reduction (If Requested):} Combine the action and angle into a single complex state variable $\alpha = \sqrt{I}e^{i\theta}$, substituting it into the Hamiltonian to yield $H = \omega\alpha^*\alpha$ and the equation of motion $i\dot{\alpha} = \omega\alpha$.
+    \item \textbf{Conclude:} "In action-angle space, trajectories are horizontal lines of constant energy ($I = \text{const}$), phase increases uniformly ($\theta(t) = \omega t + \theta_0$), and the complex explicit solution is $\alpha(t) = \alpha(0)e^{-i\omega t}$."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 33: Proving a Nonlinear Center via Reversibility}
+\textbf{When to use it:} The question asks to use "reversibility," "symmetry," or an "involution" to prove a linear center is structurally a nonlinear center.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Verify Linear Center:} Compute the Jacobian strictly at the fixed point and verify it yields purely imaginary eigenvalues ($\tau = 0, \Delta > 0$).
+    \item \textbf{Apply Reversal Mapping:} Propose a mathematical transformation that reverses time and exactly one spatial coordinate (typically $t \to -t$ and $y \to -y$).
+    \item \textbf{Substitute and Differentiate:} Plug the negated variables into both original differential equations, ensuring you apply the chain rule for the time derivative (e.g., $\frac{d(-y)}{d(-t)} = \frac{dy}{dt}$).
+    \item \textbf{Check System Invariance:} Algebraically simplify the equations. Compare them to the original given system to verify they match perfectly.
+    \item \textbf{Conclude:} "Because the system is mathematically invariant under the specific mapping $(x,y,t) \to (x,-y,-t)$, it is structurally reversible. Therefore, the linear center is guaranteed to be a robust nonlinear center."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 34: Finding the Homoclinic Orbit Equation}
+\textbf{When to use it:} The question asks to find the equation for the "homoclinic orbit" or the boundary contour that "separates closed and non-closed orbits."
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Identify the Saddle Point:} Evaluate the system equilibria to find the specific fixed point classified as a linear saddle (where $\Delta < 0$), noting its coordinates $(x_s, y_s)$.
+    \item \textbf{Construct the Energy Function:} Integrate the system velocities to derive the generalized conserved energy function $E(x,y)$.
+    \item \textbf{Calculate Saddle Energy:} Plug the saddle coordinates $(x_s, y_s)$ exactly into your energy function to find the critical boundary constant $C$.
+    \item \textbf{Set the Contour Boundary:} Set your generalized energy equation strictly equal to the evaluated saddle constant $C$.
+    \item \textbf{Isolate the Velocity State:} Algebraically solve the resulting equation for the velocity variable $y$ (or $\dot{x}$) as a continuous function of $x$, ensuring you keep the $\pm$ square root.
+    \item \textbf{Conclude:} "The mathematical equation defining the homoclinic orbit is $y = \pm \sqrt{\dots}$, which forms the separatrix boundary connecting the saddle point strictly to itself."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 35: Central Force \& Effective Potential Classification}
+\textbf{When to use it:} The system involves a Hamiltonian with radial coordinates, inverse-square potentials, or asks to classify orbits as bounded/unbounded based solely on energy $E$.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Extract Effective Potential:} Identify $V(r)$ from the generalized radial Hamiltonian, which typically consists of a repulsive centrifugal term and an attractive potential term ($V(r) = \frac{h^2}{2r^2} - \frac{k}{r}$).
+    \item \textbf{Find the Minimum Energy Well:} Take the spatial derivative $\frac{dV}{dr}$ and set it to zero to find the critical radius $r_{min}$, then substitute $r_{min}$ back into $V(r)$ to find the absolute minimum energy value $V_{min}$.
+    \item \textbf{Compare Energy to Thresholds:} Classify the given Total Energy $E$ against $0$ and $V_{min}$ using the standard topological geometry:
+    \begin{center}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Energy Level} & \textbf{Orbit Type} & \textbf{Boundedness} \\ \hline
+    $E > 0$ & Hyperbolic & Unbounded (Escapes well) \\ \hline
+    $E = 0$ & Parabolic & Unbounded (Exact escape velocity) \\ \hline
+    $V_{min} < E < 0$ & Elliptical & Bounded (Trapped between two radii) \\ \hline
+    $E = V_{min}$ & Circular & Bounded (Locked at exactly $r_{min}$) \\ \hline
+    \end{tabular}
+    \end{center}
+    \item \textbf{Conclude:} "Because the total energy $E$ resides in the $[E > 0 / E = 0 / V_{min} < E < 0 / E = V_{min}]$ regime, the central force orbit is strictly [Hyperbolic / Parabolic / Elliptical / Circular]."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 36: Pendulum Phase Space \& Energy Regimes}
+\textbf{When to use it:} The system is a pendulum (or analog) and the question asks for the "phase portrait boundaries," "homoclinic orbit," or whether the motion is "oscillating or rotating."
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Set up the Hamiltonian:} Write the energy function in terms of momentum $p_\theta$ and angle $\theta$: $H(p_\theta, \theta) = \frac{p_\theta^2}{2ml^2} - mgl\cos\theta = E$.
+    \item \textbf{Isolate Momentum:} Solve algebraically for $p_\theta$ to define the exact phase-space trajectory contours: $p_\theta = \pm \sqrt{2ml^2(E + mgl\cos\theta)}$.
+    \item \textbf{Evaluate Turning Points:} Set $p_\theta = 0$ to find the spatial limits of the swing (if they exist): $\theta^* = \pm \arccos\left(\frac{-E}{mgl}\right)$.
+    \item \textbf{Classify by Energy:} Compare the given system energy $E$ directly to the strict potential barrier threshold $mgl$:
+    \begin{center}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Energy Level} & \textbf{Motion Regime} & \textbf{Phase Trajectory} \\ \hline
+    $E < mgl$ & Oscillation (Librations) & Bounded closed loops \\ \hline
+    $E = mgl$ & Separatrix (Homoclinic) & Boundary connecting to $\theta = \pm \pi$ \\ \hline
+    $E > mgl$ & Rotation & Unbounded wavy lines (open) \\ \hline
+    \end{tabular}
+    \end{center}
+    \item \textbf{Conclude:} "Because the total energy $E$ is [less than / equal to / greater than] the barrier $mgl$, the pendulum undergoes strictly [bounded oscillations / separatrix bounding / continuous rotation]."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 37: Effective Matrix for Coupled Oscillators}
+\textbf{When to use it:} The question provides a quantum/complex Hamiltonian $H(\alpha_1, \alpha_2)$ and asks to find the "equations of motion," "effective Hamiltonian matrix," or "eigenvalues."
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Apply Classical Heisenberg Equation:} State the fundamental relation for complex amplitudes: $\dot{\alpha}_j = -i \frac{\partial H}{\partial \alpha_j^*}$.
+    \item \textbf{Differentiate States:} Differentiate the given Hamiltonian purely with respect to $\alpha_1^*$ to find $\dot{\alpha}_1$, and purely with respect to $\alpha_2^*$ to find $\dot{\alpha}_2$.
+    \item \textbf{Group Variables:} Algebraically organize the right side of both resulting differential equations strictly by $\alpha_1$ and $\alpha_2$.
+    \item \textbf{Construct State Matrix:} Extract the coefficients from your grouped equations to form the $2 \times 2$ effective matrix $H_{\text{eff}}$ in the standard format $i\dot{\psi} = H_{\text{eff}} \psi$.
+    \item \textbf{Solve for Frequencies:} Compute the characteristic equation $\det(H_{\text{eff}} - \lambda I) = 0$ to find the complex eigenvalues.
+    \item \textbf{Conclude:} "The effective Hamiltonian matrix driving the coupled system is $H_{\text{eff}} = \dots$, yielding resonant system frequencies of $\lambda_{1,2} = \dots$."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 38: Proving PT-Symmetry \& Exceptional Points}
+\textbf{When to use it:} The effective matrix contains non-Hermitian terms (like damping $\gamma$) and asks to "prove PT symmetry" or find the "exceptional point."
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Define Operators:} State the Parity matrix $P = [\begin{smallmatrix} 0 & 1 \\ 1 & 0 \end{smallmatrix}]$ and define the Time operator $T$ as applying strict complex conjugation.
+    \item \textbf{Apply T-Operator:} Take the complex conjugate of every element in the given matrix $H$ to find $H^*$.
+    \item \textbf{Apply P-Operator:} Multiply $P \cdot H^* \cdot P$. (Shortcut: Physically swap the main diagonal elements, and physically swap the off-diagonal elements of $H^*$).
+    \item \textbf{Verify Symmetry:} Compare your final resulting matrix to the original $H$ matrix to ensure they are perfectly identical, confirming the commutator $[PT, H] = 0$.
+    \item \textbf{Find Exceptional Point:} Compute the eigenvalues of $H$ (usually taking the form $\lambda = \omega \pm \sqrt{K^2 - \gamma^2}$) and set the interior of the square root strictly to zero.
+    \item \textbf{Conclude:} "Because $PH^*P = H$, the system possesses strict PT-symmetry. The exceptional point occurs exactly at $K = \gamma$, which forms the boundary separating unbroken real eigenvalues from broken complex eigenvalues."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 39: Polar Reduction \& Limit-Cycle Perturbation}
+\textbf{When to use it:} The system gives a complex amplitude equation (e.g., Stuart-Landau) with saturable terms and asks to "find the limit cycle" or "prove stability using perturbation."
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Substitute Polar Coordinates:} Substitute the complex state definition $\alpha = \rho e^{-i\theta}$ and its strict time derivative $\dot{\alpha} = (\dot{\rho} - i\rho\dot{\theta})e^{-i\theta}$ into the system ODE.
+    \item \textbf{Isolate Radial Dynamics:} Divide out the exponential phase factor and separate the real components from the imaginary components to extract a purely radial ODE ($\dot{\rho} = f(\rho)$).
+    \item \textbf{Identify Steady State:} Set $\dot{\rho} = 0$ and algebraically solve for the non-trivial root to find the absolute limit cycle radius $\rho^*$.
+    \item \textbf{Apply Perturbation:} Define a small amplitude deviation around the cycle: $\rho(t) = \rho^* + h(t)$, and substitute this into the $\dot{\rho}$ equation.
+    \item \textbf{Linearize:} Expand the equation and strictly discard any higher-order terms ($h^2, h^3$) to yield an equation in the form $\dot{h} = -C h$.
+    \item \textbf{Conclude:} "Because the first-order perturbation dynamic is $\dot{h} = -C h$, any radial deviation $h(t)$ decays exponentially to zero. Thus, the limit cycle located at $\rho^*$ is asymptotically stable."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 40: Limit-Cycle Lyapunov Construction (Saturated Gain)}
+\textbf{When to use it:} The question asks to "prove asymptotic stability of the limit cycle" using a Lyapunov function for systems with rational saturable gain (e.g., fractional terms like $\frac{\beta}{1+\rho^2}$).
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Find the Steady State:} Extract the radial dynamics ($\dot{\rho} = f(\rho)$), set the equation to zero, and algebraically solve for the specific limit cycle radius $\rho^*$.
+    \item \textbf{Propose Shifted Candidate:} Define a quartic Lyapunov function that mathematically centers its zero-energy minimum exactly on the ring of the limit cycle: $V(\rho) = \frac{1}{2}(\rho^2 - \rho^{*2})^2$.
+    \item \textbf{Differentiate via Chain Rule:} Compute the exact time derivative, keeping the structure intact: $\dot{V} = 2\rho\dot{\rho}(\rho^2 - \rho^{*2})$.
+    \item \textbf{Substitute and Factor:} Plug your $\dot{\rho}$ equation into the expanded derivative. Do not multiply everything out; deliberately extract common denominators to isolate the $-(\rho^2 - \rho^{*2})^2$ factor.
+    \item \textbf{Conclude:} "By geometric construction, $\dot{V} \le 0$ globally, and strictly equals zero only when $\rho = \rho^*$. Trajectories universally converge to the ring, proving the limit cycle is globally asymptotically stable."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+
+\subsection*{Algorithm 41: Stability Analysis for Singular Origins (OPO Models)}
+\textbf{When to use it:} The radial dynamics contain negative fractional powers of $\rho$ (e.g., $\dot{\rho} = -\gamma\rho + \beta\rho^{-3}$) making the origin singular, and you must evaluate the limit cycle stability.
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Identify Cycle \& Singularity:} Set $\dot{\rho} = 0$ to find the isolated limit cycle fixed point $\rho^*$. Explicitly state that $\rho = 0$ is a mathematical singularity where velocity approaches infinity.
+    \item \textbf{Setup Perturbation:} Substitute the small deviation definition $\rho = \rho^* + h$ into the exact $\dot{\rho}$ equation.
+    \item \textbf{Factor for Series Expansion:} Isolate the term containing the negative power and explicitly factor out $\rho^*$ from the base to forcefully create the structure $(1 + x)^{-n}$.
+    \item \textbf{Apply Binomial Expansion:} Substitute the Taylor approximation $(1+x)^{-n} \approx 1 - nx$ strictly for the singular term.
+    \item \textbf{Isolate First-Order Dynamics:} Distribute the constants. The baseline constant terms will perfectly cancel, leaving a strictly linear dynamic equation: $\dot{h} = -C h$.
+    \item \textbf{Conclude:} "By binomial approximation, the perturbation decays exponentially ($\dot{h} < 0$). The limit cycle at $\rho^*$ is strongly stable, while the origin $\rho = 0$ remains a physically repelling singularity."
+\end{enumerate}
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1em}
+\end{document}

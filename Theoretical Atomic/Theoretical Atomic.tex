@@ -1,0 +1,429 @@
+\documentclass{book}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\begin{document}
+\chapter{Lecture 26}
+\section*{Quantum Theory of Molecule Formation: $\text{H}_2^+$ Ion}
+
+\subsection*{1. Initial Setup and Hamiltonian}
+We begin with the unperturbed Hamiltonians for the isolated nuclei $a$ and $b$:
+\begin{align}
+    H_a \phi_a &= E^0 \phi_a \label{eq:Ha} \\
+    H_b \phi_b &= E^0 \phi_b \label{eq:Hb}
+\end{align}
+% 
+
+The total Schrödinger equation for the system, taking into account the Coulomb attraction of both nuclei to the single electron, is:
+\begin{equation}
+    \left( -\frac{\hbar^2}{2m}\nabla^2 - \frac{e^2}{r_a} - \frac{e^2}{r_b} \right) \psi = E\psi
+\end{equation}
+% 
+
+\subsection*{2. Linear Combination of Atomic Orbitals (LCAO)}
+We assume the total wavefunction is a superposition of the atomic orbitals:
+\begin{equation}
+    \psi = c_1\phi_a + c_2\phi_b
+\end{equation}
+% 
+
+Substituting this into the total Schrödinger equation yields:
+\begin{equation}
+    \left( H_a - \frac{e^2}{r_b} \right)c_1\phi_a + \left( H_b - \frac{e^2}{r_a} \right)c_2\phi_b = E(c_1\phi_a + c_2\phi_b)
+\end{equation}
+% 
+
+Using equations (\ref{eq:Ha}) and (\ref{eq:Hb}), we replace $H_a\phi_a$ and $H_b\phi_b$:
+\begin{equation}
+    \left( E^0 - \frac{e^2}{r_b} \right)c_1\phi_a + \left( E^0 - \frac{e^2}{r_a} \right)c_2\phi_b = E c_1\phi_a + E c_2\phi_b
+\end{equation}
+% [cite: 34]
+
+Rearranging the terms and defining the energy shift $\Delta E = E - E^0$ (so $E^0 - E = -\Delta E$), we get:
+\begin{equation}
+    \left( -\Delta E - \frac{e^2}{r_b} \right)c_1\phi_a + \left( -\Delta E - \frac{e^2}{r_a} \right)c_2\phi_b = 0 \label{eq:main_sub}
+\end{equation}
+% [cite: 34]
+
+\subsection*{3. Projecting the Equations}
+We multiply Equation (\ref{eq:main_sub}) by $\phi_a$ and integrate over all space. We define the following standard integrals:
+\begin{align*}
+    \int \phi_a^2 \, dV &= 1 \quad \text{(Normalization)} \\
+    S &= \int \phi_a \phi_b \, dV \quad \text{(Overlap Integral)} \\
+    C &= \int \phi_a \frac{e^2}{r_b} \phi_a \, dV \quad \text{(Direct Coulomb Integral)} \\
+    D &= \int \phi_a \frac{e^2}{r_a} \phi_b \, dV \quad \text{(Cross/Exchange Integral)}
+\end{align*}
+% 
+
+Applying these to our integrated equation yields:
+\begin{equation}
+    c_1(-\Delta E - C) + c_2(-\Delta E \cdot S - D) = 0
+\end{equation}
+% [cite: 39]
+
+Multiplying by $-1$, we obtain the first linear equation:
+\begin{equation}
+    (\Delta E + C)c_1 + (\Delta E \cdot S + D)c_2 = 0 \label{eq:lin1}
+\end{equation}
+% [cite: 41, 42]
+
+By symmetry, multiplying Equation (\ref{eq:main_sub}) by $\phi_b$ and integrating yields the second equation:
+\begin{equation}
+    (\Delta E \cdot S + D)c_1 + (\Delta E + C)c_2 = 0 \label{eq:lin2}
+\end{equation}
+% [cite: 41, 42]
+
+\subsection*{4. Solving the Secular Determinant}
+For a non-trivial solution ($c_1, c_2 \neq 0$), the determinant of the coefficients must be zero:
+\begin{equation}
+    \begin{vmatrix} 
+        \Delta E + C & \Delta E \cdot S + D \\ 
+        \Delta E \cdot S + D & \Delta E + C 
+    \end{vmatrix} = 0
+\end{equation}
+% 
+
+Evaluating the determinant gives:
+\begin{equation}
+    (\Delta E + C)^2 - (\Delta E \cdot S + D)^2 = 0
+\end{equation}
+% [cite: 43]
+
+Rather than expanding into a messy quadratic equation, we recognize this as a difference of squares:
+\begin{equation}
+    (\Delta E + C) = \pm (\Delta E \cdot S + D)
+\end{equation}
+% [cite: 44, 45]
+
+\textbf{Case 1 (Positive Root):}
+\begin{align*}
+    \Delta E + C &= \Delta E \cdot S + D \\
+    \Delta E(1 - S) &= -(C - D) \\
+    \Delta E &= -\frac{C - D}{1 - S} \quad \text{(Antisymmetric state)}
+\end{align*}
+% 
+
+\textbf{Case 2 (Negative Root):}
+\begin{align*}
+    \Delta E + C &= -(\Delta E \cdot S + D) \\
+    \Delta E(1 + S) &= -(C + D) \\
+    \Delta E &= -\frac{C + D}{1 + S} \quad \text{(Symmetric state)}
+\end{align*}
+% 
+
+\subsection*{5. Finding the Orbital Coefficients}
+\textbf{For the Symmetric State ($\Delta E = -\frac{C+D}{1+S}$):} \\
+Substitute $\Delta E$ back into Equation (\ref{eq:lin1}):
+\begin{equation}
+    \left( -\frac{C+D}{1+S} + C \right)c_1 + \left( -\frac{C+D}{1+S}S + D \right)c_2 = 0
+\end{equation}
+% [cite: 46]
+
+Multiply through by $(1+S)$ to clear the denominator:
+\begin{align*}
+    (-C - D + C + CS)c_1 + (-CS - DS + D + DS)c_2 &= 0 \\
+    (CS - D)c_1 + (D - CS)c_2 &= 0 \\
+    (CS - D)c_1 - (CS - D)c_2 &= 0 \implies c_1 = c_2
+\end{align*}
+% [cite: 46, 47, 48]
+This yields the bonding molecular orbital: $\psi_+ = c_1(\phi_a + \phi_b)$.
+
+\vspace{0.5cm}
+
+\textbf{For the Antisymmetric State ($\Delta E = -\frac{C-D}{1-S}$):} \\
+Substitute $\Delta E$ back into Equation (\ref{eq:lin2}):
+\begin{equation}
+    \left( -\frac{C-D}{1-S}S + D \right)c_1 + \left( -\frac{C-D}{1-S} + C \right)c_2 = 0
+\end{equation}
+% [cite: 49]
+
+Multiply through by $(1-S)$ to clear the denominator:
+\begin{align*}
+    (-CS + DS + D - DS)c_1 + (-C + D + C - CS)c_2 &= 0 \\
+    (D - CS)c_1 + (D - CS)c_2 &= 0 \implies c_1 = -c_2
+\end{align*}
+% [cite: 49]
+This yields the antibonding molecular orbital: $\psi_- = c_1(\phi_a - \phi_b)$.
+$$E=E^0 - \frac{C-D}{1-S} = E_-$$
+
+
+\chapter{Lecture 28}
+\section*{Separation of Nuclear and Electronic Motions: Born-Oppenheimer Approximation}
+
+\subsection*{1. The Total Molecular Hamiltonian}
+For a diatomic molecule, the complete Schrödinger equation depends on both nuclear ($\mathbf{R}$) and electronic ($\mathbf{r}$) coordinates:
+\begin{equation}
+    \left( -\frac{\hbar^2}{2\mu} \nabla_R^2 - \frac{\hbar^2}{2m_e} \sum_{i=1}^n \nabla_{r_i}^2 + V(\mathbf{r}, \mathbf{R}) \right) \Psi = E \Psi
+\end{equation}
+% [cite: 4]
+where $\mu$ is the reduced mass of the nuclei.
+
+\subsection*{2. Clamped-Nucleus Approximation (Electronic Equation)}
+Because nuclei are much heavier and move much slower than electrons, we can treat them as momentarily stationary. By dropping the nuclear kinetic energy term, we obtain the electronic Schrödinger equation:
+\begin{equation}
+    \left( -\frac{\hbar^2}{2m_e} \sum_{i=1}^n \nabla_{r_i}^2 + V(\mathbf{r}, \mathbf{R}) \right) \phi(\mathbf{r}, \mathbf{R}) = E_e(\mathbf{R}) \phi(\mathbf{r}, \mathbf{R}) \label{eq:electronic}
+\end{equation}
+% [cite: 14, 15, 16]
+Here, the electronic energy $E_e(\mathbf{R})$ depends parametrically on the internuclear distance $\mathbf{R}$.
+
+\subsection*{3. Separation of Variables}
+We assume the total molecular wavefunction is a product of the electronic wavefunction $\phi(\mathbf{r}, \mathbf{R})$ and the nuclear wavefunction $\chi(\mathbf{R})$:
+\begin{equation}
+    \Psi(\mathbf{r}, \mathbf{R}) = \phi(\mathbf{r}, \mathbf{R}) \chi(\mathbf{R}) \label{eq:total_psi}
+\end{equation}
+% [cite: 19]
+
+\subsection*{4. Substitution and Expansion (The Skipped Step)}
+Substituting Equation (\ref{eq:total_psi}) back into the full Schrödinger equation yields:
+\begin{equation}
+    -\frac{\hbar^2}{2\mu} \nabla_R^2 (\phi \chi) + \chi \left[ -\frac{\hbar^2}{2m_e} \sum_{i=1}^n \nabla_{r_i}^2 + V(\mathbf{r}, \mathbf{R}) \right] \phi = E \phi \chi
+\end{equation}
+% [cite: 20]
+
+Using Equation (\ref{eq:electronic}), the bracketed term simplifies to $E_e(\mathbf{R})\phi$:
+\begin{equation}
+    -\frac{\hbar^2}{2\mu} \nabla_R^2 (\phi \chi) + E_e(\mathbf{R}) \phi \chi = E \phi \chi \label{eq:subbed}
+\end{equation}
+% 
+
+Now, we apply the product rule for the Laplacian operator ($\nabla^2(fg) = f\nabla^2g + 2\nabla f \cdot \nabla g + g\nabla^2f$) to explicitly expand the nuclear kinetic energy term:
+\begin{equation}
+    \nabla_R^2 (\phi \chi) = \phi \nabla_R^2 \chi + 2(\nabla_R \phi) \cdot (\nabla_R \chi) + \chi \nabla_R^2 \phi \label{eq:laplacian}
+\end{equation}
+% 
+
+\subsection*{5. The Adiabatic Approximation}
+Because the electronic wavefunction $\phi(\mathbf{r}, \mathbf{R})$ adjusts quasi-statically to nuclear changes, its variation with respect to the nuclear coordinates $\mathbf{R}$ is very small. We approximate its derivatives as zero:
+\begin{equation}
+    \nabla_R \phi \approx 0 \quad \text{and} \quad \nabla_R^2 \phi \approx 0
+\end{equation}
+% [cite: 24, 25]
+
+Thus, the complex expansion in Equation (\ref{eq:laplacian}) simplifies directly to:
+\begin{equation}
+    \nabla_R^2 (\phi \chi) \approx \phi \nabla_R^2 \chi
+\end{equation}
+% [cite: 26]
+
+\subsection*{6. The Nuclear Schrödinger Equation}
+Substitute the simplified Laplacian back into Equation (\ref{eq:subbed}):
+\begin{equation}
+    -\frac{\hbar^2}{2\mu} \phi \nabla_R^2 \chi + E_e(\mathbf{R}) \phi \chi = E \phi \chi
+\end{equation}
+% 
+
+Dividing both sides by $\phi(\mathbf{r}, \mathbf{R})$ yields the final Schrödinger equation for nuclear motion:
+\begin{equation}
+    \left( -\frac{\hbar^2}{2\mu} \nabla_R^2 + E_e(\mathbf{R}) \right) \chi(\mathbf{R}) = E \chi(\mathbf{R})
+\end{equation}
+% [cite: 26, 28]
+
+\textbf{Conclusion:} The electronic energy $E_e(\mathbf{R})$ acts as the effective potential energy governing the motion of the nuclei.
+
+\section*{Separation of Nuclear Motion: Rotational and Vibrational Equations}
+
+\subsection*{1. The Nuclear Schrödinger Equation}
+From the Born-Oppenheimer approximation, the Schrödinger equation governing the nuclear motion is:
+\begin{equation}
+    \left[ -\frac{\hbar^2}{2\mu} \nabla_R^2 + E_e(\mathbf{R}) \right] \chi(\mathbf{R}) = E \chi(\mathbf{R})
+\end{equation}
+where $E_e(\mathbf{R})$ is the electronic energy acting as the effective potential for the nuclei, and $\mu$ is the reduced mass.
+
+\subsection*{2. Transformation to Spherical Polar Coordinates}
+To separate the rotational and vibrational motions, we express the Laplacian $\nabla_R^2$ in spherical polar coordinates $(R, \theta, \phi)$:
+\begin{equation}
+    \left\{ -\frac{\hbar^2}{2\mu R^2} \left[ \frac{\partial}{\partial R} \left( R^2 \frac{\partial}{\partial R} \right) + \frac{1}{\sin\theta} \frac{\partial}{\partial \theta} \left( \sin\theta \frac{\partial}{\partial \theta} \right) + \frac{1}{\sin^2\theta} \frac{\partial^2}{\partial \phi^2} \right] + E_e(R) \right\} \chi(R, \theta, \phi) = E \chi(R, \theta, \phi)
+\end{equation}
+
+\subsection*{3. Separation of Variables}
+We assume the nuclear wavefunction $\chi(R, \theta, \phi)$ can be separated into a radial (vibrational) part $\Re(R)$ and an angular (rotational) part $S_{JM}(\theta, \phi)$:
+\begin{equation}
+    \chi(R, \theta, \phi) = \Re(R) S_{JM}(\theta, \phi)
+\end{equation}
+Here, $S_{JM}(\theta, \phi)$ are the spherical harmonics, characterized by the rotational quantum number $J$ and its $z$-component $M$.
+
+\subsection*{4. The Rotational Equation (Angular Part)}
+When the angular momentum operator acts on the spherical harmonics $S_{JM}(\theta, \phi)$, it yields the standard eigenvalue equation for rigid rotation:
+\begin{equation}
+    -\frac{\hbar^2}{2\mu R^2} \left( \frac{1}{\sin\theta} \frac{\partial}{\partial \theta} \left( \sin\theta \frac{\partial}{\partial \theta} \right) + \frac{1}{\sin^2\theta} \frac{\partial^2}{\partial \phi^2} \right) S_{JM}(\theta, \phi) = \frac{J(J+1)\hbar^2}{2\mu R^2} S_{JM}(\theta, \phi)
+\end{equation}
+This confirms that the angular portion describes the quantization of the molecule's rotational motion.
+
+\subsection*{5. The Vibrational Equation (Radial Part)}
+Substituting the rotational eigenvalue back into the full equation allows us to divide out $S_{JM}(\theta, \phi)$, leaving a one-dimensional radial equation solely dependent on the internuclear distance $R$:
+\begin{equation}
+    \left[ -\frac{\hbar^2}{2\mu R^2} \frac{\partial}{\partial R} \left( R^2 \frac{\partial}{\partial R} \right) + \frac{J(J+1)\hbar^2}{2\mu R^2} + E_e(R) \right] \Re(R) = E \Re(R)
+\end{equation}
+\textbf{Conclusion:} Equation (5) is the radial equation governing the vibrational motion of the diatomic molecule. Note that the rotational energy term $\frac{J(J+1)\hbar^2}{2\mu R^2}$ acts as a centrifugal centrifugal pseudo-potential added to the electronic potential $E_e(R)$.
+\section*{1. Rotational Selection Rules (Pages 6-7)}
+
+\textbf{Objective:} Evaluate the electric dipole transition moment integral to find allowed transitions. % [cite: 27]
+
+The transition moment integral along the $z$-axis depends on the molecular dipole moment $\mu_{el}$: % [cite: 28, 29]
+\begin{equation}
+    (\mu_{el})_z = \mu_0 \cos\theta
+\end{equation}
+% [cite: 29]
+
+The integral separates into $\theta$ and $\phi$ components using spherical harmonics $S_{JM} = P_J^{|M|}(\cos\theta)e^{iM\phi}$: % [cite: 29]
+\begin{equation}
+    R_z = \mu_0 \int_0^\pi P_J^{|M|} \cos\theta \, P_{J'}^{|M'|} \sin\theta \, d\theta \int_0^{2\pi} e^{iM\phi} e^{-iM'\phi} \, d\phi
+\end{equation}
+% [cite: 30]
+
+\textbf{Step A: The $\phi$ integral} \\
+The integral $\int_0^{2\pi} e^{i(M-M')\phi} d\phi$ is non-zero only if $M = M'$. % [cite: 30]
+\begin{equation}
+    \implies \Delta M = 0
+\end{equation}
+% [cite: 32]
+
+\textbf{Step B: The $\theta$ integral} \\
+Using the standard recurrence relation for Legendre polynomials: % [cite: 32]
+\begin{equation}
+    \cos\theta \, P_J^{|M|}(\cos\theta) = \left( \frac{J+|M|}{2J+1} \right) P_{J-1}^{|M|} + \left( \frac{J-|M|+1}{2J+1} \right) P_{J+1}^{|M|}
+\end{equation}
+% [cite: 32]
+
+Substitute this back into $R_z$. Because Legendre polynomials are orthogonal ($\int P_{J_1}^{|M|} P_{J_2}^{|M|} \sin\theta d\theta = 0$ if $J_1 \neq J_2$), the integral survives only if: % [cite: 32]
+\begin{equation}
+    J' = J - 1 \quad \text{or} \quad J' = J + 1
+\end{equation}
+% [cite: 32]
+
+\textbf{Conclusion:} The strict rotational selection rules are:
+\begin{equation}
+    \Delta J = \pm 1; \quad \Delta M = 0, \pm 1
+\end{equation}
+% [cite: 32]
+
+\vspace{1cm}
+
+\section*{2. Harmonic Oscillator Approximation (Page 10)}
+
+\textbf{Objective:} Approximate the electronic potential $E_e(R)$ near the equilibrium bond length $R_e$. % [cite: 48, 51]
+
+Expand $E_e(R)$ as a Taylor series around $R_e$:
+\begin{equation}
+    E_e(R) = E_e(R_e) + \left( \frac{dE}{dR} \right)_{R_e} (R-R_e) + \frac{1}{2} \left( \frac{d^2E}{dR^2} \right)_{R_e} (R-R_e)^2 + \dots
+\end{equation}
+% [cite: 48]
+
+Apply physical boundary conditions at equilibrium:
+1. Set the zero of energy at the minimum: $E_e(R_e) = 0$. % [cite: 48]
+2. At the minimum, the first derivative is zero: $\left( \frac{dE}{dR} \right)_{R_e} = 0$. % [cite: 48]
+
+Define the displacement $\rho = R - R_e$ and the force constant $K_e = \left( \frac{d^2E}{dR^2} \right)_{R_e}$. % [cite: 50, 51]
+Ignoring higher-order terms, the potential becomes:
+\begin{equation}
+    E(\rho) = \frac{1}{2} K_e \rho^2
+\end{equation}
+% [cite: 50]
+
+Substitute this potential into the radial Schrödinger equation:
+\begin{equation}
+    -\frac{\hbar^2}{2\mu} \frac{d^2 \xi(\rho)}{d\rho^2} + \frac{1}{2} K_e \rho^2 \xi(\rho) = E_{vib} \xi(\rho)
+\end{equation}
+% [cite: 51]
+
+\textbf{Conclusion:} This is the standard quantum harmonic oscillator equation, yielding quantized energy levels:
+\begin{equation}
+    E_v = \left( v + \frac{1}{2} \right) \hbar \omega_e \quad \text{where } \omega_e = \sqrt{\frac{K_e}{\mu}}
+\end{equation}
+% [cite: 51]
+
+\vspace{1cm}
+
+\section*{3. Vibrational Selection Rules (Page 11)}
+
+\textbf{Objective:} Determine allowed transitions between vibrational states using the dipole transition integral. % [cite: 54]
+
+Expand the electric dipole moment $\mu$ as a Taylor series in displacement $x$:
+\begin{equation}
+    \mu = \mu_0 + \mu_1 x
+\end{equation}
+% [cite: 54]
+where $\mu_0$ is the permanent dipole and $\mu_1 x$ is the induced dipole due to vibration. % [cite: 54]
+
+The transition moment integral $R_x$ becomes:
+\begin{equation}
+    R_x = \int \xi_{v'}^* (\mu_0 + \mu_1 x) \xi_{v''} \, dx
+\end{equation}
+% [cite: 54]
+
+Split into two integrals:
+\begin{equation}
+    R_x = \mu_0 \int \xi_{v'}^* \xi_{v''} \, dx + \mu_1 \int x \xi_{v'}^* \xi_{v''} \, dx
+\end{equation}
+% [cite: 54]
+
+\textbf{Analysis of Integrals:}
+1. Because wavefunctions are orthogonal, $\int \xi_{v'}^* \xi_{v''} dx = 0$ unless $v' = v''$ (which implies no transition). % [cite: 54]
+2. The term containing $x$ requires the properties of Hermite polynomials. The integral $\int x \xi_{v'}^* \xi_{v''} dx$ is non-zero only when: % [cite: 54]
+\begin{equation}
+    v' = v'' + 1 \quad \text{or} \quad v' = v'' - 1
+\end{equation}
+% [cite: 54]
+
+\textbf{Conclusion:} The selection rule for a pure harmonic oscillator is:
+\begin{equation}
+    \Delta v = \pm 1
+\end{equation}
+% [cite: 54]
+
+\section*{Anharmonic Oscillator Energy and Transitions (Pages 12-13)}
+
+\textbf{Objective:} Derive the energy levels relative to the ground state and find the transition spacing for an anharmonic oscillator (Morse Potential). %
+
+\subsection*{1. Energy Levels and Zero-Point Energy}
+The vibrational term values (in cm$^{-1}$) for an anharmonic oscillator are given by: %
+\begin{equation}
+    G(v) = \omega_e \left( v + \frac{1}{2} \right) - \omega_e x_e \left( v + \frac{1}{2} \right)^2
+\end{equation}
+%
+where $\omega_e x_e$ is the anharmonicity constant. %
+
+The zero-point energy (at $v = 0$) is: %
+\begin{equation}
+    G(0) = \frac{1}{2}\omega_e - \frac{1}{4}\omega_e x_e
+\end{equation}
+%
+
+\subsection*{2. Energy Relative to the Lowest Level}
+To make calculations easier, we shift the energy scale so the ground state is at zero. We define $G_0(v) = G(v) - G(0)$: %
+\begin{align}
+    G_0(v) &= \left[ \omega_e \left( v + \frac{1}{2} \right) - \omega_e x_e \left( v + \frac{1}{2} \right)^2 \right] - \left[ \frac{1}{2}\omega_e - \frac{1}{4}\omega_e x_e \right] \nonumber \\
+    &= \omega_e v - \omega_e x_e \left( v^2 + v + \frac{1}{4} \right) + \frac{1}{4}\omega_e x_e \nonumber \\
+    &= \omega_e v - \omega_e x_e (v^2 + v) \nonumber \\
+    G_0(v) &= \omega_e v (1 - x_e) - \omega_e x_e v^2
+\end{align}
+%
+
+We can define new constants $\omega_0 = \omega_e(1 - x_e)$ and $\omega_0 x_0 = \omega_e x_e$ to write this compactly as: %
+\begin{equation}
+    G_0(v) = \omega_0 v - \omega_0 x_0 v^2
+\end{equation}
+%
+
+\subsection*{3. Transition Energy (Spacing Between Levels)}
+The energy of a transition from state $v$ to $v+1$ is the difference between adjacent levels: %
+\begin{align}
+    \Delta G_{v+\frac{1}{2}} &= G(v+1) - G(v) \nonumber \\
+    &= \left[ \omega_e \left( v + \frac{3}{2} \right) - \omega_e x_e \left( v + \frac{3}{2} \right)^2 \right] - \left[ \omega_e \left( v + \frac{1}{2} \right) - \omega_e x_e \left( v + \frac{1}{2} \right)^2 \right] \nonumber \\
+    &= \omega_e \left( \frac{3}{2} - \frac{1}{2} \right) - \omega_e x_e \left[ \left( v^2 + 3v + \frac{9}{4} \right) - \left( v^2 + v + \frac{1}{4} \right) \right] \nonumber \\
+    &= \omega_e - \omega_e x_e (2v + 2) \nonumber \\
+    \Delta G_{v+\frac{1}{2}} &= \omega_e - 2\omega_e x_e (v + 1)
+\end{align}
+%
+
+\textbf{Conclusion:} Equation (5) shows that because of the $-2\omega_e x_e(v+1)$ term, the energy spacing between adjacent vibrational levels decreases linearly as the vibrational quantum number $v$ increases.
+\right) - \left( v^2 + v + \frac{1}{4} \right) \right] \nonumber \\
+    &= \omega_e - \omega_e x_e (2v + 2) \nonumber \\
+    \Delta G_{v+\frac{1}{2}} &= \omega_e - 2\omega_e x_e (v + 1)
+\end{align}
+%
+
+\textbf{Conclusion:} Equation (5) shows that because of the $-2\omega_e x_e(v+1)$ term, the energy spacing between adjacent vibrational levels decreases linearly as the vibrational quantum number $v$ increases.
+
+\end{document}

@@ -9,3 +9,13 @@ Ch1/Ch1.aux
 /Ch1/svg-inkscape
 /Optics
 /test
+*.log
+*.gz
+*.fls
+*.pdf
+*.aux
+*.fdb_latexmk
+*.out
+*.toc
+*.xml
+*.lof

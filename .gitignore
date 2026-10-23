@@ -1,21 +1,27 @@
-COMPARE.py
-Ch1/Ch1.toc
-Ch1/Ch1.synctex.gz
-Ch1/Ch1.out
-Ch1/Ch1.log
-Ch1/Ch1.fls
-Ch1/Ch1.fdb_latexmk
-Ch1/Ch1.aux
-/Ch1/svg-inkscape
-/Optics
-/test
-*.log
-*.gz
-*.fls
-*.pdf
+# Environments / IDE
+.venv/
+.idea/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# LaTeX build files
 *.aux
-*.fdb_latexmk
+*.log
 *.out
 *.toc
-*.xml
 *.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.xml
+*.gz
+svg-inkscape/
+
+# PDFs are ignored by default; the compiled thesis, chapter notes and their figures are kept
+*.pdf
+!thesis/thesis.pdf
+!chapter_notes/*/ch?.pdf
+!chapter_notes/*/images/*.pdf

@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gr-tools"
+version = "0.1.0"
+description = "Symbolic and numerical tools for General Relativity (Schwarzschild geometry, geodesics, Killing vectors)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["sympy>=1.12", "numpy>=1.26", "scipy>=1.11", "matplotlib>=3.8"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+viz = ["pyvista>=0.43"]
+notebooks = ["jupyterlab>=4"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
